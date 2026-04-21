@@ -1,0 +1,20 @@
+﻿src/lib/section-blocks.ts(211,81): error TS2353: Object literal may only specify known properties, and 'background' does not exist in type 'ElementStyles'.
+src/lib/section-blocks.ts(237,92): error TS2353: Object literal may only specify known properties, and 'background' does not exist in type 'ElementStyles'.
+src/lib/section-blocks.ts(1757,133): error TS2353: Object literal may only specify known properties, and 'background' does not exist in type 'ElementStyles'.
+src/lib/section-blocks.ts(1764,133): error TS2353: Object literal may only specify known properties, and 'background' does not exist in type 'ElementStyles'.
+src/lib/section-blocks.ts(1771,133): error TS2353: Object literal may only specify known properties, and 'background' does not exist in type 'ElementStyles'.
+src/lib/section-blocks.ts(1778,133): error TS2353: Object literal may only specify known properties, and 'background' does not exist in type 'ElementStyles'.
+src/lib/section-blocks.ts(1966,115): error TS2353: Object literal may only specify known properties, and 'background' does not exist in type 'ElementStyles'.
+src/lib/section-blocks.ts(1979,119): error TS2353: Object literal may only specify known properties, and 'background' does not exist in type 'ElementStyles'.
+src/lib/section-blocks.ts(1988,119): error TS2353: Object literal may only specify known properties, and 'background' does not exist in type 'ElementStyles'.
+src/lib/supabase/client.ts(12,9): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(supabaseUrl: string, supabaseKey: string, options?: (SupabaseClientOptions<"public"> & { cookies?: CookieMethodsBrowser | undefined; cookieOptions?: CookieOptionsWithName | undefined; cookieEncoding?: "raw" | ... 1 more ... | undefined; isSingleton?: boolean | undefined; }) | undefined): SupabaseClient<...>', gave the following error.
+    Type '(_name: string, _acquireTimeout: number, fn: () => Promise<unknown>) => Promise<unknown>' is not assignable to type 'LockFunc'.
+      Type 'Promise<unknown>' is not assignable to type 'Promise<R>'.
+        Type 'unknown' is not assignable to type 'R'.
+          'R' could be instantiated with an arbitrary type which could be unrelated to 'unknown'.
+  Overload 2 of 2, '(supabaseUrl: string, supabaseKey: string, options?: (SupabaseClientOptions<"public"> & { cookies: CookieMethodsBrowserDeprecated; cookieOptions?: CookieOptionsWithName | undefined; cookieEncoding?: "raw" | ... 1 more ... | undefined; isSingleton?: boolean | undefined; }) | undefined): SupabaseClient<...>', gave the following error.
+    Type '(_name: string, _acquireTimeout: number, fn: () => Promise<unknown>) => Promise<unknown>' is not assignable to type 'LockFunc'.
+      Type 'Promise<unknown>' is not assignable to type 'Promise<R>'.
+        Type 'unknown' is not assignable to type 'R'.
+          'R' could be instantiated with an arbitrary type which could be unrelated to 'unknown'.

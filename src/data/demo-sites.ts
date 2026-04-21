@@ -1,0 +1,102 @@
+import type { Site } from "@/lib/types";
+
+export const demoSites: Site[] = [
+  {
+    id: "site-001",
+    name: "My SaaS Landing",
+    description: "Main product landing page for our SaaS application",
+    status: "published",
+    domain: "my-saas.buildstack.site",
+    createdAt: new Date("2024-12-01"),
+    updatedAt: new Date("2025-03-10"),
+    template: "saas-launch",
+    plan: "pro",
+    pages: [
+      {
+        id: "page-001",
+        name: "Home",
+        slug: "/",
+        elements: [],
+        isHome: true,
+        seoTitle: "My SaaS - Build Better Software",
+        seoDescription: "The best SaaS platform for modern teams.",
+      },
+      {
+        id: "page-002",
+        name: "Pricing",
+        slug: "/pricing",
+        elements: [],
+        seoTitle: "Pricing - My SaaS",
+      },
+    ],
+  },
+  {
+    id: "site-002",
+    name: "Portfolio Site",
+    description: "Personal portfolio showcasing design and development work",
+    status: "published",
+    createdAt: new Date("2025-01-15"),
+    updatedAt: new Date("2025-03-08"),
+    template: "dev-portfolio",
+    plan: "free",
+    pages: [
+      {
+        id: "page-003",
+        name: "Home",
+        slug: "/",
+        elements: [],
+        isHome: true,
+      },
+      {
+        id: "page-004",
+        name: "Projects",
+        slug: "/projects",
+        elements: [],
+      },
+    ],
+  },
+  {
+    id: "site-003",
+    name: "Tech Blog",
+    description: "Weekly articles about web development and design",
+    status: "draft",
+    createdAt: new Date("2025-02-20"),
+    updatedAt: new Date("2025-03-12"),
+    template: "tech-blog",
+    plan: "free",
+    pages: [
+      {
+        id: "page-005",
+        name: "Home",
+        slug: "/",
+        elements: [],
+        isHome: true,
+      },
+      {
+        id: "page-006",
+        name: "Articles",
+        slug: "/articles",
+        elements: [],
+      },
+    ],
+  },
+  {
+    id: "site-004",
+    name: "Agency Website",
+    description: "Full agency website with services, portfolio, and contact",
+    status: "draft",
+    createdAt: new Date("2025-03-01"),
+    updatedAt: new Date("2025-03-14"),
+    template: "creative-agency",
+    plan: "business",
+    pages: [
+      {
+        id: "page-007",
+        name: "Home",
+        slug: "/",
+        elements: [],
+        isHome: true,
+      },
+    ],
+  },
+];
