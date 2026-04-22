@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
-import type { SiteAuthConfig, CanvasElement } from "@/lib/types";
+import type { CanvasElement } from "@/lib/types";
 import SiteRenderer from "./site-renderer";
 
 export const dynamic = "force-dynamic";
@@ -15,20 +15,24 @@ export default async function SubdomainSitePage({ params }: Props) {
 
   const admin = createSupabaseAdminClient();
 
-  const { data: site } = await admin
+  const { data: site, error: siteError } = await admin
     .from("sites")
-    .select("id, name, slug, status, auth_config")
+    .select("id, name, slug, status")
     .eq("slug", slug)
     .eq("status", "published")
     .single();
 
+  console.log("[tenant] slug:", slug, "site:", site?.id ?? null, "siteError:", siteError?.message ?? null);
+
   if (!site) notFound();
 
-  const { data: pages } = await admin
+  const { data: pages, error: pagesError } = await admin
     .from("pages")
     .select("id, title, slug, is_homepage, content")
     .eq("site_id", site.id)
     .order("sort_order");
+
+  console.log("[tenant] pages count:", pages?.length ?? null, "pagesError:", pagesError?.message ?? null);
 
   if (!pages) notFound();
 
@@ -48,7 +52,7 @@ export default async function SubdomainSitePage({ params }: Props) {
         isProtected: content.isProtected as boolean | undefined,
       };
     }),
-    authConfig: site.auth_config as SiteAuthConfig | undefined,
+    authConfig: undefined,
   };
 
   return (

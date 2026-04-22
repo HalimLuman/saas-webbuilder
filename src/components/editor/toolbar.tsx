@@ -185,11 +185,9 @@ export default function EditorToolbar({ onOpenCommandPalette }: ToolbarProps) {
         const resData = await res.json().catch(() => ({}));
         const siteSlug = site?.slug;
         const rootDomain = process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? "localhost:3000";
+        const protocol = rootDomain.includes("localhost") ? "http" : "https";
         const liveUrl = resData.data?.url
-          ? (resData.data.url.startsWith("http") ? resData.data.url : `http://${resData.data.url}`)
-          : siteSlug
-          ? `http://${siteSlug}.${rootDomain}`
-          : null;
+          ?? (siteSlug ? `${protocol}://${siteSlug}.${rootDomain}` : null);
         setPublished(true);
         updateSite(currentSiteId, { status: "published", publishedAt: new Date() });
         toast.success("Site published!", {

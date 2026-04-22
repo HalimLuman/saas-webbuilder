@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import { ArrowLeft, Rocket, CheckCircle2, Clock, Globe, XCircle, Loader2, ExternalLink } from "lucide-react";
 import { useSiteStore } from "@/store/site-store";
 import { useWorkspaceStore } from "@/store/workspace-store"; // getState() only — not a hook subscription
-import { cn } from "@/lib/utils";
+import { cn, getSiteUrl } from "@/lib/utils";
 
 interface DbDeployment {
   id: string;
@@ -51,12 +51,10 @@ function deploymentHostingLabel(d: DbDeployment) {
 /** Returns the best available detail message for a deployment row. */
 function deployNote(d: DbDeployment): string | null {
   if (d.error_message) return d.error_message;
-  if (d.status === "success" && !d.vercel_deployment_id)
-    return "Published via built-in hosting. Connect Vercel to get an external URL.";
   if (d.status === "failed")
     return "Deployment failed. Check your Vercel project settings or server logs for details.";
-  if (d.status === "building" && !d.vercel_deployment_id)
-    return "Resolving — no external host is configured. Status will update shortly.";
+  if (d.status === "building" && d.vercel_deployment_id)
+    return "Deploying to Vercel — this usually takes under a minute.";
   return null;
 }
 
@@ -124,9 +122,9 @@ export default function DeploymentsPage() {
               History of all deployments for <span className="font-medium text-gray-700">{site.name}</span>
             </p>
           </div>
-          {site.status === "published" && (
-            <Link
-              href={`/published/${siteId}`}
+          {site.status === "published" && site.slug && (
+            <a
+              href={getSiteUrl(site.slug)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1.5 rounded-lg transition-colors"
@@ -134,7 +132,7 @@ export default function DeploymentsPage() {
               <Globe className="h-3.5 w-3.5" />
               View Published Site
               <ExternalLink className="h-3 w-3 opacity-70" />
-            </Link>
+            </a>
           )}
         </div>
       </div>
@@ -252,18 +250,20 @@ export default function DeploymentsPage() {
                     </div>
                   </div>
 
-                  {/* Visit link — always shown */}
-                  <div className="shrink-0">
-                    <Link
-                      href={`/published/${siteId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600 hover:text-indigo-700 whitespace-nowrap"
-                    >
-                      <Globe className="h-3.5 w-3.5" />
-                      Visit
-                    </Link>
-                  </div>
+                  {/* Visit link */}
+                  {deploy.status === "success" && (deploy.url || site.slug) && (
+                    <div className="shrink-0">
+                      <a
+                        href={deploy.url ?? (site.slug ? getSiteUrl(site.slug) : "#")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600 hover:text-indigo-700 whitespace-nowrap"
+                      >
+                        <Globe className="h-3.5 w-3.5" />
+                        Visit
+                      </a>
+                    </div>
+                  )}
                 </div>
               );
             })}

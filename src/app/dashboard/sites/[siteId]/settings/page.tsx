@@ -16,7 +16,7 @@ import { useSiteStore } from "@/store/site-store";
 import type { Site } from "@/lib/types";
 import { useWorkspaceFetch } from "@/hooks/use-workspace-fetch";
 import { useWorkspaceStore } from "@/store/workspace-store";
-import { cn } from "@/lib/utils";
+import { cn, getSiteUrl } from "@/lib/utils";
 import { toast } from "sonner";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -205,7 +205,8 @@ function DomainsTab({ siteId, site, onSaved }: {
   const [saving, setSaving] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const subdomain = `${site.name.toLowerCase().replace(/\s+/g, "-")}.buildstack.site`;
+  const siteUrl = site.slug ? getSiteUrl(site.slug) : null;
+  const subdomain = siteUrl ?? "";
 
   const copy = () => {
     navigator.clipboard.writeText(subdomain);
@@ -240,16 +241,18 @@ function DomainsTab({ siteId, site, onSaved }: {
           <span className="ml-auto text-[10px] font-medium text-green-700 bg-green-50 border border-green-200 px-2 py-0.5 rounded-full">Active</span>
         </div>
         <CardBody>
-          <SettingRow label={subdomain} description="Your default buildstack.site subdomain." border={false}>
+          <SettingRow label={subdomain || "No slug set"} description="Your Webperia subdomain — live as soon as you publish." border={false}>
             <div className="flex gap-2">
-              <button onClick={copy} className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-800 border border-gray-200 rounded-lg px-3 py-1.5 hover:bg-gray-50 transition-colors">
-                {copied ? <Check className="h-3 w-3 text-green-500" /> : <Copy className="h-3 w-3" />}
-                {copied ? "Copied" : "Copy"}
-              </button>
-              {site.status === "published" && (
-                <Link href={`/published/${siteId}`} target="_blank" className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-800 border border-gray-200 rounded-lg px-3 py-1.5 hover:bg-gray-50 transition-colors">
+              {subdomain && (
+                <button onClick={copy} className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-800 border border-gray-200 rounded-lg px-3 py-1.5 hover:bg-gray-50 transition-colors">
+                  {copied ? <Check className="h-3 w-3 text-green-500" /> : <Copy className="h-3 w-3" />}
+                  {copied ? "Copied" : "Copy"}
+                </button>
+              )}
+              {site.status === "published" && siteUrl && (
+                <a href={siteUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-800 border border-gray-200 rounded-lg px-3 py-1.5 hover:bg-gray-50 transition-colors">
                   <ArrowUpRight className="h-3 w-3" /> Visit
-                </Link>
+                </a>
               )}
             </div>
           </SettingRow>
@@ -555,11 +558,11 @@ function DeploymentsTab({ siteId, site }: { siteId: string; site: Site }) {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            {site.status === "published" && (
+            {site.status === "published" && site.slug && (
               <Button size="sm" variant="outline" asChild className="gap-1.5 text-xs">
-                <Link href={`/published/${siteId}`} target="_blank" rel="noopener noreferrer">
+                <a href={getSiteUrl(site.slug)} target="_blank" rel="noopener noreferrer">
                   <Globe className="h-3.5 w-3.5" />View Live<ArrowUpRight className="h-3 w-3 opacity-60" />
-                </Link>
+                </a>
               </Button>
             )}
             <Button size="sm" onClick={handlePublish} disabled={publishing} className="gap-1.5 text-xs bg-gray-900 hover:bg-gray-800 text-white">
@@ -645,13 +648,16 @@ function DeploymentsTab({ siteId, site }: { siteId: string; site: Site }) {
                       </p>
                     )}
                   </div>
-                  <Link
-                    href={`/published/${siteId}`}
-                    target="_blank"
-                    className="text-xs text-gray-400 hover:text-indigo-600 transition-colors shrink-0 flex items-center gap-1"
-                  >
-                    <Globe className="h-3.5 w-3.5" />Visit
-                  </Link>
+                  {site.slug && (
+                    <a
+                      href={getSiteUrl(site.slug)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-gray-400 hover:text-indigo-600 transition-colors shrink-0 flex items-center gap-1"
+                    >
+                      <Globe className="h-3.5 w-3.5" />Visit
+                    </a>
+                  )}
                 </div>
               );
             })}
@@ -768,11 +774,11 @@ export default function SiteSettingsPage() {
               </span>
             </div>
             <div className="ml-auto flex items-center gap-2 shrink-0">
-              {site.status === "published" && (
+              {site.status === "published" && site.slug && (
                 <Button size="sm" variant="outline" asChild className="gap-1.5 text-xs">
-                  <Link href={`/published/${siteId}`} target="_blank" rel="noopener noreferrer">
+                  <a href={getSiteUrl(site.slug)} target="_blank" rel="noopener noreferrer">
                     <Globe className="h-3.5 w-3.5" />View Live
-                  </Link>
+                  </a>
                 </Button>
               )}
               <Button size="sm" asChild className="gap-1.5 text-xs bg-gray-900 hover:bg-gray-800 text-white">

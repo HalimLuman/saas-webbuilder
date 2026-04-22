@@ -21,24 +21,23 @@ export async function middleware(request: NextRequest) {
     hostname !== `www.${ROOT_DOMAIN}`;
 
   if (isSubdomain) {
-    // Extract the slug (e.g., "tenant" from "tenant.webperia.com")
+    // Extract the slug (e.g., "mysite" from "mysite.webperia.com")
     const slug = hostname.split(".")[0];
 
-    // Preserve the original path so /profile → /_sites/tenant/profile
+    // Preserve the original path so /about → /tenant/mysite/about
     const originalPath = url.pathname === "/" ? "" : url.pathname;
 
-    // Rewrite the internal URL to the dynamic _sites folder
-    const rewriteUrl = new URL(`/_sites/${slug}${originalPath}`, request.url);
+    const rewriteUrl = new URL(`/tenant/${slug}${originalPath}`, request.url);
     return NextResponse.rewrite(rewriteUrl);
   }
 
   // 4. Special Case: Localhost Subdomain Development
-  // This allows "tenant.localhost:3000" to work during local testing
+  // This allows "mysite.localhost:3000" to work during local testing
   if (process.env.NODE_ENV === "development" && hostname.includes(".localhost")) {
     const slug = hostname.split(".")[0];
     if (slug !== "localhost") {
       const originalPath = url.pathname === "/" ? "" : url.pathname;
-      const rewriteUrl = new URL(`/_sites/${slug}${originalPath}`, request.url);
+      const rewriteUrl = new URL(`/tenant/${slug}${originalPath}`, request.url);
       return NextResponse.rewrite(rewriteUrl);
     }
   }

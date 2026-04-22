@@ -120,8 +120,9 @@ export async function POST(
 
   // Build the built-in subdomain URL
   const ROOT_DOMAIN = process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? "localhost:3000";
+  const protocol = ROOT_DOMAIN.includes("localhost") ? "http" : "https";
   const builtInUrl = site.slug
-    ? `${site.slug}.${ROOT_DOMAIN}`
+    ? `${protocol}://${site.slug}.${ROOT_DOMAIN}`
     : null;
 
   // Trigger Vercel deployment if configured

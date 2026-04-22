@@ -39,3 +39,9 @@ export function slugify(text: string): string {
     .replace(/--+/g, "-")
     .trim();
 }
+
+export function getSiteUrl(slug: string): string {
+  const rootDomain = process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? "localhost:3000";
+  const protocol = rootDomain.includes("localhost") ? "http" : "https";
+  return `${protocol}://${slug}.${rootDomain}`;
+}

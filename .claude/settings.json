@@ -9,7 +9,10 @@
       "Bash(git push *)",
       "Bash(git commit *)",
       "Bash(sed -n '140,160p' c:/Users/User/Desktop/saas-webbuilder/src/components/templates/shared.tsx)",
-      "Bash(sed -n '225,245p' c:/Users/User/Desktop/saas-webbuilder/src/components/templates/shared.tsx)"
+      "Bash(sed -n '225,245p' c:/Users/User/Desktop/saas-webbuilder/src/components/templates/shared.tsx)",
+      "Bash(grep -E \"\\\\.\\(ts|tsx\\)$\")",
+      "Bash(xargs grep *)",
+      "Bash(grep -E \"\\\\.md$|\\\\.txt$\")"
     ]
   }
 }
