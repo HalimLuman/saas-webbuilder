@@ -1,38 +1,61 @@
-import { type NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
-const ROOT_DOMAIN = process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? "localhost:3000";
+const ROOT_DOMAIN = process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? "webperia.com";
 
 export async function middleware(request: NextRequest) {
-  const hostname = request.headers.get("host") ?? "";
+  const url = request.nextUrl;
 
-  // Detect subdomain: anything before the root domain that isn't the root itself.
-  // Works for both production (mysite.buildstack.site) and local dev (mysite.localhost:3000).
+  // 1. Get the hostname (e.g., www.webperia.com, webperia.com, or tenant.webperia.com)
+  const hostname = request.headers.get("host")?.toLowerCase() ?? "";
+
+  // 2. Define the "searchDomain" by removing www. 
+  // This helps us identify if we are on the main site.
+  const searchDomain = hostname.replace("www.", "");
+
+  // 3. Detect if this is a subdomain (tenant) site
+  // It is a subdomain if it ends with .ROOT_DOMAIN and is NOT the root domain itself
+  // and is NOT just the "www" prefix.
   const isSubdomain =
-    hostname !== ROOT_DOMAIN &&
-    (hostname.endsWith(`.${ROOT_DOMAIN}`) ||
-      // support *.localhost (no port) for local dev with e.g. /etc/hosts
-      (/^[^.]+\.localhost(:\d+)?$/.test(hostname) && !hostname.startsWith("www.")));
+    hostname.endsWith(`.${ROOT_DOMAIN}`) &&
+    hostname !== `www.${ROOT_DOMAIN}`;
 
   if (isSubdomain) {
+    // Extract the slug (e.g., "tenant" from "tenant.webperia.com")
     const slug = hostname.split(".")[0];
-    const url = request.nextUrl.clone();
-    // Preserve the original path so /about → /_sites/mysite/about
+
+    // Preserve the original path so /profile → /_sites/tenant/profile
     const originalPath = url.pathname === "/" ? "" : url.pathname;
-    url.pathname = `/_sites/${slug}${originalPath}`;
-    return NextResponse.rewrite(url);
+
+    // Rewrite the internal URL to the dynamic _sites folder
+    const rewriteUrl = new URL(`/_sites/${slug}${originalPath}`, request.url);
+    return NextResponse.rewrite(rewriteUrl);
   }
 
+  // 4. Special Case: Localhost Subdomain Development
+  // This allows "tenant.localhost:3000" to work during local testing
+  if (process.env.NODE_ENV === "development" && hostname.includes(".localhost")) {
+    const slug = hostname.split(".")[0];
+    if (slug !== "localhost") {
+      const originalPath = url.pathname === "/" ? "" : url.pathname;
+      const rewriteUrl = new URL(`/_sites/${slug}${originalPath}`, request.url);
+      return NextResponse.rewrite(rewriteUrl);
+    }
+  }
+
+  // 5. Default: Main Site (webperia.com or www.webperia.com)
+  // We update the session and let the request proceed to your normal page routes
   return await updateSession(request);
 }
 
 export const config = {
   matcher: [
     /*
-     * Match all request paths except:
+     * Match all request paths except for the ones provided below:
      * - _next/static (static files)
-     * - _next/image (image optimization)
+     * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt
+     * - all images/assets (svg, png, jpg, etc.)
      */
     "/((?!_next/static|_next/image|favicon\\.ico|sitemap\\.xml|robots\\.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
