@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const navLinks = [
   { label: "Features", href: "/#features" },
@@ -38,12 +39,10 @@ export default function Navbar() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center shadow-lg shadow-primary-500/30 group-hover:shadow-primary-500/50 transition-shadow">
+              {/* <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center shadow-lg shadow-primary-500/30 group-hover:shadow-primary-500/50 transition-shadow">
                 <Zap className="h-4 w-4 text-white" />
-              </div>
-              <span className="text-gray-900 font-bold text-xl tracking-tight">
-                Web<span className="text-primary-500">peria</span>
-              </span>
+              </div> */}
+              <Image src="/webperia-logo-wobg.png" alt="Logo" width={128} height={128} />
             </Link>
 
             {/* Desktop Nav */}
@@ -52,7 +51,7 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-all"
+                  className="px-4 py-2 text-sm text-gray-600 hover:text-black rounded-lg hover:bg-gray-50 transition-all font-medium"
                 >
                   {link.label}
                 </Link>
@@ -61,12 +60,12 @@ export default function Navbar() {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-3">
-              <Button variant="ghost" size="sm" className="text-gray-600" asChild>
+              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-black font-semibold" asChild>
                 <Link href="/login">Sign In</Link>
               </Button>
               <Button
                 size="sm"
-                className="bg-primary-500 text-white hover:bg-primary-600 font-medium shadow-sm shadow-primary-500/20"
+                className="bg-primary-500 text-white hover:bg-primary-600 font-bold shadow-sm shadow-primary-500/20"
                 asChild
               >
                 <Link href="/signup">Start Free</Link>
@@ -99,17 +98,17 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="px-4 py-3 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-all"
+                  className="px-4 py-3 text-gray-600 hover:text-black font-bold rounded-lg hover:bg-gray-50 transition-all"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-gray-200">
-                <Button variant="outline" asChild>
+              <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-gray-100">
+                <Button variant="outline" className="text-black border-black/10 font-bold" asChild>
                   <Link href="/login">Sign In</Link>
                 </Button>
-                <Button className="bg-primary-500 text-white hover:bg-primary-600" asChild>
+                <Button className="bg-primary-500 text-white hover:bg-primary-600 font-bold" asChild>
                   <Link href="/signup">Start Free</Link>
                 </Button>
               </div>

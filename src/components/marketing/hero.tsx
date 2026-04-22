@@ -184,11 +184,10 @@ export default function Hero() {
                 {["▣", "⊞", "◈", "⌂"].map((icon, i) => (
                   <div
                     key={i}
-                    className={`h-9 w-9 rounded-lg flex items-center justify-center text-sm transition-colors ${
-                      i === 0
+                    className={`h-9 w-9 rounded-lg flex items-center justify-center text-sm transition-colors ${i === 0
                         ? "bg-primary-500/20 text-primary-400"
                         : "text-white/20 hover:text-white/40 hover:bg-white/5"
-                    }`}
+                      }`}
                   >
                     {icon}
                   </div>

@@ -11,22 +11,26 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary-500 text-white shadow hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-500/25",
+          "bg-primary-500 text-white shadow hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-500/40",
         destructive:
           "bg-red-500 text-white shadow-sm hover:bg-red-600",
         outline:
-          "border border-gray-200 bg-white shadow-sm hover:bg-gray-50 hover:text-gray-900",
+          "border border-gray-200 bg-white shadow-sm hover:bg-gray-50 hover:border-primary-200 hover:text-primary-600",
+        "outline-primary":
+          "border border-primary-500 bg-white text-primary-600 shadow-sm hover:bg-primary-50",
         "outline-dark":
           "border border-white/20 bg-transparent text-white hover:bg-white/10",
         secondary:
           "bg-gray-100 text-gray-900 shadow-sm hover:bg-gray-200",
         ghost:
-          "hover:bg-gray-100 hover:text-gray-900",
+          "hover:bg-primary-50 hover:text-primary-600",
         "ghost-dark":
           "text-white/70 hover:bg-white/10 hover:text-white",
-        link: "text-primary-500 underline-offset-4 hover:underline",
+        link: "text-primary-500 underline-offset-4 hover:underline hover:text-primary-600",
         gradient:
-          "bg-gradient-to-r from-primary-500 to-purple-600 text-white shadow hover:shadow-lg hover:shadow-primary-500/30 hover:brightness-110",
+          "bg-gradient-to-r from-[#F00B51] to-[#730062] text-white shadow hover:shadow-lg hover:shadow-primary-500/30 hover:brightness-110",
+        "gradient-subtle":
+          "bg-gradient-to-r from-primary-50 to-primary-100 text-primary-700 hover:from-primary-100 hover:to-primary-200",
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -55,7 +55,7 @@ const previewPlans = [
 export default function PricingPreview() {
   return (
     <section className="py-32 bg-gray-50 relative overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary-500/8 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[#F00B51]/8 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -65,14 +65,14 @@ export default function PricingPreview() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50 border border-gray-100 text-primary-600 text-sm font-medium mb-6">
             <Zap className="h-3.5 w-3.5" />
             Simple Pricing
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl sm:text-5xl font-bold text-black mb-4">
             Start free, scale as you grow
           </h2>
-          <p className="text-xl text-gray-500 max-w-xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-xl mx-auto">
             No hidden fees. Cancel anytime. 20% discount on annual plans.
           </p>
         </motion.div>
@@ -87,31 +87,31 @@ export default function PricingPreview() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={`relative p-6 rounded-2xl border transition-all ${
                 plan.highlighted
-                  ? "bg-primary-500/5 border-primary-200 shadow-xl shadow-primary-500/10"
+                  ? "bg-white border-[#F00B51] shadow-xl shadow-[#F00B51]/10"
                   : "bg-white border-gray-200 hover:border-gray-300 hover:shadow-sm"
               }`}
             >
               {plan.badge && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary-500 to-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#F00B51] to-[#730062] text-white text-xs font-bold px-3 py-1 rounded-full">
                   {plan.badge}
                 </div>
               )}
 
               <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">{plan.name}</h3>
-                <p className="text-gray-400 text-sm mb-4">{plan.description}</p>
+                <h3 className="text-lg font-bold text-black mb-1">{plan.name}</h3>
+                <p className="text-gray-500 text-sm mb-4">{plan.description}</p>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-bold text-gray-900">
+                  <span className="text-4xl font-bold text-black">
                     ${plan.price}
                   </span>
-                  <span className="text-gray-400">/mo</span>
+                  <span className="text-gray-500 font-medium">/mo</span>
                 </div>
               </div>
 
               <ul className="space-y-2.5 mb-6">
                 {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2.5 text-sm text-gray-600">
-                    <Check className="h-4 w-4 text-primary-500 shrink-0" />
+                  <li key={feature} className="flex items-center gap-2.5 text-sm text-gray-700">
+                    <Check className="h-4 w-4 text-[#F00B51] shrink-0" />
                     {feature}
                   </li>
                 ))}
@@ -119,7 +119,7 @@ export default function PricingPreview() {
 
               <Button
                 variant={plan.highlighted ? "default" : "outline"}
-                className={`w-full ${plan.highlighted ? "bg-primary-500 hover:bg-primary-600" : ""}`}
+                className={`w-full font-bold ${plan.highlighted ? "bg-[#F00B51] hover:bg-[#C4004A] text-white" : "text-black"}`}
                 asChild
               >
                 <Link href={plan.href}>{plan.cta}</Link>
@@ -138,7 +138,7 @@ export default function PricingPreview() {
         </div>
 
         <div className="text-center">
-          <Button variant="ghost" className="text-gray-500 hover:text-gray-900" asChild>
+          <Button variant="ghost" className="text-gray-600 hover:text-black font-semibold" asChild>
             <Link href="/pricing">
               View full pricing & comparison
               <ArrowRight className="ml-2 h-4 w-4" />

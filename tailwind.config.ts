@@ -11,15 +11,19 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#6366F1",
-          dark: "#4F46E5",
-          light: "#818CF8",
-          50: "#EEF2FF",
-          100: "#E0E7FF",
-          200: "#C7D2FE",
-          500: "#6366F1",
-          600: "#4F46E5",
-          700: "#4338CA",
+          DEFAULT: "#F00B51",
+          dark: "#730062",
+          light: "#F9527E",
+          50:  "#FFF0F4",
+          100: "#FFD6E3",
+          200: "#FFB3C8",
+          500: "#F00B51",
+          600: "#C4004A",
+          700: "#730062",
+        },
+        accent: {
+          DEFAULT: "#730062",
+          light: "#A3006B",
         },
         background: {
           dark: "#0F0F0F",

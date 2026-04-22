@@ -14,7 +14,7 @@ const testimonials = [
     company: "Prismatic",
     rating: 5,
     avatar: "SC",
-    avatarColor: "from-blue-500 to-cyan-500",
+    avatarColor: "from-[#F00B51] to-[#FF527E]",
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ const testimonials = [
     company: "Launchpad.io",
     rating: 5,
     avatar: "MR",
-    avatarColor: "from-primary-500 to-purple-600",
+    avatarColor: "from-[#730062] to-[#F00B51]",
   },
   {
     id: 3,
@@ -36,7 +36,7 @@ const testimonials = [
     company: "Acme Corp",
     rating: 5,
     avatar: "EW",
-    avatarColor: "from-pink-500 to-rose-500",
+    avatarColor: "from-purple-600 to-[#F00B51]",
   },
   {
     id: 4,
@@ -47,7 +47,7 @@ const testimonials = [
     company: "TechFlow",
     rating: 5,
     avatar: "JP",
-    avatarColor: "from-green-500 to-emerald-500",
+    avatarColor: "from-black to-[#730062]",
   },
 ];
 
@@ -104,7 +104,7 @@ export default function Testimonials() {
         {/* Testimonials */}
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center mb-8">
-            <Quote className="h-10 w-10 text-primary-200" />
+            <Quote className="h-10 w-10 text-primary-500 opacity-20" />
           </div>
 
           <AnimatePresence mode="wait">
@@ -123,7 +123,7 @@ export default function Testimonials() {
               </div>
 
               {/* Quote */}
-              <blockquote className="text-2xl sm:text-3xl text-gray-700 font-medium leading-relaxed mb-10">
+              <blockquote className="text-2xl sm:text-3xl text-black font-semibold leading-relaxed mb-10">
                 &ldquo;{current.quote}&rdquo;
               </blockquote>
 
@@ -133,10 +133,10 @@ export default function Testimonials() {
                   {current.avatar}
                 </div>
                 <div className="text-left">
-                  <div className="text-gray-900 font-semibold">{current.author}</div>
-                  <div className="text-gray-400 text-sm">
+                  <div className="text-black font-bold">{current.author}</div>
+                  <div className="text-gray-500 text-sm">
                     {current.role} at{" "}
-                    <span className="text-gray-600">{current.company}</span>
+                    <span className="text-black font-medium">{current.company}</span>
                   </div>
                 </div>
               </div>
@@ -163,7 +163,7 @@ export default function Testimonials() {
                   className={`h-2 rounded-full transition-all duration-300 ${
                     i === currentIndex
                       ? "w-6 bg-primary-500"
-                      : "w-2 bg-gray-300 hover:bg-gray-400"
+                      : "w-2 bg-gray-200 hover:bg-gray-300"
                   }`}
                 />
               ))}

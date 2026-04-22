@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Zap, Twitter, Github, Linkedin, Youtube } from "lucide-react";
+import Image from "next/image";
 
 const footerLinks = {
   Product: [
@@ -48,12 +49,10 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center">
+              {/* <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center">
                 <Zap className="h-4 w-4 text-white" />
-              </div>
-              <span className="text-gray-900 font-bold text-xl">
-                Web<span className="text-primary-500">peria</span>
-              </span>
+              </div> */}
+              <Image src="/webperia-logo-wobg.png" alt="Logo" width={128} height={128} />
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-xs">
               The most powerful website builder for modern teams. Build, deploy, and scale with ease.

@@ -18,15 +18,15 @@ const features = [
     title: "Drag & Drop Editor",
     description:
       "Intuitive visual editor with 100+ pre-built components. Build pixel-perfect layouts without touching code.",
-    gradient: "from-blue-500 to-cyan-500",
-    bgGlow: "bg-blue-50",
+    gradient: "from-[#F00B51] to-[#FF527E]",
+    bgGlow: "bg-primary-50",
   },
   {
     icon: Sparkles,
     title: "AI Site Generator",
     description:
       "Describe your website in plain English and our AI will generate a complete, ready-to-launch site in seconds.",
-    gradient: "from-primary-500 to-purple-600",
+    gradient: "from-[#F00B51] to-[#730062]",
     bgGlow: "bg-primary-50",
   },
   {
@@ -34,32 +34,32 @@ const features = [
     title: "120+ Templates",
     description:
       "Start with professionally designed templates for SaaS, portfolios, e-commerce, blogs, and more.",
-    gradient: "from-pink-500 to-rose-500",
-    bgGlow: "bg-pink-50",
+    gradient: "from-[#F00B51] to-purple-600",
+    bgGlow: "bg-primary-50",
   },
   {
     icon: Rocket,
     title: "One-Click Deploy",
     description:
       "Deploy to Vercel, Netlify, or our global CDN with a single click. Custom domains included on all plans.",
-    gradient: "from-orange-500 to-amber-500",
-    bgGlow: "bg-orange-50",
+    gradient: "from-[#730062] to-[#4A003F]",
+    bgGlow: "bg-primary-50",
   },
   {
     icon: Code2,
     title: "Code Export",
     description:
       "Export clean, production-ready React or HTML code at any time. Your site, your rules.",
-    gradient: "from-green-500 to-emerald-500",
-    bgGlow: "bg-green-50",
+    gradient: "from-black to-gray-800",
+    bgGlow: "bg-gray-100",
   },
   {
     icon: Users,
     title: "Team Collaboration",
     description:
       "Real-time collaboration with your team. Comment, review, and ship together seamlessly.",
-    gradient: "from-violet-500 to-purple-600",
-    bgGlow: "bg-violet-50",
+    gradient: "from-[#F00B51] to-[#730062]",
+    bgGlow: "bg-primary-50",
   },
 ];
 
@@ -85,15 +85,15 @@ export default function Features() {
           transition={{ duration: 0.5 }}
           className="text-center mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50 border border-gray-100 text-primary-600 text-sm font-medium mb-6">
             <Zap className="h-3.5 w-3.5" />
             Features
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <h2 className="text-4xl sm:text-5xl font-bold text-black mb-6 leading-tight">
             Everything you need to{" "}
             <span className="gradient-text">build faster</span>
           </h2>
-          <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             From initial design to production deployment, Webperia gives you all the tools
             to create exceptional websites without compromise.
           </p>
@@ -116,8 +116,8 @@ export default function Features() {
               </div>
 
               {/* Content */}
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{feature.description}</p>
+              <h3 className="text-lg font-semibold text-black mb-2">{feature.title}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
 
               {/* Hover glow */}
               <div className={`absolute inset-0 rounded-2xl ${feature.bgGlow} opacity-0 group-hover:opacity-60 transition-opacity duration-300 pointer-events-none`} />
@@ -138,8 +138,8 @@ export default function Features() {
               key={stat.label}
               className="flex flex-col items-center justify-center py-10 bg-white hover:bg-gray-50 transition-colors"
             >
-              <span className="text-4xl font-bold text-gray-900 mb-2">{stat.value}</span>
-              <span className="text-gray-400 text-sm">{stat.label}</span>
+              <span className="text-4xl font-bold text-black mb-2">{stat.value}</span>
+              <span className="text-gray-500 text-sm font-medium">{stat.label}</span>
             </div>
           ))}
         </motion.div>

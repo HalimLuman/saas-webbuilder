@@ -16,7 +16,7 @@ const howItWorksSteps = [
     title: "Choose a template or use AI",
     description:
       "Start with one of our 120+ professionally designed templates, or let our AI generate a custom website from your description.",
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-[#F00B51] to-[#FF527E]",
   },
   {
     number: "02",
@@ -24,7 +24,7 @@ const howItWorksSteps = [
     title: "Customize everything",
     description:
       "Drag, drop, and customize every element with our intuitive visual editor. Change colors, fonts, layout — no code needed.",
-    gradient: "from-primary-500 to-purple-600",
+    gradient: "from-[#F00B51] to-[#730062]",
   },
   {
     number: "03",
@@ -32,7 +32,7 @@ const howItWorksSteps = [
     title: "Publish instantly",
     description:
       "Deploy to your custom domain with one click. Your site is served from 200+ edge locations worldwide for blazing-fast performance.",
-    gradient: "from-green-500 to-emerald-500",
+    gradient: "from-[#730062] to-[#4A003F]",
   },
 ];
 
@@ -48,15 +48,15 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-grid-pattern opacity-30" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 border border-gray-200 text-gray-600 text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50 border border-gray-100 text-gray-600 text-sm font-medium mb-6">
               <Zap className="h-3.5 w-3.5 text-primary-500" />
               How It Works
             </div>
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-black mb-4">
               Launch in{" "}
               <span className="gradient-text">3 simple steps</span>
             </h2>
-            <p className="text-xl text-gray-500 max-w-xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-xl mx-auto">
               From idea to live website in under an hour. Really.
             </p>
           </div>
@@ -77,8 +77,8 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{step.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed max-w-xs mx-auto">
+                <h3 className="text-xl font-semibold text-black mb-3">{step.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed max-w-xs mx-auto">
                   {step.description}
                 </p>
               </div>
@@ -91,9 +91,9 @@ export default function HomePage() {
       <PricingPreview />
 
       {/* CTA Banner */}
-      <section className="py-32 bg-gray-900 relative overflow-hidden">
+      <section className="py-32 bg-black relative overflow-hidden">
         {/* Gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-600/30 via-purple-600/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#F00B51]/30 via-[#730062]/20 to-transparent" />
         <div className="absolute inset-0 bg-grid-pattern opacity-20" />
 
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -108,13 +108,13 @@ export default function HomePage() {
             <span className="gradient-text">next website?</span>
           </h2>
 
-          <p className="text-xl text-white/50 mb-10 max-w-xl mx-auto">
+          <p className="text-xl text-white/60 mb-10 max-w-xl mx-auto">
             Join 10,000+ teams who&apos;ve already switched to Webperia.
             Start for free, no credit card required.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <Button size="xl" className="bg-white text-gray-900 hover:bg-white/90 font-semibold shadow-2xl min-w-[220px]" asChild>
+            <Button size="xl" className="bg-white text-black hover:bg-white/90 font-bold shadow-2xl min-w-[220px]" asChild>
               <Link href="/signup">
                 Start Building Free
                 <ArrowRight className="ml-2 h-5 w-5" />

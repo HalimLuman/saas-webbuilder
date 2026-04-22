@@ -84,6 +84,8 @@ export default function NewSitePage() {
   const [isCreating, setIsCreating] = useState(false);
   const [generatingPhase, setGeneratingPhase] = useState(0);
 
+  const isFreePlan = !profile?.plan || profile.plan === "free";
+
   useEffect(() => {
     wfetch("/api/v1/sites").then((r) => r.json()).then((j) => {
       const active = (j.data ?? []).filter((s: { status: string }) => s.status !== "archived");
@@ -102,6 +104,10 @@ export default function NewSitePage() {
   ];
 
   const handleMethodNext = () => {
+    if (isFreePlan && method === "ai") {
+      toast.error("AI generation is a Pro feature. Please upgrade to continue.");
+      return;
+    }
     if (method === "blank") setStep("details");
     else if (method === "template") setStep("template");
     else setStep("details");
@@ -260,30 +266,62 @@ export default function NewSitePage() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                 {([
-                  { id: "template" as Method, icon: LayoutTemplate, iconBg: "bg-blue-100", iconColor: "text-blue-600", title: "Start from template", description: "Choose from professionally designed, full-page templates ready for production with minimal edits.", badge: null },
-                  { id: "ai" as Method, icon: Wand2, iconBg: "bg-gradient-to-br from-primary-100 to-purple-100", iconColor: "text-primary-600", title: "Generate with AI", description: "Describe your site in plain English and let our AI build it for you.", badge: "Popular" },
-                  { id: "blank" as Method, icon: Globe, iconBg: "bg-gray-100", iconColor: "text-gray-600", title: "Start from scratch", description: "Begin with a blank canvas and full creative freedom.", badge: null },
+                  { id: "template" as Method, icon: LayoutTemplate, iconBg: "bg-blue-100", iconColor: "text-blue-600", title: "Start from template", description: "Choose from professionally designed, full-page templates ready for production with minimal edits.", badge: null, proOnly: false },
+                  { id: "ai" as Method, icon: Wand2, iconBg: "bg-gradient-to-br from-primary-100 to-purple-100", iconColor: "text-primary-600", title: "Generate with AI", description: "Describe your site in plain English and let our AI build it for you.", badge: "Pro", proOnly: true },
+                  { id: "blank" as Method, icon: Globe, iconBg: "bg-gray-100", iconColor: "text-gray-600", title: "Start from scratch", description: "Begin with a blank canvas and full creative freedom.", badge: null, proOnly: false },
                 ] as const).map((option) => {
                   const Icon = option.icon;
-                  const isSelected = method === option.id;
+                  const isLocked = option.proOnly && isFreePlan;
+                  const isSelected = method === option.id && !isLocked;
                   return (
-                    <button key={option.id} onClick={() => setMethod(option.id)}
-                      className={cn("relative text-left p-6 rounded-2xl border-2 transition-all", isSelected ? "border-primary-500 bg-primary-50/50 shadow-sm shadow-primary-100" : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm")}
+                    <button
+                      key={option.id}
+                      onClick={() => {
+                        if (isLocked) {
+                          toast.error("AI generation requires a Pro plan or higher.");
+                          return;
+                        }
+                        setMethod(option.id);
+                      }}
+                      className={cn(
+                        "relative text-left p-6 rounded-2xl border-2 transition-all",
+                        isLocked
+                          ? "border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed"
+                          : isSelected
+                          ? "border-primary-500 bg-primary-50/50 shadow-sm shadow-primary-100"
+                          : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm"
+                      )}
                     >
-                      {option.badge && <span className="absolute top-3 right-3 text-[10px] font-semibold bg-primary-100 text-primary-700 px-2 py-0.5 rounded-full">{option.badge}</span>}
+                      {/* Badge */}
+                      {option.badge && (
+                        <span className={cn(
+                          "absolute top-3 right-3 text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1",
+                          isLocked
+                            ? "bg-amber-100 text-amber-700"
+                            : "bg-primary-100 text-primary-700"
+                        )}>
+                          {isLocked && <Lock className="h-2.5 w-2.5" />}
+                          {option.badge}
+                        </span>
+                      )}
                       <div className={cn("h-11 w-11 rounded-xl flex items-center justify-center mb-4", option.iconBg)}>
-                        <Icon className={cn("h-5 w-5", option.iconColor)} />
+                        {isLocked ? <Lock className="h-5 w-5 text-gray-400" /> : <Icon className={cn("h-5 w-5", option.iconColor)} />}
                       </div>
                       <div className="flex items-center gap-2 mb-1">
                         <h3 className="font-semibold text-gray-900">{option.title}</h3>
                         {isSelected && <div className="h-5 w-5 rounded-full bg-primary-500 flex items-center justify-center"><Check className="h-3 w-3 text-white" /></div>}
                       </div>
                       <p className="text-sm text-gray-500 leading-relaxed">{option.description}</p>
+                      {isLocked && (
+                        <p className="text-xs text-amber-600 font-medium mt-2">
+                          Upgrade to Pro to unlock
+                        </p>
+                      )}
                     </button>
                   );
                 })}
               </div>
-              {method === "ai" && (
+              {method === "ai" && !isFreePlan && (
                 <div className="bg-gradient-to-br from-primary-50 to-purple-50 rounded-2xl border border-primary-100 p-5 mb-6">
                   <div className="flex items-center gap-2 mb-3">
                     <Sparkles className="h-4 w-4 text-primary-500" />
@@ -300,8 +338,23 @@ export default function NewSitePage() {
                   </div>
                 </div>
               )}
-              <div className="flex justify-end">
-                <Button size="lg" onClick={handleMethodNext} className="gap-2 min-w-[140px]">Continue <ChevronRight className="h-4 w-4" /></Button>
+              <div className="flex items-center justify-between">
+                {isFreePlan && (
+                  <p className="text-xs text-gray-400 flex items-center gap-1.5">
+                    <Lock className="h-3 w-3" />
+                    <span>AI generation is available on <Link href="/dashboard/billing" className="text-primary-500 hover:underline font-medium">Pro plans</Link> and above</span>
+                  </p>
+                )}
+                <div className="ml-auto">
+                  <Button
+                    size="lg"
+                    onClick={handleMethodNext}
+                    disabled={isFreePlan && method === "ai"}
+                    className="gap-2 min-w-[140px]"
+                  >
+                    Continue <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             </div>
           )}
