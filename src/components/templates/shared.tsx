@@ -145,7 +145,7 @@ export function TemplateCard({
         {/* Tier badge — top left */}
         <div className={cn(
           "absolute top-2 left-2 text-[9px] font-bold px-1.5 py-0.5 rounded border bg-white z-10",
-          template.tier === "free" ? "text-emerald-700 border-emerald-200" : "text-amber-700 border-amber-200",
+          template.tier === "free" ? "text-emerald-700 border-emerald-200" : template.tier === "business" ? "text-purple-700 border-purple-200" : "text-amber-700 border-amber-200",
         )}>
           {template.tier.toUpperCase()}
         </div>
@@ -231,6 +231,8 @@ export function TemplatePreviewModal({
                 "text-[10px] font-bold px-2 py-0.5 rounded-full border",
                 template.tier === "free"
                   ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                  : template.tier === "business"
+                  ? "bg-purple-50 text-purple-700 border-purple-200"
                   : "bg-amber-50 text-amber-700 border-amber-200",
               )}>
                 {template.tier.toUpperCase()}

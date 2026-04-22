@@ -6,7 +6,7 @@ const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
   : null;
 
-const FROM = process.env.EMAIL_FROM ?? "BuildStack <noreply@buildstack.app>";
+const FROM = process.env.EMAIL_FROM ?? "Webperia <noreply@buildstack.app>";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
 export async function sendTeamInviteEmail(
@@ -23,7 +23,7 @@ export async function sendTeamInviteEmail(
   await resend.emails.send({
     from: FROM,
     to,
-    subject: `${inviterName} invited you to join their team on BuildStack`,
+    subject: `${inviterName} invited you to join their team on Webperia`,
     html: `
       <h2>You've been invited!</h2>
       <p>${inviterName} has invited you to join their team as a <strong>${role}</strong>.</p>
@@ -44,7 +44,7 @@ export async function sendPaymentFailedEmail(
   await resend.emails.send({
     from: FROM,
     to,
-    subject: "Action required: Your BuildStack payment failed",
+    subject: "Action required: Your Webperia payment failed",
     html: `
       <h2>Payment failed</h2>
       <p>Hi ${name},</p>
@@ -65,7 +65,7 @@ export async function sendWelcomeEmail(
   await resend.emails.send({
     from: FROM,
     to,
-    subject: "Welcome to BuildStack!",
+    subject: "Welcome to Webperia!",
     html: `
       <h2>Welcome, ${name}!</h2>
       <p>Your account is ready. Start building your first site in minutes.</p>

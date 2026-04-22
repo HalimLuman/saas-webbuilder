@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   }
 
   // ── Real Anthropic streaming ──────────────────────────────────────────────
-  const systemPrompt = `You are the BuildStack AI Copilot — a context-aware assistant embedded inside a professional website builder.
+  const systemPrompt = `You are the Webperia AI Copilot — a context-aware assistant embedded inside a professional website builder.
 
 You have full context of the user's editor state:
 - Current page: ${context?.currentPage ?? "Home"}

@@ -38,7 +38,7 @@ export interface SiteTemplate {
   category: TemplateCategory;
   description: string;
   longDescription: string;
-  tier: "free" | "pro";
+  tier: "free" | "pro" | "business";
   gradient: string;
   accentHex: string;
   tags: string[];

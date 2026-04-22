@@ -4205,7 +4205,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
             id: "", order: 0, type: "container", content: "",
             styles: { flex: "1", background: "linear-gradient(145deg, #4F46E5 0%, #7C3AED 100%)", padding: "60px 48px", display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" },
             children: [
-              { id: "", order: 0, type: "paragraph", content: "⚡ BuildStack", styles: { fontSize: "22px", fontWeight: "800", color: "#FFFFFF" } },
+              { id: "", order: 0, type: "paragraph", content: "⚡ Webperia", styles: { fontSize: "22px", fontWeight: "800", color: "#FFFFFF" } },
               {
                 id: "", order: 1, type: "container", content: "", styles: { display: "flex", flexDirection: "column", gap: "24px" }, children: [
                   { id: "", order: 0, type: "heading", content: "Build stunning websites in minutes.", props: { level: 2 }, styles: { fontSize: "40px", fontWeight: "900", color: "#FFFFFF", lineHeight: "1.15", letterSpacing: "-0.03em" } },
@@ -4217,12 +4217,12 @@ export const SECTION_BLOCKS: SectionBlock[] = [
                   ]},
                 ],
               },
-              { id: "", order: 2, type: "paragraph", content: "© 2025 BuildStack. All rights reserved.", styles: { fontSize: "13px", color: "rgba(255,255,255,0.45)" } },
+              { id: "", order: 2, type: "paragraph", content: "© 2025 Webperia. All rights reserved.", styles: { fontSize: "13px", color: "rgba(255,255,255,0.45)" } },
             ],
           },
           {
             id: "", order: 1, type: "container", content: "", styles: { flex: "1", backgroundColor: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", padding: "60px 48px" }, children: [
-              { id: "", order: 0, type: "auth-signup-form", content: "", props: { variant: "minimal", accentColor: "#6366F1", heading: "Get started for free", subheading: "Join thousands of creators building with BuildStack." }, styles: { width: "100%", maxWidth: "440px" } },
+              { id: "", order: 0, type: "auth-signup-form", content: "", props: { variant: "minimal", accentColor: "#6366F1", heading: "Get started for free", subheading: "Join thousands of creators building with Webperia." }, styles: { width: "100%", maxWidth: "440px" } },
             ],
           },
         ],
@@ -6903,7 +6903,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
       styles: { padding: "100px 40px", backgroundColor: "#F9FAFB", display: "flex", flexDirection: "column", alignItems: "center", gap: "32px", textAlign: "center" },
       children: [
         { id: "", order: 0, type: "paragraph", content: "❝", styles: { fontSize: "72px", color: "#C7D2FE", lineHeight: "1", margin: "0" } },
-        { id: "", order: 1, type: "heading", content: "BuildStack cut our development time in half. We went from idea to paying customers in three weeks.", props: { level: 3 }, styles: { fontSize: "32px", fontWeight: "700", color: "#1E293B", margin: "0", maxWidth: "720px", lineHeight: "1.4" } },
+        { id: "", order: 1, type: "heading", content: "Webperia cut our development time in half. We went from idea to paying customers in three weeks.", props: { level: 3 }, styles: { fontSize: "32px", fontWeight: "700", color: "#1E293B", margin: "0", maxWidth: "720px", lineHeight: "1.4" } },
         { id: "", order: 2, type: "avatar", content: "Sarah Chen", props: { src: "", size: "md", showName: true }, styles: {} },
         { id: "", order: 3, type: "paragraph", content: "CEO at Orbit Labs", styles: { color: "#6B7280", fontSize: "14px" } },
       ],
@@ -6942,7 +6942,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               id: "", order: 1, type: "container", content: "", styles: { padding: "28px", backgroundColor: "rgba(255,255,255,0.04)", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.06)", display: "flex", flexDirection: "column", gap: "16px" },
               children: [
                 { id: "", order: 0, type: "rating", content: "", props: { value: 5, max: 5, accentColor: "#F59E0B", readonly: true }, styles: {} },
-                { id: "", order: 1, type: "paragraph", content: "\"Our conversion rate went up 40% after redesigning with BuildStack.\"", styles: { color: "#E2E8F0", fontSize: "15px", lineHeight: "1.6" } },
+                { id: "", order: 1, type: "paragraph", content: "\"Our conversion rate went up 40% after redesigning with Webperia.\"", styles: { color: "#E2E8F0", fontSize: "15px", lineHeight: "1.6" } },
                 { id: "", order: 2, type: "avatar", content: "Maria K.", props: { src: "", size: "sm", showName: true }, styles: {} },
               ],
             },
@@ -7439,7 +7439,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               id: "", order: 0, type: "container", content: "", styles: { flex: "2", display: "flex", flexDirection: "column", gap: "24px", minWidth: "240px" },
               children: [
                 { id: "", order: 0, type: "rating", content: "", props: { value: 5, max: 5, accentColor: "#F59E0B", readonly: true }, styles: {} },
-                { id: "", order: 1, type: "heading", content: "\"We closed our Series A within 3 weeks of launching our new site on BuildStack.\"", props: { level: 3 }, styles: { fontSize: "22px", fontWeight: "700", color: "#1E293B", margin: "0", lineHeight: "1.5" } },
+                { id: "", order: 1, type: "heading", content: "\"We closed our Series A within 3 weeks of launching our new site on Webperia.\"", props: { level: 3 }, styles: { fontSize: "22px", fontWeight: "700", color: "#1E293B", margin: "0", lineHeight: "1.5" } },
                 { id: "", order: 2, type: "avatar", content: "Maria Gonzalez, CEO at Orbit", props: { src: "", size: "md", showName: true }, styles: {} },
               ],
             },
@@ -7688,7 +7688,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           children: [
             { id: "", order: 0, type: "eyebrow", content: "Written by", styles: { color: "#9CA3AF", letterSpacing: "0.08em", fontSize: "11px" } },
             { id: "", order: 1, type: "heading", content: "Sarah Chen", props: { level: 4 }, styles: { fontSize: "20px", fontWeight: "700", color: "#111827", margin: "0" } },
-            { id: "", order: 2, type: "paragraph", content: "CEO at BuildStack. Previously at Stripe. Writing about product, growth, and building in public.", styles: { color: "#6B7280", fontSize: "15px", lineHeight: "1.6" } },
+            { id: "", order: 2, type: "paragraph", content: "CEO at Webperia. Previously at Stripe. Writing about product, growth, and building in public.", styles: { color: "#6B7280", fontSize: "15px", lineHeight: "1.6" } },
             { id: "", order: 3, type: "button", content: "Follow on X →", props: { variant: "outline", accentColor: "#6366F1" }, styles: { width: "fit-content" } },
           ],
         },
@@ -7952,7 +7952,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
             },
           ],
         },
-        { id: "", order: 1, type: "footer", content: "", props: { brandName: "BuildStack", copyright: "© 2026 BuildStack Inc." }, styles: {} },
+        { id: "", order: 1, type: "footer", content: "", props: { brandName: "Webperia", copyright: "© 2026 Webperia Inc." }, styles: {} },
       ],
     },
   },
@@ -7967,8 +7967,8 @@ export const SECTION_BLOCKS: SectionBlock[] = [
       type: "footer", content: "",
       styles: { padding: "64px 40px 32px", backgroundColor: "#F9FAFB", borderTop: "1px solid #E5E7EB" },
       props: {
-        brandName: "BuildStack",
-        copyright: "© 2026 BuildStack Inc. All rights reserved.",
+        brandName: "Webperia",
+        copyright: "© 2026 Webperia Inc. All rights reserved.",
         columns: [
           { heading: "Product", links: ["Features", "Pricing", "Changelog", "Roadmap"] },
           { heading: "Resources", links: ["Documentation", "Blog", "Tutorials", "Status"] },
@@ -7989,7 +7989,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
       type: "container", content: "",
       styles: { padding: "24px 40px", backgroundColor: "#FFFFFF", borderTop: "1px solid #F3F4F6", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" },
       children: [
-        { id: "", order: 0, type: "paragraph", content: "© 2026 BuildStack. All rights reserved.", styles: { color: "#9CA3AF", fontSize: "13px" } },
+        { id: "", order: 0, type: "paragraph", content: "© 2026 Webperia. All rights reserved.", styles: { color: "#9CA3AF", fontSize: "13px" } },
         {
           id: "", order: 1, type: "container", content: "", styles: { display: "flex", flexDirection: "row", gap: "24px" },
           children: [
@@ -8014,7 +8014,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
       type: "sidebar", content: "",
       styles: { width: "260px", height: "100vh", backgroundColor: "#FFFFFF", borderRight: "1px solid #F3F4F6", padding: "24px 16px", display: "flex", flexDirection: "column", gap: "8px", position: "sticky", top: "0" },
       props: {
-        brandName: "BuildStack",
+        brandName: "Webperia",
         accentColor: "#6366F1",
         navItems: ["Dashboard", "Projects", "Analytics", "Team", "Settings"],
       },
@@ -8031,7 +8031,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
       type: "sidebar", content: "",
       styles: { width: "260px", height: "100vh", backgroundColor: "#0F172A", padding: "24px 16px", display: "flex", flexDirection: "column", gap: "8px", position: "sticky", top: "0" },
       props: {
-        brandName: "BuildStack",
+        brandName: "Webperia",
         accentColor: "#818CF8",
         navItems: ["Dashboard", "Projects", "Analytics", "Team", "Settings"],
       },
@@ -8167,9 +8167,9 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           id: "", order: 0, type: "container", content: "",
           styles: { padding: "100px 40px", backgroundColor: "#FFFFFF", display: "flex", flexDirection: "column", alignItems: "center", gap: "28px", textAlign: "center" },
           children: [
-            { id: "", order: 0, type: "badge", content: "🚀 Now live — BuildStack 2.0", props: { variant: "soft", color: "indigo" }, styles: {} },
+            { id: "", order: 0, type: "badge", content: "🚀 Now live — Webperia 2.0", props: { variant: "soft", color: "indigo" }, styles: {} },
             { id: "", order: 1, type: "heading", content: "Ship products that people love.", props: { level: 1 }, styles: { fontSize: "64px", fontWeight: "900", color: "#111827", margin: "0", letterSpacing: "-0.04em", lineHeight: "1.05", maxWidth: "760px" } },
-            { id: "", order: 2, type: "paragraph", content: "BuildStack combines design, development, and deployment into one seamless workflow. No more context switching.", styles: { color: "#6B7280", fontSize: "20px", maxWidth: "560px", lineHeight: "1.6" } },
+            { id: "", order: 2, type: "paragraph", content: "Webperia combines design, development, and deployment into one seamless workflow. No more context switching.", styles: { color: "#6B7280", fontSize: "20px", maxWidth: "560px", lineHeight: "1.6" } },
             {
               id: "", order: 3, type: "container", content: "", styles: { display: "flex", flexDirection: "row", gap: "12px", justifyContent: "center", flexWrap: "wrap" },
               children: [
@@ -8236,7 +8236,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
       styles: { padding: "100px 40px", backgroundColor: "#FFF7ED", display: "flex", flexDirection: "column", alignItems: "center", gap: "32px", textAlign: "center" },
       children: [
         { id: "", order: 0, type: "badge", content: "🎉 We just launched on Product Hunt!", props: { variant: "solid", color: "orange" }, styles: {} },
-        { id: "", order: 1, type: "heading", content: "BuildStack is now live!", props: { level: 1 }, styles: { fontSize: "56px", fontWeight: "900", color: "#1C1917", margin: "0", letterSpacing: "-0.03em" } },
+        { id: "", order: 1, type: "heading", content: "Webperia is now live!", props: { level: 1 }, styles: { fontSize: "56px", fontWeight: "900", color: "#1C1917", margin: "0", letterSpacing: "-0.03em" } },
         { id: "", order: 2, type: "paragraph", content: "After 18 months of building in stealth, we're thrilled to introduce the platform that will change how teams ship products.", styles: { color: "#78716C", fontSize: "19px", maxWidth: "560px" } },
         {
           id: "", order: 3, type: "container", content: "", styles: { display: "flex", flexDirection: "row", gap: "12px", flexWrap: "wrap", justifyContent: "center" },
@@ -9158,7 +9158,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           id: "", order: 1, type: "container", content: "", styles: { display: "flex", flexDirection: "column", gap: "24px", alignItems: "center", maxWidth: "640px", position: "relative", zIndex: "2" }, children: [
             { id: "", order: 0, type: "badge", content: "AVAILABLE NOW", styles: { backgroundColor: "rgba(99,102,241,0.1)", color: "#818CF8", padding: "6px 14px", borderRadius: "9999px", fontSize: "11px", fontWeight: "900", width: "fit-content", border: "1px solid rgba(99,102,241,0.2)" } },
             { id: "", order: 1, type: "heading", content: "Take it\neverywhere.", props: { level: 2 }, styles: { fontSize: "72px", fontWeight: "900", color: "#FFFFFF", margin: "0", letterSpacing: "-0.05em", lineHeight: "0.95", whiteSpace: "pre-line" } },
-            { id: "", order: 2, type: "paragraph", content: "The BuildStack mobile app is here. Manage your sites, review analytics, and deploy on the go — iOS and Android.", styles: { fontSize: "20px", color: "rgba(255,255,255,0.5)", margin: "0", lineHeight: "1.6" } },
+            { id: "", order: 2, type: "paragraph", content: "The Webperia mobile app is here. Manage your sites, review analytics, and deploy on the go — iOS and Android.", styles: { fontSize: "20px", color: "rgba(255,255,255,0.5)", margin: "0", lineHeight: "1.6" } },
           ]
         },
         {
@@ -9506,7 +9506,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
         {
           id: "", order: 0, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "28px" }, children: [
             { id: "", order: 0, type: "paragraph", content: "DEVELOPER API", styles: { fontSize: "11px", fontWeight: "800", letterSpacing: "0.18em", color: "#818CF8", margin: "0" } },
-            { id: "", order: 1, type: "heading", content: "Build on BuildStack in minutes", props: { level: 2 }, styles: { fontSize: "48px", fontWeight: "900", color: "#F1F5F9", margin: "0", lineHeight: "1.1", letterSpacing: "-0.04em" } },
+            { id: "", order: 1, type: "heading", content: "Build on Webperia in minutes", props: { level: 2 }, styles: { fontSize: "48px", fontWeight: "900", color: "#F1F5F9", margin: "0", lineHeight: "1.1", letterSpacing: "-0.04em" } },
             { id: "", order: 2, type: "paragraph", content: "A clean, predictable REST API with SDKs for TypeScript, Python, and Go. Ship integrations in an afternoon, not a sprint.", styles: { fontSize: "17px", color: "#64748B", margin: "0", lineHeight: "1.7", maxWidth: "460px" } },
             {
               id: "", order: 3, type: "container", content: "", styles: { display: "flex", flexDirection: "column", gap: "14px" }, children: [
@@ -9550,9 +9550,9 @@ export const SECTION_BLOCKS: SectionBlock[] = [
             },
             {
               id: "", order: 1, type: "container", content: "", styles: { padding: "28px 28px 36px" }, children: [
-                { id: "", order: 0, type: "paragraph", content: "import { BuildStack } from '@buildstack/sdk';", styles: { fontFamily: "'JetBrains Mono', monospace", fontSize: "13px", color: "#64748B", margin: "0 0 6px", display: "block" } },
+                { id: "", order: 0, type: "paragraph", content: "import { Webperia } from '@buildstack/sdk';", styles: { fontFamily: "'JetBrains Mono', monospace", fontSize: "13px", color: "#64748B", margin: "0 0 6px", display: "block" } },
                 { id: "", order: 1, type: "paragraph", content: " ", styles: { margin: "0 0 6px", display: "block", fontSize: "13px" } },
-                { id: "", order: 2, type: "paragraph", content: "const client = new BuildStack({", styles: { fontFamily: "'JetBrains Mono', monospace", fontSize: "13px", color: "#E2E8F0", margin: "0 0 6px", display: "block" } },
+                { id: "", order: 2, type: "paragraph", content: "const client = new Webperia({", styles: { fontFamily: "'JetBrains Mono', monospace", fontSize: "13px", color: "#E2E8F0", margin: "0 0 6px", display: "block" } },
                 { id: "", order: 3, type: "paragraph", content: "  apiKey: process.env.BS_API_KEY,", styles: { fontFamily: "'JetBrains Mono', monospace", fontSize: "13px", color: "#E2E8F0", margin: "0 0 6px", paddingLeft: "12px", display: "block" } },
                 { id: "", order: 4, type: "paragraph", content: "});", styles: { fontFamily: "'JetBrains Mono', monospace", fontSize: "13px", color: "#E2E8F0", margin: "0 0 18px", display: "block" } },
                 { id: "", order: 5, type: "paragraph", content: "const site = await client.sites.generate({", styles: { fontFamily: "'JetBrains Mono', monospace", fontSize: "13px", color: "#E2E8F0", margin: "0 0 6px", display: "block" } },
@@ -9589,7 +9589,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               ]
             },
             { id: "", order: 1, type: "heading", content: "Stop coding websites. Start shipping products.", props: { level: 1 }, styles: { fontSize: "72px", fontWeight: "900", color: "#FFFFFF", margin: "0", lineHeight: "1.05", letterSpacing: "-0.05em", maxWidth: "780px" } },
-            { id: "", order: 2, type: "paragraph", content: "BuildStack is the visual development platform that lets founders move 10x faster — from idea to live, production-ready website in under an hour.", styles: { fontSize: "20px", color: "#64748B", margin: "0", lineHeight: "1.7", maxWidth: "580px" } },
+            { id: "", order: 2, type: "paragraph", content: "Webperia is the visual development platform that lets founders move 10x faster — from idea to live, production-ready website in under an hour.", styles: { fontSize: "20px", color: "#64748B", margin: "0", lineHeight: "1.7", maxWidth: "580px" } },
             {
               id: "", order: 3, type: "container", content: "", styles: { display: "flex", flexDirection: "row", gap: "12px", alignItems: "center", justifyContent: "center", flexWrap: "wrap" }, children: [
                 { id: "", order: 0, type: "button", content: "Start building free →", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "18px 40px", borderRadius: "14px", fontWeight: "800", fontSize: "17px", cursor: "pointer", boxShadow: "0 0 40px rgba(99,102,241,0.4)" } },
@@ -9600,7 +9600,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               id: "", order: 4, type: "container", content: "", styles: { display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap", justifyContent: "center" }, children: [
                 { id: "", order: 0, type: "paragraph", content: "★★★★★  4.9 on G2", styles: { fontSize: "13px", color: "#64748B", margin: "0", fontWeight: "600" } },
                 { id: "", order: 1, type: "paragraph", content: "·", styles: { color: "#1E293B", fontSize: "20px", margin: "0" } },
-                { id: "", order: 2, type: "paragraph", content: "24,000+ teams trust BuildStack", styles: { fontSize: "13px", color: "#64748B", margin: "0", fontWeight: "600" } },
+                { id: "", order: 2, type: "paragraph", content: "24,000+ teams trust Webperia", styles: { fontSize: "13px", color: "#64748B", margin: "0", fontWeight: "600" } },
                 { id: "", order: 3, type: "paragraph", content: "·", styles: { color: "#1E293B", fontSize: "20px", margin: "0" } },
                 { id: "", order: 4, type: "paragraph", content: "No credit card required", styles: { fontSize: "13px", color: "#64748B", margin: "0", fontWeight: "600" } },
               ]
@@ -9976,7 +9976,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               ]
             },
             { id: "", order: 1, type: "heading", content: "Start building in seconds.", props: { level: 2 }, styles: { fontSize: "44px", fontWeight: "900", color: "#0F172A", margin: "0", lineHeight: "1.1", letterSpacing: "-0.04em" } },
-            { id: "", order: 2, type: "paragraph", content: "Join 24,000 teams shipping faster with BuildStack. Your first project is free — no credit card needed.", styles: { fontSize: "17px", color: "#64748B", margin: "0", lineHeight: "1.7" } },
+            { id: "", order: 2, type: "paragraph", content: "Join 24,000 teams shipping faster with Webperia. Your first project is free — no credit card needed.", styles: { fontSize: "17px", color: "#64748B", margin: "0", lineHeight: "1.7" } },
             {
               id: "", order: 3, type: "container", content: "", styles: { display: "flex", flexDirection: "column", gap: "12px", width: "100%", maxWidth: "380px" }, children: [
                 {

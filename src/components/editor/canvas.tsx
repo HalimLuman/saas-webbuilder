@@ -4074,7 +4074,7 @@ export const CanvasElementRenderer = React.memo(function CanvasElementRenderer({
     case "blog-grid": {
       const blgAccent = (element.props?.accentColor as string) || "#6366f1";
       const blgPosts = (element.props?.posts as Array<{ title: string; excerpt?: string; category?: string; author?: string; date?: string; href?: string }>) || [
-        { title: "Getting Started with BuildStack", excerpt: "Everything you need to know to launch your first production site in minutes.", category: "Tutorial", author: "Sarah Chen", date: "Mar 2026" },
+        { title: "Getting Started with Webperia", excerpt: "Everything you need to know to launch your first production site in minutes.", category: "Tutorial", author: "Sarah Chen", date: "Mar 2026" },
         { title: "Design Principles for Non-Designers", excerpt: "Simple frameworks that help engineers and founders create clean, professional interfaces.", category: "Design", author: "Tom R.", date: "Mar 2026" },
         { title: "Boost Your Core Web Vitals", excerpt: "Practical performance tips that will improve your SEO rankings and user experience.", category: "Performance", author: "Alex J.", date: "Feb 2026" },
       ];

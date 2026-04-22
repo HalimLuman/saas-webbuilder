@@ -11,10 +11,10 @@ const previewPlans = [
     name: "Free",
     price: 0,
     description: "Get started with no commitment",
-    features: ["2 websites", "1 published site", "Free templates", "BuildStack subdomain"],
+    features: ["2 websites", "1 published site", "Free templates", "Webperia subdomain"],
     cta: "Start Free",
     href: "/signup",
-    variant: "outline-dark" as const,
+    variant: "outline" as const,
   },
   {
     name: "Pro",
@@ -48,14 +48,14 @@ const previewPlans = [
     ],
     cta: "Start Business",
     href: "/signup?plan=business",
-    variant: "outline-dark" as const,
+    variant: "outline" as const,
   },
 ];
 
 export default function PricingPreview() {
   return (
-    <section className="py-32 bg-[#0F0F0F] relative overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary-500/10 rounded-full blur-[100px] pointer-events-none" />
+    <section className="py-32 bg-gray-50 relative overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary-500/8 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -65,14 +65,14 @@ export default function PricingPreview() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 text-primary-400 text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-sm font-medium mb-6">
             <Zap className="h-3.5 w-3.5" />
             Simple Pricing
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
             Start free, scale as you grow
           </h2>
-          <p className="text-xl text-white/50 max-w-xl mx-auto">
+          <p className="text-xl text-gray-500 max-w-xl mx-auto">
             No hidden fees. Cancel anytime. 20% discount on annual plans.
           </p>
         </motion.div>
@@ -87,8 +87,8 @@ export default function PricingPreview() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={`relative p-6 rounded-2xl border transition-all ${
                 plan.highlighted
-                  ? "bg-primary-500/10 border-primary-500/30 shadow-2xl shadow-primary-500/20"
-                  : "bg-white/[0.02] border-white/[0.06]"
+                  ? "bg-primary-500/5 border-primary-200 shadow-xl shadow-primary-500/10"
+                  : "bg-white border-gray-200 hover:border-gray-300 hover:shadow-sm"
               }`}
             >
               {plan.badge && (
@@ -98,27 +98,27 @@ export default function PricingPreview() {
               )}
 
               <div className="mb-6">
-                <h3 className="text-lg font-semibold text-white mb-1">{plan.name}</h3>
-                <p className="text-white/40 text-sm mb-4">{plan.description}</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">{plan.name}</h3>
+                <p className="text-gray-400 text-sm mb-4">{plan.description}</p>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-bold text-white">
+                  <span className="text-4xl font-bold text-gray-900">
                     ${plan.price}
                   </span>
-                  <span className="text-white/40">/mo</span>
+                  <span className="text-gray-400">/mo</span>
                 </div>
               </div>
 
               <ul className="space-y-2.5 mb-6">
                 {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2.5 text-sm text-white/60">
-                    <Check className="h-4 w-4 text-primary-400 shrink-0" />
+                  <li key={feature} className="flex items-center gap-2.5 text-sm text-gray-600">
+                    <Check className="h-4 w-4 text-primary-500 shrink-0" />
                     {feature}
                   </li>
                 ))}
               </ul>
 
               <Button
-                variant={plan.highlighted ? "default" : "outline-dark"}
+                variant={plan.highlighted ? "default" : "outline"}
                 className={`w-full ${plan.highlighted ? "bg-primary-500 hover:bg-primary-600" : ""}`}
                 asChild
               >
@@ -128,9 +128,18 @@ export default function PricingPreview() {
           ))}
         </div>
 
+        <div className="flex flex-wrap items-center justify-center gap-6 mb-8 text-sm text-gray-400">
+          {["30-day money-back guarantee", "No credit card required", "Cancel anytime"].map((item) => (
+            <div key={item} className="flex items-center gap-1.5">
+              <div className="h-1.5 w-1.5 rounded-full bg-green-400" />
+              {item}
+            </div>
+          ))}
+        </div>
+
         <div className="text-center">
-          <Button variant="ghost-dark" asChild>
-            <Link href="/pricing" className="text-white/50 hover:text-white">
+          <Button variant="ghost" className="text-gray-500 hover:text-gray-900" asChild>
+            <Link href="/pricing">
               View full pricing & comparison
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>

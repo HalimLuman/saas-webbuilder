@@ -667,7 +667,11 @@ export type TemplateCategory =
   | "restaurant"
   | "agency"
   | "health"
-  | "startup";
+  | "startup"
+  | "corporate"
+  | "education"
+  | "finance"
+  | "creator";
 
 export interface User {
   id: string;

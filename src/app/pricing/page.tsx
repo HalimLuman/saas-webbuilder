@@ -122,7 +122,7 @@ const comparisonFeatures = [
 
 const faqs = [
   {
-    question: "Can I try BuildStack for free?",
+    question: "Can I try Webperia for free?",
     answer: "Yes! Our Free plan gives you full access to the core features with no time limit. No credit card required to sign up.",
   },
   {
@@ -152,7 +152,7 @@ export default function PricingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
+    <div className="bg-white min-h-screen">
       <Navbar />
 
       <main className="pt-28 pb-20">
@@ -163,27 +163,27 @@ export default function PricingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 text-primary-400 text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-sm font-medium mb-6">
               <Zap className="h-3.5 w-3.5" />
               Transparent Pricing
             </div>
-            <h1 className="text-5xl sm:text-6xl font-bold text-white mb-4">
+            <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-4">
               Simple, predictable pricing
             </h1>
-            <p className="text-xl text-white/50 max-w-2xl mx-auto mb-8">
+            <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-8">
               Start for free. Upgrade when you need more. Cancel anytime.
             </p>
 
             {/* Annual toggle */}
             <div className="flex items-center justify-center gap-3">
-              <span className={`text-sm font-medium ${!isAnnual ? "text-white" : "text-white/40"}`}>
+              <span className={`text-sm font-medium ${!isAnnual ? "text-gray-900" : "text-gray-400"}`}>
                 Monthly
               </span>
               <Switch checked={isAnnual} onCheckedChange={setIsAnnual} />
-              <span className={`text-sm font-medium ${isAnnual ? "text-white" : "text-white/40"}`}>
+              <span className={`text-sm font-medium ${isAnnual ? "text-gray-900" : "text-gray-400"}`}>
                 Annual
               </span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-semibold">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-50 border border-green-200 text-green-600 text-xs font-semibold">
                 Save 20%
               </span>
             </div>
@@ -201,8 +201,8 @@ export default function PricingPage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`relative rounded-2xl p-6 flex flex-col ${
                   plan.highlighted
-                    ? "bg-primary-500/10 border-2 border-primary-500/40 shadow-2xl shadow-primary-500/20"
-                    : "bg-white/[0.03] border border-white/[0.08]"
+                    ? "bg-primary-500/5 border-2 border-primary-300 shadow-2xl shadow-primary-500/10"
+                    : "bg-white border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all"
                 }`}
               >
                 {plan.badge && (
@@ -214,23 +214,23 @@ export default function PricingPage() {
                 )}
 
                 <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-white mb-1">{plan.name}</h3>
-                  <p className="text-white/40 text-sm mb-4">{plan.description}</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-1">{plan.name}</h3>
+                  <p className="text-gray-400 text-sm mb-4">{plan.description}</p>
 
                   {plan.monthlyPrice !== null ? (
                     <div className="flex items-baseline gap-1">
-                      <span className="text-4xl font-bold text-white">
+                      <span className="text-4xl font-bold text-gray-900">
                         ${isAnnual ? plan.annualPrice : plan.monthlyPrice}
                       </span>
-                      <span className="text-white/40 text-sm">/mo</span>
+                      <span className="text-gray-400 text-sm">/mo</span>
                       {isAnnual && plan.monthlyPrice > 0 && (
-                        <span className="text-white/30 text-sm line-through ml-1">
+                        <span className="text-gray-300 text-sm line-through ml-1">
                           ${plan.monthlyPrice}
                         </span>
                       )}
                     </div>
                   ) : (
-                    <div className="text-3xl font-bold text-white">Custom</div>
+                    <div className="text-3xl font-bold text-gray-900">Custom</div>
                   )}
                 </div>
 
@@ -244,15 +244,15 @@ export default function PricingPage() {
                     plan.features.support,
                   ].map((feature) => (
                     <li key={String(feature)} className="flex items-start gap-2 text-sm">
-                      <Check className={`h-4 w-4 mt-0.5 shrink-0 ${plan.highlighted ? "text-primary-400" : "text-white/40"}`} />
-                      <span className="text-white/60">{String(feature)}</span>
+                      <Check className={`h-4 w-4 mt-0.5 shrink-0 ${plan.highlighted ? "text-primary-500" : "text-gray-400"}`} />
+                      <span className="text-gray-600">{String(feature)}</span>
                     </li>
                   ))}
                 </ul>
 
                 <Button
-                  variant={plan.highlighted ? "default" : "outline-dark"}
-                  className={`w-full ${plan.highlighted ? "bg-primary-500 hover:bg-primary-600 shadow-lg shadow-primary-500/30" : ""}`}
+                  variant={plan.highlighted ? "default" : "outline"}
+                  className={`w-full ${plan.highlighted ? "bg-primary-500 hover:bg-primary-600 shadow-lg shadow-primary-500/20" : ""}`}
                   asChild
                 >
                   <Link href={plan.id === "enterprise" ? "#" : `/signup?plan=${plan.id}`}>
@@ -263,20 +263,35 @@ export default function PricingPage() {
               </motion.div>
             ))}
           </div>
+
+          {/* Trust badges */}
+          <div className="flex flex-wrap items-center justify-center gap-6 mt-10 pt-10 border-t border-gray-100">
+            {[
+              { icon: "🔒", text: "30-day money-back guarantee" },
+              { icon: "💳", text: "No credit card required" },
+              { icon: "⚡", text: "Cancel anytime" },
+              { icon: "🔐", text: "SOC 2 & GDPR compliant" },
+            ].map((badge) => (
+              <div key={badge.text} className="flex items-center gap-2 text-sm text-gray-500">
+                <span>{badge.icon}</span>
+                <span>{badge.text}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Feature Comparison Table */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
             Full feature comparison
           </h2>
-          <div className="rounded-2xl border border-white/[0.08] overflow-hidden">
+          <div className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
             {/* Table header */}
-            <div className="grid grid-cols-5 bg-white/[0.03]">
-              <div className="p-4 text-white/40 text-sm font-medium">Feature</div>
+            <div className="grid grid-cols-5 bg-gray-50">
+              <div className="p-4 text-gray-400 text-sm font-medium">Feature</div>
               {plans.map((plan) => (
-                <div key={plan.id} className={`p-4 text-center ${plan.highlighted ? "bg-primary-500/10" : ""}`}>
-                  <span className={`text-sm font-semibold ${plan.highlighted ? "text-primary-400" : "text-white/80"}`}>
+                <div key={plan.id} className={`p-4 text-center ${plan.highlighted ? "bg-primary-50" : ""}`}>
+                  <span className={`text-sm font-semibold ${plan.highlighted ? "text-primary-600" : "text-gray-700"}`}>
                     {plan.name}
                   </span>
                 </div>
@@ -287,21 +302,21 @@ export default function PricingPage() {
             {comparisonFeatures.map((feature, i) => (
               <div
                 key={feature.key}
-                className={`grid grid-cols-5 border-t border-white/[0.05] ${i % 2 === 0 ? "bg-transparent" : "bg-white/[0.01]"}`}
+                className={`grid grid-cols-5 border-t border-gray-100 ${i % 2 === 0 ? "bg-transparent" : "bg-gray-50/50"}`}
               >
-                <div className="p-4 text-white/60 text-sm">{feature.label}</div>
+                <div className="p-4 text-gray-600 text-sm">{feature.label}</div>
                 {plans.map((plan) => {
                   const value = plan.features[feature.key as keyof typeof plan.features];
                   return (
-                    <div key={plan.id} className={`p-4 text-center ${plan.highlighted ? "bg-primary-500/5" : ""}`}>
+                    <div key={plan.id} className={`p-4 text-center ${plan.highlighted ? "bg-primary-50/30" : ""}`}>
                       {typeof value === "boolean" ? (
                         value ? (
-                          <Check className="h-4 w-4 text-green-400 mx-auto" />
+                          <Check className="h-4 w-4 text-green-500 mx-auto" />
                         ) : (
-                          <X className="h-4 w-4 text-white/20 mx-auto" />
+                          <X className="h-4 w-4 text-gray-300 mx-auto" />
                         )
                       ) : (
-                        <span className="text-white/60 text-xs">{String(value)}</span>
+                        <span className="text-gray-500 text-xs">{String(value)}</span>
                       )}
                     </div>
                   );
@@ -313,25 +328,25 @@ export default function PricingPage() {
 
         {/* FAQ */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
             Frequently asked questions
           </h2>
           <div className="space-y-3">
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="rounded-xl border border-white/[0.08] overflow-hidden"
+                className="rounded-xl border border-gray-200 overflow-hidden"
               >
                 <button
-                  className="w-full flex items-center justify-between p-5 text-left hover:bg-white/[0.02] transition-colors"
+                  className="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50 transition-colors"
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
                 >
-                  <span className="text-white/90 font-medium text-sm pr-4">{faq.question}</span>
-                  <HelpCircle className={`h-5 w-5 shrink-0 transition-colors ${openFaq === index ? "text-primary-400" : "text-white/30"}`} />
+                  <span className="text-gray-800 font-medium text-sm pr-4">{faq.question}</span>
+                  <HelpCircle className={`h-5 w-5 shrink-0 transition-colors ${openFaq === index ? "text-primary-500" : "text-gray-300"}`} />
                 </button>
                 {openFaq === index && (
                   <div className="px-5 pb-5">
-                    <p className="text-white/50 text-sm leading-relaxed">{faq.answer}</p>
+                    <p className="text-gray-500 text-sm leading-relaxed">{faq.answer}</p>
                   </div>
                 )}
               </div>
@@ -341,13 +356,13 @@ export default function PricingPage() {
 
         {/* CTA */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
             Start building for free today
           </h2>
-          <p className="text-white/50 mb-8">
+          <p className="text-gray-500 mb-8">
             No credit card required. Cancel anytime. 30-day money-back guarantee on paid plans.
           </p>
-          <Button size="lg" className="bg-white text-gray-900 hover:bg-white/90 font-semibold" asChild>
+          <Button size="lg" className="bg-primary-500 text-white hover:bg-primary-600 font-semibold shadow-lg shadow-primary-500/20" asChild>
             <Link href="/signup">
               Get started for free
               <ArrowRight className="ml-2 h-4 w-4" />

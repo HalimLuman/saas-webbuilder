@@ -222,7 +222,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <AuthLayout heading="Welcome back" subheading="Sign in to your BuildStack account">
+    <AuthLayout heading="Welcome back" subheading="Sign in to your Webperia account">
       <Suspense fallback={null}>
         <LoginForm />
       </Suspense>

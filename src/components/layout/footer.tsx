@@ -41,7 +41,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0A0A0A] border-t border-white/5">
+    <footer className="bg-gray-50 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main footer */}
         <div className="py-16 grid grid-cols-2 md:grid-cols-6 gap-8">
@@ -51,11 +51,11 @@ export default function Footer() {
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center">
                 <Zap className="h-4 w-4 text-white" />
               </div>
-              <span className="text-white font-bold text-xl">
-                Build<span className="text-primary-400">Stack</span>
+              <span className="text-gray-900 font-bold text-xl">
+                Web<span className="text-primary-500">peria</span>
               </span>
             </Link>
-            <p className="text-white/50 text-sm leading-relaxed mb-6 max-w-xs">
+            <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-xs">
               The most powerful website builder for modern teams. Build, deploy, and scale with ease.
             </p>
             {/* Social Links */}
@@ -65,7 +65,7 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="h-8 w-8 rounded-lg bg-white/5 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all"
+                  className="h-8 w-8 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-200 transition-all"
                 >
                   <Icon className="h-4 w-4" />
                 </a>
@@ -76,13 +76,13 @@ export default function Footer() {
           {/* Links */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h4 className="text-white/90 font-semibold text-sm mb-4">{category}</h4>
+              <h4 className="text-gray-900 font-semibold text-sm mb-4">{category}</h4>
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-white/40 hover:text-white/80 text-sm transition-colors"
+                      className="text-gray-400 hover:text-gray-700 text-sm transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -94,13 +94,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="py-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/30 text-sm">
-            © 2025 BuildStack, Inc. All rights reserved.
+        <div className="py-6 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-gray-400 text-sm">
+            © 2025 Webperia, Inc. All rights reserved.
           </p>
           <div className="flex items-center gap-1">
             <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-white/30 text-sm">All systems operational</span>
+            <span className="text-gray-400 text-sm">All systems operational</span>
           </div>
         </div>
       </div>

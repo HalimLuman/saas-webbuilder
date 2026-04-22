@@ -8,7 +8,7 @@ const testimonials = [
   {
     id: 1,
     quote:
-      "BuildStack completely transformed how our team builds landing pages. What used to take a week now takes hours. The AI generator is mind-blowing.",
+      "Webperia completely transformed how our team builds landing pages. What used to take a week now takes hours. The AI generator is mind-blowing.",
     author: "Sarah Chen",
     role: "Head of Marketing",
     company: "Prismatic",
@@ -19,7 +19,7 @@ const testimonials = [
   {
     id: 2,
     quote:
-      "As a solo founder, BuildStack is my secret weapon. I launched my SaaS landing page in one afternoon, and it looks like it was designed by a professional agency.",
+      "As a solo founder, Webperia is my secret weapon. I launched my SaaS landing page in one afternoon, and it looks like it was designed by a professional agency.",
     author: "Marcus Rodriguez",
     role: "Founder & CEO",
     company: "Launchpad.io",
@@ -41,7 +41,7 @@ const testimonials = [
   {
     id: 4,
     quote:
-      "We switched from a custom-built CMS to BuildStack and haven't looked back. The Vercel integration made deployment effortless, and performance is stellar.",
+      "We switched from a custom-built CMS to Webperia and haven't looked back. The Vercel integration made deployment effortless, and performance is stellar.",
     author: "James Park",
     role: "CTO",
     company: "TechFlow",
@@ -52,7 +52,7 @@ const testimonials = [
 ];
 
 const companyLogos = [
-  "Vercel", "Linear", "Stripe", "Notion", "Figma", "Loom", "Clerk", "Supabase"
+  "Stackwell", "Meridian", "Driftworks", "Apexly", "Lumenary", "Orion Studio", "Waveline", "Pinnacle"
 ];
 
 export default function Testimonials() {
@@ -80,20 +80,20 @@ export default function Testimonials() {
   const current = testimonials[currentIndex];
 
   return (
-    <section className="py-32 bg-[#0A0A0A] relative overflow-hidden">
+    <section className="py-32 bg-white relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-pattern opacity-30" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Company logos */}
         <div className="mb-24">
-          <p className="text-center text-white/30 text-sm font-medium uppercase tracking-widest mb-10">
+          <p className="text-center text-gray-400 text-sm font-medium uppercase tracking-widest mb-10">
             Trusted by teams at leading companies
           </p>
           <div className="flex flex-wrap items-center justify-center gap-8">
             {companyLogos.map((logo) => (
               <div
                 key={logo}
-                className="px-6 py-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-white/30 font-semibold text-lg hover:text-white/50 hover:bg-white/[0.05] transition-all cursor-default"
+                className="px-6 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-400 font-semibold text-lg hover:text-gray-600 hover:bg-gray-100 transition-all cursor-default"
               >
                 {logo}
               </div>
@@ -104,7 +104,7 @@ export default function Testimonials() {
         {/* Testimonials */}
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center mb-8">
-            <Quote className="h-10 w-10 text-primary-500/40" />
+            <Quote className="h-10 w-10 text-primary-200" />
           </div>
 
           <AnimatePresence mode="wait">
@@ -123,7 +123,7 @@ export default function Testimonials() {
               </div>
 
               {/* Quote */}
-              <blockquote className="text-2xl sm:text-3xl text-white/80 font-medium leading-relaxed mb-10">
+              <blockquote className="text-2xl sm:text-3xl text-gray-700 font-medium leading-relaxed mb-10">
                 &ldquo;{current.quote}&rdquo;
               </blockquote>
 
@@ -133,10 +133,10 @@ export default function Testimonials() {
                   {current.avatar}
                 </div>
                 <div className="text-left">
-                  <div className="text-white font-semibold">{current.author}</div>
-                  <div className="text-white/40 text-sm">
+                  <div className="text-gray-900 font-semibold">{current.author}</div>
+                  <div className="text-gray-400 text-sm">
                     {current.role} at{" "}
-                    <span className="text-white/60">{current.company}</span>
+                    <span className="text-gray-600">{current.company}</span>
                   </div>
                 </div>
               </div>
@@ -147,7 +147,7 @@ export default function Testimonials() {
           <div className="flex items-center justify-center gap-4 mt-10">
             <button
               onClick={prev}
-              className="h-10 w-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all"
+              className="h-10 w-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-200 transition-all"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
@@ -163,7 +163,7 @@ export default function Testimonials() {
                   className={`h-2 rounded-full transition-all duration-300 ${
                     i === currentIndex
                       ? "w-6 bg-primary-500"
-                      : "w-2 bg-white/20 hover:bg-white/40"
+                      : "w-2 bg-gray-300 hover:bg-gray-400"
                   }`}
                 />
               ))}
@@ -171,7 +171,7 @@ export default function Testimonials() {
 
             <button
               onClick={next}
-              className="h-10 w-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all"
+              className="h-10 w-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-200 transition-all"
             >
               <ChevronRight className="h-4 w-4" />
             </button>

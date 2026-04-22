@@ -1145,7 +1145,7 @@ console.log(\`Deployed to \${deployment.url}\`);`,
         },
         defaultProps: {
           accentColor: "#6366F1",
-          ourName: "BuildStack",
+          ourName: "Webperia",
           competitors: ["Competitor A", "Competitor B"],
           features: [
             { name: "Unlimited Projects", us: true, a: false, b: false },
@@ -2201,7 +2201,7 @@ console.log(\`Deployed to \${deployment.url}\`);`,
         defaultProps: {
           month: "MAY",
           day: "21",
-          title: "BuildStack Developer Summit",
+          title: "Webperia Developer Summit",
           location: "San Francisco, CA",
           type: "In Person",
           accentColor: "#6366F1",

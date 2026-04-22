@@ -24,7 +24,7 @@ const POSTS: Record<string, {
   "introducing-ai-site-generator": {
     slug: "introducing-ai-site-generator",
     title: "Introducing AI Site Generator: Build a Website in 30 Seconds",
-    excerpt: "Today we're launching the most powerful feature in BuildStack's history. Describe your website in plain English and our AI will generate a complete, customized site ready to publish.",
+    excerpt: "Today we're launching the most powerful feature in Webperia's history. Describe your website in plain English and our AI will generate a complete, customized site ready to publish.",
     category: "Product",
     readTime: "4 min read",
     date: "Mar 12, 2026",
@@ -100,7 +100,7 @@ const POSTS: Record<string, {
   },
   "webflow-vs-buildstack-comparison": {
     slug: "webflow-vs-buildstack-comparison",
-    title: "BuildStack vs Webflow: Which Is Right for You in 2026?",
+    title: "Webperia vs Webflow: Which Is Right for You in 2026?",
     excerpt: "An honest comparison of two of the most popular website builders. We look at pricing, ease of use, features, and performance to help you make the right choice.",
     category: "Comparison",
     readTime: "10 min read",
@@ -108,29 +108,29 @@ const POSTS: Record<string, {
     gradient: "from-blue-500 to-cyan-600",
     author: { name: "Marcus Lee", initials: "ML", color: "bg-blue-500", role: "Product Manager" },
     content: [
-      { type: "p", text: "Both BuildStack and Webflow are excellent website builders, but they're designed for different users. Here's our honest take on who should use which." },
+      { type: "p", text: "Both Webperia and Webflow are excellent website builders, but they're designed for different users. Here's our honest take on who should use which." },
       { type: "h2", text: "Learning Curve" },
-      { type: "p", text: "Webflow has a steeper learning curve — it exposes CSS concepts directly in the UI, which gives experts precise control but intimidates beginners. BuildStack is designed for anyone to get a professional site live in under an hour, without needing to understand box models or flexbox." },
+      { type: "p", text: "Webflow has a steeper learning curve — it exposes CSS concepts directly in the UI, which gives experts precise control but intimidates beginners. Webperia is designed for anyone to get a professional site live in under an hour, without needing to understand box models or flexbox." },
       { type: "h2", text: "AI-Powered Features" },
-      { type: "p", text: "BuildStack's AI Site Generator has no direct Webflow equivalent. If you want to go from idea to live site in 30 seconds, BuildStack wins decisively." },
+      { type: "p", text: "Webperia's AI Site Generator has no direct Webflow equivalent. If you want to go from idea to live site in 30 seconds, Webperia wins decisively." },
       { type: "h2", text: "Pricing" },
       { type: "ul", text: "", items: [
-        "BuildStack Free: Unlimited sites on *.buildstack.site subdomains",
-        "BuildStack Pro: $19/month — custom domains, advanced analytics",
+        "Webperia Free: Unlimited sites on *.buildstack.site subdomains",
+        "Webperia Pro: $19/month — custom domains, advanced analytics",
         "Webflow Starter: $14/month — 2 projects only",
         "Webflow Basic: $23/month — 1 site with custom domain",
         "Webflow Business: $39/month — 3 sites",
       ]},
       { type: "h2", text: "CMS Capabilities" },
-      { type: "p", text: "Webflow's CMS is more mature and feature-rich, with robust collection relationships and a polished editorial experience. BuildStack's CMS is strong for most use cases and includes an API on the Business plan." },
+      { type: "p", text: "Webflow's CMS is more mature and feature-rich, with robust collection relationships and a polished editorial experience. Webperia's CMS is strong for most use cases and includes an API on the Business plan." },
       { type: "h2", text: "The Verdict" },
-      { type: "p", text: "Choose Webflow if you're a developer or designer who wants pixel-perfect control and a mature CMS. Choose BuildStack if you want to ship fast, leverage AI, and don't need to spend a week learning the tool." },
-      { type: "blockquote", text: "The best website builder is the one you'll actually use. BuildStack is built for shipping, Webflow is built for crafting." },
+      { type: "p", text: "Choose Webflow if you're a developer or designer who wants pixel-perfect control and a mature CMS. Choose Webperia if you want to ship fast, leverage AI, and don't need to spend a week learning the tool." },
+      { type: "blockquote", text: "The best website builder is the one you'll actually use. Webperia is built for shipping, Webflow is built for crafting." },
     ],
   },
   "custom-domains-ssl-guide": {
     slug: "custom-domains-ssl-guide",
-    title: "Complete Guide to Custom Domains and SSL on BuildStack",
+    title: "Complete Guide to Custom Domains and SSL on Webperia",
     excerpt: "Everything you need to know about connecting your own domain, configuring DNS records, and ensuring your site is secured with HTTPS.",
     category: "Tutorial",
     readTime: "6 min read",
@@ -138,7 +138,7 @@ const POSTS: Record<string, {
     gradient: "from-emerald-500 to-teal-600",
     author: { name: "Priya Patel", initials: "PP", color: "bg-emerald-500", role: "Developer Relations" },
     content: [
-      { type: "p", text: "Connecting a custom domain to your BuildStack site takes about 5 minutes to set up, though DNS propagation can take up to 48 hours." },
+      { type: "p", text: "Connecting a custom domain to your Webperia site takes about 5 minutes to set up, though DNS propagation can take up to 48 hours." },
       { type: "h2", text: "Step 1: Add Your Domain" },
       { type: "p", text: "Navigate to Dashboard → Domains and enter your domain name (e.g., www.yourdomain.com). Click 'Add Domain' to continue." },
       { type: "h2", text: "Step 2: Configure DNS Records" },
@@ -150,7 +150,7 @@ const POSTS: Record<string, {
       { type: "h2", text: "Step 3: Wait for Propagation" },
       { type: "p", text: "DNS changes propagate globally within 24–48 hours, though most records update within 30 minutes. You can check propagation status at whatsmydns.net." },
       { type: "h2", text: "SSL Certificates" },
-      { type: "p", text: "BuildStack automatically provisions a free SSL certificate via Let's Encrypt as soon as DNS propagation completes. No configuration required — HTTPS is enabled automatically." },
+      { type: "p", text: "Webperia automatically provisions a free SSL certificate via Let's Encrypt as soon as DNS propagation completes. No configuration required — HTTPS is enabled automatically." },
       { type: "blockquote", text: "SSL is non-negotiable in 2026. Google penalizes non-HTTPS sites in search rankings, and modern browsers show security warnings to users." },
       { type: "h2", text: "Troubleshooting" },
       { type: "ul", text: "", items: [
@@ -171,7 +171,7 @@ const POSTS: Record<string, {
     gradient: "from-amber-500 to-orange-600",
     author: { name: "Alex Chen", initials: "AC", color: "bg-amber-500", role: "Co-founder & CEO" },
     content: [
-      { type: "p", text: "Starting today, all Business plan users have access to the BuildStack CMS API — a fully RESTful API for reading and writing content collections." },
+      { type: "p", text: "Starting today, all Business plan users have access to the Webperia CMS API — a fully RESTful API for reading and writing content collections." },
       { type: "h2", text: "What's Included" },
       { type: "ul", text: "", items: [
         "Full CRUD operations on all collections",
@@ -190,7 +190,7 @@ const POSTS: Record<string, {
   },
   "seo-optimization-guide": {
     slug: "seo-optimization-guide",
-    title: "The Complete SEO Guide for Your BuildStack Website",
+    title: "The Complete SEO Guide for Your Webperia Website",
     excerpt: "Maximize your search engine visibility with this comprehensive guide covering meta tags, structured data, Core Web Vitals, and link building strategies.",
     category: "Tutorial",
     readTime: "12 min read",
@@ -198,7 +198,7 @@ const POSTS: Record<string, {
     gradient: "from-violet-500 to-purple-600",
     author: { name: "Sarah Kim", initials: "SK", color: "bg-violet-500", role: "Head of Design" },
     content: [
-      { type: "p", text: "SEO in 2026 is less about tricks and more about fundamentals. Here's how to make sure your BuildStack site is set up for success in search." },
+      { type: "p", text: "SEO in 2026 is less about tricks and more about fundamentals. Here's how to make sure your Webperia site is set up for success in search." },
       { type: "h2", text: "Meta Tags" },
       { type: "p", text: "Every page needs a unique title tag (50–60 characters) and meta description (150–160 characters). These appear in search results and directly impact click-through rate." },
       { type: "h2", text: "Core Web Vitals" },
@@ -209,7 +209,7 @@ const POSTS: Record<string, {
         "CLS (Cumulative Layout Shift): < 0.1",
       ]},
       { type: "h2", text: "Structured Data" },
-      { type: "p", text: "Schema.org markup helps Google understand your content and can unlock rich results (stars, prices, FAQs) in search results. BuildStack's editor lets you add structured data to any page." },
+      { type: "p", text: "Schema.org markup helps Google understand your content and can unlock rich results (stars, prices, FAQs) in search results. Webperia's editor lets you add structured data to any page." },
       { type: "h2", text: "Content Strategy" },
       { type: "p", text: "The most sustainable SEO strategy is publishing high-quality content that genuinely answers questions your audience is searching for. Aim for depth over quantity." },
       { type: "h2", text: "Link Building" },
@@ -284,7 +284,7 @@ export default async function BlogPostPage({
     : relatedPosts;
 
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
+    <div className="bg-white min-h-screen">
       <Navbar />
 
       {/* Hero banner */}
@@ -292,17 +292,17 @@ export default async function BlogPostPage({
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-white/70 hover:text-white text-sm mb-8 transition-colors"
+            className="inline-flex items-center gap-2 text-white/80 hover:text-white text-sm mb-8 transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Blog
           </Link>
 
           <div className="flex items-center gap-3 mb-6">
-            <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${CATEGORY_COLORS[post.category] ?? "bg-white/10 text-white border-white/20"}`}>
+            <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${CATEGORY_COLORS[post.category] ?? "bg-white/20 text-white border-white/30"}`}>
               {post.category}
             </span>
-            <div className="flex items-center gap-1.5 text-white/60 text-sm">
+            <div className="flex items-center gap-1.5 text-white/70 text-sm">
               <Clock className="h-3.5 w-3.5" />
               {post.readTime}
             </div>
@@ -312,7 +312,7 @@ export default async function BlogPostPage({
             {post.title}
           </h1>
 
-          <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-3xl">
+          <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-3xl">
             {post.excerpt}
           </p>
 
@@ -323,21 +323,21 @@ export default async function BlogPostPage({
               </div>
               <div>
                 <p className="text-white font-semibold text-sm">{post.author.name}</p>
-                <p className="text-white/50 text-xs">{post.author.role} · {post.date}</p>
+                <p className="text-white/60 text-xs">{post.author.role} · {post.date}</p>
               </div>
             </div>
 
             {/* Share buttons */}
             <div className="flex items-center gap-2">
-              <span className="text-white/40 text-xs mr-1">Share</span>
-              <button className="h-8 w-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors" title="Share on Twitter">
-                <Twitter className="h-3.5 w-3.5 text-white/70" />
+              <span className="text-white/60 text-xs mr-1">Share</span>
+              <button className="h-8 w-8 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors" title="Share on Twitter">
+                <Twitter className="h-3.5 w-3.5 text-white" />
               </button>
-              <button className="h-8 w-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors" title="Share on LinkedIn">
-                <Linkedin className="h-3.5 w-3.5 text-white/70" />
+              <button className="h-8 w-8 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors" title="Share on LinkedIn">
+                <Linkedin className="h-3.5 w-3.5 text-white" />
               </button>
-              <button className="h-8 w-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors" title="Copy link">
-                <Link2 className="h-3.5 w-3.5 text-white/70" />
+              <button className="h-8 w-8 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors" title="Copy link">
+                <Link2 className="h-3.5 w-3.5 text-white" />
               </button>
             </div>
           </div>
@@ -353,21 +353,21 @@ export default async function BlogPostPage({
             {post.content.map((block, i) => {
               if (block.type === "h2") {
                 return (
-                  <h2 key={i} className="text-2xl font-bold text-white mt-10 mb-4">
+                  <h2 key={i} className="text-2xl font-bold text-gray-900 mt-10 mb-4">
                     {block.text}
                   </h2>
                 );
               }
               if (block.type === "h3") {
                 return (
-                  <h3 key={i} className="text-xl font-bold text-white mt-8 mb-3">
+                  <h3 key={i} className="text-xl font-bold text-gray-900 mt-8 mb-3">
                     {block.text}
                   </h3>
                 );
               }
               if (block.type === "p") {
                 return (
-                  <p key={i} className="text-white/70 leading-relaxed mb-5 text-[15px]">
+                  <p key={i} className="text-gray-600 leading-relaxed mb-5 text-[15px]">
                     {block.text}
                   </p>
                 );
@@ -376,8 +376,8 @@ export default async function BlogPostPage({
                 return (
                   <ul key={i} className="space-y-2 mb-6 pl-4">
                     {(block.items ?? []).map((item, j) => (
-                      <li key={j} className="flex items-start gap-2.5 text-white/70 text-[15px]">
-                        <span className="h-1.5 w-1.5 rounded-full bg-white/30 mt-2 shrink-0" />
+                      <li key={j} className="flex items-start gap-2.5 text-gray-600 text-[15px]">
+                        <span className="h-1.5 w-1.5 rounded-full bg-gray-400 mt-2 shrink-0" />
                         {item}
                       </li>
                     ))}
@@ -386,14 +386,14 @@ export default async function BlogPostPage({
               }
               if (block.type === "blockquote") {
                 return (
-                  <blockquote key={i} className="border-l-2 border-white/20 pl-5 my-7">
-                    <p className="text-white/60 italic leading-relaxed text-[15px]">{block.text}</p>
+                  <blockquote key={i} className="border-l-2 border-primary-300 pl-5 my-7">
+                    <p className="text-gray-500 italic leading-relaxed text-[15px]">{block.text}</p>
                   </blockquote>
                 );
               }
               if (block.type === "code") {
                 return (
-                  <pre key={i} className="bg-white/5 border border-white/10 rounded-xl p-4 overflow-x-auto mb-6">
+                  <pre key={i} className="bg-gray-900 border border-gray-800 rounded-xl p-4 overflow-x-auto mb-6">
                     <code className="text-green-400 text-sm font-mono whitespace-pre">{block.text}</code>
                   </pre>
                 );
@@ -405,28 +405,28 @@ export default async function BlogPostPage({
           {/* Sidebar */}
           <aside className="space-y-6">
             {/* Author card */}
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-              <p className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-3">Author</p>
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Author</p>
               <div className="flex items-center gap-3 mb-3">
                 <div className={`h-10 w-10 rounded-full flex items-center justify-center text-white text-sm font-bold ${post.author.color}`}>
                   {post.author.initials}
                 </div>
                 <div>
-                  <p className="text-white font-semibold text-sm">{post.author.name}</p>
-                  <p className="text-white/40 text-xs">{post.author.role}</p>
+                  <p className="text-gray-900 font-semibold text-sm">{post.author.name}</p>
+                  <p className="text-gray-400 text-xs">{post.author.role}</p>
                 </div>
               </div>
             </div>
 
             {/* Table of contents */}
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-              <p className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-3">In This Article</p>
+            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">In This Article</p>
               <ul className="space-y-2">
                 {post.content
                   .filter((b) => b.type === "h2")
                   .map((b, i) => (
                     <li key={i}>
-                      <span className="text-sm text-white/50 hover:text-white/80 transition-colors cursor-pointer leading-snug block">
+                      <span className="text-sm text-gray-500 hover:text-gray-900 transition-colors cursor-pointer leading-snug block">
                         {b.text}
                       </span>
                     </li>
@@ -435,9 +435,9 @@ export default async function BlogPostPage({
             </div>
 
             {/* CTA */}
-            <div className="rounded-2xl border border-primary-500/20 bg-gradient-to-br from-primary-500/10 to-transparent p-5">
-              <p className="text-sm font-bold text-white mb-1">Try BuildStack Free</p>
-              <p className="text-xs text-white/50 mb-4">Build your first site in minutes. No credit card required.</p>
+            <div className="rounded-2xl border border-primary-200 bg-gradient-to-br from-primary-50 to-white p-5">
+              <p className="text-sm font-bold text-gray-900 mb-1">Try Webperia Free</p>
+              <p className="text-xs text-gray-500 mb-4">Build your first site in minutes. No credit card required.</p>
               <Link
                 href="/signup"
                 className="block w-full text-center py-2 rounded-lg bg-primary-500 hover:bg-primary-600 text-white text-sm font-semibold transition-colors"
@@ -450,16 +450,16 @@ export default async function BlogPostPage({
 
         {/* Related posts */}
         {otherPosts.length > 0 && (
-          <div className="mt-16 pt-12 border-t border-white/10">
-            <h2 className="text-xl font-bold text-white mb-6">More Posts</h2>
+          <div className="mt-16 pt-12 border-t border-gray-200">
+            <h2 className="text-xl font-bold text-gray-900 mb-6">More Posts</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {otherPosts.map((related) => (
                 <Link key={related.slug} href={`/blog/${related.slug}`} className="group">
-                  <div className="rounded-2xl border border-white/10 bg-white/5 hover:bg-white/8 hover:border-white/20 transition-all overflow-hidden flex gap-4 p-4">
+                  <div className="rounded-2xl border border-gray-200 bg-white hover:shadow-sm hover:border-gray-300 transition-all overflow-hidden flex gap-4 p-4">
                     <div className={`h-16 w-16 rounded-xl bg-gradient-to-br ${related.gradient} shrink-0`} />
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs text-white/40 mb-1">{related.category} · {related.readTime}</p>
-                      <h3 className="text-sm font-semibold text-white group-hover:text-primary-300 transition-colors leading-snug line-clamp-2">
+                      <p className="text-xs text-gray-400 mb-1">{related.category} · {related.readTime}</p>
+                      <h3 className="text-sm font-semibold text-gray-900 group-hover:text-primary-600 transition-colors leading-snug line-clamp-2">
                         {related.title}
                       </h3>
                     </div>

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Zap, ChevronDown } from "lucide-react";
+import { Menu, X, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -30,7 +30,7 @@ export default function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled
-            ? "bg-[#0F0F0F]/90 backdrop-blur-xl border-b border-white/5 py-3"
+            ? "bg-white/90 backdrop-blur-xl border-b border-gray-200 py-3 shadow-sm"
             : "bg-transparent py-5"
         )}
       >
@@ -41,8 +41,8 @@ export default function Navbar() {
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center shadow-lg shadow-primary-500/30 group-hover:shadow-primary-500/50 transition-shadow">
                 <Zap className="h-4 w-4 text-white" />
               </div>
-              <span className="text-white font-bold text-xl tracking-tight">
-                Build<span className="text-primary-400">Stack</span>
+              <span className="text-gray-900 font-bold text-xl tracking-tight">
+                Web<span className="text-primary-500">peria</span>
               </span>
             </Link>
 
@@ -52,7 +52,7 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="px-4 py-2 text-sm text-white/70 hover:text-white rounded-lg hover:bg-white/5 transition-all"
+                  className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-all"
                 >
                   {link.label}
                 </Link>
@@ -61,12 +61,12 @@ export default function Navbar() {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-3">
-              <Button variant="ghost-dark" size="sm" asChild>
+              <Button variant="ghost" size="sm" className="text-gray-600" asChild>
                 <Link href="/login">Sign In</Link>
               </Button>
               <Button
                 size="sm"
-                className="bg-white text-gray-900 hover:bg-white/90 font-medium shadow-lg"
+                className="bg-primary-500 text-white hover:bg-primary-600 font-medium shadow-sm shadow-primary-500/20"
                 asChild
               >
                 <Link href="/signup">Start Free</Link>
@@ -75,7 +75,7 @@ export default function Navbar() {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden text-white/70 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-all"
+              className="md:hidden text-gray-600 hover:text-gray-900 p-2 rounded-lg hover:bg-gray-100 transition-all"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -92,24 +92,24 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-[60px] z-40 bg-[#0F0F0F]/95 backdrop-blur-xl border-b border-white/10 md:hidden"
+            className="fixed inset-x-0 top-[60px] z-40 bg-white/95 backdrop-blur-xl border-b border-gray-200 md:hidden shadow-sm"
           >
             <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="px-4 py-3 text-white/70 hover:text-white rounded-lg hover:bg-white/5 transition-all"
+                  className="px-4 py-3 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-all"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-white/10">
-                <Button variant="outline-dark" asChild>
+              <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-gray-200">
+                <Button variant="outline" asChild>
                   <Link href="/login">Sign In</Link>
                 </Button>
-                <Button className="bg-white text-gray-900 hover:bg-white/90" asChild>
+                <Button className="bg-primary-500 text-white hover:bg-primary-600" asChild>
                   <Link href="/signup">Start Free</Link>
                 </Button>
               </div>

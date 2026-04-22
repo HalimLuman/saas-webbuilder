@@ -38,7 +38,7 @@ export function AuthLayout({ children, heading, subheading }: AuthLayoutProps) {
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
               <Zap className="h-4 w-4 text-white" />
             </div>
-            <span className="text-lg font-bold text-white tracking-tight">BuildStack</span>
+            <span className="text-lg font-bold text-white tracking-tight">Webperia</span>
           </Link>
 
           {/* Middle copy */}
@@ -71,7 +71,7 @@ export function AuthLayout({ children, heading, subheading }: AuthLayoutProps) {
             </div>
           </div>
 
-          <p className="text-white/20 text-xs">© {new Date().getFullYear()} BuildStack. All rights reserved.</p>
+          <p className="text-white/20 text-xs">© {new Date().getFullYear()} Webperia. All rights reserved.</p>
         </div>
       </div>
 
@@ -83,7 +83,7 @@ export function AuthLayout({ children, heading, subheading }: AuthLayoutProps) {
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
               <Zap className="h-4 w-4 text-white" />
             </div>
-            <span className="text-lg font-bold text-gray-900 tracking-tight">BuildStack</span>
+            <span className="text-lg font-bold text-gray-900 tracking-tight">Webperia</span>
           </Link>
         </div>
 

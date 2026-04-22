@@ -174,7 +174,7 @@ export default function ResetPasswordPage() {
           <div className="h-9 w-9 shrink-0 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
             <Zap className="h-5 w-5 text-white" />
           </div>
-          <span className="text-2xl font-bold text-white tracking-tight">BuildStack</span>
+          <span className="text-2xl font-bold text-white tracking-tight">Webperia</span>
         </div>
 
         {/* Card */}

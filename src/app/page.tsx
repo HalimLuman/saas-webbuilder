@@ -38,47 +38,47 @@ const howItWorksSteps = [
 
 export default function HomePage() {
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
+    <div className="bg-white min-h-screen">
       <Navbar />
       <Hero />
       <Features />
 
       {/* How It Works */}
-      <section className="py-32 bg-[#0A0A0A] relative overflow-hidden">
+      <section className="py-32 bg-white relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-30" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/50 text-sm font-medium mb-6">
-              <Zap className="h-3.5 w-3.5 text-primary-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 border border-gray-200 text-gray-600 text-sm font-medium mb-6">
+              <Zap className="h-3.5 w-3.5 text-primary-500" />
               How It Works
             </div>
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Launch in{" "}
               <span className="gradient-text">3 simple steps</span>
             </h2>
-            <p className="text-xl text-white/50 max-w-xl mx-auto">
+            <p className="text-xl text-gray-500 max-w-xl mx-auto">
               From idea to live website in under an hour. Really.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
             {/* Connector line */}
-            <div className="hidden md:block absolute top-10 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+            <div className="hidden md:block absolute top-10 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
 
-            {howItWorksSteps.map((step, index) => (
+            {howItWorksSteps.map((step) => (
               <div key={step.number} className="relative text-center">
                 {/* Step number */}
                 <div className="relative inline-flex mb-6">
                   <div className={`h-20 w-20 rounded-2xl bg-gradient-to-br ${step.gradient} flex items-center justify-center shadow-2xl`}>
                     <step.icon className="h-8 w-8 text-white" />
                   </div>
-                  <div className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-[#0A0A0A] border border-white/10 flex items-center justify-center">
-                    <span className="text-white/60 text-[10px] font-bold">{step.number}</span>
+                  <div className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center">
+                    <span className="text-gray-500 text-[10px] font-bold">{step.number}</span>
                   </div>
                 </div>
 
-                <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
-                <p className="text-white/50 text-sm leading-relaxed max-w-xs mx-auto">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">{step.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed max-w-xs mx-auto">
                   {step.description}
                 </p>
               </div>
@@ -91,10 +91,10 @@ export default function HomePage() {
       <PricingPreview />
 
       {/* CTA Banner */}
-      <section className="py-32 bg-[#0F0F0F] relative overflow-hidden">
+      <section className="py-32 bg-gray-900 relative overflow-hidden">
         {/* Gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/20 via-purple-600/10 to-transparent" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-600/30 via-purple-600/20 to-transparent" />
+        <div className="absolute inset-0 bg-grid-pattern opacity-20" />
 
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 text-primary-400 text-sm font-medium mb-8">
@@ -109,7 +109,7 @@ export default function HomePage() {
           </h2>
 
           <p className="text-xl text-white/50 mb-10 max-w-xl mx-auto">
-            Join 10,000+ teams who&apos;ve already switched to BuildStack.
+            Join 10,000+ teams who&apos;ve already switched to Webperia.
             Start for free, no credit card required.
           </p>
 

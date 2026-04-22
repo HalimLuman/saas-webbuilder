@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(git checkout *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git rm *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(git commit *)",
+      "Bash(sed -n '140,160p' c:/Users/User/Desktop/saas-webbuilder/src/components/templates/shared.tsx)",
+      "Bash(sed -n '225,245p' c:/Users/User/Desktop/saas-webbuilder/src/components/templates/shared.tsx)"
     ]
   }
 }

@@ -8,15 +8,15 @@ import { Button } from "@/components/ui/button";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0F0F0F] pt-24 pb-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-24 pb-16">
       {/* Background effects */}
       <div className="absolute inset-0 bg-grid-pattern opacity-100" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0F0F0F]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white" />
 
       {/* Gradient orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/3 right-1/4 w-[400px] h-[400px] bg-purple-600/15 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/4 w-[300px] h-[300px] bg-blue-600/10 rounded-full blur-[80px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/3 right-1/4 w-[400px] h-[400px] bg-purple-600/8 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/4 w-[300px] h-[300px] bg-blue-600/6 rounded-full blur-[80px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Announcement badge */}
@@ -24,13 +24,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-white/70 mb-8 hover:bg-white/8 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 border border-gray-200 text-sm text-gray-600 mb-8 hover:bg-gray-50 transition-colors cursor-pointer"
         >
-          <Sparkles className="h-3.5 w-3.5 text-primary-400" />
+          <Sparkles className="h-3.5 w-3.5 text-primary-500" />
           <span>Introducing AI Site Generator</span>
-          <span className="h-3.5 w-px bg-white/20" />
-          <span className="text-primary-400 font-medium">New</span>
-          <ArrowRight className="h-3.5 w-3.5 text-primary-400" />
+          <span className="h-3.5 w-px bg-gray-300" />
+          <span className="text-primary-500 font-medium">New</span>
+          <ArrowRight className="h-3.5 w-3.5 text-primary-500" />
         </motion.div>
 
         {/* Headline */}
@@ -38,7 +38,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight mb-6"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-gray-900 leading-[1.05] tracking-tight mb-6"
         >
           Build stunning{" "}
           <span className="relative">
@@ -64,7 +64,7 @@ export default function Hero() {
             </svg>
           </span>
           <br />
-          <span className="text-white/90">with AI</span>
+          <span className="text-gray-800">with AI</span>
         </motion.h1>
 
         {/* Subheadline */}
@@ -72,7 +72,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-xl sm:text-2xl text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-xl sm:text-2xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           The world&apos;s most powerful drag-and-drop website builder.
           Design, build, and deploy in minutes — no code required.
@@ -87,7 +87,7 @@ export default function Hero() {
         >
           <Button
             size="xl"
-            className="bg-white text-gray-900 hover:bg-white/90 font-semibold shadow-2xl shadow-white/10 min-w-[200px]"
+            className="bg-primary-500 text-white hover:bg-primary-600 font-semibold shadow-xl shadow-primary-500/20 min-w-[200px]"
             asChild
           >
             <Link href="/signup">
@@ -97,11 +97,11 @@ export default function Hero() {
           </Button>
           <Button
             size="xl"
-            variant="outline-dark"
+            variant="outline"
             className="min-w-[180px] group"
           >
-            <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center mr-3 group-hover:bg-white/20 transition-colors">
-              <Play className="h-3.5 w-3.5 text-white fill-white ml-0.5" />
+            <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center mr-3 group-hover:bg-gray-200 transition-colors">
+              <Play className="h-3.5 w-3.5 text-gray-700 fill-gray-700 ml-0.5" />
             </div>
             Watch Demo
           </Button>
@@ -112,14 +112,14 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-white/40"
+          className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-400"
         >
           <div className="flex items-center gap-2">
             <div className="flex -space-x-2">
               {[1, 2, 3, 4, 5].map((i) => (
                 <div
                   key={i}
-                  className="h-7 w-7 rounded-full border-2 border-[#0F0F0F] bg-gradient-to-br from-primary-500 to-purple-600"
+                  className="h-7 w-7 rounded-full border-2 border-white bg-gradient-to-br from-primary-500 to-purple-600"
                   style={{
                     background: `hsl(${i * 50 + 200}, 70%, 60%)`,
                   }}
@@ -128,7 +128,7 @@ export default function Hero() {
             </div>
             <span>10,000+ teams building</span>
           </div>
-          <div className="h-px w-6 sm:h-6 sm:w-px bg-white/10" />
+          <div className="h-px w-6 sm:h-6 sm:w-px bg-gray-200" />
           <div className="flex items-center gap-1.5">
             <div className="flex">
               {[1, 2, 3, 4, 5].map((i) => (
@@ -137,9 +137,9 @@ export default function Hero() {
             </div>
             <span>4.9/5 from 2,000+ reviews</span>
           </div>
-          <div className="h-px w-6 sm:h-6 sm:w-px bg-white/10" />
+          <div className="h-px w-6 sm:h-6 sm:w-px bg-gray-200" />
           <div className="flex items-center gap-1.5">
-            <Zap className="h-4 w-4 text-primary-400" />
+            <Zap className="h-4 w-4 text-primary-500" />
             <span>No credit card required</span>
           </div>
         </motion.div>
@@ -152,10 +152,10 @@ export default function Hero() {
           className="mt-20 relative max-w-5xl mx-auto"
         >
           {/* Glow effect */}
-          <div className="absolute -inset-4 bg-primary-500/20 rounded-2xl blur-2xl" />
+          <div className="absolute -inset-4 bg-primary-500/10 rounded-2xl blur-2xl" />
 
           {/* Mock Editor UI */}
-          <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-[#1A1A1A]">
+          <div className="relative rounded-2xl overflow-hidden border border-gray-200 shadow-2xl shadow-gray-200/80 bg-[#1A1A1A]">
             {/* Editor toolbar */}
             <div className="flex items-center justify-between px-4 h-12 bg-[#141414] border-b border-white/5">
               <div className="flex items-center gap-3">

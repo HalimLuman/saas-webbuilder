@@ -176,7 +176,7 @@ export default function DomainsPage() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900">Domains</h1>
-        <p className="text-sm text-gray-500 mt-0.5">Connect custom domains to your BuildStack sites.</p>
+        <p className="text-sm text-gray-500 mt-0.5">Connect custom domains to your Webperia sites.</p>
       </div>
 
       {/* Add domain */}
@@ -401,7 +401,7 @@ export default function DomainsPage() {
           <div>
             <p className="text-sm font-semibold text-green-800 mb-1">SSL Certificates — Automatic</p>
             <p className="text-xs text-green-700 leading-relaxed">
-              BuildStack automatically provisions and renews SSL certificates for all connected domains via Let&apos;s Encrypt.
+              Webperia automatically provisions and renews SSL certificates for all connected domains via Let&apos;s Encrypt.
               HTTPS is enabled as soon as DNS propagation completes (usually within 24 hours).
             </p>
           </div>

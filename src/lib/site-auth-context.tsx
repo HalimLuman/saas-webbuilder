@@ -4,7 +4,7 @@
  * SiteAuthContext
  *
  * Manages authentication state for a *published / preview* site.
- * Completely separate from the BuildStack builder auth (Supabase owner auth).
+ * Completely separate from the Webperia builder auth (Supabase owner auth).
  *
  * Session is persisted in localStorage under the key:
  *   `bs_site_auth_<siteId>`

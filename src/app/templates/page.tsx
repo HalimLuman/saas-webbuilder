@@ -1,12 +1,13 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Sparkles } from "lucide-react";
 import { SITE_TEMPLATES } from "@/lib/site-templates";
 import { TemplateGallery } from "@/components/templates/shared";
 import type { SiteTemplate } from "@/lib/site-templates";
+import Navbar from "@/components/layout/navbar";
+import Footer from "@/components/layout/footer";
 
 export default function TemplatesPage() {
   const router = useRouter();
@@ -17,8 +18,10 @@ export default function TemplatesPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Navbar />
+
       {/* Hero */}
-      <div className="bg-white border-b border-gray-100">
+      <div className="bg-white border-b border-gray-100 pt-20">
         <div className="max-w-6xl mx-auto px-6 py-14 text-center">
           <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
             <Sparkles className="h-3.5 w-3.5" /> {SITE_TEMPLATES.length} production-ready templates
@@ -39,6 +42,8 @@ export default function TemplatesPage() {
       <div className="max-w-6xl mx-auto px-6 py-8">
         <TemplateGallery onUse={handleUse} useLabel="Use Template" />
       </div>
+
+      <Footer />
     </div>
   );
 }

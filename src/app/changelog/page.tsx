@@ -6,8 +6,8 @@ import Footer from "@/components/layout/footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Changelog — BuildStack",
-  description: "See what's new in BuildStack. Latest features, improvements, and bug fixes.",
+  title: "Changelog — Webperia",
+  description: "See what's new in Webperia. Latest features, improvements, and bug fixes.",
 };
 
 type ChangeType = "feature" | "improvement" | "fix" | "security" | "performance";
@@ -25,11 +25,11 @@ interface Release {
 }
 
 const TYPE_CONFIG: Record<ChangeType, { label: string; color: string; bg: string; icon: React.ElementType }> = {
-  feature:     { label: "New",         color: "text-indigo-300", bg: "bg-indigo-500/20 border-indigo-500/30", icon: Sparkles },
-  improvement: { label: "Improved",    color: "text-blue-300",   bg: "bg-blue-500/20 border-blue-500/30",     icon: Wrench },
-  fix:         { label: "Fixed",       color: "text-emerald-300",bg: "bg-emerald-500/20 border-emerald-500/30",icon: Wrench },
-  security:    { label: "Security",    color: "text-amber-300",  bg: "bg-amber-500/20 border-amber-500/30",   icon: Shield },
-  performance: { label: "Performance", color: "text-rose-300",   bg: "bg-rose-500/20 border-rose-500/30",     icon: ZapIcon },
+  feature:     { label: "New",         color: "text-indigo-700", bg: "bg-indigo-50 border-indigo-200",  icon: Sparkles },
+  improvement: { label: "Improved",    color: "text-blue-700",   bg: "bg-blue-50 border-blue-200",      icon: Wrench },
+  fix:         { label: "Fixed",       color: "text-emerald-700",bg: "bg-emerald-50 border-emerald-200",icon: Wrench },
+  security:    { label: "Security",    color: "text-amber-700",  bg: "bg-amber-50 border-amber-200",    icon: Shield },
+  performance: { label: "Performance", color: "text-rose-700",   bg: "bg-rose-50 border-rose-200",      icon: ZapIcon },
 };
 
 const RELEASES: Release[] = [
@@ -142,20 +142,20 @@ function fn(...classes: (string | false | undefined | null)[]): string {
 
 export default function ChangelogPage() {
   return (
-    <div className="bg-[#0F0F0F] min-h-screen">
+    <div className="bg-white min-h-screen">
       <Navbar />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
         {/* Header */}
         <div className="mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/50 text-sm font-medium mb-6">
-            <Rocket className="h-3.5 w-3.5 text-indigo-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 border border-gray-200 text-gray-600 text-sm font-medium mb-6">
+            <Rocket className="h-3.5 w-3.5 text-indigo-500" />
             What&apos;s New
           </div>
-          <h1 className="text-5xl font-bold text-white mb-4">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">
             Changelog
           </h1>
-          <p className="text-xl text-white/50 max-w-lg">
+          <p className="text-xl text-gray-500 max-w-lg">
             Every feature, improvement, and fix — documented as it ships.
           </p>
         </div>
@@ -163,26 +163,26 @@ export default function ChangelogPage() {
         {/* Releases */}
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-[7px] top-2 bottom-0 w-px bg-white/10" />
+          <div className="absolute left-[7px] top-2 bottom-0 w-px bg-gray-200" />
 
           <div className="space-y-12">
             {RELEASES.map((release, idx) => (
               <div key={release.version} className="relative pl-10">
                 {/* Timeline dot */}
                 <div className={fn(
-                  "absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full border-2 ring-4 ring-[#0F0F0F]",
-                  idx === 0 ? "bg-indigo-500 border-indigo-400" : "bg-white/20 border-white/30"
+                  "absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full border-2 ring-4 ring-white",
+                  idx === 0 ? "bg-indigo-500 border-indigo-400" : "bg-gray-300 border-gray-400"
                 )} />
 
                 {/* Version header */}
                 <div className="flex items-center gap-3 mb-4 flex-wrap">
-                  <span className="text-white font-bold text-lg">v{release.version}</span>
+                  <span className="text-gray-900 font-bold text-lg">v{release.version}</span>
                   {release.highlight && (
-                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
                       {release.highlight}
                     </span>
                   )}
-                  <span className="text-white/30 text-sm ml-auto">{release.date}</span>
+                  <span className="text-gray-400 text-sm ml-auto">{release.date}</span>
                 </div>
 
                 {/* Changes */}
@@ -196,7 +196,7 @@ export default function ChangelogPage() {
                           {change.type === "feature" && <Icon className="h-2.5 w-2.5" />}
                           {cfg.label}
                         </span>
-                        <span className="text-white/60 text-sm leading-relaxed">{change.text}</span>
+                        <span className="text-gray-600 text-sm leading-relaxed">{change.text}</span>
                       </li>
                     );
                   })}
@@ -207,11 +207,11 @@ export default function ChangelogPage() {
         </div>
 
         {/* Footer CTA */}
-        <div className="mt-20 pt-12 border-t border-white/10 text-center">
-          <p className="text-white/40 text-sm mb-4">Want to know when new features ship?</p>
+        <div className="mt-20 pt-12 border-t border-gray-200 text-center">
+          <p className="text-gray-400 text-sm mb-4">Want to know when new features ship?</p>
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
+            className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 text-sm font-medium transition-colors"
           >
             Follow the blog for in-depth release notes
           </Link>

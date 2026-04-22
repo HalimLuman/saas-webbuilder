@@ -5,8 +5,8 @@ import { ToastProvider } from "@/components/ui/toast";
 
 export const metadata: Metadata = {
   title: {
-    default: "BuildStack - Build Stunning Websites with AI",
-    template: "%s | BuildStack",
+    default: "Webperia - Build Stunning Websites with AI",
+    template: "%s | Webperia",
   },
   description:
     "The most powerful website builder with AI-assisted design, drag-and-drop editor, and one-click deployment. Build your next website in minutes.",
@@ -18,23 +18,23 @@ export const metadata: Metadata = {
     "SaaS",
     "web design",
   ],
-  authors: [{ name: "BuildStack Team" }],
-  creator: "BuildStack",
+  authors: [{ name: "Webperia Team" }],
+  creator: "Webperia",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://buildstack.io",
-    title: "BuildStack - Build Stunning Websites with AI",
+    url: "https://webperia.com",
+    title: "Webperia - Build Stunning Websites with AI",
     description:
       "The most powerful website builder with AI-assisted design, drag-and-drop editor, and one-click deployment.",
-    siteName: "BuildStack",
+    siteName: "Webperia",
   },
   twitter: {
     card: "summary_large_image",
-    title: "BuildStack - Build Stunning Websites with AI",
+    title: "Webperia - Build Stunning Websites with AI",
     description:
       "The most powerful website builder with AI-assisted design, drag-and-drop editor, and one-click deployment.",
-    creator: "@buildstack",
+    creator: "@webperia",
   },
   robots: {
     index: true,
