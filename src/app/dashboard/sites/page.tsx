@@ -8,7 +8,7 @@ import {
   Clock, Grid3X3, List, Send, RefreshCw, ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, getSiteUrl } from "@/lib/utils";
 import { useWorkspaceFetch } from "@/hooks/use-workspace-fetch";
 import { useWorkspaceStore } from "@/store/workspace-store";
 import { useUser } from "@/hooks/use-user";
@@ -79,10 +79,10 @@ function SiteCard({ site, onStatusChange, onDuplicate }: {
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const gradient = siteGradient(site.id);
-  const domain = site.custom_domain ?? site.domain;
+  const liveUrl = site.slug ? getSiteUrl(site.slug) : null;
 
   return (
-    <div className="group relative bg-white rounded-2xl border border-gray-100 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-500/5 transition-all duration-200">
+    <div className="group relative bg-white rounded-2xl border border-gray-100 hover:border-primary-200 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200">
       {/* Thumbnail */}
       <div className={`h-40 bg-gradient-to-br ${gradient} relative rounded-t-2xl overflow-hidden`}>
         <div className="absolute inset-0 flex items-center justify-center opacity-20">
@@ -95,8 +95,8 @@ function SiteCard({ site, onStatusChange, onDuplicate }: {
               <Pencil className="h-3.5 w-3.5 mr-1.5" /> Edit
             </Button>
           </Link>
-          {site.status === "published" && domain && (
-            <a href={`https://${domain}`} target="_blank" rel="noopener noreferrer">
+          {site.status === "published" && liveUrl && (
+            <a href={liveUrl} target="_blank" rel="noopener noreferrer">
               <Button size="sm" className="h-8 bg-white text-gray-900 hover:bg-gray-50 shadow-md text-xs">
                 <ExternalLink className="h-3.5 w-3.5 mr-1.5" /> Visit
               </Button>
@@ -185,11 +185,11 @@ function SiteCard({ site, onStatusChange, onDuplicate }: {
 
       {/* Info */}
       <div className="p-4">
-        <Link href={`/dashboard/sites/${site.id}`} className="font-semibold text-gray-900 text-sm truncate mb-1 hover:text-indigo-600 transition-colors block">
+        <Link href={`/dashboard/sites/${site.id}`} className="font-semibold text-gray-900 text-sm truncate mb-1 hover:text-primary transition-colors block">
           {site.name}
         </Link>
         <p className="text-xs text-gray-400 truncate mb-3">
-          {domain ?? "No domain connected"}
+          {site.custom_domain ?? (liveUrl ?? "No domain")}
         </p>
         <div className="flex items-center justify-between text-xs text-gray-400">
           <span className="truncate">{site.slug}</span>
@@ -204,18 +204,18 @@ function SiteCard({ site, onStatusChange, onDuplicate }: {
 
 function SiteRow({ site }: { site: ApiSite }) {
   const gradient = siteGradient(site.id);
-  const domain = site.custom_domain ?? site.domain;
+  const liveUrl = site.slug ? getSiteUrl(site.slug) : null;
 
   return (
-    <div className="flex items-center gap-4 px-4 py-3 bg-white rounded-xl border border-gray-100 hover:border-indigo-100 hover:bg-indigo-50/20 transition-all">
+    <div className="flex items-center gap-4 px-4 py-3 bg-white rounded-xl border border-gray-100 hover:border-primary-100 hover:bg-primary-50/20 transition-all">
       <div className={`h-10 w-10 rounded-lg bg-gradient-to-br ${gradient} shrink-0 flex items-center justify-center`}>
         <Globe className="h-5 w-5 text-white/70" />
       </div>
       <div className="flex-1 min-w-0">
-        <Link href={`/dashboard/sites/${site.id}`} className="text-sm font-semibold text-gray-900 truncate hover:text-indigo-600 transition-colors">
+        <Link href={`/dashboard/sites/${site.id}`} className="text-sm font-semibold text-gray-900 truncate hover:text-primary transition-colors">
           {site.name}
         </Link>
-        <p className="text-xs text-gray-400 truncate">{domain ?? "No domain"}</p>
+        <p className="text-xs text-gray-400 truncate">{site.custom_domain ?? liveUrl ?? "No domain"}</p>
       </div>
       <StatusBadge status={site.status} />
       <span className="text-xs text-gray-400 hidden lg:block w-32 text-right" suppressHydrationWarning>
@@ -227,10 +227,10 @@ function SiteRow({ site }: { site: ApiSite }) {
             <Pencil className="h-3 w-3 mr-1" /> Edit
           </Button>
         </Link>
-        {site.status === "published" && domain && (
-          <a href={`https://${domain}`} target="_blank" rel="noopener noreferrer">
-            <Button variant="outline" size="sm" className="h-7 text-xs">
-              <ExternalLink className="h-3 w-3" />
+        {site.status === "published" && liveUrl && (
+          <a href={liveUrl} target="_blank" rel="noopener noreferrer">
+            <Button variant="outline" size="sm" className="h-7 text-xs gap-1">
+              <ExternalLink className="h-3 w-3" /> Visit
             </Button>
           </a>
         )}
@@ -324,7 +324,7 @@ export default function SitesPage() {
                 <Plus className="h-4 w-4" /> New Site
               </Button>
               <Link href="/dashboard/billing">
-                <Button variant="outline" size="sm" className="gap-1.5 text-indigo-600 border-indigo-200 hover:bg-indigo-50">
+                <Button variant="outline" size="sm" className="gap-1.5 text-primary border-primary-200 hover:bg-primary-50">
                   Upgrade plan
                 </Button>
               </Link>
@@ -348,7 +348,7 @@ export default function SitesPage() {
             placeholder="Search sites..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full h-9 pl-9 pr-3 rounded-lg bg-gray-50 border border-gray-200 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+            className="w-full h-9 pl-9 pr-3 rounded-lg bg-gray-50 border border-gray-200 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all"
           />
         </div>
         <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
@@ -407,11 +407,11 @@ export default function SitesPage() {
               <span className="text-xs text-amber-500 group-hover:underline">Upgrade to add more sites</span>
             </Link>
           ) : (
-            <Link href="/dashboard/sites/new" className="group bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 hover:border-indigo-300 hover:bg-indigo-50/30 transition-all flex flex-col items-center justify-center py-16 gap-3">
-              <div className="h-10 w-10 rounded-full bg-gray-200 group-hover:bg-indigo-100 flex items-center justify-center transition-colors">
-                <Plus className="h-5 w-5 text-gray-400 group-hover:text-indigo-600" />
+            <Link href="/dashboard/sites/new" className="group bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 hover:border-primary-200 hover:bg-primary-50/30 transition-all flex flex-col items-center justify-center py-16 gap-3">
+              <div className="h-10 w-10 rounded-full bg-gray-200 group-hover:bg-primary-100 flex items-center justify-center transition-colors">
+                <Plus className="h-5 w-5 text-gray-400 group-hover:text-primary" />
               </div>
-              <span className="text-sm font-medium text-gray-400 group-hover:text-indigo-600 transition-colors">New Site</span>
+              <span className="text-sm font-medium text-gray-400 group-hover:text-primary transition-colors">New Site</span>
             </Link>
           )}
         </div>

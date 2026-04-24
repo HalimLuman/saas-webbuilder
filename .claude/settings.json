@@ -12,7 +12,8 @@
       "Bash(sed -n '225,245p' c:/Users/User/Desktop/saas-webbuilder/src/components/templates/shared.tsx)",
       "Bash(grep -E \"\\\\.\\(ts|tsx\\)$\")",
       "Bash(xargs grep *)",
-      "Bash(grep -E \"\\\\.md$|\\\\.txt$\")"
+      "Bash(grep -E \"\\\\.md$|\\\\.txt$\")",
+      "Bash(npx tsc *)"
     ]
   }
 }

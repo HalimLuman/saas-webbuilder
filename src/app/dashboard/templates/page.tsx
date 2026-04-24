@@ -53,9 +53,6 @@ export default function DashboardTemplatesPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-100 px-6 py-5 flex items-center gap-4">
-        <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shrink-0">
-          <LayoutTemplate className="h-5 w-5 text-white" />
-        </div>
         <div className="min-w-0">
           <h1 className="text-lg font-bold text-gray-900">Templates</h1>
           <p className="text-sm text-gray-500">Choose a template to start your site</p>

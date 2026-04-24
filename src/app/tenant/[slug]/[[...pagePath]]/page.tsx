@@ -15,24 +15,20 @@ export default async function SubdomainSitePage({ params }: Props) {
 
   const admin = createSupabaseAdminClient();
 
-  const { data: site, error: siteError } = await admin
+  const { data: site } = await admin
     .from("sites")
     .select("id, name, slug, status")
     .eq("slug", slug)
     .eq("status", "published")
     .single();
 
-  console.log("[tenant] slug:", slug, "site:", site?.id ?? null, "siteError:", siteError?.message ?? null);
-
   if (!site) notFound();
 
-  const { data: pages, error: pagesError } = await admin
+  const { data: pages } = await admin
     .from("pages")
     .select("id, title, slug, is_homepage, content")
     .eq("site_id", site.id)
     .order("sort_order");
-
-  console.log("[tenant] pages count:", pages?.length ?? null, "pagesError:", pagesError?.message ?? null);
 
   if (!pages) notFound();
 

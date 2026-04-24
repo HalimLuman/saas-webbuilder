@@ -63,10 +63,10 @@ export function TemplateThumbnail({ template }: { template: SiteTemplate }) {
   const elements = useMemo(() => getPreviewElements(template, 3), [template]);
 
   return (
-    <div className="h-full overflow-hidden relative bg-white">
+    <div className="h-full w-full overflow-hidden relative bg-white">
       <div
         className="absolute top-0 left-0 origin-top-left pointer-events-none"
-        style={{ width: `${100 / 0.22}%`, transform: "scale(0.22)" }}
+        style={{ width: `${100 / 0.42}%`, transform: "scale(0.42)" }}
       >
         {elements.map((el) => (
           <CanvasElementRenderer key={el.id} element={el} />
@@ -74,11 +74,9 @@ export function TemplateThumbnail({ template }: { template: SiteTemplate }) {
       </div>
       {/* Subtle accent tint */}
       <div
-        className="absolute inset-0 opacity-10 pointer-events-none"
-        style={{ background: `linear-gradient(135deg, ${template.accentHex}40, transparent)` }}
+        className="absolute inset-x-0 bottom-0 h-1/2 opacity-20 pointer-events-none"
+        style={{ background: `linear-gradient(to top, ${template.accentHex}20, transparent)` }}
       />
-      {/* Bottom fade */}
-      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white/80 to-transparent pointer-events-none" />
     </div>
   );
 }
@@ -124,73 +122,77 @@ export function TemplateCard({
   selected = false,
   useLabel = "Use",
 }: TemplateCardProps) {
-  const [hovered, setHovered] = useState(false);
-
   return (
     <div
       className={cn(
-        "group bg-white rounded-2xl border-2 overflow-hidden transition-all cursor-pointer",
+        "group bg-white rounded-md border border-gray-200 overflow-hidden transition-all duration-300 cursor-pointer shadow-sm relative",
         selected
-          ? "border-indigo-500 shadow-md shadow-indigo-100"
-          : "border-gray-100 hover:border-gray-200 hover:shadow-md",
+          ? "ring-2 ring-indigo-600 shadow-lg"
+          : "hover:border-gray-400 hover:shadow-xl",
       )}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       onClick={onUse}
     >
       {/* Thumbnail */}
-      <div className="h-44 relative overflow-hidden bg-gray-50">
-        <TemplateThumbnail template={template} />
+      <div className="h-64 relative overflow-hidden bg-gray-50 border-b border-gray-100">
+        <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.02]">
+          <TemplateThumbnail template={template} />
+        </div>
 
         {/* Tier badge — top left */}
         <div className={cn(
-          "absolute top-2 left-2 text-[9px] font-bold px-1.5 py-0.5 rounded border bg-white z-10",
-          template.tier === "free" ? "text-emerald-700 border-emerald-200" : template.tier === "business" ? "text-purple-700 border-purple-200" : "text-amber-700 border-amber-200",
+          "absolute top-4 left-4 text-[11px] font-black px-2.5 py-1 rounded-sm border shadow-sm z-10 tracking-tight",
+          template.tier === "free" ? "bg-emerald-50 text-emerald-800 border-emerald-200" : template.tier === "business" ? "bg-purple-50 text-purple-800 border-purple-200" : "bg-amber-50 text-amber-800 border-amber-200",
         )}>
           {template.tier.toUpperCase()}
         </div>
 
         {/* Selected checkmark — top right */}
         {selected && (
-          <div className="absolute top-2 right-2 h-6 w-6 rounded-full bg-indigo-500 flex items-center justify-center shadow-sm z-10">
-            <Check className="h-3.5 w-3.5 text-white" />
+          <div className="absolute top-4 right-4 h-7 w-7 rounded-full bg-indigo-600 flex items-center justify-center shadow-md z-20 animate-in zoom-in-50">
+            <Check className="h-4 w-4 text-white" />
           </div>
         )}
 
-        {/* Hover overlay (only when not selected) */}
-        {!selected && hovered && (
-          <div
-            className="absolute inset-0 bg-black/40 flex items-center justify-center gap-2 z-10"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {onPreview && (
+        {/* Action area (Higher visibility buttons) */}
+        {!selected && (
+          <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3 z-10">
+            <div className="flex gap-2">
+              {onPreview && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); onPreview(); }}
+                  className="flex items-center gap-2 px-4 py-2 rounded-sm bg-white text-gray-900 text-xs font-bold hover:bg-gray-50 transition-all border border-gray-200 shadow-sm"
+                >
+                  <Eye className="h-3.5 w-3.5" /> PREVIEW
+                </button>
+              )}
               <button
-                onClick={(e) => { e.stopPropagation(); onPreview(); }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-gray-800 text-xs font-medium hover:bg-gray-50 transition-colors shadow"
+                onClick={(e) => { e.stopPropagation(); onUse(); }}
+                className="flex items-center gap-2 px-4 py-2 rounded-sm bg-gray-900 text-white text-xs font-bold hover:bg-black transition-all shadow-sm"
               >
-                <Eye className="h-3 w-3" /> Preview
+                <ArrowRight className="h-3.5 w-3.5" /> {useLabel.toUpperCase()}
               </button>
-            )}
-            <button
-              onClick={(e) => { e.stopPropagation(); onUse(); }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-500 text-white text-xs font-medium hover:bg-indigo-600 transition-colors shadow"
-            >
-              <ArrowRight className="h-3 w-3" /> {useLabel}
-            </button>
+            </div>
           </div>
         )}
       </div>
 
-      {/* Footer */}
-      <div className="px-3 py-2.5 border-t border-gray-100">
-        <div className="flex items-start justify-between gap-2">
+      {/* Footer (More visible/minimalist) */}
+      <div className="px-6 py-5 bg-white">
+        <div className="flex items-center justify-between gap-4">
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-gray-900 truncate leading-tight">{template.name}</p>
-            <p className="text-[11px] text-gray-400 capitalize truncate mt-0.5">{template.category.replace(/-/g, " ")}</p>
+            <h4 className="text-sm font-black text-gray-900 uppercase tracking-wide truncate">{template.name}</h4>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+                {template.category.replace(/-/g, " ")}
+              </span>
+              <span className="text-[10px] text-gray-300">•</span>
+              <span className="text-[10px] text-gray-500 font-bold">
+                {template.pages.length} PAGES
+              </span>
+            </div>
           </div>
-          <div className="flex items-center gap-1 shrink-0 mt-0.5">
-            <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
-            <span className="text-xs text-gray-500">{template.pages.length}p</span>
+          <div className="flex items-center justify-center h-8 w-8 text-gray-300 group-hover:text-gray-900 transition-colors">
+            <ArrowRight className="h-5 w-5" />
           </div>
         </div>
       </div>
@@ -232,8 +234,8 @@ export function TemplatePreviewModal({
                 template.tier === "free"
                   ? "bg-emerald-50 text-emerald-700 border-emerald-200"
                   : template.tier === "business"
-                  ? "bg-purple-50 text-purple-700 border-purple-200"
-                  : "bg-amber-50 text-amber-700 border-amber-200",
+                    ? "bg-purple-50 text-purple-700 border-purple-200"
+                    : "bg-amber-50 text-amber-700 border-amber-200",
               )}>
                 {template.tier.toUpperCase()}
               </span>
@@ -360,103 +362,100 @@ export function TemplateGallery({
   });
 
   return (
-    <>
-      <div className="flex gap-6 min-h-0">
-        {/* Sidebar */}
-        <aside className="w-52 shrink-0">
-          {/* Search */}
-          <div className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
-            <input
-              type="search"
-              placeholder="Search templates…"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full h-9 pl-9 pr-3 rounded-lg border border-gray-200 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-50 focus:bg-white transition-all"
-            />
+    <> {/* Added missing opening fragment */}
+      <div className="w-full">
+        {/* Top Controls: Search & Categories */}
+        <div className="mb-10 space-y-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            {/* Search */}
+            <div className="relative w-full max-w-sm">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <input
+                type="search"
+                placeholder="Search templates…"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full h-11 pl-10 pr-4 rounded-sm border border-gray-200 text-sm font-medium text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black bg-gray-50/50 focus:bg-white transition-all shadow-sm"
+              />
+            </div>
           </div>
 
-          <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-2">Category</p>
-          <nav className="space-y-0.5">
+          {/* Categories as Chips */}
+          <div className="flex flex-wrap items-center gap-2">
             {TEMPLATE_CATEGORIES.map((cat) => {
               const count = cat.id === "all"
                 ? SITE_TEMPLATES.length
                 : SITE_TEMPLATES.filter((t) => t.category === cat.id).length;
               if (count === 0) return null;
+              const active = activeCategory === cat.id;
+
               return (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
                   className={cn(
-                    "w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-colors text-left",
-                    activeCategory === cat.id
-                      ? "bg-indigo-50 text-indigo-700 font-semibold"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+                    "px-5 py-2 rounded-sm text-[11px] font-black uppercase tracking-wider transition-all border",
+                    active
+                      ? "bg-gray-900 text-white border-gray-900 shadow-md"
+                      : "bg-white text-gray-500 border-gray-100 hover:border-gray-300 hover:text-gray-900 shadow-sm",
                   )}
                 >
-                  <span>{cat.label}</span>
+                  {cat.label}
                   <span className={cn(
-                    "text-[10px] rounded-full px-1.5 font-medium tabular-nums",
-                    activeCategory === cat.id ? "bg-indigo-100 text-indigo-600" : "bg-gray-100 text-gray-400",
+                    "ml-2 text-[9px] opacity-60",
+                    active ? "text-white" : "text-gray-400 font-bold",
                   )}>
-                    {count}
+                    ({count})
                   </span>
                 </button>
               );
             })}
-          </nav>
+          </div>
 
-          {onBlank && (
-            <div className="mt-6 pt-4 border-t border-gray-100">
-              <button
-                onClick={onBlank}
-                className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-xs text-gray-500 hover:bg-gray-50 hover:text-gray-800 transition-colors border border-dashed border-gray-200"
-              >
-                <Layers className="h-3.5 w-3.5 shrink-0" />
-                Start from blank
-              </button>
-            </div>
-          )}
-        </aside>
-
-        {/* Grid */}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between mb-4">
-            <p className="text-sm text-gray-500">
-              <span className="font-semibold text-gray-900">{filtered.length}</span> templates
+          {/* Results Info */}
+          <div className="pt-2 border-t border-gray-100 flex items-center justify-between">
+            <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">
+              Showing <span className="text-gray-900">{filtered.length}</span> templates
               {activeCategory !== "all" && ` in ${TEMPLATE_CATEGORIES.find((c) => c.id === activeCategory)?.label}`}
             </p>
           </div>
-
-          {filtered.length === 0 ? (
-            <div className="text-center py-24 text-gray-400">
-              <Globe className="h-12 w-12 mx-auto mb-4 opacity-30" />
-              <p className="text-sm font-medium">No templates match your search</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
-              {filtered.map((t) => (
-                <TemplateCard
-                  key={t.id}
-                  template={t}
-                  selected={selectMode ? selectedId === t.id : false}
-                  onPreview={() => setPreview(t)}
-                  onUse={() => {
-                    if (selectMode) {
-                      onSelect!(t);
-                    } else {
-                      onUse(t);
-                    }
-                  }}
-                  useLabel={selectMode ? "Select" : useLabel}
-                />
-              ))}
-            </div>
-          )}
-
-          {footer}
         </div>
-      </div>
+
+        {/* Grid */}
+        {filtered.length === 0 ? (
+          <div className="text-center py-32 border border-dashed border-gray-200 rounded-sm">
+            <Globe className="h-12 w-12 mx-auto mb-4 text-gray-200" />
+            <p className="text-sm font-black text-gray-400 uppercase tracking-widest">No templates found</p>
+            <button
+              onClick={() => { setSearch(""); setActiveCategory("all"); }}
+              className="mt-4 text-xs font-black text-indigo-600 hover:underline uppercase"
+            >
+              Clear all filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+            {filtered.map((t) => (
+              <TemplateCard
+                key={t.id}
+                template={t}
+                selected={selectMode ? selectedId === t.id : false}
+                onPreview={() => setPreview(t)}
+                onUse={() => {
+                  if (selectMode) {
+                    onSelect!(t);
+                  } else {
+                    onUse(t);
+                  }
+                }}
+                useLabel={selectMode ? "Select" : useLabel}
+              />
+            ))}
+          </div>
+        )}
+
+        {footer && <div className="mt-12">{footer}</div>}
+      </div> {/* Corrected closing div for the gallery container */}
 
       {preview && (
         <TemplatePreviewModal

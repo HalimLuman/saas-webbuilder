@@ -136,6 +136,7 @@ export default function NewSitePage() {
     }
 
     let siteId: string;
+    let finalPages = resolvedPages;
     try {
       const res = await wfetch("/api/v1/sites", {
         method: "POST",
@@ -150,6 +151,26 @@ export default function NewSitePage() {
         return;
       }
       siteId = json.data.id;
+
+      // For scratch/blank sites, fetch the DB-created page so the store ID matches the DB.
+      if (method === "blank") {
+        try {
+          const pagesRes = await wfetch(`/api/v1/sites/${siteId}/pages`);
+          const pagesJson = await pagesRes.json();
+          const dbPages = pagesJson.data ?? [];
+          if (dbPages.length > 0) {
+            finalPages = dbPages.map((p: { id: string; title: string; slug: string; is_homepage: boolean; content?: { children?: unknown[] } }) => ({
+              id: p.id,
+              name: p.title,
+              slug: p.slug,
+              isHome: p.is_homepage,
+              elements: p.content?.children ?? [],
+            }));
+          }
+        } catch {
+          // Non-critical: store will use fallback page-home ID
+        }
+      }
     } catch {
       toast.error("Network error. Please try again.");
       setIsCreating(false);
@@ -166,7 +187,7 @@ export default function NewSitePage() {
       description: siteDescription.trim() || undefined,
       template: selectedTemplate || undefined,
       status: "draft",
-      pages: resolvedPages,
+      pages: finalPages,
     });
 
     toast.success("Site created! Opening editor…");

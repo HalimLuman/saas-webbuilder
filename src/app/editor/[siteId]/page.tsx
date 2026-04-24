@@ -164,6 +164,20 @@ export default function EditorPage() {
     setSiteId(siteId);
     // Read from getState() so we see the just-rehydrated data synchronously.
     const site = useSiteStore.getState().getSiteById(siteId);
+
+    const seedDefaultPage = (siteName: string) => {
+      const defaultPage = {
+        id: `page-home-${Date.now()}`,
+        name: "Home",
+        slug: "/",
+        elements: [],
+        isHome: true,
+      };
+      useSiteStore.getState().updateSite(siteId, { pages: [defaultPage] });
+      loadElements([]);
+      setCurrentPageId(defaultPage.id);
+    };
+
     if (site) {
       setSiteName(site.name);
       const homePage = site.pages?.find((p) => p.isHome) ?? site.pages?.[0];
@@ -173,20 +187,44 @@ export default function EditorPage() {
         loadElements(homePage.elements ?? []);
         setCurrentPageId(homePage.id);
       } else {
-        try {
-          const raw = localStorage.getItem(`editor-elements-${siteId}`);
-          loadElements(raw ? JSON.parse(raw) : []);
-        } catch {
-          loadElements([]);
-        }
+        // Site exists but has no pages (e.g. created from scratch) — seed a default Home page.
+        seedDefaultPage(site.name);
       }
     } else {
-      try {
-        const raw = localStorage.getItem(`editor-elements-${siteId}`);
-        loadElements(raw ? JSON.parse(raw) : []);
-      } catch {
-        loadElements([]);
-      }
+      // Site not in store — fetch from API to get name + pages, then seed the store.
+      fetch(`/api/v1/sites/${siteId}`)
+        .then((r) => r.json())
+        .then((json) => {
+          const apiSite = json.data;
+          if (!apiSite) { loadElements([]); return; }
+
+          const apiPages: import("@/lib/types").Page[] = (apiSite.pages ?? []).map(
+            (p: { id: string; title: string; slug: string; is_homepage: boolean; content?: { children?: import("@/lib/types").CanvasElement[] } }) => ({
+              id: p.id,
+              name: p.title,
+              slug: p.slug,
+              isHome: p.is_homepage,
+              elements: p.content?.children ?? [],
+            })
+          );
+
+          const pages: import("@/lib/types").Page[] = apiPages.length > 0
+            ? apiPages
+            : [{ id: `page-home-${Date.now()}`, name: "Home", slug: "/", elements: [], isHome: true }];
+
+          useSiteStore.getState().addSite({
+            id: siteId,
+            name: apiSite.name,
+            status: apiSite.status ?? "draft",
+            pages,
+          });
+
+          setSiteName(apiSite.name);
+          const homePage = pages.find((p) => p.isHome) ?? pages[0];
+          loadElements(homePage.elements ?? []);
+          setCurrentPageId(homePage.id);
+        })
+        .catch(() => loadElements([]));
     }
   }, [siteId, setSiteId, setSiteName, loadElements, setCurrentPageId]);
 

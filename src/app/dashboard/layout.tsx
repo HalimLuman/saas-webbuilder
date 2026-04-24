@@ -71,7 +71,7 @@ function UserMenu() {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 text-xs font-bold ring-2 ring-white shadow-sm hover:ring-indigo-300 transition-all"
+        className="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-dark text-xs font-bold ring-2 ring-white shadow-sm hover:ring-primary-200 transition-all"
         title={profile?.name ?? user?.email ?? "User"}
       >
         {profile?.avatar_url ? (
@@ -86,7 +86,7 @@ function UserMenu() {
           <div className="px-4 py-3 border-b border-gray-100">
             <p className="text-sm font-semibold text-gray-900 truncate">{profile?.name ?? "User"}</p>
             <p className="text-xs text-gray-400 truncate">{user?.email}</p>
-            <span className="inline-block mt-1 text-[10px] font-medium text-indigo-600 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded-full capitalize">
+            <span className="inline-block mt-1 text-[10px] font-medium text-primary bg-primary-50 border border-primary-100 px-2 py-0.5 rounded-full capitalize">
               {profile?.plan ?? "free"}
             </span>
           </div>
@@ -158,7 +158,7 @@ function TopHeader({ onMenuClick }: { onMenuClick: () => void }) {
           <input
             type="search"
             placeholder="Search..."
-            className="h-8 w-48 lg:w-64 pl-8 pr-3 rounded-lg bg-gray-50 border border-gray-200 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent focus:bg-white transition-all"
+            className="h-8 w-48 lg:w-64 pl-8 pr-3 rounded-lg bg-gray-50 border border-gray-200 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white transition-all"
           />
         </div>
 

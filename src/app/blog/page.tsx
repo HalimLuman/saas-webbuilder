@@ -19,6 +19,7 @@ const POSTS = [
     readTime: "4 min read",
     date: "Mar 12, 2026",
     gradient: "from-indigo-500 to-violet-600",
+    image: "/blog_ai_generator_1776961952913.png",
     featured: true,
     author: { name: "Alex Chen", initials: "AC", color: "bg-indigo-500" },
   },
@@ -30,6 +31,7 @@ const POSTS = [
     readTime: "7 min read",
     date: "Mar 8, 2026",
     gradient: "from-rose-500 to-pink-600",
+    image: "/blog_design_tips_1776961983211.png",
     featured: false,
     author: { name: "Sarah Kim", initials: "SK", color: "bg-rose-500" },
   },
@@ -41,6 +43,7 @@ const POSTS = [
     readTime: "10 min read",
     date: "Mar 5, 2026",
     gradient: "from-blue-500 to-cyan-600",
+    image: "/blog_analytics_1776962008470.png",
     featured: false,
     author: { name: "Marcus Lee", initials: "ML", color: "bg-blue-500" },
   },
@@ -52,6 +55,7 @@ const POSTS = [
     readTime: "6 min read",
     date: "Feb 28, 2026",
     gradient: "from-emerald-500 to-teal-600",
+    image: "/blog_tutorial_1776962386742.png",
     featured: false,
     author: { name: "Priya Patel", initials: "PP", color: "bg-emerald-500" },
   },
@@ -63,6 +67,7 @@ const POSTS = [
     readTime: "3 min read",
     date: "Feb 20, 2026",
     gradient: "from-amber-500 to-orange-600",
+    image: "/blog_coding_1776962321768.png",
     featured: false,
     author: { name: "Alex Chen", initials: "AC", color: "bg-amber-500" },
   },
@@ -74,8 +79,33 @@ const POSTS = [
     readTime: "12 min read",
     date: "Feb 14, 2026",
     gradient: "from-violet-500 to-purple-600",
+    image: "/blog_tutorial_1776962386742.png",
     featured: false,
     author: { name: "Sarah Kim", initials: "SK", color: "bg-violet-500" },
+  },
+  {
+    slug: "scaling-your-agency-with-automation",
+    title: "Scaling Your Agency: How Automation Changes the Game",
+    excerpt: "Learn how to handle 10x more clients by automating recurring tasks, using project templates, and leveraging AI for content creation.",
+    category: "Design",
+    readTime: "9 min read",
+    date: "Feb 10, 2026",
+    gradient: "from-fuchsia-500 to-rose-600",
+    image: "/blog_ai_generator_1776961952913.png",
+    featured: false,
+    author: { name: "Sarah Kim", initials: "SK", color: "bg-fuchsia-500" },
+  },
+  {
+    slug: "future-of-nocode-2027",
+    title: "The Future of No-Code: Predictions for 2027 and Beyond",
+    excerpt: "Where is the industry heading? We look at the convergence of AI, decentralized hosting, and edge computing in the world of website builders.",
+    category: "Comparison",
+    readTime: "15 min read",
+    date: "Feb 4, 2026",
+    gradient: "from-slate-700 to-slate-900",
+    image: "/blog_analytics_1776962008470.png",
+    featured: false,
+    author: { name: "Marcus Lee", initials: "ML", color: "bg-slate-700" },
   },
 ];
 
@@ -131,10 +161,20 @@ export default function BlogPage() {
           <Link href={`/blog/${featured.slug}`} className="block group mb-12">
             <div className="rounded-3xl overflow-hidden border border-gray-200 bg-white hover:shadow-md transition-all hover:border-gray-300">
               <div className="grid grid-cols-1 lg:grid-cols-2">
-                <div className={`h-64 lg:h-auto bg-gradient-to-br ${featured.gradient} relative min-h-[280px]`}>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-white/20 text-9xl font-black select-none">AI</div>
-                  </div>
+                <div className={`h-64 lg:h-auto bg-gradient-to-br ${featured.gradient} relative min-h-[400px] overflow-hidden`}>
+                  {featured.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={featured.image}
+                      alt={featured.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-white/20 text-9xl font-black select-none">AI</div>
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors" />
                   <div className="absolute top-4 left-4">
                     <span className={cn("text-xs font-semibold px-2.5 py-1 rounded-full bg-white/20 text-white backdrop-blur-sm")}>
                       Featured
@@ -180,12 +220,22 @@ export default function BlogPage() {
           {regular.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
               <article className="h-full rounded-2xl border border-gray-200 bg-white hover:shadow-md hover:border-gray-300 transition-all overflow-hidden flex flex-col">
-                <div className={`h-44 bg-gradient-to-br ${post.gradient} relative overflow-hidden`}>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-white/10 text-7xl font-black select-none uppercase">
-                      {post.category.slice(0, 2)}
+                <div className={`h-48 bg-gradient-to-br ${post.gradient} relative overflow-hidden`}>
+                  {post.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-white/10 text-7xl font-black select-none uppercase">
+                        {post.category.slice(0, 2)}
+                      </div>
                     </div>
-                  </div>
+                  )}
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
                 </div>
                 <div className="p-5 flex flex-col flex-1">
                   <div className="flex items-center gap-2 mb-3">

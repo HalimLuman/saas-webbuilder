@@ -665,10 +665,13 @@ export type TemplateCategory =
   | "blog"
   | "ecommerce"
   | "restaurant"
+  | "hotel"
   | "agency"
   | "health"
   | "startup"
   | "corporate"
+  | "events"
+  | "local"
   | "education"
   | "finance"
   | "creator";

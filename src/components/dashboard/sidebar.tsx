@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard, Globe, LayoutTemplate, Database, FileText,
@@ -73,7 +74,7 @@ const navSections: NavSection[] = [
 ];
 
 const ROLE_COLORS: Record<string, string> = {
-  owner: "bg-indigo-100 text-indigo-700",
+  owner: "bg-primary-100 text-primary-dark",
   admin: "bg-blue-100 text-blue-700",
   designer: "bg-purple-100 text-purple-700",
   editor: "bg-emerald-100 text-emerald-700",
@@ -127,15 +128,12 @@ function CreateWorkspaceModal({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      {/* Backdrop */}
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-      {/* Dialog */}
       <div className="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
-        {/* Header */}
         <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-gray-100">
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-xl bg-indigo-100 flex items-center justify-center">
-              <Building2 className="h-4 w-4 text-indigo-600" />
+            <div className="h-8 w-8 rounded-xl bg-primary-100 flex items-center justify-center">
+              <Building2 className="h-4 w-4 text-primary" />
             </div>
             <div>
               <p className="text-sm font-semibold text-gray-900">New Workspace</p>
@@ -149,7 +147,6 @@ function CreateWorkspaceModal({
             <X className="h-4 w-4" />
           </button>
         </div>
-        {/* Body */}
         <div className="px-5 py-4 space-y-3">
           <div>
             <label className="block text-xs font-medium text-gray-700 mb-1.5">Workspace name</label>
@@ -159,11 +156,10 @@ function CreateWorkspaceModal({
               onChange={(e) => setName(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter") submit(); if (e.key === "Escape") onClose(); }}
               placeholder="e.g. Acme Corp, My Projects…"
-              className="w-full h-9 px-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full h-9 px-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
             />
           </div>
         </div>
-        {/* Footer */}
         <div className="flex items-center gap-2 px-5 pb-5">
           <button
             onClick={onClose}
@@ -174,7 +170,7 @@ function CreateWorkspaceModal({
           <button
             onClick={submit}
             disabled={creating || !name.trim()}
-            className="flex-1 h-9 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+            className="flex-1 h-9 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
           >
             {creating ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Plus className="h-3.5 w-3.5" />}
             {creating ? "Creating…" : "Create Workspace"}
@@ -221,7 +217,6 @@ function WorkspaceSwitcher() {
 
   useEffect(() => { load(); }, [load]);
 
-  // Close dropdown on outside click
   useEffect(() => {
     if (!open) return;
     function handle(e: MouseEvent) {
@@ -260,7 +255,6 @@ function WorkspaceSwitcher() {
     }
   };
 
-
   return (
     <>
       <div className="relative px-3 py-2" ref={dropdownRef}>
@@ -270,8 +264,8 @@ function WorkspaceSwitcher() {
           aria-haspopup="listbox"
           aria-expanded={open}
         >
-          <div className="h-6 w-6 rounded-md bg-indigo-100 flex items-center justify-center shrink-0">
-            <Building2 className="h-3.5 w-3.5 text-indigo-600" />
+          <div className="h-6 w-6 rounded-md bg-primary-100 flex items-center justify-center shrink-0">
+            <Building2 className="h-3.5 w-3.5 text-primary" />
           </div>
           <div className="flex-1 text-left min-w-0">
             {loading ? (
@@ -305,12 +299,12 @@ function WorkspaceSwitcher() {
                     key={ws.id}
                     className={cn(
                       "group flex items-center gap-2.5 px-3 py-2 hover:bg-gray-50 transition-colors",
-                      active?.id === ws.id && "bg-indigo-50/60"
+                      active?.id === ws.id && "bg-primary-50/60"
                     )}
                   >
                     <button className="flex items-center gap-2.5 flex-1 min-w-0 text-left" onClick={() => select(ws)}>
-                      <div className="h-6 w-6 rounded-md bg-indigo-100 flex items-center justify-center shrink-0">
-                        <Building2 className="h-3 w-3 text-indigo-500" />
+                      <div className="h-6 w-6 rounded-md bg-primary-100 flex items-center justify-center shrink-0">
+                        <Building2 className="h-3 w-3 text-primary" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
@@ -321,7 +315,7 @@ function WorkspaceSwitcher() {
                         </div>
                         <p className="text-[10px] text-gray-400">{ws.memberCount ?? 1} member{(ws.memberCount ?? 1) !== 1 ? "s" : ""}</p>
                       </div>
-                      {active?.id === ws.id && <Check className="h-3.5 w-3.5 text-indigo-600 shrink-0" />}
+                      {active?.id === ws.id && <Check className="h-3.5 w-3.5 text-primary shrink-0" />}
                     </button>
                     {ws.myRole === "owner" && !ws.isDefault && (
                       <button
@@ -352,10 +346,10 @@ function WorkspaceSwitcher() {
               ) : (
                 <button
                   onClick={() => { setOpen(false); setShowCreateModal(true); }}
-                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors font-medium"
+                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-primary hover:bg-primary-50 rounded-lg transition-colors font-medium"
                 >
-                  <div className="h-5 w-5 rounded-full border-2 border-indigo-300 flex items-center justify-center shrink-0">
-                    <Plus className="h-2.5 w-2.5 text-indigo-500" />
+                  <div className="h-5 w-5 rounded-full border-2 border-primary-200 flex items-center justify-center shrink-0">
+                    <Plus className="h-2.5 w-2.5 text-primary" />
                   </div>
                   <span className="text-xs">New workspace</span>
                 </button>
@@ -398,10 +392,10 @@ function NavLink({ item, pathname, onClick }: { item: NavItem; pathname: string;
       onClick={onClick}
       className={cn(
         "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150",
-        isActive ? "bg-indigo-50 text-indigo-700" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+        isActive ? "bg-primary-50 text-primary-dark" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
       )}
     >
-      <item.icon className={cn("h-4 w-4 shrink-0 transition-colors", isActive ? "text-indigo-600" : "text-gray-400")} />
+      <item.icon className={cn("h-4 w-4 shrink-0 transition-colors", isActive ? "text-primary" : "text-gray-400")} />
       <span className="truncate">{item.label}</span>
     </Link>
   );
@@ -428,13 +422,8 @@ export default function Sidebar({ open = false, onClose }: { open?: boolean; onC
     <aside className="w-64 bg-white flex flex-col h-full">
       {/* Logo */}
       <div className="h-14 flex items-center justify-between px-5 border-b border-gray-100 shrink-0">
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-sm group-hover:shadow-indigo-200 transition-shadow">
-            <Zap className="h-3.5 w-3.5 text-white" />
-          </div>
-          <span className="font-bold text-gray-900 tracking-tight">
-            Build<span className="text-indigo-500">Stack</span>
-          </span>
+        <Link href="/" className="flex items-center">
+          <Image src="/webperia-logo-wobg.png" alt="Webperia" width={120} height={32} className="h-8 w-auto object-contain" />
         </Link>
         {onClose && (
           <button onClick={onClose} className="md:hidden h-7 w-7 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors">
@@ -466,7 +455,7 @@ export default function Sidebar({ open = false, onClose }: { open?: boolean; onC
 
       {/* Bottom: User info */}
       <div className="shrink-0 border-t border-gray-100 p-3 space-y-2">
-        <Button asChild size="sm" className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white text-xs h-8 shadow-sm">
+        <Button asChild size="sm" className="w-full bg-gradient-to-r from-primary to-primary-dark hover:from-primary-600 hover:to-accent text-white text-xs h-8 shadow-sm">
           <Link href="/pricing">
             <Zap className="h-3 w-3 mr-1.5" />
             Upgrade to Pro
