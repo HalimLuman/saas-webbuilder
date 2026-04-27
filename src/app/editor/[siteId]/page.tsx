@@ -26,7 +26,7 @@ const ElementsPanel = dynamic(() => import("@/components/editor/elements-panel")
 const PropertiesPanel = dynamic(() => import("@/components/editor/properties-panel"), { ssr: false });
 const LayersPanel = dynamic(() => import("@/components/editor/layers-panel"), { ssr: false });
 const CommandPalette = dynamic(() => import("@/components/editor/command-palette"), { ssr: false });
-const BackendPanel   = dynamic(() => import("@/components/editor/backend-panel"),   { ssr: false });
+const BackendPanel = dynamic(() => import("@/components/editor/backend-panel"), { ssr: false });
 const HistoryPanel = dynamic(() => import("@/components/editor/history-panel"), { ssr: false });
 const SectionsPanel = dynamic(() => import("@/components/editor/sections-panel"), { ssr: false });
 const AccessibilityPanel = dynamic(() => import("@/components/editor/accessibility-panel"), { ssr: false });
@@ -36,7 +36,10 @@ import { useSiteStore } from "@/store/site-store";
 import { cn } from "@/lib/utils";
 import { PreviewContext } from "@/lib/preview-context";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+import { UpgradePrompt } from "@/components/ui/upgrade-prompt";
 import type { DraggableElement, PageRouteType } from "@/lib/types";
+import { useUser } from "@/hooks/use-user";
+import { PLAN_LIMITS } from "@/lib/plan-limits";
 
 type LeftTab = "elements" | "pages" | "layers" | "sections" | "history" | "a11y" | "backend";
 
@@ -51,11 +54,12 @@ export default function EditorPage() {
     setDeviceMode,
     zoomIn, zoomOut, setZoom, toggleGrid,
     wrapInContainer, toggleElementLock, toggleElementVisibility,
-    setIsSaving, isPreviewMode, currentPageId, setCurrentPageId,
+    setIsSaving, isPreviewMode, currentPageId, setCurrentPageId, updateDesignTokens,
   } = useEditorStore();
 
   const getSiteById = useSiteStore((s) => s.getSiteById);
   const updateSite = useSiteStore((s) => s.updateSite);
+  const { profile } = useUser();
 
   const [leftTab, setLeftTab] = useState<LeftTab>("elements");
   // Start panels open (consistent SSR default); narrow viewports collapse them after mount
@@ -77,6 +81,7 @@ export default function EditorPage() {
   const [deletePageConfirm, setDeletePageConfirm] = useState<{ id: string; name: string } | null>(null);
   const [expandedRoutePageId, setExpandedRoutePageId] = useState<string | null>(null);
   const [draftRoutes, setDraftRoutes] = useState<Record<string, { slug: string; routeGroup: string; routeType: PageRouteType; redirectTo: string; is404: boolean }>>({});
+  const [upgradePromptState, setUpgradePromptState] = useState<{ open: boolean; title: string; description: string; targetPlan: string }>({ open: false, title: "", description: "", targetPlan: "pro" });
 
   // ── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -106,11 +111,28 @@ export default function EditorPage() {
 
   // Add a new page
   const addPage = useCallback(() => {
-    const cpId = useEditorStore.getState().currentPageId;
-    if (cpId) saveCurrentPageElements(cpId);
     const site = getSiteById(siteId);
     if (!site) return;
-    const pageNum = (site.pages?.length ?? 0) + 1;
+
+    // Check plan limits
+    const currentPagesCount = site.pages?.length ?? 0;
+    const userPlan = profile?.plan ?? "free";
+    const maxPages = PLAN_LIMITS[userPlan].maxPagesPerSite;
+
+    if (currentPagesCount >= maxPages) {
+      setUpgradePromptState({
+        open: true,
+        title: "Page Limit Reached",
+        description: `Your current ${userPlan} plan allows up to ${maxPages} pages per site. Upgrade your plan to add more pages and continue growing your project.`,
+        targetPlan: userPlan === "free" ? "pro" : userPlan === "pro" ? "business" : "enterprise"
+      });
+      return;
+    }
+
+    const cpId = useEditorStore.getState().currentPageId;
+    if (cpId) saveCurrentPageElements(cpId);
+    
+    const pageNum = currentPagesCount + 1;
     const newPage = {
       id: `page-${Date.now()}`,
       name: `Page ${pageNum}`,
@@ -180,6 +202,9 @@ export default function EditorPage() {
 
     if (site) {
       setSiteName(site.name);
+      // if (site.designTokens) {
+      //   updateDesignTokens(site.designTokens);
+      // }
       const homePage = site.pages?.find((p) => p.isHome) ?? site.pages?.[0];
       if (homePage) {
         // Always call loadElements — even with an empty array — so any stale
@@ -217,16 +242,21 @@ export default function EditorPage() {
             name: apiSite.name,
             status: apiSite.status ?? "draft",
             pages,
+            // @ts-ignore
+            designTokens: apiSite.design_tokens,
           });
 
           setSiteName(apiSite.name);
+          if (apiSite.design_tokens) {
+            updateDesignTokens(apiSite.design_tokens);
+          }
           const homePage = pages.find((p) => p.isHome) ?? pages[0];
           loadElements(homePage.elements ?? []);
           setCurrentPageId(homePage.id);
         })
         .catch(() => loadElements([]));
     }
-  }, [siteId, setSiteId, setSiteName, loadElements, setCurrentPageId]);
+  }, [siteId, setSiteId, setSiteName, loadElements, setCurrentPageId, updateDesignTokens]);
 
   // ── Keyboard shortcuts ──────────────────────────────────────────────────────
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -441,18 +471,18 @@ export default function EditorPage() {
       // Drop into a specific nested zone
       if (overId.startsWith("nested-zone-")) {
         const parentId = overId.replace("nested-zone-", "");
-        addChildElement(parentId, { 
-          type: elementData.type, 
-          content: elementData.defaultContent, 
-          styles: elementData.defaultStyles 
+        addChildElement(parentId, {
+          type: elementData.type,
+          content: elementData.defaultContent,
+          styles: elementData.defaultStyles
         });
-      } 
+      }
       // Drop into main canvas
       else if (overId === "canvas-drop-zone") {
-        addElementFromDrag({ 
-          type: elementData.type, 
-          content: elementData.defaultContent, 
-          styles: elementData.defaultStyles 
+        addElementFromDrag({
+          type: elementData.type,
+          content: elementData.defaultContent,
+          styles: elementData.defaultStyles
         });
       }
       return;
@@ -475,7 +505,7 @@ export default function EditorPage() {
     { id: "pages" as LeftTab, icon: FileText, label: "Pages" },
     { id: "history" as LeftTab, icon: Clock, label: "History" },
     { id: "a11y" as LeftTab, icon: ShieldCheck, label: "Accessibility" },
-    { id: "backend"  as LeftTab, icon: Server,     label: "Backend" },
+    { id: "backend" as LeftTab, icon: Server, label: "Backend" },
   ];
 
   const sendAiMessage = async (msg: string) => {
@@ -488,9 +518,25 @@ export default function EditorPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: msg, context: { siteName, currentPage: "Home" } }),
       });
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        let errMsg = errData.error || res.statusText || "Failed to fetch";
+        if (errData.detail) {
+          try {
+            const detailObj = JSON.parse(errData.detail);
+            if (detailObj.error?.message) errMsg += `: ${detailObj.error.message}`;
+            else errMsg += `: ${errData.detail}`;
+          } catch {
+            errMsg += `: ${errData.detail}`;
+          }
+        }
+        throw new Error(errMsg);
+      }
       const reader = res.body?.getReader();
       const decoder = new TextDecoder();
       let reply = "";
+      let toolName = "";
+      let toolJsonStr = "";
       setAiMessages((prev) => [...prev, { role: "assistant", content: "" }]);
       while (reader) {
         const { done, value } = await reader.read();
@@ -499,15 +545,86 @@ export default function EditorPage() {
         for (const line of lines) {
           try {
             const data = JSON.parse(line.slice(6));
-            if (data.delta?.text) {
+            if (data.type === "content_block_start" && data.content_block?.type === "tool_use") {
+              toolName = data.content_block.name;
+              toolJsonStr = "";
+            } else if (data.type === "content_block_delta" && data.delta?.type === "input_json_delta") {
+              toolJsonStr += data.delta.partial_json;
+            } else if (data.type === "content_block_stop" && toolName) {
+              try {
+                const args = JSON.parse(toolJsonStr);
+                const store = useEditorStore.getState();
+
+                if (toolName === "add_element" && args.elementData) {
+                  store.addElementFromDrag(args.elementData);
+                  setAiMessages((prev) => [...prev, { role: "assistant", content: "✨ Inserted new elements into your canvas." }]);
+                } else if (toolName === "update_styles" && args.elementId && args.styles) {
+                  store.updateElementStyles(args.elementId, args.styles);
+                  setAiMessages((prev) => [...prev, { role: "assistant", content: `✨ Updated styles for element ${args.elementId}.` }]);
+                } else if (toolName === "update_content" && args.elementId && args.content) {
+                  store.updateElementContent(args.elementId, args.content);
+                  setAiMessages((prev) => [...prev, { role: "assistant", content: `✨ Updated content for element ${args.elementId}.` }]);
+                } else if (toolName === "remove_element" && args.elementId) {
+                  store.removeElement(args.elementId);
+                  setAiMessages((prev) => [...prev, { role: "assistant", content: `✨ Removed element ${args.elementId}.` }]);
+                } else if (toolName === "update_props" && args.elementId && args.props) {
+                  store.updateElementProps(args.elementId, args.props);
+                  setAiMessages((prev) => [...prev, { role: "assistant", content: `✨ Updated properties for element ${args.elementId}.` }]);
+                } else if (toolName === "update_descendants_styles" && args.parentId && args.styles) {
+                  store.updateDescendantsStyles(args.parentId, args.styles, args.targetType);
+                  setAiMessages((prev) => [...prev, { role: "assistant", content: `✨ Updated styles for descendants of ${args.parentId}.` }]);
+                } else if (toolName === "move_element" && args.activeId && args.targetId && args.placement) {
+                  store.moveElement(args.activeId, args.targetId, args.placement);
+                  setAiMessages((prev) => [...prev, { role: "assistant", content: `✨ Moved element ${args.activeId} ${args.placement} ${args.targetId}.` }]);
+                } else if (toolName === "duplicate_element" && args.elementId) {
+                  store.duplicateElement(args.elementId);
+                  setAiMessages((prev) => [...prev, { role: "assistant", content: `✨ Duplicated element ${args.elementId}.` }]);
+                } else if (toolName === "add_child_element" && args.parentId && args.childData) {
+                  store.addChildElement(args.parentId, args.childData);
+                  setAiMessages((prev) => [...prev, { role: "assistant", content: `✨ Added new element inside ${args.parentId}.` }]);
+                } else if (toolName === "wrap_in_container" && args.elementId) {
+                  store.wrapInContainer(args.elementId);
+                  setAiMessages((prev) => [...prev, { role: "assistant", content: `✨ Wrapped element ${args.elementId} in a container.` }]);
+                } else if (toolName === "batch_update_elements" && args.updates) {
+                  store.batchUpdateElements(args.updates);
+                  setAiMessages((prev) => [...prev, { role: "assistant", content: `✨ Batch updated ${args.updates.length} elements.` }]);
+                } else if (toolName === "update_responsive_styles" && args.elementId && args.breakpoint && args.styles) {
+                  store.updateElementResponsiveStyles(args.elementId, args.breakpoint, args.styles);
+                  setAiMessages((prev) => [...prev, { role: "assistant", content: `✨ Updated responsive styles for element ${args.elementId} on ${args.breakpoint}.` }]);
+                } else if (toolName === "apply_visual_preset" && args.elementId && args.preset) {
+                  const presetStyles: any = {};
+                  if (args.preset === "glassmorphism") {
+                    presetStyles.backgroundColor = args.intensity === "strong" ? "rgba(255, 255, 255, 0.4)" : "rgba(255, 255, 255, 0.1)";
+                    presetStyles.backdropFilter = args.intensity === "strong" ? "blur(16px)" : "blur(8px)";
+                    presetStyles.border = "1px solid rgba(255, 255, 255, 0.2)";
+                    presetStyles.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+                    presetStyles.borderRadius = "12px";
+                  } else if (args.preset === "outline_minimal") {
+                    presetStyles.backgroundColor = "transparent";
+                    presetStyles.border = args.intensity === "strong" ? "2px solid #000" : "1px solid #e5e7eb";
+                    presetStyles.borderRadius = "8px";
+                  } else if (args.preset === "soft_surface") {
+                    presetStyles.backgroundColor = "#ffffff";
+                    presetStyles.boxShadow = args.intensity === "strong" ? "0 10px 25px rgba(0, 0, 0, 0.1)" : "0 4px 6px rgba(0, 0, 0, 0.05)";
+                    presetStyles.borderRadius = "16px";
+                    presetStyles.border = "1px solid #f3f4f6";
+                  }
+                  store.updateElementStyles(args.elementId, presetStyles);
+                  setAiMessages((prev) => [...prev, { role: "assistant", content: `✨ Applied ${args.preset} preset to element ${args.elementId}.` }]);
+                }
+              } catch (e) {
+                console.error("Failed to parse tool call JSON", e);
+              }
+              toolName = "";
+            } else if (data.delta?.text) {
               reply += data.delta.text;
               setAiMessages((prev) => { const next = [...prev]; next[next.length - 1] = { role: "assistant", content: reply }; return next; });
             }
           } catch { /* ignore parse errors */ }
         }
       }
-    } catch {
-      setAiMessages((prev) => [...prev, { role: "assistant", content: "Sorry, something went wrong. Please try again." }]);
+    } catch (err: any) {
+      setAiMessages((prev) => [...prev, { role: "assistant", content: `Sorry, something went wrong: ${err?.message || "Please try again."}` }]);
     } finally {
       setAiLoading(false);
     }
@@ -592,7 +709,7 @@ export default function EditorPage() {
                 {leftTab === "pages" && <FileText className="h-3.5 w-3.5 text-indigo-500" />}
                 {leftTab === "history" && <Clock className="h-3.5 w-3.5 text-indigo-500" />}
                 {leftTab === "a11y" && <ShieldCheck className="h-3.5 w-3.5 text-indigo-500" />}
-                {leftTab === "backend"  && <Server     className="h-3.5 w-3.5 text-violet-500" />}
+                {leftTab === "backend" && <Server className="h-3.5 w-3.5 text-violet-500" />}
                 {leftTab}
               </h2>
               <button
@@ -609,15 +726,15 @@ export default function EditorPage() {
               {leftTab === "layers" && <LayersPanel />}
               {leftTab === "history" && <HistoryPanel />}
               {leftTab === "a11y" && <AccessibilityPanel />}
-              {leftTab === "backend"  && <BackendPanel />}
+              {leftTab === "backend" && <BackendPanel />}
               {leftTab === "pages" && (() => {
                 const sitePages = getSiteById(siteId)?.pages ?? [];
 
                 // Route type display config
                 const routeTypeMeta: Record<PageRouteType, { label: string; icon: React.ReactNode; rowCls: string; badgeCls: string }> = {
-                  "public":    { label: "Public",    icon: <Globe className="h-3 w-3" />,       rowCls: "border-transparent", badgeCls: "bg-emerald-50 text-emerald-700 border-emerald-200" },
-                  "private":   { label: "Private",   icon: <Lock className="h-3 w-3" />,        rowCls: "border-amber-100",   badgeCls: "bg-amber-50 text-amber-700 border-amber-200" },
-                  "auth-only": { label: "Auth only", icon: <LogIn className="h-3 w-3" />,       rowCls: "border-blue-100",    badgeCls: "bg-blue-50 text-blue-700 border-blue-200" },
+                  "public": { label: "Public", icon: <Globe className="h-3 w-3" />, rowCls: "border-transparent", badgeCls: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+                  "private": { label: "Private", icon: <Lock className="h-3 w-3" />, rowCls: "border-amber-100", badgeCls: "bg-amber-50 text-amber-700 border-amber-200" },
+                  "auth-only": { label: "Auth only", icon: <LogIn className="h-3 w-3" />, rowCls: "border-blue-100", badgeCls: "bg-blue-50 text-blue-700 border-blue-200" },
                 };
 
                 // Derive a compact display path (with route group prefix if set)
@@ -716,7 +833,7 @@ export default function EditorPage() {
 
                               {/* Badges */}
                               {page.isHome && <span className="text-[9px] font-bold uppercase tracking-wider text-indigo-400 shrink-0">HOME</span>}
-                              {page.is404   && <span className="text-[9px] font-bold uppercase tracking-wider text-red-400 shrink-0">404</span>}
+                              {page.is404 && <span className="text-[9px] font-bold uppercase tracking-wider text-red-400 shrink-0">404</span>}
                               {page.redirectTo && <CornerDownRight className="h-3 w-3 text-violet-400 shrink-0" />}
 
                               {/* Actions */}
@@ -750,134 +867,134 @@ export default function EditorPage() {
                                 setDraftRoutes(prev => ({ ...prev, [page.id]: { ...draft, ...patch } }));
 
                               return (
-                              <div className="border-t border-gray-100 bg-gray-50/60 px-3 py-3 space-y-3">
+                                <div className="border-t border-gray-100 bg-gray-50/60 px-3 py-3 space-y-3">
 
-                                {/* Slug */}
-                                <div className="space-y-1">
-                                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Path / Slug</label>
-                                  <div className="flex items-center gap-1">
-                                    <span className="text-xs text-gray-400 font-mono shrink-0">/</span>
+                                  {/* Slug */}
+                                  <div className="space-y-1">
+                                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Path / Slug</label>
+                                    <div className="flex items-center gap-1">
+                                      <span className="text-xs text-gray-400 font-mono shrink-0">/</span>
+                                      <input
+                                        value={draft.slug.replace(/^\//, "")}
+                                        onChange={(e) => {
+                                          const raw = e.target.value.replace(/\s+/g, "-").toLowerCase();
+                                          setDraft({ slug: page.isHome ? "/" : `/${raw}` });
+                                        }}
+                                        disabled={page.isHome}
+                                        placeholder="dashboard"
+                                        className="flex-1 min-w-0 bg-white border border-gray-200 rounded-lg px-2 py-1.5 text-xs font-mono focus:outline-none focus:ring-1 focus:ring-indigo-400 disabled:opacity-40 disabled:cursor-not-allowed"
+                                      />
+                                    </div>
+                                    <p className="text-[10px] text-gray-400">Supports dynamic segments: <code className="bg-gray-100 px-1 rounded">[id]</code>, <code className="bg-gray-100 px-1 rounded">[slug]</code></p>
+                                  </div>
+
+                                  {/* Route group */}
+                                  <div className="space-y-1">
+                                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Route Group</label>
                                     <input
-                                      value={draft.slug.replace(/^\//, "")}
-                                      onChange={(e) => {
-                                        const raw = e.target.value.replace(/\s+/g, "-").toLowerCase();
-                                        setDraft({ slug: page.isHome ? "/" : `/${raw}` });
-                                      }}
-                                      disabled={page.isHome}
-                                      placeholder="dashboard"
-                                      className="flex-1 min-w-0 bg-white border border-gray-200 rounded-lg px-2 py-1.5 text-xs font-mono focus:outline-none focus:ring-1 focus:ring-indigo-400 disabled:opacity-40 disabled:cursor-not-allowed"
+                                      value={draft.routeGroup}
+                                      onChange={(e) => setDraft({ routeGroup: e.target.value })}
+                                      placeholder="e.g. (auth), (app), (marketing)"
+                                      className="w-full bg-white border border-gray-200 rounded-lg px-2 py-1.5 text-xs font-mono focus:outline-none focus:ring-1 focus:ring-indigo-400"
                                     />
+                                    <p className="text-[10px] text-gray-400">Cosmetic grouping only — does not affect the URL.</p>
                                   </div>
-                                  <p className="text-[10px] text-gray-400">Supports dynamic segments: <code className="bg-gray-100 px-1 rounded">[id]</code>, <code className="bg-gray-100 px-1 rounded">[slug]</code></p>
-                                </div>
 
-                                {/* Route group */}
-                                <div className="space-y-1">
-                                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Route Group</label>
-                                  <input
-                                    value={draft.routeGroup}
-                                    onChange={(e) => setDraft({ routeGroup: e.target.value })}
-                                    placeholder="e.g. (auth), (app), (marketing)"
-                                    className="w-full bg-white border border-gray-200 rounded-lg px-2 py-1.5 text-xs font-mono focus:outline-none focus:ring-1 focus:ring-indigo-400"
-                                  />
-                                  <p className="text-[10px] text-gray-400">Cosmetic grouping only — does not affect the URL.</p>
-                                </div>
-
-                                {/* Route type */}
-                                <div className="space-y-1">
-                                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Access Control</label>
-                                  <div className="grid grid-cols-3 gap-1">
-                                    {(["public", "private", "auth-only"] as PageRouteType[]).map((type) => {
-                                      const m = routeTypeMeta[type];
-                                      const active = draft.routeType === type;
-                                      return (
-                                        <button
-                                          key={type}
-                                          onClick={() => setDraft({ routeType: type })}
-                                          className={cn(
-                                            "flex flex-col items-center gap-1 px-2 py-2 rounded-lg border text-[10px] font-bold transition-all",
-                                            active ? cn(m.badgeCls, "shadow-sm") : "border-gray-200 text-gray-500 hover:border-gray-300 bg-white"
-                                          )}
-                                        >
-                                          {m.icon}
-                                          {m.label}
-                                        </button>
-                                      );
-                                    })}
+                                  {/* Route type */}
+                                  <div className="space-y-1">
+                                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Access Control</label>
+                                    <div className="grid grid-cols-3 gap-1">
+                                      {(["public", "private", "auth-only"] as PageRouteType[]).map((type) => {
+                                        const m = routeTypeMeta[type];
+                                        const active = draft.routeType === type;
+                                        return (
+                                          <button
+                                            key={type}
+                                            onClick={() => setDraft({ routeType: type })}
+                                            className={cn(
+                                              "flex flex-col items-center gap-1 px-2 py-2 rounded-lg border text-[10px] font-bold transition-all",
+                                              active ? cn(m.badgeCls, "shadow-sm") : "border-gray-200 text-gray-500 hover:border-gray-300 bg-white"
+                                            )}
+                                          >
+                                            {m.icon}
+                                            {m.label}
+                                          </button>
+                                        );
+                                      })}
+                                    </div>
+                                    <div className="text-[10px] text-gray-400 leading-relaxed pt-0.5">
+                                      {draft.routeType === "public" && "Everyone can visit this page."}
+                                      {draft.routeType === "private" && "Requires sign-in. Guests are redirected to the sign-in page."}
+                                      {draft.routeType === "auth-only" && "Guests only. Signed-in visitors are sent to the post-login page (e.g. sign-in, sign-up)."}
+                                    </div>
                                   </div>
-                                  <div className="text-[10px] text-gray-400 leading-relaxed pt-0.5">
-                                    {draft.routeType === "public"    && "Everyone can visit this page."}
-                                    {draft.routeType === "private"   && "Requires sign-in. Guests are redirected to the sign-in page."}
-                                    {draft.routeType === "auth-only" && "Guests only. Signed-in visitors are sent to the post-login page (e.g. sign-in, sign-up)."}
-                                  </div>
-                                </div>
 
-                                {/* Redirect */}
-                                <div className="space-y-1">
-                                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                                    <CornerDownRight className="h-3 w-3" /> Redirect To
-                                  </label>
-                                  <select
-                                    value={draft.redirectTo}
-                                    onChange={(e) => setDraft({ redirectTo: e.target.value })}
-                                    className="w-full bg-white border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-indigo-400"
-                                  >
-                                    <option value="">— none (render page normally) —</option>
-                                    {sitePages.filter(p => p.id !== page.id).map(p => (
-                                      <option key={p.slug} value={p.slug}>{p.name} ({p.slug})</option>
-                                    ))}
-                                  </select>
-                                  {draft.redirectTo && (
-                                    <p className="text-[10px] text-violet-500 font-medium">
-                                      This page instantly redirects visitors → <code>{draft.redirectTo}</code>
-                                    </p>
-                                  )}
-                                </div>
-
-                                {/* 404 toggle */}
-                                <button
-                                  onClick={() => setDraft({ is404: !draft.is404 })}
-                                  className={cn(
-                                    "w-full flex items-center gap-2 px-2.5 py-2 rounded-lg border text-xs font-semibold transition-all",
-                                    draft.is404
-                                      ? "border-red-200 bg-red-50 text-red-600"
-                                      : "border-gray-200 bg-white text-gray-500 hover:border-gray-300"
-                                  )}
-                                >
-                                  <AlertCircle className="h-3.5 w-3.5 shrink-0" />
-                                  {draft.is404 ? "This is the 404 page ✓" : "Use as 404 / Not Found page"}
-                                </button>
-
-                                {/* ── Action buttons ── */}
-                                <div className="flex items-center gap-2 pt-1">
-                                  <button
-                                    onClick={() => {
-                                      updatePageFields(page.id, {
-                                        slug: draft.slug,
-                                        routeGroup: draft.routeGroup || undefined,
-                                        routeType: draft.routeType,
-                                        isProtected: draft.routeType === "private",
-                                        redirectTo: draft.redirectTo || undefined,
-                                        is404: draft.is404,
-                                      });
-                                      setExpandedRoutePageId(null);
-                                    }}
-                                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-colors"
-                                  >
-                                    Apply Changes
-                                  </button>
-                                  {sitePages.length > 1 && (
-                                    <button
-                                      onClick={() => setDeletePageConfirm({ id: page.id, name: page.name })}
-                                      className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-semibold transition-colors"
+                                  {/* Redirect */}
+                                  <div className="space-y-1">
+                                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1">
+                                      <CornerDownRight className="h-3 w-3" /> Redirect To
+                                    </label>
+                                    <select
+                                      value={draft.redirectTo}
+                                      onChange={(e) => setDraft({ redirectTo: e.target.value })}
+                                      className="w-full bg-white border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-indigo-400"
                                     >
-                                      <X className="h-3.5 w-3.5" />
-                                      Delete Route
-                                    </button>
-                                  )}
-                                </div>
+                                      <option value="">— none (render page normally) —</option>
+                                      {sitePages.filter(p => p.id !== page.id).map(p => (
+                                        <option key={p.slug} value={p.slug}>{p.name} ({p.slug})</option>
+                                      ))}
+                                    </select>
+                                    {draft.redirectTo && (
+                                      <p className="text-[10px] text-violet-500 font-medium">
+                                        This page instantly redirects visitors → <code>{draft.redirectTo}</code>
+                                      </p>
+                                    )}
+                                  </div>
 
-                              </div>
+                                  {/* 404 toggle */}
+                                  <button
+                                    onClick={() => setDraft({ is404: !draft.is404 })}
+                                    className={cn(
+                                      "w-full flex items-center gap-2 px-2.5 py-2 rounded-lg border text-xs font-semibold transition-all",
+                                      draft.is404
+                                        ? "border-red-200 bg-red-50 text-red-600"
+                                        : "border-gray-200 bg-white text-gray-500 hover:border-gray-300"
+                                    )}
+                                  >
+                                    <AlertCircle className="h-3.5 w-3.5 shrink-0" />
+                                    {draft.is404 ? "This is the 404 page ✓" : "Use as 404 / Not Found page"}
+                                  </button>
+
+                                  {/* ── Action buttons ── */}
+                                  <div className="flex items-center gap-2 pt-1">
+                                    <button
+                                      onClick={() => {
+                                        updatePageFields(page.id, {
+                                          slug: draft.slug,
+                                          routeGroup: draft.routeGroup || undefined,
+                                          routeType: draft.routeType,
+                                          isProtected: draft.routeType === "private",
+                                          redirectTo: draft.redirectTo || undefined,
+                                          is404: draft.is404,
+                                        });
+                                        setExpandedRoutePageId(null);
+                                      }}
+                                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-colors"
+                                    >
+                                      Apply Changes
+                                    </button>
+                                    {sitePages.length > 1 && (
+                                      <button
+                                        onClick={() => setDeletePageConfirm({ id: page.id, name: page.name })}
+                                        className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-semibold transition-colors"
+                                      >
+                                        <X className="h-3.5 w-3.5" />
+                                        Delete Route
+                                      </button>
+                                    )}
+                                  </div>
+
+                                </div>
                               );
                             })()}
                           </div>
@@ -1040,6 +1157,14 @@ export default function EditorPage() {
           </div>
         </div>
       )}
+
+      <UpgradePrompt
+        open={upgradePromptState.open}
+        onOpenChange={(open) => setUpgradePromptState((prev) => ({ ...prev, open }))}
+        title={upgradePromptState.title}
+        description={upgradePromptState.description}
+        targetPlan={upgradePromptState.targetPlan}
+      />
 
       <ConfirmDialog
         open={!!deletePageConfirm}

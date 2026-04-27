@@ -21,14 +21,14 @@ CREATE TABLE public.users (
   plan                  plan NOT NULL DEFAULT 'free',
   ai_credits_used       INTEGER NOT NULL DEFAULT 0,
   ai_credits_limit      INTEGER NOT NULL DEFAULT 50,
-  stripe_customer_id    TEXT UNIQUE,
+  ls_customer_id        TEXT UNIQUE,
   onboarding_completed  BOOLEAN NOT NULL DEFAULT false,
   created_at            TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at            TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE INDEX idx_users_email  ON public.users(email);
-CREATE INDEX idx_users_stripe ON public.users(stripe_customer_id);
+CREATE INDEX idx_users_ls_customer ON public.users(ls_customer_id);
 
 -- Auto-create a public.users row when someone signs up via Supabase Auth
 CREATE OR REPLACE FUNCTION public.handle_new_user()

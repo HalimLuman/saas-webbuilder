@@ -169,16 +169,13 @@ function SpacingGrid({ values, onChange, label }: { values: { top?: string; righ
 // Tab definitions
 // ---------------------------------------------------------------------------
 
-type TabId = "content" | "layout" | "style" | "typography" | "effects" | "interactions" | "code" | "submission" | "data";
+type TabId = "content" | "design" | "layout" | "typography" | "submission" | "data";
 
 const TABS: { id: TabId; icon: React.ComponentType<{ className?: string }>; label: string; showFor?: (type: string) => boolean }[] = [
-  { id: "content",      icon: FileText,     label: "Content" },
-  { id: "layout",       icon: LayoutGrid,   label: "Layout" },
-  { id: "style",        icon: Palette,      label: "Style" },
-  { id: "typography",   icon: Type,         label: "Typo" },
-  { id: "effects",      icon: Sparkles,     label: "Effects" },
-  { id: "interactions", icon: MousePointer, label: "Actions" },
-  { id: "code",         icon: Code2,        label: "Code" },
+  { id: "content",    icon: FileText,   label: "Content" },
+  { id: "design",     icon: Palette,    label: "Design" },
+  { id: "layout",     icon: LayoutGrid, label: "Layout" },
+  { id: "typography", icon: Type,       label: "Type" },
   {
     id: "submission",
     icon: Zap,
@@ -221,7 +218,7 @@ function TabSection({ title, children, defaultOpen = true }: { title: string; ch
 }
 
 // ---------------------------------------------------------------------------
-// Content Tab — prop editors per element type
+// Content Tab вЂ” prop editors per element type
 // ---------------------------------------------------------------------------
 
 function PropInput({ label, value, onChange, placeholder }: { label: string; value?: string; onChange: (v: string) => void; placeholder?: string }) {
@@ -388,14 +385,14 @@ function FormConnectionPanel({ p, updateProps }: { p: Record<string, unknown>; u
               <span className="text-[11px] font-semibold text-green-700 flex-1 truncate">{cfConnectedForm.name}</span>
             </div>
             <div className="flex items-center justify-between">
-              <a href="/dashboard/forms" target="_blank" className="text-[11px] font-medium text-indigo-600 hover:underline">View submissions →</a>
+              <a href="/dashboard/forms" target="_blank" className="text-[11px] font-medium text-indigo-600 hover:underline">View submissions в†’</a>
               <button onClick={() => updateProps({ formId: undefined })} className="text-[11px] text-gray-400 hover:text-red-500 transition">Disconnect</button>
             </div>
           </div>
         ) : (
           <div className="space-y-3">
             {cfForms === null ? (
-              <p className="text-[11px] text-gray-400">Loading forms…</p>
+              <p className="text-[11px] text-gray-400">Loading formsвЂ¦</p>
             ) : cfForms.length > 0 ? (
               <div className="space-y-1.5">
                 <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-wide">Select existing form</p>
@@ -425,7 +422,7 @@ function FormConnectionPanel({ p, updateProps }: { p: Record<string, unknown>; u
                 disabled={cfCreating}
                 className="w-full py-2 rounded-lg text-[11px] font-semibold bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 transition"
               >
-                {cfCreating ? "Creating…" : "Create & connect"}
+                {cfCreating ? "CreatingвЂ¦" : "Create & connect"}
               </button>
             </div>
           </div>
@@ -542,7 +539,7 @@ function ContentTab({
       return (
         <>
           <TabSection title="Text">
-            <PropInput label="Badge text" value={p.badge as string} onChange={(v) => updateProps({ badge: v })} placeholder="New · Just launched" />
+            <PropInput label="Badge text" value={p.badge as string} onChange={(v) => updateProps({ badge: v })} placeholder="New В· Just launched" />
             <PropInput label="Headline" value={p.headline as string} onChange={(v) => updateProps({ headline: v })} placeholder="Your big headline" />
             <PropTextarea label="Subheadline" value={p.subheadline as string} onChange={(v) => updateProps({ subheadline: v })} />
             <PropInput label="Subtext (below buttons)" value={p.subtext as string} onChange={(v) => updateProps({ subtext: v })} placeholder="No credit card required" />
@@ -597,7 +594,7 @@ function ContentTab({
                 options={["column", "row", "row-wrap"] as const}
                 value={(effectiveProps._childLayout as string) || "column"}
                 onChange={(v) => updateLayoutProp("_childLayout", v)}
-                renderLabel={(v) => v === "column" ? "↕ Col" : v === "row" ? "↔ Row" : "↔ Wrap"}
+                renderLabel={(v) => v === "column" ? "в†• Col" : v === "row" ? "в†” Row" : "в†” Wrap"}
               />
             </Row>
             <Row>
@@ -666,7 +663,7 @@ function ContentTab({
                 options={["column", "row", "wrap"] as const}
                 value={(effectiveProps._childLayout as string) || "column"}
                 onChange={(v) => updateLayoutProp("_childLayout", v)}
-                renderLabel={(v) => v === "column" ? "↕ Col" : v === "row" ? "↔ Row" : "↔ Wrap"}
+                renderLabel={(v) => v === "column" ? "в†• Col" : v === "row" ? "в†” Row" : "в†” Wrap"}
               />
             </Row>
             <Row>
@@ -960,18 +957,18 @@ function ContentTab({
             <ListEditor<Feature>
               items={features}
               onChange={(items) => updateProps({ features: items })}
-              newItem={{ icon: "⭐", title: "New Feature", description: "Describe this feature" }}
+              newItem={{ icon: "в­ђ", title: "New Feature", description: "Describe this feature" }}
               addLabel="Add feature"
               renderItem={(item, i, update, remove) => (
                 <>
                   <ItemHeader label={`Feature ${i + 1}`} onDelete={remove} />
                   <div className="flex gap-2">
-                    <input value={item.icon} onChange={(e) => update({ icon: e.target.value })} placeholder="⭐" className="w-10 h-6 text-center text-[13px] rounded border border-gray-200 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-400" />
+                    <input value={item.icon} onChange={(e) => update({ icon: e.target.value })} placeholder="в­ђ" className="w-10 h-6 text-center text-[13px] rounded border border-gray-200 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-400" />
                     <input value={item.title} onChange={(e) => update({ title: e.target.value })} placeholder="Title" className={cn(inputCls, "flex-1")} />
                   </div>
                   <textarea value={item.description} onChange={(e) => update({ description: e.target.value })} placeholder="Description" rows={2} className={textareaCls} />
                   <input value={item.imageUrl || ""} onChange={(e) => update({ imageUrl: e.target.value })} placeholder="https://... (optional image)" className={inputCls} />
-                  <input value={item.badge || ""} onChange={(e) => update({ badge: e.target.value })} placeholder="Badge: New · Popular (optional)" className={inputCls} />
+                  <input value={item.badge || ""} onChange={(e) => update({ badge: e.target.value })} placeholder="Badge: New В· Popular (optional)" className={inputCls} />
                 </>
               )}
             />
@@ -1107,7 +1104,7 @@ function ContentTab({
         { value: "10K+", label: "Active users" },
         { value: "98%", label: "Uptime SLA" },
         { value: "200+", label: "Edge locations" },
-        { value: "4.9★", label: "Average rating" },
+        { value: "4.9в…", label: "Average rating" },
       ];
       return (
         <>
@@ -1364,7 +1361,7 @@ function ContentTab({
           <TabSection title="Brand">
             <PropInput label="Brand name" value={p.brandName as string} onChange={(v) => updateProps({ brandName: v })} placeholder="Your Brand" />
             <PropInput label="Logo URL" value={p.logoSrc as string} onChange={(v) => updateProps({ logoSrc: v })} placeholder="https://... (leave blank for color square)" />
-            <PropInput label="Copyright text" value={p.copyright as string} onChange={(v) => updateProps({ copyright: v })} placeholder="© 2025 Your Company" />
+            <PropInput label="Copyright text" value={p.copyright as string} onChange={(v) => updateProps({ copyright: v })} placeholder="В© 2025 Your Company" />
           </TabSection>
           <TabSection title="Footer columns">
             <ListEditor<FooterColumn>
@@ -1516,7 +1513,7 @@ function ContentTab({
       return (
         <>
           <TabSection title="Content">
-            <PropInput label="Icon (emoji)" value={p.icon as string} onChange={(v) => updateProps({ icon: v })} placeholder="✨" />
+            <PropInput label="Icon (emoji)" value={p.icon as string} onChange={(v) => updateProps({ icon: v })} placeholder="вњЁ" />
             <PropInput label="Title" value={p.title as string} onChange={(v) => updateProps({ title: v })} />
             <PropTextarea label="Description" value={p.description as string} onChange={(v) => updateProps({ description: v })} />
           </TabSection>
@@ -1571,7 +1568,7 @@ function ContentTab({
                   <textarea value={item.description || ""} onChange={(e) => update({ description: e.target.value })} placeholder="Product description..." rows={2} className={textareaCls} />
                   <input value={item.imageUrl || ""} onChange={(e) => update({ imageUrl: e.target.value })} placeholder="Image URL (https://...)" className={inputCls} />
                   <div className="grid grid-cols-2 gap-2">
-                    <input value={item.badge || ""} onChange={(e) => update({ badge: e.target.value })} placeholder="Badge: New · Sale" className={inputCls} />
+                    <input value={item.badge || ""} onChange={(e) => update({ badge: e.target.value })} placeholder="Badge: New В· Sale" className={inputCls} />
                     <input type="number" min={1} max={5} value={item.rating ?? ""} onChange={(e) => update({ rating: parseFloat(e.target.value) || undefined })} placeholder="Rating 1-5" className={inputCls} />
                   </div>
                 </>
@@ -1871,7 +1868,7 @@ function ContentTab({
             <ListEditor<TimelineItem>
               items={tlItems}
               onChange={(items) => updateProps({ items })}
-              newItem={{ date: "2024", title: "New milestone", description: "Description", icon: "🚀" }}
+              newItem={{ date: "2024", title: "New milestone", description: "Description", icon: "рџљЂ" }}
               addLabel="Add milestone"
               renderItem={(item, i, update, remove) => (
                 <>
@@ -2172,7 +2169,7 @@ function ContentTab({
                   <ItemHeader label={`Col ${i + 1}`} onDelete={remove} />
                   <div className="flex gap-2 items-center">
                     <input value={item.label} onChange={(e) => update({ label: e.target.value })} placeholder="Column label" className={cn(inputCls, "flex-1")} />
-                    <SegmentedButtons options={["true", "false"]} value={String(!!item.isHighlighted)} onChange={(v) => update({ isHighlighted: v === "true" })} renderLabel={(v) => v === "true" ? "★" : "—"} />
+                    <SegmentedButtons options={["true", "false"]} value={String(!!item.isHighlighted)} onChange={(v) => update({ isHighlighted: v === "true" })} renderLabel={(v) => v === "true" ? "в…" : "вЂ”"} />
                   </div>
                 </>
               )}
@@ -2362,12 +2359,12 @@ function ContentTab({
         </>
       );
 
-    // ── Typography elements ──
+    // в”Ђв”Ђ Typography elements в”Ђв”Ђ
     case "blockquote":
       return (
         <div className="px-4 py-3 space-y-2">
           <PropTextarea label="Quote text" value={element.content || (p.text as string)} onChange={(v) => updateElementContent(element.id, v)} rows={3} />
-          <PropInput label="Citation / Author" value={p.cite as string} onChange={(v) => updateProps({ cite: v })} placeholder="— Author Name" />
+          <PropInput label="Citation / Author" value={p.cite as string} onChange={(v) => updateProps({ cite: v })} placeholder="вЂ” Author Name" />
           <Row><FieldLabel>Accent color</FieldLabel><ColorPicker value={p.accentColor as string} onChange={(v) => updateProps({ accentColor: v })} /></Row>
         </div>
       );
@@ -2393,7 +2390,7 @@ function ContentTab({
         <div className="px-4 py-3 space-y-2">
           <div>
             <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Label Text</p>
-            <input value={element.content || ""} onChange={(e) => updateElementContent(element.id, e.target.value)} placeholder="Featured · New · Category" className={cn(inputCls, "h-8")} />
+            <input value={element.content || ""} onChange={(e) => updateElementContent(element.id, e.target.value)} placeholder="Featured В· New В· Category" className={cn(inputCls, "h-8")} />
           </div>
           <Row><FieldLabel>Color</FieldLabel><ColorPicker value={p.accentColor as string} onChange={(v) => updateProps({ accentColor: v })} /></Row>
         </div>
@@ -2425,7 +2422,7 @@ function ContentTab({
         <div className="px-4 py-3 space-y-2">
           <div>
             <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Key(s)</p>
-            <input value={element.content || ""} onChange={(e) => updateElementContent(element.id, e.target.value)} placeholder="⌘ K  or  Ctrl + C" className={cn(inputCls, "h-8")} />
+            <input value={element.content || ""} onChange={(e) => updateElementContent(element.id, e.target.value)} placeholder="вЊ K  or  Ctrl + C" className={cn(inputCls, "h-8")} />
           </div>
         </div>
       );
@@ -2447,7 +2444,7 @@ function ContentTab({
         <div className="px-4 py-3 space-y-2">
           <div>
             <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Link Text</p>
-            <input value={element.content || (p.label as string) || ""} onChange={(e) => updateElementContent(element.id, e.target.value)} placeholder="Learn more →" className={cn(inputCls, "h-8")} />
+            <input value={element.content || (p.label as string) || ""} onChange={(e) => updateElementContent(element.id, e.target.value)} placeholder="Learn more в†’" className={cn(inputCls, "h-8")} />
           </div>
           <PageLinkInput label="URL" value={p.href as string} onChange={(v) => updateProps({ href: v })} placeholder="https://... or #section" />
           <Row>
@@ -2457,7 +2454,7 @@ function ContentTab({
         </div>
       );
 
-    // ── Media elements ──
+    // в”Ђв”Ђ Media elements в”Ђв”Ђ
     case "embed":
       return (
         <div className="px-4 py-3 space-y-2">
@@ -2522,7 +2519,7 @@ function ContentTab({
         </div>
       );
 
-    // ── Form elements ──
+    // в”Ђв”Ђ Form elements в”Ђв”Ђ
     case "input":
       return (
         <div className="px-4 py-3 space-y-2">
@@ -2548,11 +2545,11 @@ function ContentTab({
           </Row>
           <Row>
             <FieldLabel>Min length</FieldLabel>
-            <input type="number" min={0} value={(p.minLength as number) || ""} onChange={(e) => updateProps({ minLength: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="—" className={cn(inputCls, "w-20")} />
+            <input type="number" min={0} value={(p.minLength as number) || ""} onChange={(e) => updateProps({ minLength: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="вЂ”" className={cn(inputCls, "w-20")} />
           </Row>
           <Row>
             <FieldLabel>Max length</FieldLabel>
-            <input type="number" min={0} value={(p.maxLength as number) || ""} onChange={(e) => updateProps({ maxLength: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="—" className={cn(inputCls, "w-20")} />
+            <input type="number" min={0} value={(p.maxLength as number) || ""} onChange={(e) => updateProps({ maxLength: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="вЂ”" className={cn(inputCls, "w-20")} />
           </Row>
           <PropInput label="Pattern (regex)" value={p.pattern as string} onChange={(v) => updateProps({ pattern: v })} placeholder="^[A-Za-z]+$" />
           {((p.inputType as string) === "number" || (p.inputType as string) === "date") && (
@@ -2580,11 +2577,11 @@ function ContentTab({
           </Row>
           <Row>
             <FieldLabel>Min length</FieldLabel>
-            <input type="number" min={0} value={(p.minLength as number) || ""} onChange={(e) => updateProps({ minLength: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="—" className={cn(inputCls, "w-20")} />
+            <input type="number" min={0} value={(p.minLength as number) || ""} onChange={(e) => updateProps({ minLength: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="вЂ”" className={cn(inputCls, "w-20")} />
           </Row>
           <Row>
             <FieldLabel>Max length</FieldLabel>
-            <input type="number" min={0} value={(p.maxLength as number) || ""} onChange={(e) => updateProps({ maxLength: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="—" className={cn(inputCls, "w-20")} />
+            <input type="number" min={0} value={(p.maxLength as number) || ""} onChange={(e) => updateProps({ maxLength: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="вЂ”" className={cn(inputCls, "w-20")} />
           </Row>
         </div>
       );
@@ -2727,7 +2724,7 @@ function ContentTab({
         </div>
       );
 
-    // ── Navigation ──
+    // в”Ђв”Ђ Navigation в”Ђв”Ђ
     case "mobile-menu": {
       const mmLinks = (p.links as string[]) || [];
       return (
@@ -2767,7 +2764,7 @@ function ContentTab({
       );
     }
 
-    // ── Section blocks ──
+    // в”Ђв”Ђ Section blocks в”Ђв”Ђ
     case "bento-grid": {
       const bgCells = (p.cells as Array<{ title: string; description?: string; span?: string; rowSpan?: string }>) || [];
       return (
@@ -2922,8 +2919,8 @@ function ContentTab({
     case "announcement":
       return (
         <div className="px-4 py-3 space-y-2">
-          <PropInput label="Text" value={p.text as string} onChange={(v) => updateProps({ text: v })} placeholder="🎉 We just launched v2.0!" />
-          <PropInput label="CTA label" value={p.ctaLabel as string} onChange={(v) => updateProps({ ctaLabel: v })} placeholder="Read more →" />
+          <PropInput label="Text" value={p.text as string} onChange={(v) => updateProps({ text: v })} placeholder="рџЋ‰ We just launched v2.0!" />
+          <PropInput label="CTA label" value={p.ctaLabel as string} onChange={(v) => updateProps({ ctaLabel: v })} placeholder="Read more в†’" />
           <PropInput label="CTA link" value={p.ctaHref as string} onChange={(v) => updateProps({ ctaHref: v })} placeholder="#" />
           <Row>
             <FieldLabel>Dismissible</FieldLabel>
@@ -2968,7 +2965,7 @@ function ContentTab({
         </div>
       );
 
-    // ── E-Commerce ──
+    // в”Ђв”Ђ E-Commerce в”Ђв”Ђ
     case "add-to-cart":
       return (
         <div className="px-4 py-3 space-y-2">
@@ -3060,7 +3057,7 @@ function ContentTab({
       );
     }
 
-    // ── Advanced ──
+    // в”Ђв”Ђ Advanced в”Ђв”Ђ
     case "data-table": {
       const dtCols = (p.columns as string[]) || ["Name", "Status", "Date", "Amount"];
       const dtRows = (p.rows as string[][]) || [];
@@ -3098,13 +3095,13 @@ function ContentTab({
             <ListEditor<{ icon: string; title: string; description: string }>
               items={fgFeatures}
               onChange={(items) => updateProps({ features: items })}
-              newItem={{ icon: "⭐", title: "Feature", description: "Description" }}
+              newItem={{ icon: "в­ђ", title: "Feature", description: "Description" }}
               addLabel="Add feature"
               renderItem={(f, i, update, remove) => (
                 <>
                   <ItemHeader label={`Feature ${i + 1}`} onDelete={remove} />
                   <div className="flex gap-2">
-                    <input value={f.icon} onChange={(e) => update({ icon: e.target.value })} placeholder="⭐" className="w-10 h-6 text-center text-sm rounded border border-gray-200 bg-white focus:outline-none" />
+                    <input value={f.icon} onChange={(e) => update({ icon: e.target.value })} placeholder="в­ђ" className="w-10 h-6 text-center text-sm rounded border border-gray-200 bg-white focus:outline-none" />
                     <input value={f.title} onChange={(e) => update({ title: e.target.value })} placeholder="Title" className={cn(inputCls, "flex-1")} />
                   </div>
                   <textarea value={f.description} onChange={(e) => update({ description: e.target.value })} rows={2} placeholder="Description" className={textareaCls} />
@@ -3176,7 +3173,7 @@ function ContentTab({
                 options={["column", "row", "row-wrap"] as const}
                 value={(effectiveProps._childLayout as string) || (element.type === "flex-row" ? "row" : "column")}
                 onChange={(v) => updateLayoutProp("_childLayout", v)}
-                renderLabel={(v) => v === "column" ? "↕ Col" : v === "row" ? "↔ Row" : "↔ Wrap"}
+                renderLabel={(v) => v === "column" ? "в†• Col" : v === "row" ? "в†” Row" : "в†” Wrap"}
               />
             </Row>
             <Row>
@@ -3218,7 +3215,7 @@ function ContentTab({
           <PropInput label="Price" value={p.price as string} onChange={(v) => updateProps({ price: v })} placeholder="$49" />
           <PropTextarea label="Description" value={p.description as string} onChange={(v) => updateProps({ description: v })} rows={2} />
           <PropInput label="Image URL" value={p.imageUrl as string} onChange={(v) => updateProps({ imageUrl: v })} placeholder="https://..." />
-          <PropInput label="Badge" value={p.badge as string} onChange={(v) => updateProps({ badge: v })} placeholder="New · Sale" />
+          <PropInput label="Badge" value={p.badge as string} onChange={(v) => updateProps({ badge: v })} placeholder="New В· Sale" />
           <Row>
             <FieldLabel>Rating (1-5)</FieldLabel>
             <input type="number" min={1} max={5} step={0.5} value={(p.rating as number) || 5} onChange={(e) => updateProps({ rating: parseFloat(e.target.value) })} className={cn(inputCls, "w-20")} />
@@ -3227,16 +3224,57 @@ function ContentTab({
         </div>
       );
 
-    case "profile-card":
+    case "grid":
       return (
-        <div className="px-4 py-3 space-y-2">
-          <PropInput label="Name" value={p.name as string} onChange={(v) => updateProps({ name: v })} placeholder="Alex Johnson" />
-          <PropInput label="Role / Title" value={p.role as string} onChange={(v) => updateProps({ role: v })} placeholder="Lead Designer" />
-          <PropTextarea label="Bio" value={p.bio as string} onChange={(v) => updateProps({ bio: v })} rows={2} />
-          <PropInput label="Avatar URL" value={p.avatarUrl as string} onChange={(v) => updateProps({ avatarUrl: v })} placeholder="https://..." />
-          <Row><FieldLabel>Accent color</FieldLabel><ColorPicker value={p.accentColor as string} onChange={(v) => updateProps({ accentColor: v })} /></Row>
+        <div className="px-4 py-3 space-y-4">
+          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Grid Layout</p>
+          <Row>
+            <FieldLabel>Columns</FieldLabel>
+            <div className="flex items-center gap-2">
+              <input 
+                type="number" 
+                min={1} 
+                max={12} 
+                value={p.columns || 3} 
+                onChange={(e) => updateProps({ columns: parseInt(e.target.value) || 1 })} 
+                className={cn(inputCls, "w-16")} 
+              />
+              <span className="text-[10px] text-gray-400">X-Axis</span>
+            </div>
+          </Row>
+          <Row>
+            <FieldLabel>Rows</FieldLabel>
+            <div className="flex items-center gap-2">
+              <input 
+                type="number" 
+                min={0} 
+                max={12} 
+                value={p.rows || 0} 
+                onChange={(e) => updateProps({ rows: parseInt(e.target.value) || 0 })} 
+                className={cn(inputCls, "w-16")} 
+              />
+              <span className="text-[10px] text-gray-400">Y-Axis (optional)</span>
+            </div>
+          </Row>
+          <Row>
+            <FieldLabel>Gap</FieldLabel>
+            <input 
+              type="text" 
+              value={p.gap || "1rem"} 
+              onChange={(e) => updateProps({ gap: e.target.value })} 
+              className={cn(inputCls, "w-24")} 
+              placeholder="1rem"
+            />
+          </Row>
+          <div className="pt-2">
+            <p className="text-[10px] text-gray-400 leading-relaxed italic">
+              Note: "0" rows means the grid will automatically create as many rows as needed for the content.
+            </p>
+          </div>
         </div>
       );
+
+    case "profile-card":
 
     default:
       return (
@@ -3253,7 +3291,7 @@ function ContentTab({
 // Layout tab
 // ---------------------------------------------------------------------------
 
-// ─── Box Model Visualizer ─────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Box Model Visualizer в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 function BoxModelVisualizer({ styles, updateStyle }: { styles: ElementStyles; updateStyle: (k: string, v: string) => void }) {
   const [activeZone, setActiveZone] = useState<"margin" | "border" | "padding" | "content" | null>(null);
@@ -3337,73 +3375,115 @@ function BoxModelVisualizer({ styles, updateStyle }: { styles: ElementStyles; up
   );
 }
 
-function LayoutTab({ styles, updateStyle }: { styles: ElementStyles; updateStyle: (k: string, v: string) => void }) {
-  const displayOptions = ["flex", "grid", "block", "none"] as const;
-  const directionOptions = ["row", "column"] as const;
-  const positionOptions = ["static", "relative", "absolute", "fixed", "sticky"] as const;
+const CONTAINER_TYPES = new Set(["container","section","columns","grid","two-col","three-col","four-col","sidebar-left","sidebar-right"]);
+
+function LayoutTab({
+  styles, updateStyle, elementType, effectiveProps, updateLayoutProp,
+}: {
+  styles: ElementStyles;
+  updateStyle: (k: string, v: string) => void;
+  elementType: string;
+  effectiveProps: Record<string, unknown>;
+  updateLayoutProp: (key: string, value: string) => void;
+}) {
+  const isContainer = CONTAINER_TYPES.has(elementType);
+
+  const SidedInput = ({ label, prop }: { label: string; prop: string }) => (
+    <div className="flex flex-col items-center gap-0.5">
+      <span className="text-[9px] text-gray-400">{label}</span>
+      <input type="text" value={(styles as Record<string, string>)[prop] || ""} onChange={(e) => updateStyle(prop, e.target.value)} placeholder="0"
+        className="w-full h-6 text-[10px] text-center rounded border border-gray-200 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-400" />
+    </div>
+  );
+
   return (
     <>
-      <TabSection title="Display">
-        <Row>
-          <FieldLabel>Display</FieldLabel>
-          <SegmentedButtons options={[...displayOptions]} value={styles.display as (typeof displayOptions)[number] | undefined} onChange={(v) => updateStyle("display", v)} renderLabel={(v) => v} />
-        </Row>
-        {styles.display === "flex" && (
+      <TabSection title="Padding">
+        <div className="grid grid-cols-4 gap-1.5 mb-1.5">
+          <SidedInput label="Top" prop="paddingTop" />
+          <SidedInput label="Right" prop="paddingRight" />
+          <SidedInput label="Bottom" prop="paddingBottom" />
+          <SidedInput label="Left" prop="paddingLeft" />
+        </div>
+        <input type="text" value={styles.padding || ""} onChange={(e) => updateStyle("padding", e.target.value)} placeholder="Shorthand: 16px or 8px 16px" className={inputCls} />
+      </TabSection>
+
+      <TabSection title="Margin">
+        <div className="grid grid-cols-4 gap-1.5 mb-1.5">
+          <SidedInput label="Top" prop="marginTop" />
+          <SidedInput label="Right" prop="marginRight" />
+          <SidedInput label="Bottom" prop="marginBottom" />
+          <SidedInput label="Left" prop="marginLeft" />
+        </div>
+        <input type="text" value={styles.margin || ""} onChange={(e) => updateStyle("margin", e.target.value)} placeholder="Shorthand: 0 auto" className={inputCls} />
+      </TabSection>
+
+      <TabSection title="Size">
+        <div className="grid grid-cols-2 gap-2">
+          {[
+            { label: "Width",  prop: "width",     ph: "auto" },
+            { label: "Height", prop: "height",    ph: "auto" },
+            { label: "Min W",  prop: "minWidth",  ph: "0" },
+            { label: "Min H",  prop: "minHeight", ph: "0" },
+            { label: "Max W",  prop: "maxWidth",  ph: "none" },
+            { label: "Max H",  prop: "maxHeight", ph: "none" },
+          ].map(({ label, prop, ph }) => (
+            <div key={prop}>
+              <p className="text-[9px] text-gray-400 mb-1">{label}</p>
+              <input type="text" value={(styles as Record<string, string>)[prop] || ""} onChange={(e) => updateStyle(prop, e.target.value)} placeholder={ph} className={inputCls} />
+            </div>
+          ))}
+        </div>
+      </TabSection>
+
+      {isContainer && (
+        <TabSection title="Arrange children">
           <Row>
             <FieldLabel>Direction</FieldLabel>
-            <SegmentedButtons options={[...directionOptions]} value={styles.flexDirection as (typeof directionOptions)[number] | undefined} onChange={(v) => updateStyle("flexDirection", v)} renderLabel={(v) => v} />
+            <SegmentedButtons options={["column", "row", "row-wrap"] as const} value={(effectiveProps._childLayout as string) || "column"}
+              onChange={(v) => updateLayoutProp("_childLayout", v)}
+              renderLabel={(v) => v === "column" ? "в†• Col" : v === "row" ? "в†” Row" : "в†” Wrap"} />
           </Row>
-        )}
-        <Row>
-          <FieldLabel>Align Items</FieldLabel>
-          <select value={styles.alignItems || ""} onChange={(e) => updateStyle("alignItems", e.target.value)} className={cn(selectCls, "w-32")}>
-            <option value="">—</option>
-            <option value="flex-start">Start</option>
-            <option value="center">Center</option>
-            <option value="flex-end">End</option>
-            <option value="stretch">Stretch</option>
-            <option value="baseline">Baseline</option>
-          </select>
-        </Row>
-        <Row>
-          <FieldLabel>Justify</FieldLabel>
-          <select value={styles.justifyContent || ""} onChange={(e) => updateStyle("justifyContent", e.target.value)} className={cn(selectCls, "w-32")}>
-            <option value="">—</option>
-            <option value="flex-start">Start</option>
-            <option value="center">Center</option>
-            <option value="flex-end">End</option>
-            <option value="space-between">Space Between</option>
-            <option value="space-around">Space Around</option>
-            <option value="space-evenly">Space Evenly</option>
-          </select>
-        </Row>
-        <Row>
-          <FieldLabel>Gap</FieldLabel>
-          <input type="text" value={styles.gap || ""} onChange={(e) => updateStyle("gap", e.target.value)} placeholder="16px" className={cn(inputCls, "w-24")} />
-        </Row>
-      </TabSection>
-      <TabSection title="Size">
-        <Row><FieldLabel>Width</FieldLabel><DimensionInput value={styles.width} onChange={(v) => updateStyle("width", v)} /></Row>
-        <Row><FieldLabel>Height</FieldLabel><DimensionInput value={styles.height} onChange={(v) => updateStyle("height", v)} /></Row>
-      </TabSection>
-      <TabSection title="Box Model" defaultOpen={false}>
-        <BoxModelVisualizer styles={styles} updateStyle={updateStyle} />
-      </TabSection>
-      <TabSection title="Position" defaultOpen={false}>
-        <Row>
-          <FieldLabel>Position</FieldLabel>
-          <select value={(styles as Record<string, string>)["position"] || "static"} onChange={(e) => updateStyle("position", e.target.value)} className={cn(selectCls, "w-28")}>
-            {positionOptions.map((p) => <option key={p} value={p}>{p}</option>)}
-          </select>
-        </Row>
-        <Row>
-          <FieldLabel>Z-index</FieldLabel>
-          <input type="number" value={(styles as Record<string, string>)["zIndex"] || ""} onChange={(e) => updateStyle("zIndex", e.target.value)} placeholder="auto" className={cn(inputCls, "w-20")} />
-        </Row>
-      </TabSection>
+          <Row>
+            <FieldLabel>Align</FieldLabel>
+            <div className="flex items-center gap-0.5 p-0.5 rounded bg-gray-100">
+              {([["start","Start",AlignStartHorizontal],["center","Center",AlignCenterHorizontal],["end","End",AlignEndHorizontal],["stretch","Stretch",AlignJustify]] as const).map(([v, title, Icon]) => (
+                <button key={v} onClick={() => updateLayoutProp("_childAlign", v)} title={title}
+                  className={cn("h-6 w-6 rounded flex items-center justify-center transition-all", (effectiveProps._childAlign as string || "start") === v ? "bg-white shadow-sm text-indigo-600" : "text-gray-400 hover:text-gray-600")}>
+                  <Icon className="h-3 w-3" />
+                </button>
+              ))}
+            </div>
+          </Row>
+          <Row>
+            <FieldLabel>Justify</FieldLabel>
+            <div className="flex items-center gap-0.5 p-0.5 rounded bg-gray-100">
+              {([["start","Start",AlignStartVertical],["center","Center",AlignCenterVertical],["end","End",AlignEndVertical],["between","Space Between",AlignJustify]] as const).map(([v, title, Icon]) => (
+                <button key={v} onClick={() => updateLayoutProp("_childJustify", v)} title={title}
+                  className={cn("h-6 w-6 rounded flex items-center justify-center transition-all", (effectiveProps._childJustify as string || "start") === v ? "bg-white shadow-sm text-indigo-600" : "text-gray-400 hover:text-gray-600")}>
+                  <Icon className="h-3 w-3" />
+                </button>
+              ))}
+            </div>
+          </Row>
+          <Row>
+            <FieldLabel>Gap</FieldLabel>
+            <select value={(effectiveProps._childGap as string) || "md"} onChange={(e) => updateLayoutProp("_childGap", e.target.value)} className={cn(selectCls, "w-24")}>
+              <option value="xs">Tiny</option>
+              <option value="sm">Small</option>
+              <option value="md">Medium</option>
+              <option value="lg">Large</option>
+              <option value="xl">X-Large</option>
+            </select>
+          </Row>
+        </TabSection>
+      )}
     </>
   );
 }
+
+
+
 
 // ---------------------------------------------------------------------------
 // Style tab
@@ -3428,64 +3508,47 @@ function buildShadow(s: ReturnType<typeof parseShadow>) {
   return `${s.inset ? "inset " : ""}${s.x}px ${s.y}px ${s.blur}px ${s.spread}px ${s.color}`;
 }
 
-function StyleTab({ styles, updateStyle }: { styles: ElementStyles; updateStyle: (k: string, v: string) => void }) {
-  const shadowPresets: Record<string, string> = { none: "none", sm: "0 1px 2px rgba(0,0,0,0.05)", md: "0 4px 6px rgba(0,0,0,0.07)", lg: "0 10px 15px rgba(0,0,0,0.1)", xl: "0 20px 25px rgba(0,0,0,0.1)" };
-  const [perCorner, setPerCorner] = useState(false);
+function DesignTab({
+  styles, updateStyle, animation, updateAnimation, hoverStyles, updateHoverStyles,
+}: {
+  styles: ElementStyles;
+  updateStyle: (k: string, v: string) => void;
+  animation?: Partial<AnimationConfig>;
+  updateAnimation: (a: Partial<AnimationConfig>) => void;
+  hoverStyles?: Partial<HoverStyles>;
+  updateHoverStyles: (h: Partial<HoverStyles>) => void;
+}) {
   const [bgMode, setBgMode] = useState<"solid" | "gradient">(styles.backgroundImage ? "gradient" : "solid");
-  const activeShadow = Object.entries(shadowPresets).find(([, v]) => v === styles.boxShadow)?.[0] ?? "custom";
+  const [perCorner, setPerCorner] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const shadow = parseShadow(styles.boxShadow || "");
+  const shadowPresets: Record<string, string> = { none: "none", sm: "0 1px 2px rgba(0,0,0,0.05)", md: "0 4px 6px rgba(0,0,0,0.07)", lg: "0 10px 15px rgba(0,0,0,0.1)", xl: "0 20px 25px rgba(0,0,0,0.1)" };
+  const anim = animation || {};
 
   function updateShadow(updates: Partial<ReturnType<typeof parseShadow>>) {
-    const next = { ...shadow, ...updates };
-    updateStyle("boxShadow", buildShadow(next));
+    updateStyle("boxShadow", buildShadow({ ...shadow, ...updates }));
   }
 
-  // Parse gradient
   const gradMatch = styles.backgroundImage?.match(/linear-gradient\(([^,]+),\s*([^,]+),\s*([^)]+)\)/);
   const gradDir = gradMatch?.[1]?.trim() || "to bottom";
   const gradColor1 = gradMatch?.[2]?.trim() || "#6366F1";
   const gradColor2 = gradMatch?.[3]?.trim() || "#8B5CF6";
-
   function updateGradient(dir: string, c1: string, c2: string) {
     updateStyle("backgroundImage", `linear-gradient(${dir}, ${c1}, ${c2})`);
   }
 
+  const opacityVal = styles.opacity !== undefined ? Math.round(parseFloat(styles.opacity) * 100) : 100;
+
   return (
     <>
-      <TabSection title="Size">
-        <Row>
-          <FieldLabel>Width</FieldLabel>
-          <input type="text" value={styles.width || ""} onChange={(e) => updateStyle("width", e.target.value)} placeholder="auto" className={cn(inputCls, "w-24")} />
-        </Row>
-        <Row>
-          <FieldLabel>Min W</FieldLabel>
-          <input type="text" value={styles.minWidth || ""} onChange={(e) => updateStyle("minWidth", e.target.value)} placeholder="0" className={cn(inputCls, "w-24")} />
-        </Row>
-        <Row>
-          <FieldLabel>Max W</FieldLabel>
-          <input type="text" value={styles.maxWidth || ""} onChange={(e) => updateStyle("maxWidth", e.target.value)} placeholder="none" className={cn(inputCls, "w-24")} />
-        </Row>
-        <Row>
-          <FieldLabel>Height</FieldLabel>
-          <input type="text" value={styles.height || ""} onChange={(e) => updateStyle("height", e.target.value)} placeholder="auto" className={cn(inputCls, "w-24")} />
-        </Row>
-        <Row>
-          <FieldLabel>Min H</FieldLabel>
-          <input type="text" value={styles.minHeight || ""} onChange={(e) => updateStyle("minHeight", e.target.value)} placeholder="0" className={cn(inputCls, "w-24")} />
-        </Row>
-        <Row>
-          <FieldLabel>Padding</FieldLabel>
-          <input type="text" value={styles.padding || ""} onChange={(e) => updateStyle("padding", e.target.value)} placeholder="0" className={cn(inputCls, "w-24")} />
-        </Row>
-        <Row>
-          <FieldLabel>Margin</FieldLabel>
-          <input type="text" value={styles.margin || ""} onChange={(e) => updateStyle("margin", e.target.value)} placeholder="0" className={cn(inputCls, "w-24")} />
-        </Row>
-      </TabSection>
       <TabSection title="Background">
         <div className="flex gap-1 mb-2">
           {(["solid", "gradient"] as const).map((m) => (
-            <button key={m} onClick={() => { setBgMode(m); if (m === "solid") updateStyle("backgroundImage", ""); }} className={cn("flex-1 py-1 text-[10px] font-medium rounded border transition-colors", bgMode === m ? "bg-indigo-600 text-white border-indigo-600" : "bg-white text-gray-500 border-gray-200 hover:border-indigo-300")}>{m.charAt(0).toUpperCase() + m.slice(1)}</button>
+            <button key={m} onClick={() => { setBgMode(m); if (m === "solid") updateStyle("backgroundImage", ""); }}
+              className={cn("flex-1 py-1 text-[10px] font-semibold rounded border transition-colors",
+                bgMode === m ? "bg-indigo-600 text-white border-indigo-600" : "bg-white text-gray-500 border-gray-200 hover:border-indigo-300")}>
+              {m.charAt(0).toUpperCase() + m.slice(1)}
+            </button>
           ))}
         </div>
         {bgMode === "solid" ? (
@@ -3495,12 +3558,11 @@ function StyleTab({ styles, updateStyle }: { styles: ElementStyles; updateStyle:
             <Row>
               <FieldLabel>Direction</FieldLabel>
               <select value={gradDir} onChange={(e) => updateGradient(e.target.value, gradColor1, gradColor2)} className={cn(selectCls, "w-32")}>
-                <option value="to bottom">↓ Top to Bottom</option>
-                <option value="to right">→ Left to Right</option>
-                <option value="to bottom right">↘ Diagonal</option>
-                <option value="to top right">↗ Diagonal</option>
-                <option value="135deg">135°</option>
-                <option value="45deg">45°</option>
+                <option value="to bottom">в†“ Top в†’ Bottom</option>
+                <option value="to right">в†’ Left в†’ Right</option>
+                <option value="to bottom right">в† Diagonal</option>
+                <option value="135deg">135В°</option>
+                <option value="45deg">45В°</option>
               </select>
             </Row>
             <Row><FieldLabel>Color 1</FieldLabel><ColorPicker value={gradColor1} onChange={(v) => updateGradient(gradDir, v, gradColor2)} /></Row>
@@ -3508,57 +3570,160 @@ function StyleTab({ styles, updateStyle }: { styles: ElementStyles; updateStyle:
             <div className="h-8 rounded-lg border border-gray-200" style={{ backgroundImage: styles.backgroundImage || undefined }} />
           </div>
         )}
-      </TabSection>
-      <TabSection title="Border">
-        <Row>
-          <FieldLabel>Width</FieldLabel>
-          <input type="number" value={styles.border ? parseInt(styles.border.split(" ")[0]) || "" : ""} onChange={(e) => { const w = e.target.value; const rest = styles.border?.split(" ").slice(1).join(" ") || "solid #E5E7EB"; updateStyle("border", w ? `${w}px ${rest}` : ""); }} placeholder="0" className={cn(inputCls, "w-16")} />
-        </Row>
-        <Row>
-          <FieldLabel>Style</FieldLabel>
-          <select value={styles.border?.split(" ")[1] || "solid"} onChange={(e) => { const parts = (styles.border || "1px solid #E5E7EB").split(" "); parts[1] = e.target.value; updateStyle("border", parts.join(" ")); }} className={cn(selectCls, "w-24")}>
-            <option value="solid">Solid</option><option value="dashed">Dashed</option><option value="dotted">Dotted</option><option value="double">Double</option>
-          </select>
-        </Row>
-        <Row>
-          <FieldLabel>Color</FieldLabel>
-          <ColorPicker value={styles.border?.split(" ")[2] || "#E5E7EB"} onChange={(v) => { const parts = (styles.border || "1px solid #E5E7EB").split(" "); parts[2] = v; updateStyle("border", parts.join(" ")); }} />
-        </Row>
-      </TabSection>
-      <TabSection title="Border Radius">
-        <div className="flex items-center justify-between mb-2">
-          <FieldLabel>Per corner</FieldLabel>
-          <button onClick={() => setPerCorner(!perCorner)} className={cn("text-[10px] px-2 py-0.5 rounded font-medium transition-colors", perCorner ? "bg-indigo-100 text-indigo-700" : "bg-gray-100 text-gray-500")}>{perCorner ? "On" : "Off"}</button>
+        <div className="mt-2">
+          <Row><FieldLabel>Text color</FieldLabel><ColorPicker value={styles.color} onChange={(v) => updateStyle("color", v)} /></Row>
         </div>
-        {perCorner ? (
-          <div className="grid grid-cols-2 gap-2">
-            {([ ["TL", "borderTopLeftRadius"], ["TR", "borderTopRightRadius"], ["BL", "borderBottomLeftRadius"], ["BR", "borderBottomRightRadius"] ] as const).map(([label, key]) => (
-              <div key={key} className="flex items-center gap-1">
-                <span className="text-[10px] text-gray-400 w-5 shrink-0">{label}</span>
-                <input type="number" value={(styles as Record<string, string>)[key] ? parseInt((styles as Record<string, string>)[key]) : ""} onChange={(e) => updateStyle(key, e.target.value ? `${e.target.value}px` : "")} placeholder="0" className="w-full h-6 text-[11px] px-1.5 rounded border border-gray-200 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-400" />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <Row><FieldLabel>Radius</FieldLabel><input type="number" value={styles.borderRadius ? parseInt(styles.borderRadius) || "" : ""} onChange={(e) => updateStyle("borderRadius", e.target.value ? `${e.target.value}px` : "")} placeholder="0" className={cn(inputCls, "w-20")} /></Row>
-        )}
       </TabSection>
-      <TabSection title="Shadow" defaultOpen={false}>
+
+      <TabSection title="Border & Radius">
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <input type="number" value={styles.border ? parseInt(styles.border.split(" ")[0]) || "" : ""}
+            onChange={(e) => { const w = e.target.value; const rest = styles.border?.split(" ").slice(1).join(" ") || "solid #E5E7EB"; updateStyle("border", w ? `${w}px ${rest}` : ""); }}
+            placeholder="0px" className={cn(inputCls, "w-14")} />
+          <select value={styles.border?.split(" ")[1] || "solid"}
+            onChange={(e) => { const parts = (styles.border || "1px solid #E5E7EB").split(" "); parts[1] = e.target.value; updateStyle("border", parts.join(" ")); }}
+            className={cn(selectCls, "w-20")}>
+            <option value="solid">Solid</option>
+            <option value="dashed">Dashed</option>
+            <option value="dotted">Dotted</option>
+          </select>
+          <ColorPicker value={styles.border?.split(" ")[2] || "#E5E7EB"}
+            onChange={(v) => { const parts = (styles.border || "1px solid #E5E7EB").split(" "); parts[2] = v; updateStyle("border", parts.join(" ")); }} />
+        </div>
+        <div className="mt-3 flex items-center gap-2 flex-wrap">
+          {perCorner ? (
+            <div className="grid grid-cols-2 gap-1.5 w-full">
+              {([["TL","borderTopLeftRadius"],["TR","borderTopRightRadius"],["BL","borderBottomLeftRadius"],["BR","borderBottomRightRadius"]] as const).map(([lbl, key]) => (
+                <div key={key} className="flex items-center gap-1">
+                  <span className="text-[9px] text-gray-400 w-5 shrink-0">{lbl}</span>
+                  <input type="number" value={(styles as Record<string, string>)[key] ? parseInt((styles as Record<string, string>)[key]) : ""}
+                    onChange={(e) => updateStyle(key, e.target.value ? `${e.target.value}px` : "")} placeholder="0"
+                    className="w-full h-6 text-[10px] px-1.5 rounded border border-gray-200 bg-white focus:outline-none focus:ring-1 focus:ring-indigo-400" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <input type="number" value={styles.borderRadius ? parseInt(styles.borderRadius) || "" : ""}
+                onChange={(e) => updateStyle("borderRadius", e.target.value ? `${e.target.value}px` : "")} placeholder="0"
+                className={cn(inputCls, "w-16")} />
+              <span className="text-[10px] text-gray-400">px radius</span>
+              <button onClick={() => updateStyle("borderRadius", "9999px")} className="text-[10px] px-2 h-6 rounded border border-gray-200 text-gray-500 hover:border-indigo-300 hover:text-indigo-600">Pill</button>
+            </div>
+          )}
+          <button onClick={() => setPerCorner(!perCorner)} className={cn("text-[10px] px-2 py-0.5 rounded font-medium transition-colors", perCorner ? "bg-indigo-100 text-indigo-700" : "bg-gray-100 text-gray-500")}>
+            {perCorner ? "Per corner вњ“" : "Per corner"}
+          </button>
+        </div>
+      </TabSection>
+
+      <TabSection title="Shadow">
         <div className="flex flex-wrap gap-1 mb-3">
-          {Object.keys(shadowPresets).map((key) => (
-            <button key={key} onClick={() => updateStyle("boxShadow", shadowPresets[key])} className={cn("px-2 py-0.5 rounded text-[10px] font-medium border transition-colors", activeShadow === key ? "bg-indigo-600 text-white border-indigo-600" : "bg-white text-gray-600 border-gray-200 hover:border-indigo-300")}>{key}</button>
+          {Object.entries(shadowPresets).map(([key, val]) => (
+            <button key={key} onClick={() => updateStyle("boxShadow", val)}
+              className={cn("px-2.5 py-1 rounded-lg text-[10px] font-semibold border transition-colors capitalize",
+                (styles.boxShadow === val || (!styles.boxShadow && key === "none"))
+                  ? "bg-indigo-600 text-white border-indigo-600"
+                  : "bg-white text-gray-600 border-gray-200 hover:border-indigo-300")}>
+              {key}
+            </button>
           ))}
         </div>
         <div className="space-y-2 p-2.5 bg-gray-50 rounded-lg border border-gray-100">
-          <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1">Shadow Builder</div>
-          <Row><FieldLabel>X Offset</FieldLabel><div className="flex items-center gap-1 flex-1 justify-end"><input type="range" min={-50} max={50} value={shadow.x} onChange={(e) => updateShadow({ x: parseInt(e.target.value) })} className="w-20 accent-indigo-500" /><span className="text-[10px] text-gray-500 w-8 text-right">{shadow.x}px</span></div></Row>
-          <Row><FieldLabel>Y Offset</FieldLabel><div className="flex items-center gap-1 flex-1 justify-end"><input type="range" min={-50} max={50} value={shadow.y} onChange={(e) => updateShadow({ y: parseInt(e.target.value) })} className="w-20 accent-indigo-500" /><span className="text-[10px] text-gray-500 w-8 text-right">{shadow.y}px</span></div></Row>
+          <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">Custom</p>
+          <Row><FieldLabel>X</FieldLabel><div className="flex items-center gap-1 flex-1 justify-end"><input type="range" min={-50} max={50} value={shadow.x} onChange={(e) => updateShadow({ x: parseInt(e.target.value) })} className="w-20 accent-indigo-500" /><span className="text-[10px] text-gray-500 w-8 text-right">{shadow.x}px</span></div></Row>
+          <Row><FieldLabel>Y</FieldLabel><div className="flex items-center gap-1 flex-1 justify-end"><input type="range" min={-50} max={50} value={shadow.y} onChange={(e) => updateShadow({ y: parseInt(e.target.value) })} className="w-20 accent-indigo-500" /><span className="text-[10px] text-gray-500 w-8 text-right">{shadow.y}px</span></div></Row>
           <Row><FieldLabel>Blur</FieldLabel><div className="flex items-center gap-1 flex-1 justify-end"><input type="range" min={0} max={100} value={shadow.blur} onChange={(e) => updateShadow({ blur: parseInt(e.target.value) })} className="w-20 accent-indigo-500" /><span className="text-[10px] text-gray-500 w-8 text-right">{shadow.blur}px</span></div></Row>
-          <Row><FieldLabel>Spread</FieldLabel><div className="flex items-center gap-1 flex-1 justify-end"><input type="range" min={-20} max={50} value={shadow.spread} onChange={(e) => updateShadow({ spread: parseInt(e.target.value) })} className="w-20 accent-indigo-500" /><span className="text-[10px] text-gray-500 w-8 text-right">{shadow.spread}px</span></div></Row>
           <Row><FieldLabel>Color</FieldLabel><ColorPicker value={shadow.color} onChange={(v) => updateShadow({ color: v })} /></Row>
-          <Row><FieldLabel>Inset</FieldLabel><input type="checkbox" checked={shadow.inset} onChange={(e) => updateShadow({ inset: e.target.checked })} className="rounded" /></Row>
         </div>
       </TabSection>
+
+      <TabSection title="Opacity">
+        <Row>
+          <FieldLabel>Opacity</FieldLabel>
+          <div className="flex items-center gap-2 flex-1 justify-end">
+            <input type="range" min={0} max={100} value={opacityVal} onChange={(e) => updateStyle("opacity", String(parseInt(e.target.value) / 100))} className="w-24 accent-indigo-500" />
+            <span className="text-[11px] text-gray-500 w-8 text-right">{opacityVal}%</span>
+          </div>
+        </Row>
+      </TabSection>
+
+      {/* в”Ђв”Ђ Advanced (collapsed) в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ */}
+      <div className="border-t border-gray-100">
+        <button onClick={() => setShowAdvanced(!showAdvanced)}
+          className="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50/50 transition-colors group">
+          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.08em] group-hover:text-gray-600">Advanced</span>
+          <ChevronDown className={cn("h-3 w-3 text-gray-400 transition-transform duration-200", showAdvanced && "rotate-180")} />
+        </button>
+        {showAdvanced && (
+          <div className="px-4 pb-5 space-y-4">
+            <div>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Hover State</p>
+              <div className="space-y-2">
+                <Row><FieldLabel>Text color</FieldLabel><ColorPicker value={hoverStyles?.color} onChange={(v) => updateHoverStyles({ color: v })} /></Row>
+                <Row><FieldLabel>Background</FieldLabel><ColorPicker value={hoverStyles?.backgroundColor} onChange={(v) => updateHoverStyles({ backgroundColor: v })} /></Row>
+                <Row>
+                  <FieldLabel>Transform</FieldLabel>
+                  <select value={hoverStyles?.transform || ""} onChange={(e) => updateHoverStyles({ transform: e.target.value })} className={cn(selectCls, "w-32")}>
+                    <option value="">None</option>
+                    <option value="scale(1.05)">Scale Up</option>
+                    <option value="scale(0.95)">Scale Down</option>
+                    <option value="translateY(-4px)">Lift</option>
+                    <option value="translateY(2px)">Push</option>
+                    <option value="rotate(3deg)">Rotate</option>
+                  </select>
+                </Row>
+              </div>
+            </div>
+            <div>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Animation</p>
+              <div className="grid grid-cols-3 gap-1 mb-2">
+                {ANIMATION_PRESETS.map(({ id, label }) => (
+                  <button key={id} onClick={() => updateAnimation({ preset: id })}
+                    className={cn("py-1.5 px-1 rounded-lg border text-[10px] font-medium transition-all text-center",
+                      (anim.preset ?? "none") === id ? "bg-indigo-600 text-white border-indigo-600" : "bg-white text-gray-600 border-gray-200 hover:border-indigo-300")}>
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {(anim.preset ?? "none") !== "none" && (
+                <div className="space-y-2 mt-2">
+                  <Row>
+                    <FieldLabel>Trigger</FieldLabel>
+                    <select value={anim.trigger ?? "scroll"} onChange={(e) => updateAnimation({ trigger: e.target.value as AnimationConfig["trigger"] })} className={cn(selectCls, "w-28")}>
+                      <option value="scroll">On scroll</option>
+                      <option value="load">On load</option>
+                      <option value="hover">On hover</option>
+                    </select>
+                  </Row>
+                  <Row>
+                    <FieldLabel>Duration</FieldLabel>
+                    <div className="flex items-center gap-1 flex-1 justify-end">
+                      <input type="range" min={100} max={2000} step={50} value={anim.duration ?? 600} onChange={(e) => updateAnimation({ duration: parseInt(e.target.value) })} className="w-20 accent-indigo-500" />
+                      <span className="text-[10px] text-gray-500 w-12 text-right">{anim.duration ?? 600}ms</span>
+                    </div>
+                  </Row>
+                  <Row>
+                    <FieldLabel>Delay</FieldLabel>
+                    <div className="flex items-center gap-1 flex-1 justify-end">
+                      <input type="range" min={0} max={1000} step={50} value={anim.delay ?? 0} onChange={(e) => updateAnimation({ delay: parseInt(e.target.value) })} className="w-20 accent-indigo-500" />
+                      <span className="text-[10px] text-gray-500 w-12 text-right">{anim.delay ?? 0}ms</span>
+                    </div>
+                  </Row>
+                </div>
+              )}
+            </div>
+            <Row>
+              <FieldLabel>Cursor</FieldLabel>
+              <select value={styles.cursor || "default"} onChange={(e) => updateStyle("cursor", e.target.value)} className={cn(selectCls, "w-28")}>
+                {["default","pointer","grab","crosshair","text","not-allowed","wait","zoom-in"].map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+            </Row>
+          </div>
+        )}
+      </div>
     </>
   );
 }
@@ -4022,7 +4187,7 @@ function InteractionsTab({
 
   return (
     <>
-      {/* ── Pseudo-State Editor ── */}
+      {/* в”Ђв”Ђ Pseudo-State Editor в”Ђв”Ђ */}
       <div className="px-4 pt-3 pb-1">
         <div className="flex items-center gap-1 p-0.5 bg-gray-100 rounded-lg mb-3">
           {([
@@ -4090,7 +4255,7 @@ function InteractionsTab({
         </Row>
       </div>
 
-      {/* ── Click Action ── */}
+      {/* в”Ђв”Ђ Click Action в”Ђв”Ђ */}
       <TabSection title="Click Action" defaultOpen={false}>
         <Row>
           <FieldLabel>Action</FieldLabel>
@@ -4114,7 +4279,7 @@ function InteractionsTab({
         )}
       </TabSection>
 
-      {/* ── Cursor ── */}
+      {/* в”Ђв”Ђ Cursor в”Ђв”Ђ */}
       <TabSection title="Cursor" defaultOpen={false}>
         <Row>
           <FieldLabel>Cursor</FieldLabel>
@@ -4135,7 +4300,7 @@ function InteractionsTab({
 }
 
 // ---------------------------------------------------------------------------
-// Code Tab — full-page HTML / CSS / JS IDE
+// Code Tab вЂ” full-page HTML / CSS / JS IDE
 // ---------------------------------------------------------------------------
 
 const IDE_FONT = '"JetBrains Mono", "Fira Code", Consolas, "Courier New", monospace';
@@ -4148,7 +4313,7 @@ const BP_WIDTHS: Record<string, number> = {
   "small-mobile": 320,
 };
 
-// ── Page code generators ────────────────────────────────────────────────────
+// в”Ђв”Ђ Page code generators в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 function getHtmlTag(type: string): string {
   const map: Record<string, string> = {
@@ -4256,7 +4421,7 @@ function buildPageCss(elements: CanvasElement[], customCSS: string, bp?: string)
   return parts.join("\n\n");
 }
 
-// ── Mini IDE ────────────────────────────────────────────────────────────────
+// в”Ђв”Ђ Mini IDE в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 function MiniIDE({
   value,
@@ -4326,7 +4491,7 @@ function MiniIDE({
   );
 }
 
-// ── Code Tab ────────────────────────────────────────────────────────────────
+// в”Ђв”Ђ Code Tab в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 function CodeTab({
   element,
@@ -4355,7 +4520,7 @@ function CodeTab({
 
   const bp = deviceMode !== "desktop" ? deviceMode : null;
 
-  // ── Seed helpers ─────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Seed helpers в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   // CSS: if there's already saved custom CSS for this viewport, show it as-is
   // (user's own override). Otherwise show the auto-generated element CSS so
   // there's always real content to read and edit from.
@@ -4406,7 +4571,7 @@ function CodeTab({
     }
   });
 
-  // ── Save ─────────────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Save в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   const triggerSaved = () => {
     setSaved(true);
     setTimeout(() => setSaved(false), 1600);
@@ -4443,7 +4608,7 @@ function CodeTab({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // ── Render ────────────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Render в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   const value    = file === "html" ? htmlVal : file === "css" ? cssVal : jsVal;
   const onChange = file === "html" ? setHtmlVal : file === "css" ? setCssVal : setJsVal;
 
@@ -4455,7 +4620,7 @@ function CodeTab({
   };
 
   const saveLabel = saved
-    ? "✓ Saved"
+    ? "вњ“ Saved"
     : file === "html"
       ? "Save + Download"
       : file === "css" && bp
@@ -4465,7 +4630,7 @@ function CodeTab({
   return (
     <div className="flex flex-col h-full" style={{ background: "#13131a" }}>
 
-      {/* ── Tab bar ── */}
+      {/* в”Ђв”Ђ Tab bar в”Ђв”Ђ */}
       <div className="flex items-center gap-1 px-3 py-2 shrink-0" style={{ borderBottom: "1px solid #1e1e2d" }}>
         {(["html", "css", "js"] as FileLang[]).map((f) => (
           <button
@@ -4503,12 +4668,12 @@ function CodeTab({
         </button>
       </div>
 
-      {/* ── Editor ── */}
+      {/* в”Ђв”Ђ Editor в”Ђв”Ђ */}
       <div className="flex-1 overflow-hidden px-2 pt-2 pb-1">
         <MiniIDE key={`${file}-${bp ?? "desktop"}`} value={value} onChange={onChange} />
       </div>
 
-      {/* ── Footer ── */}
+      {/* в”Ђв”Ђ Footer в”Ђв”Ђ */}
       <div className="flex items-center justify-between px-3 py-2 shrink-0" style={{ borderTop: "1px solid #1e1e2d" }}>
         <span style={{ fontSize: 9, color: "#2e2e45", fontFamily: IDE_FONT }}>Ctrl+S to save</span>
         <button
@@ -4571,7 +4736,7 @@ export default function PropertiesPanel() {
   // Active viewport (mirrors canvas deviceMode)
   const activeViewport = deviceMode;
   const bpKey: Breakpoint | null = activeViewport === "desktop" ? null : activeViewport as Breakpoint;
-  // _responsive stores both CSS overrides and layout props (_childLayout etc.) — strip non-CSS keys for styles
+  // _responsive stores both CSS overrides and layout props (_childLayout etc.) вЂ” strip non-CSS keys for styles
   const LAYOUT_PROP_KEYS_SET = new Set(["_childLayout", "_childAlign", "_childJustify", "_childGap"]);
   const rawBpOverrides: Record<string, unknown> = bpKey ? ((selectedElement.props?._responsive as any)?.[bpKey] || {}) : {};
   const bpOverrides: Partial<ElementStyles> = Object.fromEntries(
@@ -4583,7 +4748,7 @@ export default function PropertiesPanel() {
     ? { ...(selectedElement.styles || {}), ...bpOverrides }
     : (selectedElement.styles || {});
 
-  // Route style updates — pass only the delta; store merges atomically
+  // Route style updates вЂ” pass only the delta; store merges atomically
   const updateStyle = (key: string, value: string) => {
     if (bpKey) {
       updateElementResponsiveStyles(selectedElement.id, bpKey, { [key]: value });
@@ -4621,7 +4786,7 @@ export default function PropertiesPanel() {
     ? { ...(selectedElement.props || {}), ...bpLayoutOverrides }
     : (selectedElement.props || {});
 
-  // Used by InteractionsTab — pass delta only, store merges atomically
+  // Used by InteractionsTab вЂ” pass delta only, store merges atomically
   const updateResponsiveStyles = (bp: Breakpoint, overrides: Partial<ElementStyles>) => {
     if (Object.keys(overrides).length === 0) {
       clearElementResponsiveStyles(selectedElement.id, bp);
@@ -4769,40 +4934,35 @@ export default function PropertiesPanel() {
             effectiveProps={effectiveProps}
           />
         )}
-        {activeTab === "layout" && <LayoutTab styles={styles} updateStyle={updateStyle} />}
-        {activeTab === "style" && <StyleTab styles={styles} updateStyle={updateStyle} />}
-        {activeTab === "typography" && <TypographyTab elementType={selectedElement.type} styles={styles} updateStyle={updateStyle} element={selectedElement} updateProps={(props) => updateElementProps(selectedElement.id, props)} />}
-        {activeTab === "effects" && (
-          <EffectsTab
+        {activeTab === "layout" && (
+          <LayoutTab
+            styles={styles}
+            updateStyle={updateStyle}
+            elementType={selectedElement.type}
+            effectiveProps={effectiveProps}
+            updateLayoutProp={updateLayoutProp}
+          />
+        )}
+        {activeTab === "design" && (
+          <DesignTab
             styles={styles}
             updateStyle={updateStyle}
             animation={selectedElement.animation}
             updateAnimation={(a) => updateElementAnimation(selectedElement.id, a)}
-          />
-        )}
-        {activeTab === "interactions" && (
-          <InteractionsTab
-            styles={styles}
-            updateStyle={updateStyle}
             hoverStyles={selectedElement.hoverStyles}
             updateHoverStyles={(h) => updateElementHoverStyles(selectedElement.id, h)}
-            focusStyles={selectedElement.focusStyles}
-            updateFocusStyles={(f) => updateElementFocusStyles(selectedElement.id, f)}
-            activeStyles={selectedElement.activeStyles}
-            updateActiveStyles={(a) => updateElementActiveStyles(selectedElement.id, a)}
-            responsiveStyles={responsiveStyles}
-            updateResponsiveStyles={updateResponsiveStyles}
           />
         )}
-        {activeTab === "code" && (
-          <CodeTab
+        {activeTab === "typography" && (
+          <TypographyTab
+            elementType={selectedElement.type}
+            styles={styles}
+            updateStyle={updateStyle}
             element={selectedElement}
             updateProps={(props) => updateElementProps(selectedElement.id, props)}
-            updateStyles={(s) => updateElementStyles(selectedElement.id, s as Partial<ElementStyles>)}
-            updateContent={(c) => updateElementContent(selectedElement.id, c)}
-            updateChildren={(children) => updateElement(selectedElement.id, { children })}
           />
         )}
+
         {activeTab === "submission" && selectedElement.type === "form" && (
           <FormSubmissionTab
             element={selectedElement}
@@ -4829,9 +4989,9 @@ export default function PropertiesPanel() {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// FormSubmissionTab — bind a form element to a backend action
-// ─────────────────────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// FormSubmissionTab вЂ” bind a form element to a backend action
+// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 function FormSubmissionTab({
   element,
@@ -4876,13 +5036,13 @@ function FormSubmissionTab({
             value={binding?.actionId ?? ""}
             onChange={(e) => setBinding({ actionId: e.target.value })}
           >
-            <option value="">— None (no backend) —</option>
+            <option value="">вЂ” None (no backend) вЂ”</option>
             {actions.map((a) => (
               <option key={a.id} value={a.id}>{a.name}</option>
             ))}
           </select>
           {actions.length === 0 && (
-            <p className="text-[10px] text-gray-400 mt-1">No actions defined. Create one in the Backend panel → Actions tab.</p>
+            <p className="text-[10px] text-gray-400 mt-1">No actions defined. Create one in the Backend panel в†’ Actions tab.</p>
           )}
         </div>
       </div>
@@ -4929,9 +5089,9 @@ function FormSubmissionTab({
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// DataBindingTab — bind element content to a data source
-// ─────────────────────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// DataBindingTab вЂ” bind element content to a data source
+// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 function DataBindingTab({
   element,
@@ -4981,13 +5141,13 @@ function DataBindingTab({
               setDbinding({ sourceId: e.target.value });
             }}
           >
-            <option value="">— None —</option>
+            <option value="">вЂ” None вЂ”</option>
             {sources.map((s) => (
               <option key={s.id} value={s.id}>{s.name}</option>
             ))}
           </select>
           {sources.length === 0 && (
-            <p className="text-[10px] text-gray-400 mt-1">No data sources. Create one in Backend panel → Data tab.</p>
+            <p className="text-[10px] text-gray-400 mt-1">No data sources. Create one in Backend panel в†’ Data tab.</p>
           )}
         </div>
       </div>
@@ -5036,9 +5196,9 @@ function DataBindingTab({
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// CmsConfigTab — configure a cms-list element (collection, layout, fields)
-// ─────────────────────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// CmsConfigTab вЂ” configure a cms-list element (collection, layout, fields)
+// в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 interface CmsCollectionInfo { id: string; name: string; slug: string }
 
@@ -5109,7 +5269,7 @@ function CmsConfigTab({
   return (
     <div className="flex flex-col gap-0 p-0">
 
-      {/* ── Collection ── */}
+      {/* в”Ђв”Ђ Collection в”Ђв”Ђ */}
       <div className="p-3 border-b border-gray-100">
         <div className="flex items-center justify-between mb-1.5">
           <FieldLabel>Collection</FieldLabel>
@@ -5119,17 +5279,17 @@ function CmsConfigTab({
         </div>
         <select className={cn(selectCls, "w-full h-7")} value={collectionSlug}
           onChange={(e) => setProps({ collectionSlug: e.target.value })}>
-          <option value="">— Select collection —</option>
+          <option value="">вЂ” Select collection вЂ”</option>
           {collections.map((c) => (
             <option key={c.id} value={c.slug}>{c.name}</option>
           ))}
         </select>
         {collections.length === 0 && (
-          <p className="text-[10px] text-gray-400 mt-1">No collections. Create one in Dashboard → CMS.</p>
+          <p className="text-[10px] text-gray-400 mt-1">No collections. Create one in Dashboard в†’ CMS.</p>
         )}
       </div>
 
-      {/* ── Layout ── */}
+      {/* в”Ђв”Ђ Layout в”Ђв”Ђ */}
       <div className="p-3 border-b border-gray-100 space-y-2">
         <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Layout</p>
 
@@ -5150,12 +5310,12 @@ function CmsConfigTab({
 
         {["cards", "grid", "featured", "masonry"].includes(layout) && (
           <div>
-            <FieldLabel>Columns</FieldLabel>
+            <FieldLabel>Columns (X-Axis)</FieldLabel>
             <div className="flex gap-1 mt-1">
-              {["2", "3", "4"].map((c) => (
+              {["1", "2", "3", "4", "5", "6"].map((c) => (
                 <button key={c} onClick={() => setProps({ columns: c })}
-                  className={cn("flex-1 h-7 rounded-lg text-xs font-semibold border transition-all",
-                    columns === c ? "bg-indigo-600 border-indigo-600 text-white" : "border-gray-200 text-gray-500 hover:border-gray-300"
+                  className={cn("flex-1 h-7 rounded-lg text-[10px] font-bold border transition-all",
+                    String(columns) === c ? "bg-indigo-600 border-indigo-600 text-white" : "border-gray-200 text-gray-500 hover:border-gray-300"
                   )}>
                   {c}
                 </button>
@@ -5179,14 +5339,15 @@ function CmsConfigTab({
         </div>
 
         <div>
-          <FieldLabel>Max items</FieldLabel>
+          <FieldLabel>Max items (Y-Axis Total)</FieldLabel>
           <input type="number" min={1} max={100} value={limit}
             onChange={(e) => setProps({ limit: parseInt(e.target.value) || 6 })}
             className={cn(inputCls, "mt-1")} />
+          <p className="text-[9px] text-gray-400 mt-1 italic">Controls total cards across all rows</p>
         </div>
       </div>
 
-      {/* ── Card Design ── */}
+      {/* в”Ђв”Ђ Card Design в”Ђв”Ђ */}
       {layout !== "table" && layout !== "minimal" && (
         <div className="p-3 border-b border-gray-100 space-y-2">
           <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Card Design</p>
@@ -5234,7 +5395,7 @@ function CmsConfigTab({
         </div>
       )}
 
-      {/* ── Content Options ── */}
+      {/* в”Ђв”Ђ Content Options в”Ђв”Ђ */}
       <div className="p-3 border-b border-gray-100 space-y-2">
         <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Content</p>
 
@@ -5270,7 +5431,7 @@ function CmsConfigTab({
         )}
       </div>
 
-      {/* ── Field Mapping ── */}
+      {/* в”Ђв”Ђ Field Mapping в”Ђв”Ђ */}
       <div className="p-3 space-y-2">
         <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Field Mapping</p>
         {sampleFields.length === 0 && (
@@ -5290,7 +5451,7 @@ function CmsConfigTab({
                 <FieldLabel>{label}</FieldLabel>
                 <select className={cn(selectCls, "w-full h-7 mt-1")} value={val as string}
                   onChange={(e) => setProps({ [key]: e.target.value })}>
-                  <option value="">— Auto detect —</option>
+                  <option value="">вЂ” Auto detect вЂ”</option>
                   {sampleFields.map((f) => <option key={f} value={f}>{f}</option>)}
                 </select>
               </div>

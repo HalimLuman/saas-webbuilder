@@ -177,36 +177,49 @@ export default function GeneratePage() {
       setIsGenerating(false);
     }
   };
-
   const handleCreateSite = async () => {
     setIsGenerating(true);
     let siteName = "AI Generated Site";
 
+    // Create the site on the server
+    let newSiteId: string;
+    let mappedPages: any[] = [];
+    let mappedTokens: any = null;
+
     try {
-      // Call the structured generate API to get a proper site name
+      // Call the structured generate API
       const res = await fetch("/api/v1/ai/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt, style: selectedStyle, colorPalette: selectedPalette }),
       });
+      
       if (res.ok) {
         const data = await res.json();
-        if (data.site?.name) siteName = data.site.name;
+        if (data.site) {
+          if (data.site.name) siteName = data.site.name;
+          
+          // Map AI site to canvas elements
+          const { mapAiSiteToCanvas } = await import("@/lib/ai-site-mapper");
+          const result = mapAiSiteToCanvas(data.site, selectedStyle);
+          mappedPages = result.pages;
+          mappedTokens = result.designTokens;
+        }
       }
-    } catch {
-      // fallback to prompt-derived name
+    } catch (err) {
+      console.error("AI mapping failed:", err);
       siteName = prompt.split(" ").slice(0, 5).join(" ") || "AI Generated Site";
-    } finally {
-      setIsGenerating(false);
     }
 
-    // Create the site on the server
-    let newSiteId: string;
     try {
       const res = await wfetch("/api/v1/sites", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: siteName }),
+        body: JSON.stringify({ 
+          name: siteName,
+          pages: mappedPages,
+          design_tokens: mappedTokens
+        }),
       });
       if (!res.ok) throw new Error("Failed to create site on server");
       const { data } = await res.json();
@@ -219,7 +232,7 @@ export default function GeneratePage() {
         name: siteName,
         description: prompt,
         status: "draft",
-        pages: [{ id: "page-home", name: "Home", slug: "/", elements: [], isHome: true }],
+        pages: mappedPages.length > 0 ? mappedPages : [{ id: "page-home", name: "Home", slug: "/", elements: [], isHome: true }],
       });
       newSiteId = tempSite.id;
     }
@@ -231,12 +244,13 @@ export default function GeneratePage() {
         name: siteName,
         description: prompt,
         status: "draft",
-        pages: [{ id: "page-home", name: "Home", slug: "/", elements: [], isHome: true }],
+        pages: mappedPages.length > 0 ? mappedPages : [{ id: "page-home", name: "Home", slug: "/", elements: [], isHome: true }],
       });
     }
 
-    toast.success("Site created! Opening editor…");
+    toast.success("Site generated! Opening editor…");
     router.push(`/editor/${newSiteId}`);
+    setIsGenerating(false);
   };
 
   return (

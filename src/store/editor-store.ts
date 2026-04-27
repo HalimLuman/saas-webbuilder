@@ -143,6 +143,8 @@ export interface EditorStore {
   updateElementFocusStyles: (id: string, focusStyles: Partial<FocusStyles>) => void;
   updateElementActiveStyles: (id: string, activeStyles: Partial<ActiveStyles>) => void;
   updateElementName: (id: string, name: string) => void;
+  updateDescendantsStyles: (parentId: string, styles: Partial<ElementStyles>, targetType?: ElementType) => void;
+  batchUpdateElements: (updates: { elementId: string; styles?: Partial<ElementStyles>; content?: string; props?: Record<string, unknown> }[]) => void;
   addChildElement: (parentId: string, childData: Partial<CanvasElement>) => void;
   removeChildElement: (parentId: string, childId: string) => void;
   setElementChildren: (id: string, children: CanvasElement[]) => void;
@@ -390,6 +392,36 @@ const storeCreator: StateCreator<EditorStore> = (set, get) => ({
         });
       },
 
+      batchUpdateElements: (updates) => {
+        const { elements } = get();
+        get().saveState();
+
+        const updateRecursive = (items: CanvasElement[]): CanvasElement[] => {
+          return items.map((el) => {
+            const update = updates.find(u => u.elementId === el.id);
+            let updatedEl = el;
+            if (update) {
+              updatedEl = {
+                ...el,
+                ...(update.content !== undefined ? { content: update.content } : {}),
+                ...(update.styles ? { styles: { ...el.styles, ...update.styles } } : {}),
+                ...(update.props ? { props: { ...el.props, ...update.props } } : {})
+              };
+            }
+            if (updatedEl.children?.length) {
+              return { ...updatedEl, children: updateRecursive(updatedEl.children) };
+            }
+            return updatedEl;
+          });
+        };
+
+        set({
+          elements: updateRecursive(elements),
+          redoStack: [],
+        });
+      },
+
+
       removeElement: (id) => {
         const { elements } = get();
         get().saveState();
@@ -565,6 +597,30 @@ const storeCreator: StateCreator<EditorStore> = (set, get) => ({
       updateElementName: (id, name) => {
         const { elements } = get();
         set({ elements: updateInTree(elements, id, (el) => ({ ...el, name })) });
+      },
+
+      updateDescendantsStyles: (parentId, styles, targetType) => {
+        const { elements } = get();
+        get().saveState();
+
+        const updateRecursive = (items: CanvasElement[]): CanvasElement[] => {
+          return items.map((el) => {
+            const isTarget = !targetType || el.type === targetType;
+            const updatedEl = isTarget ? { ...el, styles: { ...el.styles, ...styles } } : el;
+            if (updatedEl.children?.length) {
+              return { ...updatedEl, children: updateRecursive(updatedEl.children) };
+            }
+            return updatedEl;
+          });
+        };
+
+        set({
+          elements: updateInTree(elements, parentId, (el) => ({
+            ...el,
+            children: el.children ? updateRecursive(el.children) : [],
+          })),
+          redoStack: [],
+        });
       },
 
       duplicateElement: (id) => {

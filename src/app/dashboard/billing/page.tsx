@@ -21,6 +21,10 @@ const PLANS = [
     id: "pro",
     name: "Pro",
     price: 5,
+    variantId: {
+      monthly: process.env.NEXT_PUBLIC_LEMONSQUEEZY_VARIANT_PRO_MONTHLY ?? "",
+      annual:  process.env.NEXT_PUBLIC_LEMONSQUEEZY_VARIANT_PRO_ANNUAL ?? "",
+    },
     features: ["10 websites", "1 published site", "50 AI credits/mo", "Custom domain", "Code export"],
     color: "border-indigo-200 bg-indigo-50",
     badge: null as string | null,
@@ -29,6 +33,10 @@ const PLANS = [
     id: "business",
     name: "Business",
     price: 15,
+    variantId: {
+      monthly: process.env.NEXT_PUBLIC_LEMONSQUEEZY_VARIANT_BUSINESS_MONTHLY ?? "",
+      annual:  process.env.NEXT_PUBLIC_LEMONSQUEEZY_VARIANT_BUSINESS_ANNUAL ?? "",
+    },
     features: ["Unlimited websites", "Unlimited publishing", "500 AI credits/mo", "Team collaboration", "White-label"],
     color: "border-purple-200",
     badge: "Most Popular",
@@ -37,6 +45,7 @@ const PLANS = [
     id: "enterprise",
     name: "Enterprise",
     price: null as number | null,
+    variantId: { monthly: "", annual: "" },
     features: ["Unlimited everything", "SSO & SAML", "Audit logs", "Dedicated support", "Custom SLA"],
     color: "border-gray-200",
     badge: null as string | null,
@@ -72,50 +81,62 @@ function UsageBar({ label, used, total, color }: { label: string; used: number |
   );
 }
 
-async function handleUpgrade(planId: string, annual: boolean) {
-  const fullPlanId = `${planId}_${annual ? "annual" : "monthly"}`;
-  try {
-    const res = await fetch("/api/v1/paddle/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ planId: fullPlanId }),
-    });
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      toast.error(data.error ?? "Failed to start checkout");
-    }
-  } catch {
-    toast.error("Network error. Please try again.");
-  }
-}
-
-async function handleManageSubscription() {
-  try {
-    const res = await fetch("/api/v1/paddle/portal", { method: "POST" });
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      toast.error(data.error ?? "Failed to open billing portal");
-    }
-  } catch {
-    toast.error("Network error. Please try again.");
-  }
-}
 
 export default function BillingPage() {
   const [annual, setAnnual] = useState(false);
   const [billing, setBilling] = useState<BillingData | null>(null);
   const [loadingBilling, setLoadingBilling] = useState(true);
+  const [upgradingPlan, setUpgradingPlan] = useState<string | null>(null);
+  const [managingPortal, setManagingPortal] = useState(false);
   const searchParams = useSearchParams();
-  const { profile } = useUser();
+  const { profile, refreshProfile } = useUser();
+
+  async function handleUpgrade(plan: typeof PLANS[0], isAnnual: boolean) {
+    if (upgradingPlan) return;
+    const variantId = isAnnual ? plan.variantId.annual : plan.variantId.monthly;
+    const planId = `${plan.id}_${isAnnual ? "annual" : "monthly"}`;
+    setUpgradingPlan(planId);
+    try {
+      const res = await fetch("/api/v1/lemonsqueezy/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ variantId, planId }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        toast.error(data.error ?? "Failed to start checkout");
+        setUpgradingPlan(null);
+      }
+    } catch {
+      toast.error("Network error. Please try again.");
+      setUpgradingPlan(null);
+    }
+  }
+
+  async function handleManageSubscription() {
+    if (managingPortal) return;
+    setManagingPortal(true);
+    try {
+      const res = await fetch("/api/v1/lemonsqueezy/portal", { method: "POST" });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        toast.error(data.error ?? "Failed to open billing portal");
+        setManagingPortal(false);
+      }
+    } catch {
+      toast.error("Network error. Please try again.");
+      setManagingPortal(false);
+    }
+  }
 
   const loadBilling = useCallback(async () => {
     setLoadingBilling(true);
     try {
-      const res = await fetch("/api/v1/paddle/billing");
+      const res = await fetch("/api/v1/lemonsqueezy/billing");
       const json = await res.json();
       if (!json.error) setBilling(json);
     } catch { /* ignore */ }
@@ -126,12 +147,25 @@ export default function BillingPage() {
 
   useEffect(() => {
     if (searchParams.get("success") === "true") {
-      toast.success("Subscription activated!", { description: "Your plan has been upgraded successfully." });
+      fetch("/api/v1/lemonsqueezy/verify", { method: "POST" })
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.verified) {
+            refreshProfile();
+            loadBilling();
+            toast.success("Subscription activated!", { description: `You're now on the ${data.plan} plan.` });
+          } else {
+            toast.success("Payment received!", { description: "Your plan will update shortly." });
+          }
+        })
+        .catch(() => {
+          toast.success("Payment received!", { description: "Your plan will update shortly." });
+        });
     }
     if (searchParams.get("mock_checkout") === "true") {
-      toast.success("Mock checkout complete!", { description: "Add PADDLE_API_KEY to enable real payments." });
+      toast.success("Mock checkout complete!", { description: "Add LEMONSQUEEZY_API_KEY to enable real payments." });
     }
-  }, [searchParams]);
+  }, [searchParams, refreshProfile, loadBilling]);
 
   const currentPlan = billing?.plan ?? profile?.plan ?? "free";
   const limits = PLAN_LIMITS[currentPlan] ?? PLAN_LIMITS.free;
@@ -164,8 +198,8 @@ export default function BillingPage() {
               </div>
             </div>
           </div>
-          <Button variant="outline" size="sm" onClick={handleManageSubscription}>
-            Manage Subscription
+          <Button variant="outline" size="sm" onClick={handleManageSubscription} disabled={managingPortal}>
+            {managingPortal ? "Opening…" : "Manage Subscription"}
           </Button>
         </div>
       </div>
@@ -215,7 +249,7 @@ export default function BillingPage() {
                 <p className="text-xs text-gray-400">Expires {billing.paymentMethod.expMonth}/{billing.paymentMethod.expYear}</p>
               </div>
             </div>
-            <Button variant="outline" size="sm" onClick={handleManageSubscription}>
+            <Button variant="outline" size="sm" onClick={handleManageSubscription} disabled={managingPortal}>
               <CreditCard className="h-3.5 w-3.5 mr-1.5" /> Update
             </Button>
           </div>
@@ -275,8 +309,13 @@ export default function BillingPage() {
                 {isCurrent ? (
                   <Button size="sm" className="w-full" disabled>Current Plan</Button>
                 ) : (
-                  <Button size="sm" className="w-full gap-1" onClick={() => handleUpgrade(plan.id, annual)}>
-                    Upgrade <ArrowRight className="h-3.5 w-3.5" />
+                  <Button
+                    size="sm"
+                    className="w-full gap-1"
+                    disabled={!!upgradingPlan}
+                    onClick={() => handleUpgrade(plan, annual)}
+                  >
+                    {upgradingPlan === `${plan.id}_${annual ? "annual" : "monthly"}` ? "Redirecting…" : <><span>Upgrade</span><ArrowRight className="h-3.5 w-3.5" /></>}
                   </Button>
                 )}
               </div>

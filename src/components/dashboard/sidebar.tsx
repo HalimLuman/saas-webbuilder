@@ -455,12 +455,14 @@ export default function Sidebar({ open = false, onClose }: { open?: boolean; onC
 
       {/* Bottom: User info */}
       <div className="shrink-0 border-t border-gray-100 p-3 space-y-2">
-        <Button asChild size="sm" className="w-full bg-gradient-to-r from-primary to-primary-dark hover:from-primary-600 hover:to-accent text-white text-xs h-8 shadow-sm">
-          <Link href="/pricing">
-            <Zap className="h-3 w-3 mr-1.5" />
-            Upgrade to Pro
-          </Link>
-        </Button>
+        {(!profile?.plan || profile.plan === "free") && (
+          <Button asChild size="sm" className="w-full bg-gradient-to-r from-primary to-primary-dark hover:from-primary-600 hover:to-accent text-white text-xs h-8 shadow-sm">
+            <Link href="/pricing">
+              <Zap className="h-3 w-3 mr-1.5" />
+              Upgrade to Pro
+            </Link>
+          </Button>
+        )}
         <div className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-gray-50 transition-colors cursor-default">
           <Avatar className="h-7 w-7 shrink-0">
             <AvatarImage src={profile?.avatar_url ?? ""} alt={userName} />

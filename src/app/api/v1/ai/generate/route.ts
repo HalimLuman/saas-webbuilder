@@ -4,15 +4,16 @@ import { NextRequest, NextResponse } from "next/server";
 // Uses Claude (Anthropic API) to generate a full site structure from a text prompt.
 // Falls back to a rich mock response when ANTHROPIC_API_KEY is not configured.
 
-interface GeneratedSection {
-  type: string;
-  content: Record<string, unknown>;
+interface GeneratedPage {
+  name: string;
+  slug: string;
+  sections: GeneratedSection[];
 }
 
 interface GeneratedSite {
   name: string;
   description: string;
-  sections: GeneratedSection[];
+  pages: GeneratedPage[];
   colorPalette: { primary: string; secondary: string; background: string; text: string };
   typography: { heading: string; body: string };
   meta: { title: string; description: string };
@@ -20,16 +21,39 @@ interface GeneratedSite {
 
 function buildMockSite(prompt: string, style: string): GeneratedSite {
   const isLower = prompt.toLowerCase();
-  const isSaaS     = isLower.includes("saas") || isLower.includes("software") || isLower.includes("app") || isLower.includes("platform");
-  const isPortfolio = isLower.includes("portfolio") || isLower.includes("designer") || isLower.includes("freelance");
-  const isEcom      = isLower.includes("shop") || isLower.includes("store") || isLower.includes("product") || isLower.includes("ecommerce");
-  const isAgency    = isLower.includes("agency") || isLower.includes("studio") || isLower.includes("consulting");
+  
+  // 1. Smarter Name Extraction
+  let siteName = "";
+  const nameMatch = prompt.match(/called\s+["']?([^"'.!?,]+)["']?/i) || 
+                    prompt.match(/named\s+["']?([^"'.!?,]+)["']?/i) ||
+                    prompt.match(/([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s+(?:shop|store|agency|business|studio)/);
+  
+  if (nameMatch) {
+    siteName = nameMatch[1].trim();
+  } else {
+    const isSaaS     = isLower.includes("saas") || isLower.includes("software") || isLower.includes("app") || isLower.includes("platform");
+    const isPortfolio = isLower.includes("portfolio") || isLower.includes("designer") || isLower.includes("freelance");
+    const isEcom      = isLower.includes("shop") || isLower.includes("store") || isLower.includes("product") || isLower.includes("ecommerce");
+    const isAgency    = isLower.includes("agency") || isLower.includes("studio") || isLower.includes("consulting");
 
-  const siteName = isPortfolio ? "Creative Portfolio"
-    : isEcom ? "Online Store"
-    : isAgency ? "Agency Studio"
-    : isSaaS ? "SaaS Platform"
-    : "Professional Website";
+    siteName = isPortfolio ? "Creative Portfolio"
+      : isEcom ? "Online Store"
+      : isAgency ? "Agency Studio"
+      : isSaaS ? "SaaS Platform"
+      : "Professional Website";
+  }
+
+  // 2. Style Detection from Prompt
+  let finalStyle = style;
+  if (isLower.includes("black") || isLower.includes("dark") || isLower.includes("night")) {
+    finalStyle = "dark";
+  } else if (isLower.includes("bold") || isLower.includes("impactful")) {
+    finalStyle = "bold";
+  } else if (isLower.includes("playful") || isLower.includes("fun")) {
+    finalStyle = "playful";
+  } else if (isLower.includes("minimal") || isLower.includes("clean") || isLower.includes("simple")) {
+    finalStyle = "minimal";
+  }
 
   const styleColors = {
     modern:   { primary: "#6366f1", secondary: "#a5b4fc", background: "#ffffff", text: "#111827" },
@@ -40,121 +64,87 @@ function buildMockSite(prompt: string, style: string): GeneratedSite {
     gradient: { primary: "#6366f1", secondary: "#ec4899", background: "#ffffff", text: "#111827" },
   };
 
-  const colors = styleColors[style as keyof typeof styleColors] ?? styleColors.modern;
+  const colors = styleColors[finalStyle as keyof typeof styleColors] ?? styleColors.modern;
 
-  const sections: GeneratedSection[] = [
-    {
-      type: "hero",
-      content: {
-        headline: isPortfolio ? "Crafting Digital Experiences" : isSaaS ? "The Smarter Way to Work" : isEcom ? "Shop Our Collection" : "Built for Growth",
-        subheadline: `${prompt.slice(0, 120)}${prompt.length > 120 ? "..." : ""}`,
-        ctaText: isEcom ? "Shop Now" : "Get Started Free",
-        ctaSecondary: "Learn More",
-        badge: isPortfolio ? "Available for projects" : isSaaS ? "Trusted by 10,000+ teams" : null,
+  // 3. Multi-page detection
+  const requestedPages: string[] = ["Home"];
+  if (isLower.includes("about")) requestedPages.push("About");
+  if (isLower.includes("contact")) requestedPages.push("Contact");
+  if (isLower.includes("pricing")) requestedPages.push("Pricing");
+  if (isLower.includes("services")) requestedPages.push("Services");
+  if (isLower.includes("blog")) requestedPages.push("Blog");
+
+  const buildSections = (pageName: string): GeneratedSection[] => {
+    const p = pageName.toLowerCase();
+    const isSweet = isLower.includes("sweet") || isLower.includes("baklava") || isLower.includes("dessert");
+
+    if (p === "about") {
+      return [
+        { type: "hero", content: { 
+            headline: isSweet ? `The Heritage of ${siteName}` : `About ${siteName}`, 
+            subheadline: isSweet ? "Crafting traditional sweets with recipes passed down through generations." : "Our story, our mission, and the people behind the magic.", 
+            ctaText: "Read Our Story" 
+        } },
+        { type: "features", content: { 
+            headline: "Our Traditional Process", 
+            features: isSweet 
+              ? [
+                  { title: "Hand-crafted", desc: "Every piece is made by hand using traditional techniques." }, 
+                  { title: "Premium Ingredients", desc: "We source the finest pistachios and honey for authentic flavor." }
+                ]
+              : [{ title: "Quality", desc: "We never compromise on the details." }, { title: "Innovation", desc: "Pushing boundaries in everything we do." }] 
+        } }
+      ];
+    }
+    if (p === "contact") {
+      return [
+        { type: "hero", content: { headline: isSweet ? "Visit Our Shop" : "Get in Touch", subheadline: isSweet ? "Come taste our fresh baklava and sweets in person." : "Have questions? We'd love to hear from you.", ctaText: "Find Our Location" } },
+        { type: "faq", content: { headline: "Ordering Information", items: isSweet ? [{ q: "Do you ship internationally?", a: "Yes, we ship our fresh sweets worldwide in vacuum-sealed packaging." }] : [{ q: "Where are you located?", a: "We are based in the heart of the city." }] } }
+      ];
+    }
+    
+    // Default / Home
+    return [
+      {
+        type: "hero",
+        content: {
+          headline: isSweet ? `Experience ${siteName}` : `Welcome to ${siteName}`,
+          subheadline: isSweet ? "The finest traditional baklava and Mediterranean sweets, baked fresh daily with love." : prompt.slice(0, 120),
+          ctaText: isSweet ? "Order Now" : "Get Started",
+        },
       },
-    },
-    {
-      type: "logos",
-      content: {
-        headline: "Trusted by leading companies",
-        logos: ["Acme Corp", "TechVentures", "StartupCo", "Enterprise Ltd", "Innovation Inc"],
-      },
-    },
-    {
-      type: "features",
-      content: {
-        headline: isPortfolio ? "What I Do" : "Everything You Need",
-        subheadline: "Powerful features designed to help you succeed",
-        features: isPortfolio
-          ? [
-              { icon: "✦", title: "UI/UX Design", desc: "Beautiful, intuitive interfaces that users love" },
-              { icon: "⬡", title: "Web Development", desc: "Fast, accessible websites built with modern tech" },
-              { icon: "◈", title: "Brand Identity", desc: "Cohesive visual systems that tell your story" },
-            ]
-          : isSaaS
-          ? [
-              { icon: "⚡", title: "Lightning Fast", desc: "Optimized for speed with sub-second load times" },
-              { icon: "🔒", title: "Enterprise Security", desc: "SOC 2 compliant with end-to-end encryption" },
-              { icon: "📊", title: "Advanced Analytics", desc: "Real-time insights to drive better decisions" },
-              { icon: "🔗", title: "100+ Integrations", desc: "Connect to the tools your team already uses" },
-              { icon: "🤖", title: "AI-Powered", desc: "Intelligent automation that learns from your workflow" },
-              { icon: "🌐", title: "Global CDN", desc: "Deployed to 200+ edge locations worldwide" },
-            ]
-          : [
-              { icon: "◆", title: "Feature One", desc: "A compelling benefit that solves a real problem" },
-              { icon: "●", title: "Feature Two", desc: "Another reason why customers choose you" },
-              { icon: "▲", title: "Feature Three", desc: "The advantage that sets you apart from competitors" },
-            ],
-      },
-    },
-    ...(isSaaS || !isPortfolio
-      ? [{
-          type: "stats",
-          content: {
-            stats: isSaaS
-              ? [{ value: "10,000+", label: "Active Users" }, { value: "99.9%", label: "Uptime SLA" }, { value: "2.5x", label: "Avg ROI" }, { value: "< 2s", label: "Load Time" }]
-              : [{ value: "500+", label: "Projects" }, { value: "98%", label: "Satisfaction" }, { value: "12+", label: "Years" }, { value: "50+", label: "Countries" }],
-          },
-        }]
-      : []),
-    {
-      type: "testimonials",
-      content: {
-        headline: "Loved by customers",
-        testimonials: [
-          { name: "Sarah Chen", role: "CEO, TechStartup", quote: "This completely transformed how we work. I can't imagine going back.", avatar: "SC" },
-          { name: "Marcus Lee", role: "Product Lead, Agency", quote: "The best investment we've made. Results were visible within the first week.", avatar: "ML" },
-          { name: "Priya Patel", role: "Founder, Studio", quote: "Incredibly intuitive. Our team adopted it immediately with zero training.", avatar: "PP" },
-        ],
-      },
-    },
-    ...(isSaaS
-      ? [{
-          type: "pricing",
-          content: {
-            headline: "Simple, transparent pricing",
-            tiers: [
-              { name: "Starter", price: "$0", period: "/month", features: ["5 projects", "1 user", "Basic analytics", "Email support"], cta: "Get started", highlighted: false },
-              { name: "Pro", price: "$29", period: "/month", features: ["Unlimited projects", "5 users", "Advanced analytics", "Priority support", "API access"], cta: "Start free trial", highlighted: true },
-              { name: "Business", price: "$99", period: "/month", features: ["Everything in Pro", "Unlimited users", "Custom integrations", "SSO", "Dedicated support"], cta: "Contact sales", highlighted: false },
-            ],
-          },
-        }]
-      : []),
-    {
-      type: "faq",
-      content: {
-        headline: "Frequently Asked Questions",
-        items: [
-          { q: "How do I get started?", a: "Sign up for a free account and you'll be up and running in minutes. No credit card required." },
-          { q: "Can I cancel at any time?", a: "Yes, you can cancel your subscription at any time with no questions asked." },
-          { q: "Is there a free trial?", a: "We offer a 14-day free trial on all paid plans so you can evaluate before committing." },
-          { q: "Do you offer discounts for annual plans?", a: "Yes, annual plans come with a 20% discount compared to monthly billing." },
-        ],
-      },
-    },
-    {
-      type: "newsletter",
-      content: {
-        headline: "Stay in the loop",
-        subheadline: "Get the latest updates delivered to your inbox.",
-        placeholder: "Enter your email",
-        ctaText: "Subscribe",
-      },
-    },
-  ];
+      { type: "logos", content: { headline: "Featured In" } },
+      { type: "features", content: { 
+          headline: isSweet ? "Our Specialties" : "Why Choose Us", 
+          features: isSweet
+            ? [
+                { title: "Pistachio Baklava", desc: "Layers of thin pastry and high-quality Antep pistachios." },
+                { title: "Daily Fresh", desc: "Baked every morning to ensure the perfect crunch and flavor." }
+              ]
+            : [{ title: "Excellence", desc: "Premium quality in every detail." }, { title: "Service", desc: "Dedicated support for all our clients." }] 
+      } },
+      { type: "testimonials", content: { headline: "What Our Customers Say", testimonials: [{ name: "Alex Rivera", quote: isSweet ? "The best baklava I've ever had outside of Turkey! Simply incredible." : "Absolute game changer. Highly recommend." }] } },
+      { type: "newsletter", content: { headline: "Join the Sweet Life", subheadline: "Subscribe for new flavors and special offers." } }
+    ];
+  };
+
+  const pages: GeneratedPage[] = requestedPages.map(name => ({
+    name,
+    slug: name === "Home" ? "/" : `/${name.toLowerCase()}`,
+    sections: buildSections(name)
+  }));
 
   return {
     name: siteName,
     description: prompt.slice(0, 200),
-    sections,
+    pages,
     colorPalette: colors,
     typography: {
-      heading: style === "playful" ? "Poppins" : style === "bold" ? "Syne" : "Inter",
+      heading: finalStyle === "playful" ? "Poppins" : finalStyle === "bold" ? "Syne" : "Inter",
       body: "Inter",
     },
     meta: {
-      title: `${siteName} — ${isPortfolio ? "Portfolio" : isSaaS ? "SaaS Platform" : "Website"}`,
+      title: `${siteName} — Professional Website`,
       description: prompt.slice(0, 160),
     },
   };
@@ -209,10 +199,16 @@ Return a JSON object with this exact structure:
 {
   "name": "Site name",
   "description": "Brief description",
-  "sections": [array of section objects with type and content],
+  "pages": [
+    {
+      "name": "Page name",
+      "slug": "/slug",
+      "sections": [array of section objects with type and content]
+    }
+  ],
   "colorPalette": { "primary": "#hex", "secondary": "#hex", "background": "#hex", "text": "#hex" },
   "typography": { "heading": "Font name", "body": "Font name" },
-  "meta": { "title": "Page title", "description": "Meta description" }
+  "meta": { "title": "Main site title", "description": "Meta description" }
 }
 
 Style preference: ${style}. Generate compelling, specific copy — not placeholder text. Make it feel real and professional.`;

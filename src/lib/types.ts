@@ -395,7 +395,7 @@ export type BackendActionType =
   | "cart.removeItem"
   | "order.create"
   | "order.update"
-  | "paddle.checkout"
+  | "lemonsqueezy.checkout"
   | "custom.function";
 
 /** A FieldBinding resolves at runtime to a value */
@@ -524,7 +524,7 @@ export type InteractionActionType =
   | "cart.addItem"
   | "cart.removeItem"
   | "order.create"
-  | "paddle.checkout"
+  | "lemonsqueezy.checkout"
   | "runBackendAction";
 
 export interface InteractionAction {

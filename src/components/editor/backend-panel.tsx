@@ -1145,7 +1145,7 @@ const ACTION_TYPES: BackendActionType[] = [
   "email.send","webhook.call",
   "cart.addItem","cart.removeItem",
   "order.create","order.update",
-  "paddle.checkout","custom.function",
+  "lemonsqueezy.checkout","custom.function",
 ];
 
 const ACTION_TYPE_LABELS: Record<BackendActionType, string> = {
@@ -1162,7 +1162,7 @@ const ACTION_TYPE_LABELS: Record<BackendActionType, string> = {
   "cart.removeItem": "Cart Remove Item",
   "order.create": "Create Order",
   "order.update": "Update Order",
-  "paddle.checkout": "Paddle Checkout",
+  "lemonsqueezy.checkout": "Lemon Squeezy Checkout",
   "custom.function": "Custom Function",
 };
 

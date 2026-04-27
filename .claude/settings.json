@@ -13,7 +13,19 @@
       "Bash(grep -E \"\\\\.\\(ts|tsx\\)$\")",
       "Bash(xargs grep *)",
       "Bash(grep -E \"\\\\.md$|\\\\.txt$\")",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Read(//c/Users/User/AppData/Local/Temp/claude/c--Users-User-Desktop-saas-webbuilder/8cd0a708-8942-4b01-843b-d28023bd11ab/tasks/**)",
+      "Bash(npm install *)",
+      "Bash(npm uninstall *)",
+      "Bash(cat)",
+      "Bash(bash /tmp/extract_blocks.sh)",
+      "Bash(awk ' *)",
+      "Read(//tmp/**)",
+      "Bash(sort -t'|' -k3,3)",
+      "Bash(awk '-F|' ' *)",
+      "Bash(bash /tmp/detailed_inventory.sh)",
+      "Bash(sort -t'|' -k3,3 /tmp/blocks.txt)",
+      "Bash(awk '{ *)"
     ]
   }
 }

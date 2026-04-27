@@ -254,25 +254,23 @@ async function executeAction(
       return { status: res.status, body: responseBody };
     }
 
-    case "paddle.checkout": {
-      // Paddle checkout creates a transaction and returns the hosted checkout URL
-      const paddleKey = process.env.PADDLE_API_KEY;
-      if (!paddleKey) throw new Error("PADDLE_API_KEY not configured");
-      const { Paddle, Environment } = await import("@paddle/paddle-node-sdk");
-      const paddle = new Paddle(paddleKey, {
-        environment: process.env.NODE_ENV === "production" ? Environment.production : Environment.sandbox,
-      });
-      // config.items should be an array of { priceId, quantity }
-      const items = (config.items as Array<{ priceId: string; quantity: number }>) ?? [];
+    case "lemonsqueezy.checkout": {
+      const lsKey = process.env.LEMONSQUEEZY_API_KEY;
+      const storeId = process.env.LEMONSQUEEZY_STORE_ID ?? "";
+      if (!lsKey) throw new Error("LEMONSQUEEZY_API_KEY not configured");
+      const { lemonSqueezySetup, createCheckout } = await import("@lemonsqueezy/lemonsqueezy.js");
+      lemonSqueezySetup({ apiKey: lsKey });
+      const variantId = config.variantId as string;
+      if (!variantId) throw new Error("variantId is required in action config");
       const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
-      const transaction = await paddle.transactions.create({
-        items: items.map((i) => ({ priceId: i.priceId, quantity: i.quantity ?? 1 })),
-        customData: { siteId },
-        checkout: {
-          url: (config.successUrl as string) ?? `${appUrl}/success`,
+      const { data: checkout, error } = await createCheckout(storeId, variantId, {
+        checkoutData: { custom: { siteId } },
+        productOptions: {
+          redirectUrl: (config.successUrl as string) ?? `${appUrl}/success`,
         },
       });
-      return { url: transaction.checkout?.url, transactionId: transaction.id };
+      if (error) throw error;
+      return { url: checkout?.data?.attributes?.url, checkoutId: checkout?.data?.id };
     }
 
     default:

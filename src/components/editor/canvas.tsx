@@ -1764,7 +1764,7 @@ export const CanvasElementRenderer = React.memo(function CanvasElementRenderer({
             case "cart.addItem":
             case "cart.removeItem":
             case "order.create":
-            case "paddle.checkout": {
+            case "lemonsqueezy.checkout": {
               const siteId = (action.config?.siteId as string) ?? "";
               const actionId = action.type === "runBackendAction"
                 ? (action.config?.actionId as string)
@@ -2406,10 +2406,15 @@ export const CanvasElementRenderer = React.memo(function CanvasElementRenderer({
       );
 
     case "grid": {
+      const cols = Number(element.props?.columns) || 3;
+      const rows = Number(element.props?.rows) || 0;
+      const gap = (element.props?.gap as string) || (s.gap as string) || "1rem";
+      
       const gridStyle: React.CSSProperties = {
         display: "grid",
-        gridTemplateColumns: (s as any).gridTemplateColumns || "repeat(3, 1fr)",
-        gap: s.gap || "1rem",
+        gridTemplateColumns: `repeat(${cols}, 1fr)`,
+        gridTemplateRows: rows > 0 ? `repeat(${rows}, 1fr)` : undefined,
+        gap: gap,
         ...s,
       };
       return (
@@ -2559,7 +2564,7 @@ export const CanvasElementRenderer = React.memo(function CanvasElementRenderer({
                 {(element.props?.subheadline as string) || "The talented people building great products"}
               </p>
             </div>
-            <div className={cn("grid gap-8", teamColCls)}>
+            <div className="grid gap-8" style={{ gridTemplateColumns: `repeat(${teamCols}, 1fr)` }}>
               {members.map((m, i) => (
                 <div key={i} className="text-center group">
                   {m.avatarUrl ? (
@@ -2738,7 +2743,7 @@ export const CanvasElementRenderer = React.memo(function CanvasElementRenderer({
               </h2>
               <p className="text-lg text-gray-500">{(element.props?.subheadline as string) || "Discover our latest collection of premium gear."}</p>
             </div>
-            <div className={cn("grid gap-8", pgColCls)}>
+            <div className="grid gap-8" style={{ gridTemplateColumns: `repeat(${pgCols}, 1fr)` }}>
               {products.map((prod, i) => (
                 <div key={i} className={cn("group rounded-2xl overflow-hidden transition-all duration-300", pgCardStyle === "minimal" ? "" : "border border-gray-100/80 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_48px_rgba(0,0,0,0.08)]")}>
                   <div className="relative aspect-[4/3] overflow-hidden">
@@ -5366,7 +5371,9 @@ export default function Canvas() {
   const deviceMode = useEditorStore((s) => s.deviceMode);
   const isPreviewMode = useEditorStore((s) => s.isPreviewMode);
   const zoom = useEditorStore((s) => s.zoom);
+  const showGrid = useEditorStore((s) => s.showGrid);
   const siteId = useEditorStore((s) => s.siteId);
+
   const getSiteById = useSiteStore((s) => s.getSiteById);
   const sortedElements = useMemo(() => [...elements].sort((a, b) => a.order - b.order), [elements]);
 
@@ -5376,12 +5383,23 @@ export default function Canvas() {
   const deviceWidth = { desktop: "100%", "large-tablet": "1024px", tablet: "768px", mobile: "390px", "small-mobile": "320px" }[deviceMode];
   const handleCanvasClick = useCallback(() => selectElement(null), [selectElement]);
 
+  const gridOverlayStyle = showGrid ? {
+    backgroundImage: `
+      linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+      linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)
+    `,
+    backgroundSize: "20px 20px"
+  } : {
+    backgroundImage: "radial-gradient(circle, #d1d5db 1px, transparent 1px)",
+    backgroundSize: "20px 20px"
+  };
+
   return (
     <SiteAuthProvider siteId={siteId ?? "preview"} authConfig={authConfig}>
     <ElementRuntimeProvider>
     <div
-      className="flex-1 overflow-auto editor-canvas flex items-start justify-center py-8 px-4 bg-[#f0f0f0] relative"
-      style={{ backgroundImage: "radial-gradient(circle, #d1d5db 1px, transparent 1px)", backgroundSize: "20px 20px" }}
+      className="flex-1 overflow-auto editor-canvas flex items-start justify-center py-8 px-4 bg-[#f8fafc] relative"
+      style={gridOverlayStyle}
       onClick={handleCanvasClick}
     >
       <div

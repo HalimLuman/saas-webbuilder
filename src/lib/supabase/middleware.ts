@@ -81,6 +81,9 @@ export async function updateSession(request: NextRequest) {
 
   // Redirect unauthenticated users away from protected routes
   if (!user && !isPublicRoute(pathname)) {
+    if (pathname.startsWith("/api/")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
     loginUrl.searchParams.set("next", pathname);

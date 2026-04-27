@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { User, AuthChangeEvent, Session } from "@supabase/supabase-js";
 
@@ -12,7 +12,7 @@ export interface UserProfile {
   plan: "free" | "pro" | "business" | "enterprise";
   ai_credits_used: number;
   ai_credits_limit: number;
-  stripe_customer_id: string | null;
+  ls_customer_id: string | null;
   onboarding_completed: boolean;
   created_at: string;
   updated_at: string;
@@ -22,12 +22,14 @@ interface UserContextValue {
   user: User | null;
   profile: UserProfile | null;
   loading: boolean;
+  refreshProfile: () => Promise<void>;
 }
 
 const UserContext = createContext<UserContextValue>({
   user: null,
   profile: null,
   loading: true,
+  refreshProfile: async () => {},
 });
 
 async function serverSignOut() {
@@ -44,10 +46,21 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Single Supabase client instance shared across the whole provider tree.
-    const supabase = createSupabaseBrowserClient();
+  // Stable client instance for the lifetime of this provider.
+  const supabase = useMemo(() => createSupabaseBrowserClient(), []);
 
+  const refreshProfile = useCallback(async () => {
+    const { data: { user: currentUser } } = await supabase.auth.getUser();
+    if (!currentUser) return;
+    const { data } = await supabase
+      .from("users")
+      .select("*")
+      .eq("id", currentUser.id)
+      .single();
+    if (data) setProfile(data as UserProfile);
+  }, [supabase]);
+
+  useEffect(() => {
     async function loadUser() {
       const { data: { user: currentUser } } = await supabase.auth.getUser();
       setUser(currentUser);
@@ -107,10 +120,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     );
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [supabase]);
 
   return (
-    <UserContext.Provider value={{ user, profile, loading }}>
+    <UserContext.Provider value={{ user, profile, loading, refreshProfile }}>
       {children}
     </UserContext.Provider>
   );

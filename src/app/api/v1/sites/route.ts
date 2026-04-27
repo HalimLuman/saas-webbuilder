@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
   if (authError || !user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json();
-  const { name, template_id } = body;
+  const { name, template_id, pages, design_tokens } = body;
   if (!name) return NextResponse.json({ error: "name is required" }, { status: 400 });
 
   // Plan-based site creation limit
@@ -79,22 +79,38 @@ export async function POST(req: NextRequest) {
       name,
       slug: `${slug}-${Date.now()}`,
       status: "draft",
-      design_tokens: { primaryColor: "#6366f1", fontFamily: "Inter" },
+      design_tokens: design_tokens ?? { primaryColor: "#6366f1", fontFamily: "Inter" },
     })
     .select()
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-  await admin.from("pages").insert({
-    site_id: site.id,
-    title: "Home",
-    slug: "/",
-    is_homepage: true,
-    sort_order: 0,
-    content: { children: [] },
-    meta: { title: name, description: "" },
-  });
+  if (pages && Array.isArray(pages)) {
+    // Insert provided pages
+    for (const page of pages) {
+      await admin.from("pages").insert({
+        site_id: site.id,
+        title: page.name,
+        slug: page.slug,
+        is_homepage: page.isHome ?? false,
+        sort_order: 0,
+        content: { children: page.elements },
+        meta: page.seo ?? { title: page.name, description: "" },
+      });
+    }
+  } else {
+    // Insert default empty home page
+    await admin.from("pages").insert({
+      site_id: site.id,
+      title: "Home",
+      slug: "/",
+      is_homepage: true,
+      sort_order: 0,
+      content: { children: [] },
+      meta: { title: name, description: "" },
+    });
+  }
 
   await logActivity({
     user_id: user.id,

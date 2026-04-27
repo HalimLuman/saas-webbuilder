@@ -3,7 +3,7 @@ import type { CanvasElement } from "@/lib/types";
 export interface SectionBlock {
   id: string;
   name: string;
-  category: "hero" | "features" | "cta" | "testimonials" | "pricing" | "content" | "contact" | "footer" | "navbar" | "sidebar" | "blog" | "portfolio" | "ecommerce" | "auth" | "team" | "faq" | "stats" | "logo-cloud" | "services" | "dashboard" | "saas" | "utility" | "interactive" | "landing";
+  category: "hero" | "features" | "cta" | "testimonials" | "pricing" | "content" | "contact" | "footer" | "navbar" | "sidebar" | "blog" | "portfolio" | "ecommerce" | "auth" | "team" | "faq" | "stats" | "logo-cloud" | "services" | "dashboard" | "saas" | "utility" | "interactive" | "landing" | "restaurant" | "hospitality" | "fashion" | "marketplace";
   designStyle?: "minimal" | "modern" | "dark" | "glass" | "bold" | "corporate" | "playful" | "creative";
   description: string;
   thumbnail?: string;
@@ -14,11 +14,11 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   // ─── NAVBARS ────────────────────────────────────────────────────────────────
   // All navbar blocks use the `navbar` element type so they get the built-in
-  // responsive hamburger menu automatically — no extra wiring needed.
+  // responsive hamburger menu automatically - no extra wiring needed.
 
   {
     id: "sb-navbar-glass",
-    name: "Navbar — Glass",
+    name: "Navbar - Glass",
     category: "navbar",
     designStyle: "glass",
     description: "Frosted-glass sticky navbar. Collapses to hamburger on mobile.",
@@ -45,7 +45,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-dark",
-    name: "Navbar — Dark",
+    name: "Navbar - Dark",
     category: "navbar",
     designStyle: "dark",
     description: "Deep-space dark navbar with glow CTA. Hamburger on mobile.",
@@ -72,7 +72,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-minimal",
-    name: "Navbar — Minimal",
+    name: "Navbar - Minimal",
     category: "navbar",
     designStyle: "minimal",
     description: "Ultra-clean white navbar, no CTA clutter. Hamburger on mobile.",
@@ -98,7 +98,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-bold",
-    name: "Navbar — Bold Agency",
+    name: "Navbar - Bold Agency",
     category: "navbar",
     designStyle: "bold",
     description: "High-contrast dark agency navbar with amber CTA. Hamburger on mobile.",
@@ -125,7 +125,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-saas",
-    name: "Navbar — SaaS Modern",
+    name: "Navbar - SaaS Modern",
     category: "navbar",
     designStyle: "modern",
     description: "Clean SaaS navbar with gradient CTA button. Hamburger on mobile.",
@@ -152,7 +152,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-transparent",
-    name: "Navbar — Transparent",
+    name: "Navbar - Transparent",
     category: "navbar",
     designStyle: "creative",
     description: "Transparent overlay navbar for full-bleed hero sections. Hamburger on mobile.",
@@ -178,7 +178,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-startup",
-    name: "Navbar — Startup Night",
+    name: "Navbar - Startup Night",
     category: "navbar",
     designStyle: "dark",
     description: "Dark violet startup navbar with outline secondary CTA. Hamburger on mobile.",
@@ -205,7 +205,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-corporate",
-    name: "Navbar — Corporate",
+    name: "Navbar - Corporate",
     category: "navbar",
     designStyle: "corporate",
     description: "Professional blue corporate navbar with outline CTA. Hamburger on mobile.",
@@ -232,7 +232,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-creative",
-    name: "Navbar — Creative",
+    name: "Navbar - Creative",
     category: "navbar",
     designStyle: "playful",
     description: "Bright pink creative navbar with playful CTA. Hamburger on mobile.",
@@ -259,7 +259,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-restaurant",
-    name: "Navbar — Restaurant",
+    name: "Navbar - Restaurant",
     category: "navbar",
     designStyle: "corporate",
     description: "Warm glass navbar for hospitality brands. Hamburger on mobile.",
@@ -286,7 +286,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-ecommerce",
-    name: "Navbar — E-Commerce",
+    name: "Navbar - E-Commerce",
     category: "navbar",
     designStyle: "modern",
     description: "Rose-tinted shop navbar with cart CTA. Hamburger on mobile.",
@@ -313,7 +313,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-blog",
-    name: "Navbar — Editorial Blog",
+    name: "Navbar - Editorial Blog",
     category: "navbar",
     designStyle: "minimal",
     description: "Clean editorial navbar for blogs and magazines. Hamburger on mobile.",
@@ -338,13 +338,13 @@ export const SECTION_BLOCKS: SectionBlock[] = [
     },
   },
 
-  // ─── NAVBARS — Container-based ──────────────────────────────────────────────
+  // ─── NAVBARS - Container-based ──────────────────────────────────────────────
   // These navbars are built from containers + headings + buttons so they can be
   // fully customised via the visual editor (drag, resize, restyle any child).
 
   {
     id: "sb-navbar-centered-logo",
-    name: "Navbar — Centered Logo",
+    name: "Navbar - Centered Logo",
     category: "navbar",
     designStyle: "minimal",
     description: "Three-column layout: nav links left · logo center · CTA right. Built from containers.",
@@ -393,7 +393,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-pill",
-    name: "Navbar — Floating Pill",
+    name: "Navbar - Floating Pill",
     category: "navbar",
     designStyle: "modern",
     description: "Floating pill navbar centered on the page with drop shadow. Built from containers.",
@@ -438,7 +438,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-two-row",
-    name: "Navbar — Two Row",
+    name: "Navbar - Two Row",
     category: "navbar",
     designStyle: "corporate",
     description: "Utility bar on top (contacts/socials) + main nav row below. Built from containers.",
@@ -501,7 +501,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-dark-gradient",
-    name: "Navbar — Dark Gradient",
+    name: "Navbar - Dark Gradient",
     category: "navbar",
     designStyle: "dark",
     description: "Full-width dark gradient navbar with glowing accent CTA. Built from containers.",
@@ -551,16 +551,16 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-split-panel",
-    name: "Navbar — Split Panel",
+    name: "Navbar - Split Panel",
     category: "navbar",
     designStyle: "bold",
-    description: "Dark brand panel left, light links panel right — dramatic two-tone look. Built from containers.",
+    description: "Dark brand panel left, light links panel right - dramatic two-tone look. Built from containers.",
     element: {
       type: "container", content: "",
       props: { _childLayout: "row", _childAlign: "stretch", _childGap: "xs" },
       styles: { position: "sticky", top: "0", zIndex: "50", width: "100%", minHeight: "72px" },
       children: [
-        // Dark left panel — brand
+        // Dark left panel - brand
         {
           id: "", order: 0, type: "container", content: "",
           props: { _childLayout: "row", _childAlign: "center", _childJustify: "center" },
@@ -569,7 +569,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
             { id: "", order: 0, type: "heading", content: "APEX", props: { level: 2 }, styles: { fontSize: "24px", fontWeight: "900", color: "#FFFFFF", margin: "0", letterSpacing: "0.12em" } },
           ],
         },
-        // Light right panel — links + CTA
+        // Light right panel - links + CTA
         {
           id: "", order: 1, type: "container", content: "",
           props: { _childLayout: "row", _childAlign: "center", _childJustify: "between", _childGap: "lg" },
@@ -595,7 +595,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-underline",
-    name: "Navbar — Minimal Underline",
+    name: "Navbar - Minimal Underline",
     category: "navbar",
     designStyle: "minimal",
     description: "Ultra-clean navbar: oversized brand left, spaced underline links right. Built from containers.",
@@ -628,7 +628,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-announcement",
-    name: "Navbar — Announcement + Nav",
+    name: "Navbar - Announcement + Nav",
     category: "navbar",
     designStyle: "modern",
     description: "Coloured announcement bar above a clean white nav. Built from containers.",
@@ -643,7 +643,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           props: { _childLayout: "row", _childAlign: "center", _childJustify: "center" },
           styles: { backgroundColor: "#6366F1", padding: "10px 24px", width: "100%" },
           children: [
-            { id: "", order: 0, type: "paragraph", content: "✦ We just launched our new AI features — read the announcement →", styles: { fontSize: "13px", fontWeight: "500", color: "#FFFFFF", margin: "0", textAlign: "center", cursor: "pointer" } },
+            { id: "", order: 0, type: "paragraph", content: "✦ We just launched our new AI features - read the announcement →", styles: { fontSize: "13px", fontWeight: "500", color: "#FFFFFF", margin: "0", textAlign: "center", cursor: "pointer" } },
           ],
         },
         // Main nav
@@ -681,7 +681,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-navbar-glass-frosted",
-    name: "Navbar — Glass Frosted (Container)",
+    name: "Navbar - Glass Frosted (Container)",
     category: "navbar",
     designStyle: "glass",
     description: "Frosted-glass container navbar with a coloured left accent stripe. Built from containers.",
@@ -737,7 +737,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-sidebar-left",
-    name: "Sidebar — Left",
+    name: "Sidebar - Left",
     category: "sidebar",
     designStyle: "modern",
     description: "Navigation drawer that slides in from the left with overlay",
@@ -750,10 +750,10 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-sidebar-right",
-    name: "Sidebar — Right (Dark)",
+    name: "Sidebar - Right (Dark)",
     category: "sidebar",
     designStyle: "dark",
-    description: "Dark panel that slides in from the right — great for settings or cart",
+    description: "Dark panel that slides in from the right - great for settings or cart",
     element: {
       type: "sidebar", content: "",
       props: { direction: "right", bgType: "dark", sidebarWidth: "300px", triggerLabel: "Open Panel", accentColor: "#8B5CF6", overlay: true, brandName: "Settings", navLinks: [{ label: "Dashboard", href: "#" }, { label: "Profile", href: "#" }, { label: "Billing", href: "#" }, { label: "Preferences", href: "#" }, { label: "Sign out", href: "#" }] },
@@ -763,7 +763,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-sidebar-bottom",
-    name: "Sidebar — Bottom Sheet",
+    name: "Sidebar - Bottom Sheet",
     category: "sidebar",
     designStyle: "minimal",
     description: "Mobile-style action sheet that slides up from the bottom",
@@ -776,7 +776,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-sidebar-top",
-    name: "Sidebar — Top Drawer",
+    name: "Sidebar - Top Drawer",
     category: "sidebar",
     designStyle: "dark",
     description: "Announcement bar or menu that drops down from the top",
@@ -791,300 +791,278 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-hero-editorial",
-    name: "Hero — Editorial Split",
+    name: "Hero - The Creative Edge",
     category: "hero",
     designStyle: "minimal",
-    description: "Premium editorial split layout with oversized serif typography and a focus on craftsmanship",
+    description: "Premium split layout for agencies and creative studios. Features vertical typography and layered depth.",
     element: {
       type: "container", content: "",
-      styles: { padding: "120px 64px", backgroundColor: "#F8F8F8", minHeight: "800px", display: "flex", alignItems: "center", justifyContent: "center" },
-      children: [
-        {
-          id: "", order: 0, type: "container", content: "",
-          props: { _childLayout: "row", _childAlign: "center", _childGap: "xl" },
-          styles: { maxWidth: "1400px", width: "100%", flexWrap: "wrap" },
-          children: [
-            {
-              id: "", order: 0, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "48px", minWidth: "400px" }, children: [
-                { id: "", order: 0, type: "badge", content: "ESTABLISHED 2026", styles: { color: "#1A1A1A", fontSize: "11px", fontWeight: "900", letterSpacing: "0.2em", borderBottom: "1px solid #1A1A1A", width: "fit-content", paddingBottom: "4px" } },
-                { id: "", order: 1, type: "heading", content: "Crafting digital\nsensibilities.", props: { level: 1 }, styles: { fontSize: "110px", fontWeight: "300", color: "#1A1A1A", lineHeight: "0.92", margin: "0", letterSpacing: "-0.04em", fontFamily: "'Playfair Display', serif" } },
-                { id: "", order: 2, type: "paragraph", content: "We believe in the power of simplicity and the permanence of good design. Our studio builds tools that empower the next generation of creative thinkers.", styles: { fontSize: "20px", color: "#4A4A4A", margin: "0", lineHeight: "1.8", maxWidth: "480px" } },
-                {
-                  id: "", order: 3, type: "container", content: "", props: { _childLayout: "row", _childAlign: "center", _childGap: "lg" }, styles: { justifyContent: "flex-start" }, children: [
-                    { id: "", order: 0, type: "button", content: "View Projects", styles: { backgroundColor: "#1A1A1A", color: "#FFFFFF", padding: "16px 32px", borderRadius: "0", fontWeight: "600", fontSize: "15px", cursor: "pointer" } },
-                    { id: "", order: 1, type: "button", content: "Contact Us", styles: { backgroundColor: "transparent", color: "#1A1A1A", padding: "16px 32px", borderRadius: "0", fontWeight: "600", fontSize: "15px", cursor: "pointer", border: "1px solid #1A1A1A" } },
-                  ]
-                }
-              ]
-            },
-            {
-              id: "", order: 1, type: "container", content: "",
-              styles: { flex: "1", minHeight: "600px", minWidth: "400px", position: "relative", backgroundColor: "#E5E5E5", borderRadius: "4px", overflow: "hidden", backgroundImage: "url('https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&q=80&w=1000')", backgroundSize: "cover", backgroundPosition: "center" },
-              children: [
-                { id: "", order: 0, type: "container", content: "", styles: { position: "absolute", inset: "0", backgroundColor: "rgba(0,0,0,0.05)" } }
-              ]
-            }
-          ]
-        }
-      ]
+      styles: { padding: "120px 48px", backgroundColor: "#FFFFFF", display: "flex", justifyContent: "center", minHeight: "900px", alignItems: "center" },
+      children: [{
+        id: "", order: 0, type: "container", props: { _childLayout: "row", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "1400px", width: "100%", flexWrap: "wrap" },
+        children: [
+          {
+            id: "", order: 0, type: "container", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "40px", minWidth: "450px" },
+            children: [
+              { id: "", order: 0, type: "badge", content: "EST. 2026", styles: { writingMode: "vertical-rl", position: "absolute", left: "-60px", top: "0", fontSize: "11px", fontWeight: "900", letterSpacing: "0.3em", color: "#A1A1AA" } },
+              { id: "", order: 1, type: "heading", content: "Crafting digital\nmasterpieces.", props: { level: 1 }, styles: { fontSize: "110px", fontWeight: "300", color: "#000000", lineHeight: "0.92", margin: "0", letterSpacing: "-0.04em", fontFamily: "'Inter', sans-serif" } },
+              { id: "", order: 2, type: "paragraph", content: "We partner with visionary brands to build digital experiences that define industries and captivate audiences globally.", styles: { fontSize: "20px", color: "#52525B", maxWidth: "480px", lineHeight: "1.8", margin: "0" } },
+              { id: "", order: 3, type: "container", props: { _childLayout: "row", _childGap: "lg" }, children: [
+                { id: "", order: 0, type: "button", content: "Our Portfolio", styles: { backgroundColor: "#000000", color: "#FFFFFF", padding: "20px 40px", borderRadius: "100px", fontWeight: "600", fontSize: "16px", cursor: "pointer" } },
+                { id: "", order: 1, type: "button", content: "Contact Studio", styles: { backgroundColor: "transparent", color: "#000000", padding: "20px 40px", border: "1px solid #E5E7EB", borderRadius: "100px", fontWeight: "600", fontSize: "16px", cursor: "pointer" } },
+              ]}
+            ]
+          },
+          {
+            id: "", order: 1, type: "container", styles: { flex: "1", position: "relative", minWidth: "450px" },
+            children: [
+              { id: "", order: 0, type: "container", styles: { width: "100%", height: "650px", backgroundColor: "#F4F4F5", borderRadius: "32px", overflow: "hidden", boxShadow: "0 40px 80px rgba(0,0,0,0.05)", backgroundImage: "url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000')", backgroundSize: "cover" } },
+              { id: "", order: 1, type: "container", styles: { position: "absolute", bottom: "-40px", left: "-40px", width: "280px", backgroundColor: "#FFFFFF", padding: "32px", borderRadius: "24px", boxShadow: "0 20px 40px rgba(0,0,0,0.1)", border: "1px solid #F4F4F5" }, children: [
+                { id: "", order: 0, type: "heading", content: "Innovation First", styles: { fontSize: "18px", fontWeight: "800", marginBottom: "8px" } },
+                { id: "", order: 1, type: "paragraph", content: "Our design process is rooted in deep research and bold creativity.", styles: { fontSize: "14px", color: "#71717A" } }
+              ]}
+            ]
+          }
+        ]
+      }]
     },
   },
 
   {
     id: "sb-hero-playful",
-    name: "Hero — Playful Pop",
+    name: "Hero - The Vibrant Disruptor",
     category: "hero",
     designStyle: "playful",
-    description: "Vibrant and energetic hero with bold geometric shapes and pop-art aesthetics",
+    description: "High-energy hero with mesh gradients and bold, offset elements for creative brands.",
     element: {
       type: "container", content: "",
-      styles: { padding: "160px 48px", backgroundColor: "#FFFB00", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "850px", position: "relative", overflow: "hidden", textAlign: "center" },
-      children: [
-        { id: "", order: 0, type: "container", content: "", styles: { position: "absolute", top: "-50px", right: "-50px", width: "240px", height: "240px", backgroundColor: "#FF0055", borderRadius: "50%", zIndex: "1" } },
-        { id: "", order: 1, type: "container", content: "", styles: { position: "absolute", bottom: "10%", left: "5%", width: "140px", height: "140px", backgroundColor: "#00E0FF", transform: "rotate(15deg)", borderRadius: "24px", zIndex: "1" } },
-        { id: "", order: 2, type: "badge", content: "🎉 NOW WITH EXTRA PIXELS", styles: { backgroundColor: "#000000", color: "#FFFFFF", padding: "10px 24px", borderRadius: "8px", fontSize: "14px", fontWeight: "900", transform: "rotate(-2deg)", width: "fit-content", border: "3px solid #FFFFFF", boxShadow: "5px 5px 0 #000000", position: "relative", zIndex: "5", margin: "0 auto" } },
-        { id: "", order: 3, type: "heading", content: "Create websites\nthat actually POP!", props: { level: 1 }, styles: { fontSize: "96px", fontWeight: "900", color: "#000000", lineHeight: "0.85", margin: "0", letterSpacing: "0.01em", textTransform: "uppercase", position: "relative", zIndex: "5", textShadow: "12px 12px 0px rgba(0,0,0,0.1)", WebkitTextStroke: "1px rgba(0,0,0,0.05)" } },
-        { id: "", order: 4, type: "paragraph", content: "Stop being boring. Start being you. The first website builder designed for the maximalists, the dreamers, and the rule-breakers.", styles: { fontSize: "24px", color: "#000000", maxWidth: "600px", margin: "0 auto", lineHeight: "1.4", fontWeight: "800", position: "relative", zIndex: "5" } },
-        {
-          id: "", order: 5, type: "container", content: "", props: { _childLayout: "row", _childJustify: "center", _childGap: "lg" }, styles: { position: "relative", zIndex: "5", justifyContent: "center", width: "100%" }, children: [
-            { id: "", order: 0, type: "button", content: "Go Wild Now", styles: { backgroundColor: "#000000", color: "#FFFFFF", padding: "20px 48px", borderRadius: "0px", fontWeight: "900", fontSize: "18px", transform: "rotate(1deg)", boxShadow: "8px 8px 0 #FF0055", cursor: "pointer" } },
-            { id: "", order: 1, type: "button", content: "See Examples", styles: { backgroundColor: "#FFFFFF", color: "#000000", border: "4px solid #000000", padding: "20px 48px", borderRadius: "0px", fontWeight: "900", fontSize: "18px", transform: "rotate(-1deg)", boxShadow: "8px 8px 0 #00E0FF", cursor: "pointer" } },
-          ]
-        }
-      ],
+      styles: { padding: "160px 48px", backgroundImage: "conic-gradient(from 180deg at 50% 50%, #FF0055 0deg, #00E0FF 120deg, #FFFB00 240deg, #FF0055 360deg)", display: "flex", justifyContent: "center", minHeight: "900px", alignItems: "center", overflow: "hidden" },
+      children: [{
+        id: "", order: 0, type: "container", props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "1000px", width: "100%", textAlign: "center", backgroundColor: "rgba(255,255,255,0.9)", backdropFilter: "blur(40px)", padding: "80px", borderRadius: "48px", border: "8px solid #000000", boxShadow: "20px 20px 0px #000000" },
+        children: [
+          { id: "", order: 0, type: "badge", content: "🚀 JUST LAUNCHED v2.0", styles: { backgroundColor: "#000000", color: "#FFFFFF", padding: "12px 24px", borderRadius: "12px", fontSize: "14px", fontWeight: "900", transform: "rotate(-2deg)", width: "fit-content", marginBottom: "32px" } },
+          { id: "", order: 1, type: "heading", content: "Make some\nreal noise.", props: { level: 1 }, styles: { fontSize: "100px", fontWeight: "900", color: "#000000", lineHeight: "0.85", margin: "0", letterSpacing: "-0.02em", textTransform: "uppercase" } },
+          { id: "", order: 2, type: "paragraph", content: "Ditch the boring. The world's first maximalist website builder is here to help you break every rule in the book.", styles: { fontSize: "24px", color: "#000000", lineHeight: "1.4", fontWeight: "700", maxWidth: "600px", margin: "0 auto" } },
+          { id: "", order: 3, type: "container", props: { _childLayout: "row", _childGap: "lg", _childJustify: "center" }, children: [
+            { id: "", order: 0, type: "button", content: "Start Disrupting", styles: { backgroundColor: "#FF0055", color: "#FFFFFF", padding: "24px 48px", borderRadius: "0px", fontWeight: "900", fontSize: "20px", cursor: "pointer", border: "4px solid #000000", boxShadow: "8px 8px 0 #000000" } },
+            { id: "", order: 1, type: "button", content: "See the Chaos", styles: { backgroundColor: "#FFFFFF", color: "#000000", padding: "24px 48px", borderRadius: "0px", fontWeight: "900", fontSize: "20px", cursor: "pointer", border: "4px solid #000000", boxShadow: "8px 8px 0 #00E0FF" } },
+          ]}
+        ]
+      }]
     },
   },
 
   {
     id: "sb-hero-cinematic",
-    name: "Hero — Cinematic Ambient",
+    name: "Hero - The Cosmic Interface",
     category: "hero",
     designStyle: "modern",
-    description: "Immersive centered hero with deep radial glows and massive display typography",
+    description: "Deep, immersive hero with midnight gradients and glowing technical typography.",
     element: {
       type: "container", content: "",
       styles: {
-        padding: "200px 40px",
-        backgroundColor: "#030712",
-        backgroundImage: "radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 60%)",
-        textAlign: "center",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "48px",
-        position: "relative",
-        overflow: "hidden",
-        minHeight: "850px",
-        justifyContent: "center"
+        padding: "200px 48px",
+        backgroundColor: "#020617",
+        backgroundImage: "radial-gradient(circle at 50% 100%, rgba(99, 102, 241, 0.2), transparent 50%), radial-gradient(circle at 0% 0%, rgba(236, 72, 153, 0.1), transparent 40%)",
+        display: "flex", justifyContent: "center", minHeight: "950px", alignItems: "center", textAlign: "center"
       },
       children: [
-        { id: "", order: 0, type: "container", content: "", styles: { position: "absolute", top: "20%", left: "50%", width: "800px", height: "800px", backgroundColor: "rgba(99,102,241,0.05)", borderRadius: "50%", filter: "blur(120px)", transform: "translateX(-50%)", pointerEvents: "none" } },
-        { id: "", order: 1, type: "badge", content: "✦ REIMAGINING THE FUTURE", styles: { backgroundColor: "rgba(255,255,255,0.03)", color: "#A5B4FC", padding: "8px 20px", borderRadius: "9999px", fontSize: "11px", fontWeight: "700", border: "1px solid rgba(255,255,255,0.1)", letterSpacing: "0.2em" } },
-        { id: "", order: 2, type: "heading", content: "Boundless\nInnovation.", props: { level: 1 }, styles: { fontSize: "120px", fontWeight: "900", color: "transparent", backgroundImage: "linear-gradient(to bottom right, #FFFFFF, #818CF8)", WebkitBackgroundClip: "text", backgroundClip: "text", lineHeight: "0.92", margin: "0", letterSpacing: "-0.03em", whiteSpace: "pre-line", maxWidth: "1200px", textShadow: "0 0 80px rgba(99,102,241,0.25)" } },
-        { id: "", order: 3, type: "paragraph", content: "The most powerful engine for building high-performance websites. Built for speed, designed for absolute control.", styles: { fontSize: "24px", color: "rgba(255,255,255,0.5)", maxWidth: "720px", margin: "0 auto", lineHeight: "1.6", fontWeight: "400" } },
-        {
-          id: "", order: 4, type: "container", content: "", props: { _childLayout: "row", _childJustify: "center", _childAlign: "center", _childGap: "xl" }, styles: { marginTop: "24px" }, children: [
-            { id: "", order: 0, type: "button", content: "Get Started →", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "20px 48px", borderRadius: "100px", fontWeight: "700", fontSize: "18px", cursor: "pointer", boxShadow: "0 0 40px rgba(99,102,241,0.4)", border: "none" } },
-            { id: "", order: 1, type: "button", content: "Watch the Film", styles: { backgroundColor: "transparent", color: "#FFFFFF", padding: "20px 48px", borderRadius: "100px", fontWeight: "600", fontSize: "18px", cursor: "pointer", border: "1px solid rgba(255,255,255,0.2)" } },
-          ]
-        },
+        { id: "", order: 0, type: "container", props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" }, styles: { maxWidth: "1200px", width: "100%" }, children: [
+          { id: "", order: 0, type: "badge", content: "✦ PROTOCOL ACTIVE", styles: { color: "#818CF8", fontSize: "12px", fontWeight: "800", letterSpacing: "0.3em", marginBottom: "40px", borderBottom: "1px solid rgba(129, 140, 248, 0.3)", paddingBottom: "8px" } },
+          { id: "", order: 1, type: "heading", content: "Engineering\nSentience.", props: { level: 1 }, styles: { fontSize: "130px", fontWeight: "900", color: "#FFFFFF", lineHeight: "0.9", margin: "0", letterSpacing: "-0.05em", filter: "drop-shadow(0 0 60px rgba(99,102,241,0.3))" } },
+          { id: "", order: 2, type: "heading", content: "LIMITLESS POSSIBILITIES", styles: { fontSize: "32px", fontWeight: "200", color: "transparent", WebkitTextStroke: "1px rgba(255,255,255,0.2)", letterSpacing: "0.5em", marginTop: "16px" } },
+          { id: "", order: 3, type: "paragraph", content: "The next evolution of cloud infrastructure is here. Sub-millisecond latency, planetary scale, and absolute security by default.", styles: { fontSize: "22px", color: "#94A3B8", maxWidth: "700px", margin: "48px auto", lineHeight: "1.7" } },
+          { id: "", order: 4, type: "button", content: "Initialize System →", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "20px 56px", borderRadius: "12px", fontWeight: "800", fontSize: "18px", cursor: "pointer", boxShadow: "0 0 40px rgba(99,102,241,0.4)", border: "none" } }
+        ]}
       ],
     },
   },
 
   {
     id: "sb-hero-bento",
-    name: "Hero — Bento Showcase",
+    name: "Hero - The Information Hub",
     category: "hero",
     designStyle: "dark",
-    description: "Grid-based hero that integrates micro-features and social proof directly into the main view",
+    description: "Multi-layered bento grid hero that showcases product value through data and social proof.",
     element: {
       type: "container", content: "",
-      styles: { padding: "120px 48px", backgroundColor: "#0F172A", display: "flex", justifyContent: "center" },
+      styles: { padding: "140px 48px", backgroundColor: "#0F172A", display: "flex", justifyContent: "center", minHeight: "900px" },
       children: [{
-        id: "", order: 0, type: "container", content: "",
-        props: { _childLayout: "row", _childAlign: "center", _childGap: "xl" },
+        id: "", order: 0, type: "container", props: { _childLayout: "row", _childAlign: "stretch", _childGap: "xl" },
         styles: { maxWidth: "1400px", width: "100%", flexWrap: "wrap" },
         children: [
           {
-            id: "", order: 0, type: "container", content: "", styles: { flex: "1.2", display: "flex", flexDirection: "column", gap: "40px", padding: "40px", minWidth: "400px" }, children: [
-              { id: "", order: 0, type: "badge", content: "SYSTEMS OPERATIONAL", styles: { color: "#4ADE80", fontSize: "11px", fontWeight: "900", letterSpacing: "0.2em", display: "flex", alignItems: "center", gap: "8px" } },
-              { id: "", order: 1, type: "heading", content: "Absolute\nEfficiency.", props: { level: 1 }, styles: { fontSize: "110px", fontWeight: "900", color: "transparent", backgroundImage: "linear-gradient(to bottom, #FFFFFF 0%, #64748B 100%)", WebkitBackgroundClip: "text", backgroundClip: "text", lineHeight: "0.92", margin: "0", letterSpacing: "-0.05em" } },
-              { id: "", order: 2, type: "paragraph", content: "Deploy globally in seconds. Scale to billions without touching a server. The ultimate cloud-native toolkit.", styles: { fontSize: "20px", color: "#64748B", lineHeight: "1.7", margin: "0", maxWidth: "500px" } },
-              { id: "", order: 3, type: "button", content: "Claim your endpoint →", styles: { backgroundColor: "#FFFFFF", color: "#000000", padding: "18px 36px", borderRadius: "12px", fontWeight: "800", fontSize: "16px", cursor: "pointer", width: "fit-content" } },
+            id: "", order: 0, type: "container", styles: { flex: "1.4", display: "flex", flexDirection: "column", gap: "40px", padding: "40px", minWidth: "450px" },
+            children: [
+              { id: "", order: 0, type: "badge", content: "● ALL SYSTEMS NOMINAL", styles: { color: "#4ADE80", fontSize: "12px", fontWeight: "800", letterSpacing: "0.1em" } },
+              { id: "", order: 1, type: "heading", content: "The OS for\nmodern teams.", props: { level: 1 }, styles: { fontSize: "100px", fontWeight: "900", color: "#FFFFFF", lineHeight: "0.95", margin: "0", letterSpacing: "-0.04em" } },
+              { id: "", order: 2, type: "paragraph", content: "Connect your entire stack, automate your workflows, and scale your business with the most advanced operating system ever built.", styles: { fontSize: "20px", color: "#94A3B8", lineHeight: "1.7", maxWidth: "520px" } },
+              { id: "", order: 3, type: "container", props: { _childLayout: "row", _childGap: "lg" }, children: [
+                { id: "", order: 0, type: "button", content: "Start Trial", styles: { backgroundColor: "#FFFFFF", color: "#0F172A", padding: "18px 36px", borderRadius: "12px", fontWeight: "800", fontSize: "16px", cursor: "pointer" } },
+                { id: "", order: 1, type: "button", content: "Book Demo", styles: { backgroundColor: "rgba(255,255,255,0.05)", color: "#FFFFFF", padding: "18px 36px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", fontWeight: "600", fontSize: "16px", cursor: "pointer" } },
+              ]}
             ]
           },
           {
-            id: "", order: 1, type: "container", content: "", styles: { flex: "1", display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "24px", minWidth: "400px" },
+            id: "", order: 1, type: "container", styles: { flex: "1", display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gridTemplateRows: "repeat(2, 1fr)", gap: "24px", minWidth: "450px" },
             children: [
-              { id: "", order: 0, type: "container", styles: { backgroundColor: "rgba(255,255,255,0.03)", borderRadius: "24px", padding: "40px", border: "1px solid rgba(255,255,255,0.05)" }, children: [{ id: "", order: 0, type: "heading", content: "99.99%", styles: { color: "#FFFFFF", fontSize: "32px", fontWeight: "900" } }, { id: "", order: 1, type: "paragraph", content: "Uptime SLA", styles: { color: "#64748B", fontSize: "14px" } }] },
-              { id: "", order: 1, type: "container", styles: { backgroundColor: "rgba(255,255,255,0.03)", borderRadius: "24px", padding: "40px", border: "1px solid rgba(255,255,255,0.05)" }, children: [{ id: "", order: 0, type: "heading", content: "<10ms", styles: { color: "#4ADE80", fontSize: "32px", fontWeight: "900" } }, { id: "", order: 1, type: "paragraph", content: "Global Latency", styles: { color: "#64748B", fontSize: "14px" } }] },
-              { id: "", order: 2, type: "container", styles: { gridColumn: "span 2", backgroundColor: "rgba(255,255,255,0.03)", borderRadius: "24px", padding: "40px", border: "1px solid rgba(255,255,255,0.05)", backgroundImage: "linear-gradient(to right, rgba(99,102,241,0.1), transparent)", position: "relative", overflow: "hidden" }, children: [{ id: "", order: 0, type: "heading", content: "Enterprise Ready", styles: { color: "#FFFFFF", fontSize: "24px", fontWeight: "800", marginBottom: "8px" } }, { id: "", order: 1, type: "paragraph", content: "Full SOC2 compliance and end-to-end encryption by default.", styles: { color: "#94A3B8", fontSize: "16px" } }] },
+              { id: "", order: 0, type: "container", styles: { backgroundColor: "rgba(255,255,255,0.03)", borderRadius: "32px", padding: "40px", border: "1px solid rgba(255,255,255,0.05)", display: "flex", flexDirection: "column", justifyContent: "center" }, children: [
+                { id: "", order: 0, type: "heading", content: "99.99%", styles: { color: "#FFFFFF", fontSize: "36px", fontWeight: "900", marginBottom: "8px" } },
+                { id: "", order: 1, type: "paragraph", content: "Uptime Guaranteed", styles: { color: "#64748B", fontSize: "14px", fontWeight: "600" } }
+              ]},
+              { id: "", order: 1, type: "container", styles: { backgroundColor: "#6366F1", borderRadius: "32px", padding: "40px", display: "flex", flexDirection: "column", justifyContent: "center" }, children: [
+                { id: "", order: 0, type: "heading", content: "<12ms", styles: { color: "#FFFFFF", fontSize: "36px", fontWeight: "900", marginBottom: "8px" } },
+                { id: "", order: 1, type: "paragraph", content: "Global Latency", styles: { color: "rgba(255,255,255,0.7)", fontSize: "14px", fontWeight: "600" } }
+              ]},
+              { id: "", order: 2, type: "container", styles: { gridColumn: "span 2", backgroundColor: "rgba(255,255,255,0.03)", borderRadius: "32px", padding: "40px", border: "1px solid rgba(255,255,255,0.05)", position: "relative", overflow: "hidden" }, children: [
+                { id: "", order: 0, type: "heading", content: "Trust by the Best", styles: { color: "#FFFFFF", fontSize: "20px", fontWeight: "800", marginBottom: "16px" } },
+                { id: "", order: 1, type: "container", props: { _childLayout: "row", _childGap: "lg" }, children: [
+                  { id: "", order: 0, type: "avatar", content: "A", styles: { width: "32px", height: "32px", backgroundColor: "#334155" } },
+                  { id: "", order: 1, type: "avatar", content: "B", styles: { width: "32px", height: "32px", backgroundColor: "#334155" } },
+                  { id: "", order: 2, type: "avatar", content: "C", styles: { width: "32px", height: "32px", backgroundColor: "#334155" } },
+                  { id: "", order: 3, type: "paragraph", content: "+ 2,400 companies", styles: { color: "#64748B", fontSize: "14px", fontWeight: "600", marginLeft: "8px" } }
+                ]}
+              ]}
             ]
           }
         ]
-      }],
+      }]
     },
   },
 
   {
     id: "sb-hero-glass",
-    name: "Hero — Glass Fusion",
+    name: "Hero - The Aurora Prism",
     category: "hero",
     designStyle: "glass",
-    description: "Multilayered glass effect with ambient color waves and crystal-clear feature cards",
+    description: "Luxury hero with sophisticated glassmorphism and organic color shapes.",
     element: {
       type: "container", content: "",
-      styles: { padding: "160px 48px", backgroundImage: "linear-gradient(135deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)", display: "flex", alignItems: "center", justifyContent: "center", minHeight: "850px", position: "relative", overflow: "hidden" },
+      styles: { padding: "180px 48px", backgroundColor: "#FFFFFF", backgroundImage: "radial-gradient(at 0% 0%, #EEF2FF 0%, transparent 50%), radial-gradient(at 100% 100%, #FDF2F8 0%, transparent 50%)", display: "flex", justifyContent: "center", minHeight: "950px", alignItems: "center", overflow: "hidden" },
       children: [
-        { id: "", order: 0, type: "container", content: "", styles: { position: "absolute", top: "10%", left: "10%", width: "400px", height: "400px", backgroundColor: "rgba(255, 255, 255, 0.15)", borderRadius: "50%", filter: "blur(100px)" } },
-        {
-          id: "", order: 1, type: "container", content: "",
-          styles: {
-            backgroundColor: "rgba(255,255,255,0.05)",
-            backdropFilter: "blur(40px)",
-            border: "1px solid rgba(255,255,255,0.15)",
-            borderRadius: "48px",
-            padding: "80px",
-            maxWidth: "900px",
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            gap: "48px",
-            textAlign: "center",
-            boxShadow: "0 60px 120px rgba(0,0,0,0.2)",
-            position: "relative",
-            zIndex: "10"
-          },
-          children: [
-            { id: "", order: 0, type: "badge", content: "💎 CRYSTAL EDITION", styles: { backgroundColor: "rgba(255,255,255,0.1)", color: "#FFFFFF", padding: "10px 24px", borderRadius: "100px", fontSize: "12px", fontWeight: "900", border: "1px solid rgba(255,255,255,0.2)", width: "fit-content", margin: "0 auto", letterSpacing: "0.2em" } },
-            { id: "", order: 1, type: "heading", content: "Liquid Clarity.", props: { level: 1 }, styles: { fontSize: "96px", fontWeight: "900", color: "transparent", backgroundImage: "linear-gradient(to bottom right, #FFFFFF 30%, rgba(255,255,255,0.4) 100%)", WebkitBackgroundClip: "text", backgroundClip: "text", lineHeight: "0.92", margin: "0", letterSpacing: "-0.02em", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.15))" } },
-            { id: "", order: 2, type: "paragraph", content: "The ultimate toolkit for building transparent, high-fidelity digital experiences. Crystal-clear design, rock-solid performance.", styles: { fontSize: "22px", color: "rgba(255,255,255,0.7)", lineHeight: "1.7", maxWidth: "640px", margin: "0 auto" } },
-            {
-              id: "", order: 3, type: "container", content: "", props: { _childLayout: "row", _childJustify: "center", _childGap: "xl" }, styles: { justifyContent: "center", width: "100%" }, children: [
-                { id: "", order: 0, type: "button", content: "Explore Studio", styles: { backgroundColor: "#FFFFFF", color: "#784BA0", padding: "20px 56px", borderRadius: "16px", fontWeight: "800", fontSize: "18px", cursor: "pointer", border: "none", boxShadow: "0 20px 40px rgba(0,0,0,0.1)" } },
-                { id: "", order: 1, type: "button", content: "Get Documentation", styles: { backgroundColor: "rgba(255,255,255,0.1)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.3)", padding: "20px 56px", borderRadius: "16px", fontWeight: "700", fontSize: "18px", cursor: "pointer" } },
-              ]
-            },
-          ]
-        },
+        { id: "", order: 0, type: "container", styles: { position: "absolute", top: "10%", left: "10%", width: "400px", height: "400px", backgroundColor: "#6366F1", opacity: "0.1", filter: "blur(120px)", borderRadius: "50%" } },
+        { id: "", order: 1, type: "container", styles: { position: "absolute", bottom: "10%", right: "10%", width: "400px", height: "400px", backgroundColor: "#EC4899", opacity: "0.1", filter: "blur(120px)", borderRadius: "50%" } },
+        { id: "", order: 2, type: "container", props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" }, styles: { maxWidth: "900px", width: "100%", textAlign: "center", backgroundColor: "rgba(255,255,255,0.1)", backdropFilter: "blur(40px)", padding: "100px 60px", borderRadius: "64px", border: "1px solid rgba(255,255,255,0.4)", boxShadow: "0 60px 120px rgba(0,0,0,0.05)" }, children: [
+          { id: "", order: 0, type: "badge", content: "💎 PREMIUM EDITION", styles: { color: "#6366F1", fontWeight: "900", fontSize: "12px", letterSpacing: "0.3em", marginBottom: "32px" } },
+          { id: "", order: 1, type: "heading", content: "Pure. Precise.\nLimitless.", props: { level: 1 }, styles: { fontSize: "110px", fontWeight: "200", color: "#000000", lineHeight: "0.9", margin: "0", letterSpacing: "-0.04em", fontFamily: "'Inter', sans-serif" } },
+          { id: "", order: 2, type: "paragraph", content: "Experience the next level of digital elegance. Our platform combines cutting-edge performance with a design language that breathes.", styles: { fontSize: "22px", color: "#71717A", maxWidth: "600px", margin: "40px auto", lineHeight: "1.7", fontWeight: "300" } },
+          { id: "", order: 3, type: "button", content: "Enter the Studio", styles: { backgroundColor: "#000000", color: "#FFFFFF", padding: "22px 64px", borderRadius: "100px", fontWeight: "700", fontSize: "18px", cursor: "pointer", border: "none" } }
+        ]}
       ],
     },
   },
 
   {
     id: "sb-hero-studio",
-    name: "Hero — Minimalist Studio",
+    name: "Hero - The Brutalist Gallery",
     category: "hero",
     designStyle: "minimal",
-    description: "Ultra-minimal studio hero with expansive whitespace and delicate typography",
+    description: "High-contrast minimalist hero for art galleries and design studios.",
     element: {
       type: "container", content: "",
-      styles: { padding: "180px 40px", backgroundColor: "#FFFFFF", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "60px", justifyContent: "center" },
-      children: [
-        { id: "", order: 0, type: "heading", content: "The art of\nrestraint.", props: { level: 1 }, styles: { fontSize: "80px", fontWeight: "100", color: "#000000", lineHeight: "0.95", margin: "0", letterSpacing: "0.14em", textTransform: "uppercase" } },
-        { id: "", order: 1, type: "paragraph", content: "A new era of digital craft. We build interfaces that breathe, focused on the essentials of human experience and technical precision.", styles: { fontSize: "20px", color: "#71717A", maxWidth: "600px", margin: "0 auto", lineHeight: "1.8", fontWeight: "300" } },
-        {
-          id: "", order: 2, type: "container", content: "", styles: { display: "flex", justifyContent: "center", width: "100%" },
-          children: [
-            { id: "", order: 0, type: "button", content: "Discover the work", styles: { backgroundColor: "transparent", color: "#000000", border: "1px solid #000000", padding: "16px 48px", borderRadius: "0px", fontWeight: "400", fontSize: "15px", cursor: "pointer", letterSpacing: "0.1em", textTransform: "uppercase" } }
-          ]
-        },
-      ],
+      styles: { padding: "180px 48px", backgroundColor: "#000000", display: "flex", justifyContent: "center", minHeight: "900px", alignItems: "center" },
+      children: [{
+        id: "", order: 0, type: "container", props: { _childLayout: "column", _childAlign: "start", _childGap: "xl" },
+        styles: { maxWidth: "1400px", width: "100%" },
+        children: [
+          { id: "", order: 0, type: "heading", content: "FORM\nFOLLOWS\nFUNCTION.", props: { level: 1 }, styles: { fontSize: "180px", fontWeight: "900", color: "#FFFFFF", lineHeight: "0.8", margin: "0", letterSpacing: "-0.08em" } },
+          { id: "", order: 1, type: "container", props: { _childLayout: "row", _childAlign: "end", _childGap: "xl" }, styles: { width: "100%", flexWrap: "wrap", marginTop: "64px" }, children: [
+            { id: "", order: 0, type: "paragraph", content: "A new standard for digital architecture. We build tools that prioritize clarity, speed, and the raw beauty of the web.", styles: { fontSize: "24px", color: "#A1A1AA", maxWidth: "500px", lineHeight: "1.6", margin: "0", fontWeight: "400" } },
+            { id: "", order: 1, type: "button", content: "Start Project ➚", styles: { backgroundColor: "#FFFFFF", color: "#000000", padding: "32px 64px", borderRadius: "0px", fontWeight: "900", fontSize: "20px", cursor: "pointer", marginLeft: "auto" } }
+          ]}
+        ]
+      }]
     },
   },
 
   {
     id: "sb-hero-product",
-    name: "Hero — SaaS Product Master",
+    name: "Hero - The Growth Engine",
     category: "hero",
     designStyle: "modern",
-    description: "Feature-rich SaaS hero with direct product visualization and strong call-to-action focus",
+    description: "Professional SaaS hero with high-fidelity product visualization and trust signals.",
     element: {
       type: "container", content: "",
-      styles: { padding: "120px 64px", backgroundColor: "#FFFFFF", display: "flex", justifyContent: "center" },
+      styles: { padding: "140px 64px", backgroundColor: "#FFFFFF", display: "flex", justifyContent: "center", minHeight: "900px", alignItems: "center" },
       children: [{
-        id: "", order: 0, type: "container", content: "",
-        props: { _childLayout: "row", _childAlign: "center", _childGap: "xl" },
+        id: "", order: 0, type: "container", props: { _childLayout: "row", _childAlign: "center", _childGap: "xl" },
         styles: { maxWidth: "1400px", width: "100%", flexWrap: "wrap" },
         children: [
           {
-            id: "", order: 0, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "32px", minWidth: "400px" }, children: [
-              { id: "", order: 0, type: "badge", content: "New: Visual Automations", styles: { backgroundColor: "#E0F2FE", color: "#0369A1", padding: "6px 12px", borderRadius: "6px", fontSize: "12px", fontWeight: "700", width: "fit-content" } },
-              { id: "", order: 1, type: "heading", content: "Ship your product\nwithout the friction.", props: { level: 1 }, styles: { fontSize: "96px", fontWeight: "900", color: "transparent", backgroundImage: "linear-gradient(135deg, #0F172A 0%, #334155 100%)", WebkitBackgroundClip: "text", backgroundClip: "text", lineHeight: "1.02", margin: "0", letterSpacing: "-0.03em" } },
-              { id: "", order: 2, type: "paragraph", content: "Automate your entire workflow. From design to deployment, we provide the tools to build faster, smarter, and together.", styles: { fontSize: "20px", color: "#475569", lineHeight: "1.6", margin: "0", maxWidth: "480px" } },
-              {
-                id: "", order: 3, type: "container", content: "", props: { _childLayout: "row", _childGap: "md" }, styles: { justifyContent: "flex-start" }, children: [
-                  { id: "", order: 0, type: "button", content: "Get Started Free", styles: { backgroundColor: "#0F172A", color: "#FFFFFF", padding: "16px 32px", borderRadius: "8px", fontWeight: "700", fontSize: "16px", cursor: "pointer" } },
-                  { id: "", order: 1, type: "button", content: "View Demo", styles: { backgroundColor: "#FFFFFF", color: "#0F172A", border: "1px solid #E2E8F0", padding: "16px 32px", borderRadius: "8px", fontWeight: "600", fontSize: "16px", cursor: "pointer" } },
-                ]
-              },
+            id: "", order: 0, type: "container", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "40px", minWidth: "450px" },
+            children: [
+              { id: "", order: 0, type: "badge", content: "★ Rated #1 in G2 Crowd", styles: { backgroundColor: "#F0FDF4", color: "#166534", padding: "8px 16px", borderRadius: "9999px", fontSize: "13px", fontWeight: "700", border: "1px solid #DCFCE7", width: "fit-content" } },
+              { id: "", order: 1, type: "heading", content: "Scale your revenue\nwithout the complexity.", props: { level: 1 }, styles: { fontSize: "90px", fontWeight: "900", color: "#0F172A", lineHeight: "0.95", margin: "0", letterSpacing: "-0.04em" } },
+              { id: "", order: 2, type: "paragraph", content: "The all-in-one platform for modern commerce. Manage inventory, process payments, and grow your customer base from a single dashboard.", styles: { fontSize: "20px", color: "#475569", lineHeight: "1.7", maxWidth: "540px" } },
+              { id: "", order: 3, type: "container", props: { _childLayout: "row", _childGap: "lg" }, children: [
+                { id: "", order: 0, type: "button", content: "Start Free Trial", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "20px 48px", borderRadius: "12px", fontWeight: "800", fontSize: "17px", cursor: "pointer", boxShadow: "0 10px 30px rgba(99,102,241,0.2)" } },
+                { id: "", order: 1, type: "button", content: "Watch Video", styles: { backgroundColor: "#FFFFFF", color: "#0F172A", padding: "20px 48px", border: "1px solid #E2E8F0", borderRadius: "12px", fontWeight: "600", fontSize: "17px", cursor: "pointer" } },
+              ]}
             ]
           },
           {
-            id: "", order: 1, type: "container", content: "", styles: { flex: "1.2", minWidth: "400px", padding: "20px", position: "relative" },
+            id: "", order: 1, type: "container", styles: { flex: "1.2", position: "relative", minWidth: "450px" },
             children: [
-              {
-                id: "", order: 0, type: "container", styles: { backgroundColor: "#FFFFFF", borderRadius: "12px", border: "1px solid #E2E8F0", boxShadow: "0 50px 100px -20px rgba(0,0,0,0.1), 0 30px 60px -30px rgba(0,0,0,0.15)", overflow: "hidden" },
-                children: [
-                  {
-                    id: "", order: 0, type: "container", styles: { height: "40px", backgroundColor: "#F8FAFC", borderBottom: "1px solid #E2E8F0", display: "flex", alignItems: "center", padding: "0 16px", gap: "8px" }, children: [
-                      { id: "", order: 0, type: "container", styles: { width: "10px", height: "10px", backgroundColor: "#FF5F57", borderRadius: "50%" } },
-                      { id: "", order: 1, type: "container", styles: { width: "10px", height: "10px", backgroundColor: "#FFBD2E", borderRadius: "50%" } },
-                      { id: "", order: 2, type: "container", styles: { width: "10px", height: "10px", backgroundColor: "#28C840", borderRadius: "50%" } }
-                    ]
-                  },
-                  { id: "", order: 1, type: "image", content: "", props: { src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1000" }, styles: { width: "100%", height: "400px", objectFit: "cover" } }
-                ]
-              }
+              { id: "", order: 0, type: "container", styles: { width: "100%", height: "550px", backgroundColor: "#F8FAFC", borderRadius: "24px", border: "1px solid #E2E8F0", boxShadow: "0 60px 100px -20px rgba(0,0,0,0.1)", overflow: "hidden", backgroundImage: "url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000')", backgroundSize: "cover" } },
+              { id: "", order: 1, type: "container", styles: { position: "absolute", top: "40px", right: "-40px", width: "240px", backgroundColor: "#FFFFFF", padding: "24px", borderRadius: "16px", boxShadow: "0 20px 40px rgba(0,0,0,0.1)", border: "1px solid #F1F5F9" }, children: [
+                { id: "", order: 0, type: "heading", content: "+$12.4k", styles: { fontSize: "24px", fontWeight: "900", color: "#10B981", marginBottom: "4px" } },
+                { id: "", order: 1, type: "paragraph", content: "New daily sales record", styles: { fontSize: "13px", color: "#64748B", fontWeight: "600" } }
+              ]}
             ]
-          },
+          }
         ]
-      }],
+      }]
     },
   },
 
   {
     id: "sb-hero-industrial",
-    name: "Hero — Geometric Industrial",
+    name: "Hero - The Technical Standard",
     category: "hero",
     designStyle: "bold",
-    description: "Sharp, high-contrast industrial hero with heavy borders and technical typography",
+    description: "Grid-based industrial hero with monospace type and technical sidebars.",
     element: {
       type: "container", content: "",
-      styles: { padding: "140px 64px", backgroundColor: "#FFFFFF", backgroundImage: "linear-gradient(#F1F5F9 1px, transparent 1px), linear-gradient(90deg, #F1F5F9 1px, transparent 1px)", backgroundSize: "40px 40px", display: "flex", justifyContent: "center" },
+      styles: { padding: "140px 64px", backgroundColor: "#F1F5F9", backgroundImage: "radial-gradient(#CBD5E1 1px, transparent 1px)", backgroundSize: "32px 32px", display: "flex", justifyContent: "center", minHeight: "900px", alignItems: "center" },
       children: [{
-        id: "", order: 0, type: "container", content: "",
-        props: { _childLayout: "row", _childAlign: "start", _childGap: "xl" },
+        id: "", order: 0, type: "container", props: { _childLayout: "row", _childAlign: "start", _childGap: "xl" },
         styles: { maxWidth: "1400px", width: "100%", flexWrap: "wrap" },
         children: [
           {
-            id: "", order: 0, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "40px", minWidth: "400px" }, children: [
-              { id: "", order: 0, type: "heading", content: "ENGINEERED\nTO SCALE.", props: { level: 1 }, styles: { fontSize: "110px", fontWeight: "900", color: "transparent", backgroundImage: "linear-gradient(to bottom, #000 0%, #334155 100%)", WebkitBackgroundClip: "text", backgroundClip: "text", lineHeight: "0.85", margin: "0", letterSpacing: "0.02em", fontFamily: "monospace" } },
-              {
-                id: "", order: 1, type: "container", content: "", props: { _childLayout: "row", _childAlign: "center", _childGap: "xl" }, styles: { flexWrap: "wrap" }, children: [
-                  { id: "", order: 0, type: "paragraph", content: "Technical excellence in every line of code. Built for the modern enterprise that demands absolute reliability and performance under pressure.", styles: { fontSize: "18px", color: "#475569", margin: "0", lineHeight: "1.7", flex: "1", fontFamily: "monospace", minWidth: "300px" } },
-                  { id: "", order: 1, type: "button", content: "Read the Docs ➚", styles: { backgroundColor: "#000000", color: "#FFFFFF", padding: "16px 32px", borderRadius: "0", fontWeight: "700", fontSize: "14px", cursor: "pointer", fontFamily: "monospace" } },
-                ]
-              },
+            id: "", order: 0, type: "container", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "40px", minWidth: "450px" },
+            children: [
+              { id: "", order: 0, type: "heading", content: "SPEC-001\nINFINITE\nSCALABILITY.", props: { level: 1 }, styles: { fontSize: "120px", fontWeight: "900", color: "#0F172A", lineHeight: "0.85", margin: "0", letterSpacing: "0.02em", fontFamily: "monospace" } },
+              { id: "", order: 1, type: "paragraph", content: "A high-performance framework built for developers who demand absolute precision. Open-source, distributed, and atomic by design.", styles: { fontSize: "18px", color: "#475569", maxWidth: "480px", lineHeight: "1.7", fontFamily: "monospace" } },
+              { id: "", order: 2, type: "button", content: "View Documentation ➚", styles: { backgroundColor: "#000000", color: "#FFFFFF", padding: "20px 40px", borderRadius: "0px", fontWeight: "700", fontSize: "15px", cursor: "pointer", fontFamily: "monospace", width: "fit-content" } }
             ]
           },
           {
-            id: "", order: 1, type: "container", content: "", styles: { flex: "0.6", minWidth: "350px", borderLeft: "1px solid #E2E8F0", paddingLeft: "40px", display: "flex", flexDirection: "column", gap: "40px" },
+            id: "", order: 1, type: "container", styles: { flex: "0.5", borderLeft: "2px solid #E2E8F0", paddingLeft: "48px", display: "flex", flexDirection: "column", gap: "48px", minWidth: "300px" },
             children: [
-              { id: "", order: 0, type: "container", styles: { borderBottom: "1px solid #E2E8F0", paddingBottom: "20px" }, children: [{ id: "", order: 0, type: "heading", content: "[ 01 ]", styles: { color: "#64748B", fontSize: "12px", fontFamily: "monospace", marginBottom: "8px" } }, { id: "", order: 1, type: "heading", content: "FAULT TOLERANT", styles: { fontSize: "16px", fontWeight: "800" } }] },
-              { id: "", order: 1, type: "container", styles: { borderBottom: "1px solid #E2E8F0", paddingBottom: "20px" }, children: [{ id: "", order: 0, type: "heading", content: "[ 02 ]", styles: { color: "#64748B", fontSize: "12px", fontFamily: "monospace", marginBottom: "8px" } }, { id: "", order: 1, type: "heading", content: "DISTRIBUTED GRID", styles: { fontSize: "16px", fontWeight: "800" } }] },
-              { id: "", order: 2, type: "container", children: [{ id: "", order: 0, type: "heading", content: "[ 03 ]", styles: { color: "#64748B", fontSize: "12px", fontFamily: "monospace", marginBottom: "8px" } }, { id: "", order: 1, type: "heading", content: "ATOMIC UPDATES", styles: { fontSize: "16px", fontWeight: "800" } }] },
+              { id: "", order: 0, type: "container", children: [
+                { id: "", order: 0, type: "heading", content: "[ LATENCY ]", styles: { fontSize: "12px", color: "#64748B", fontFamily: "monospace", marginBottom: "8px" } },
+                { id: "", order: 1, type: "heading", content: "< 5MS WORLDWIDE", styles: { fontSize: "18px", fontWeight: "900" } }
+              ]},
+              { id: "", order: 1, type: "container", children: [
+                { id: "", order: 0, type: "heading", content: "[ THROUGHPUT ]", styles: { fontSize: "12px", color: "#64748B", fontFamily: "monospace", marginBottom: "8px" } },
+                { id: "", order: 1, type: "heading", content: "10M OPS / SEC", styles: { fontSize: "18px", fontWeight: "900" } }
+              ]},
+              { id: "", order: 2, type: "container", children: [
+                { id: "", order: 0, type: "heading", content: "[ UPTIME ]", styles: { fontSize: "12px", color: "#64748B", fontFamily: "monospace", marginBottom: "8px" } },
+                { id: "", order: 1, type: "heading", content: "99.9999% SLA", styles: { fontSize: "18px", fontWeight: "900" } }
+              ]}
             ]
           }
         ]
-      }],
+      }]
     },
   },
 
   {
     id: "sb-hero-enterprise",
-    name: "Hero — Enterprise Trust",
+    name: "Hero - Enterprise Trust",
     category: "hero",
     designStyle: "corporate",
     description: "Balanced blue-themed enterprise hero with trust signals and integrated metrics",
@@ -1139,167 +1117,170 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-hero-organic",
-    name: "Hero — Abstract Organic",
+    name: "Hero - The Fluid Interface",
     category: "hero",
     designStyle: "modern",
-    description: "Soft, organic hero with fluid gradients and rounded layouts for a friendly tech feel",
+    description: "Soft, organic hero with mesh gradients and floating elements for a friendly tech aesthetic.",
     element: {
       type: "container", content: "",
-      styles: { padding: "160px 40px", backgroundColor: "#FDF4FF", display: "flex", flexDirection: "column", alignItems: "center", gap: "60px", textAlign: "center", position: "relative", overflow: "hidden" },
-      children: [
-        { id: "", order: 0, type: "container", content: "", styles: { position: "absolute", top: "-100px", left: "-100px", width: "400px", height: "400px", backgroundColor: "rgba(232, 121, 249, 0.2)", borderRadius: "50%", filter: "blur(80px)" } },
-        { id: "", order: 1, type: "heading", content: "Feel the flow of\nyour creativity.", props: { level: 1 }, styles: { fontSize: "84px", fontWeight: "900", color: "transparent", backgroundImage: "linear-gradient(45deg, #701A75, #D946EF)", WebkitBackgroundClip: "text", backgroundClip: "text", lineHeight: "1.05", margin: "0", letterSpacing: "-0.02em" } },
-        { id: "", order: 2, type: "paragraph", content: "Friendly, fast, and remarkably easy. We've redesigned the web experience to move at the speed of your imagination.", styles: { fontSize: "22px", color: "#A21CAF", maxWidth: "680px", margin: "0 auto", lineHeight: "1.6", fontWeight: "400" } },
-        { id: "", order: 3, type: "button", content: "Start creating free", styles: { backgroundColor: "#D946EF", color: "#FFFFFF", padding: "20px 48px", borderRadius: "100px", fontWeight: "700", fontSize: "18px", cursor: "pointer", boxShadow: "0 10px 25px rgba(217,70,239,0.3)" } },
-        {
-          id: "", order: 4, type: "container", content: "", styles: { marginTop: "40px", display: "flex", gap: "0" }, children: [
-            { id: "", order: 0, type: "image", content: "", props: { src: "https://i.pravatar.cc/100?u=1" }, styles: { width: "48px", height: "48px", borderRadius: "50%", border: "3px solid #FFFFFF" } },
-            { id: "", order: 1, type: "image", content: "", props: { src: "https://i.pravatar.cc/100?u=2" }, styles: { width: "48px", height: "48px", borderRadius: "50%", border: "3px solid #FFFFFF", marginLeft: "-12px" } },
-            { id: "", order: 2, type: "image", content: "", props: { src: "https://i.pravatar.cc/100?u=3" }, styles: { width: "48px", height: "48px", borderRadius: "50%", border: "3px solid #FFFFFF", marginLeft: "-12px" } },
-            { id: "", order: 3, type: "paragraph", content: "Joined by 10k+ creators this week", styles: { fontSize: "14px", color: "#A21CAF", marginLeft: "12px", display: "flex", alignItems: "center", fontWeight: "600" } },
-          ]
-        },
-      ],
+      styles: { padding: "160px 48px", backgroundColor: "#FDF2F8", backgroundImage: "radial-gradient(at 0% 0%, #FDF2F8 0%, #EEF2FF 100%)", display: "flex", justifyContent: "center", minHeight: "900px", alignItems: "center", overflow: "hidden" },
+      children: [{
+        id: "", order: 0, type: "container", props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "1000px", width: "100%", textAlign: "center" },
+        children: [
+          { id: "", order: 0, type: "container", styles: { position: "absolute", top: "10%", left: "5%", width: "120px", height: "120px", backgroundColor: "#F472B6", opacity: "0.2", filter: "blur(40px)", borderRadius: "50%" } },
+          { id: "", order: 1, type: "heading", content: "Move at the speed\nof your ideas.", props: { level: 1 }, styles: { fontSize: "100px", fontWeight: "900", color: "#831843", lineHeight: "1.0", margin: "0", letterSpacing: "-0.04em" } },
+          { id: "", order: 2, type: "paragraph", content: "Friendly, fast, and remarkably easy. We've redesigned the entire creation experience to flow as naturally as your own imagination.", styles: { fontSize: "22px", color: "#9D174D", maxWidth: "640px", margin: "40px auto", lineHeight: "1.7", fontWeight: "400" } },
+          { id: "", order: 3, type: "button", content: "Start Creating - It's Free", styles: { backgroundColor: "#BE185D", color: "#FFFFFF", padding: "24px 64px", borderRadius: "100px", fontWeight: "800", fontSize: "20px", cursor: "pointer", boxShadow: "0 20px 40px rgba(190,24,93,0.2)" } },
+          { id: "", order: 4, type: "container", props: { _childLayout: "row", _childAlign: "center", _childGap: "md" }, styles: { marginTop: "64px", justifyContent: "center" }, children: [
+            { id: "", order: 0, type: "container", styles: { display: "flex", gap: "-12px" }, children: [
+              { id: "", order: 0, type: "avatar", content: "U", styles: { width: "40px", height: "40px", border: "2px solid #FFFFFF" } },
+              { id: "", order: 1, type: "avatar", content: "V", styles: { width: "40px", height: "40px", border: "2px solid #FFFFFF", marginLeft: "-12px" } },
+              { id: "", order: 2, type: "avatar", content: "W", styles: { width: "40px", height: "40px", border: "2px solid #FFFFFF", marginLeft: "-12px" } },
+            ]},
+            { id: "", order: 1, type: "paragraph", content: "Loved by 12,000+ creators world-wide.", styles: { fontSize: "14px", color: "#9D174D", fontWeight: "700" } }
+          ]}
+        ]
+      }]
     },
   },
 
   {
     id: "sb-hero-editorial-classic",
-    name: "Hero — Editorial Classic",
+    name: "Hero - The Journal Premium",
     category: "hero",
     designStyle: "minimal",
-    description: "Balanced editorial hero with refined typography and centered layout",
+    description: "Luxury centered layout with high-end serif typography and extreme whitespace.",
     element: {
       type: "container", content: "",
-      styles: { padding: "160px 48px", backgroundColor: "#FFFFFF", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "48px" },
-      children: [
-        { id: "", order: 0, type: "badge", content: "THE JOURNAL — ISSUE 01", styles: { color: "#64748B", fontSize: "12px", fontWeight: "600", letterSpacing: "0.15em" } },
-        { id: "", order: 1, type: "heading", content: "The beauty of simplicity\nin every single detail.", props: { level: 1 }, styles: { fontSize: "72px", fontWeight: "400", color: "#0F172A", lineHeight: "1.2", margin: "0", fontFamily: "'Playfair Display', serif", maxWidth: "800px" } },
-        { id: "", order: 2, type: "paragraph", content: "A deep dive into the philosophy of modern architecture and how it influences the digital spaces we inhabit today.", styles: { fontSize: "18px", color: "#64748B", maxWidth: "600px", margin: "0 auto", lineHeight: "1.7" } },
-        { id: "", order: 3, type: "button", content: "Read the story", styles: { backgroundColor: "#0F172A", color: "#FFFFFF", padding: "14px 32px", borderRadius: "100px", fontWeight: "500", fontSize: "15px", cursor: "pointer" } },
-      ],
+      styles: { padding: "180px 48px", backgroundColor: "#FFFFFF", display: "flex", justifyContent: "center", minHeight: "850px", alignItems: "center" },
+      children: [{
+        id: "", order: 0, type: "container", props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "900px", width: "100%", textAlign: "center" },
+        children: [
+          { id: "", order: 0, type: "badge", content: "ISSUE 04 // 2026", styles: { color: "#A1A1AA", fontSize: "12px", fontWeight: "800", letterSpacing: "0.3em", marginBottom: "40px" } },
+          { id: "", order: 1, type: "heading", content: "The quiet power of\nintentional design.", props: { level: 1 }, styles: { fontSize: "84px", fontWeight: "300", color: "#000000", lineHeight: "1.1", margin: "0", fontFamily: "'Playfair Display', serif" } },
+          { id: "", order: 2, type: "paragraph", content: "A deep exploration into the philosophy of modern architecture and how it defines the digital landscapes we inhabit every day.", styles: { fontSize: "20px", color: "#52525B", maxWidth: "600px", margin: "48px auto", lineHeight: "1.8", fontWeight: "300" } },
+          { id: "", order: 3, type: "button", content: "Read the Monograph", styles: { backgroundColor: "transparent", color: "#000000", padding: "16px 48px", borderBottom: "2px solid #000000", fontWeight: "700", fontSize: "16px", cursor: "pointer" } }
+        ]
+      }]
     },
   },
 
   {
     id: "sb-hero-search-centered",
-    name: "Hero — Utility Search",
+    name: "Hero - The Help Hub",
     category: "hero",
     designStyle: "modern",
-    description: "Action-oriented hero with centered search for directory or documentation sites",
+    description: "Functional search hero with high-depth shadows and clean category navigation.",
     element: {
       type: "container", content: "",
-      styles: { padding: "140px 48px", backgroundColor: "#F8FAFC", display: "flex", flexDirection: "column", alignItems: "center", gap: "40px", textAlign: "center" },
-      children: [
-        { id: "", order: 0, type: "heading", content: "How can we help you today?", props: { level: 1 }, styles: { fontSize: "48px", fontWeight: "800", color: "#1E293B", lineHeight: "1.2", margin: "0", letterSpacing: "-0.02em" } },
-        {
-          id: "", order: 1, type: "form", content: "", props: { _childLayout: "row", _childAlign: "center", _childGap: "sm", bgType: "white", successMessage: "Thanks! We'll be in touch." },
-          styles: { backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "16px", padding: "8px 16px", width: "100%", maxWidth: "600px", boxShadow: "0 10px 30px rgba(0,0,0,0.03)" },
-          children: [
-            { id: "", order: 0, type: "input", content: "", props: { label: "", placeholder: "Search for components, themes, or guides...", inputType: "text", required: true }, styles: { flex: "1" } },
-            { id: "", order: 1, type: "button", content: "Search", props: { buttonType: "submit" }, styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "8px 20px", borderRadius: "10px", fontWeight: "600", fontSize: "14px" } },
-          ]
-        },
-        {
-          id: "", order: 2, type: "container", content: "", props: { _childLayout: "row", _childAlign: "center", _childGap: "md" },
-          children: [
-            { id: "", order: 0, type: "paragraph", content: "Popular:", styles: { fontSize: "13px", color: "#64748B", fontWeight: "600" } },
-            { id: "", order: 1, type: "text-link", content: "Installation", props: { href: "#" }, styles: { fontSize: "13px", color: "#6366F1" } },
-            { id: "", order: 2, type: "text-link", content: "Customization", props: { href: "#" }, styles: { fontSize: "13px", color: "#6366F1" } },
-            { id: "", order: 3, type: "text-link", content: "Components", props: { href: "#" }, styles: { fontSize: "13px", color: "#6366F1" } },
-          ]
-        }
-      ],
+      styles: { padding: "160px 48px", backgroundColor: "#F8FAFC", display: "flex", justifyContent: "center", minHeight: "800px", alignItems: "center" },
+      children: [{
+        id: "", order: 0, type: "container", props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "1200px", width: "100%", textAlign: "center" },
+        children: [
+          { id: "", order: 0, type: "heading", content: "How can we assist you?", props: { level: 1 }, styles: { fontSize: "64px", fontWeight: "900", color: "#0F172A", lineHeight: "1.1", margin: "0", letterSpacing: "-0.02em" } },
+          { id: "", order: 1, type: "paragraph", content: "Search our documentation, community guides, and technical support articles.", styles: { fontSize: "20px", color: "#64748B", margin: "16px 0 48px 0" } },
+          {
+            id: "", order: 2, type: "container", styles: { backgroundColor: "#FFFFFF", padding: "12px", borderRadius: "24px", boxShadow: "0 40px 100px rgba(0,0,0,0.06)", border: "1px solid #E2E8F0", width: "100%", maxWidth: "700px", margin: "0 auto", display: "flex", alignItems: "center", gap: "16px" },
+            children: [
+              { id: "", order: 0, type: "input", content: "", props: { placeholder: "Describe your issue or ask a question...", label: "" }, styles: { flex: "1", border: "none", fontSize: "18px", paddingLeft: "16px" } },
+              { id: "", order: 1, type: "button", content: "Search", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "16px 32px", borderRadius: "16px", fontWeight: "700", fontSize: "16px" } }
+            ]
+          },
+          { id: "", order: 3, type: "container", props: { _childLayout: "row", _childAlign: "center", _childGap: "lg" }, styles: { marginTop: "32px", justifyContent: "center" }, children: [
+            { id: "", order: 0, type: "paragraph", content: "Common topics:", styles: { fontSize: "14px", color: "#94A3B8", fontWeight: "600" } },
+            { id: "", order: 1, type: "badge", content: "Billing", styles: { backgroundColor: "#EEF2FF", color: "#6366F1", padding: "6px 12px", borderRadius: "8px", fontSize: "13px", fontWeight: "700" } },
+            { id: "", order: 2, type: "badge", content: "API Keys", styles: { backgroundColor: "#EEF2FF", color: "#6366F1", padding: "6px 12px", borderRadius: "8px", fontSize: "13px", fontWeight: "700" } },
+            { id: "", order: 3, type: "badge", content: "Integrations", styles: { backgroundColor: "#EEF2FF", color: "#6366F1", padding: "6px 12px", borderRadius: "8px", fontSize: "13px", fontWeight: "700" } }
+          ]}
+        ]
+      }]
     },
   },
 
   {
     id: "sb-hero-feature-stack",
-    name: "Hero — Modern Stack",
+    name: "Hero - The High-Impact Stack",
     category: "hero",
     designStyle: "bold",
-    description: "Vertical stacked hero with oversized badges and high-impact CTAs",
+    description: "Aggressive dark-themed hero with outlined headers and massive impact.",
     element: {
       type: "container", content: "",
-      styles: { padding: "120px 48px", backgroundColor: "#000000", backgroundImage: "linear-gradient(to bottom, #000000, #0F172A)", display: "flex", flexDirection: "column", alignItems: "center", gap: "32px", textAlign: "center" },
-      children: [
-        { id: "", order: 0, type: "badge", content: "VERSION 4.0 IS HERE", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "6px 16px", borderRadius: "99px", fontSize: "12px", fontWeight: "800", letterSpacing: "0.05em" } },
-        { id: "", order: 1, type: "heading", content: "Build the future of the web.", props: { level: 1 }, styles: { fontSize: "84px", fontWeight: "900", color: "#FFFFFF", lineHeight: "1.1", margin: "0", letterSpacing: "-0.04em" } },
-        { id: "", order: 2, type: "paragraph", content: "The most advanced website builder is now 10x faster and infinitely more customizable. Get started today and see the difference.", styles: { fontSize: "20px", color: "#94A3B8", maxWidth: "600px", margin: "0 auto", lineHeight: "1.6" } },
-        {
-          id: "", order: 4, type: "container", content: "", props: { _childLayout: "row", _childJustify: "center", _childAlign: "center", _childGap: "xl" }, styles: { marginTop: "24px", justifyContent: "center", width: "100%" }, children: [
-            { id: "", order: 0, type: "button", content: "Start Building Free", styles: { backgroundColor: "#FFFFFF", color: "#000000", padding: "18px 40px", borderRadius: "12px", fontWeight: "700", fontSize: "16px", cursor: "pointer", boxShadow: "0 10px 25px rgba(255,255,255,0.2)" } },
-            { id: "", order: 1, type: "button", content: "Watch Demo", styles: { backgroundColor: "transparent", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.3)", padding: "18px 40px", borderRadius: "12px", fontWeight: "600", fontSize: "16px", cursor: "pointer" } },
-          ]
-        }
-      ],
+      styles: { padding: "180px 48px", backgroundColor: "#020617", display: "flex", justifyContent: "center", minHeight: "900px", alignItems: "center", textAlign: "center" },
+      children: [{
+        id: "", order: 0, type: "container", props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "1200px", width: "100%" },
+        children: [
+          { id: "", order: 0, type: "badge", content: "VERSION 5.0 LIVE", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "8px 20px", borderRadius: "100px", fontSize: "13px", fontWeight: "900", letterSpacing: "0.1em" } },
+          { id: "", order: 1, type: "heading", content: "THE FUTURE.\nUNFILTERED.", props: { level: 1 }, styles: { fontSize: "120px", fontWeight: "900", color: "#FFFFFF", lineHeight: "0.85", margin: "0", letterSpacing: "-0.06em" } },
+          { id: "", order: 2, type: "heading", content: "AVAILABLE NOW FOR ALL USERS", styles: { fontSize: "40px", fontWeight: "200", color: "transparent", WebkitTextStroke: "1px rgba(255,255,255,0.2)", letterSpacing: "0.4em" } },
+          { id: "", order: 3, type: "paragraph", content: "The wait is over. Experience the most powerful engine ever built for the digital frontier. No limits. No compromises.", styles: { fontSize: "24px", color: "#64748B", maxWidth: "700px", margin: "40px auto", lineHeight: "1.6" } },
+          { id: "", order: 4, type: "button", content: "Join the Protocol", styles: { backgroundColor: "#FFFFFF", color: "#000000", padding: "24px 64px", borderRadius: "0px", fontWeight: "900", fontSize: "20px", cursor: "pointer", boxShadow: "0 20px 40px rgba(255,255,255,0.1)" } }
+        ]
+      }]
     },
   },
 
   {
     id: "sb-hero-mobile-showcase",
-    name: "Hero — App Showcase",
+    name: "Hero - The App Blueprint",
     category: "hero",
     designStyle: "modern",
-    description: "Split layout optimized for mobile app screenshots and technical product features",
+    description: "App-focused split layout with high-fidelity mobile mockup and feature callouts.",
     element: {
       type: "container", content: "",
-      styles: { padding: "120px 64px", backgroundColor: "#FFFFFF", display: "flex", justifyContent: "center" },
+      styles: { padding: "140px 64px", backgroundColor: "#FFFFFF", display: "flex", justifyContent: "center", minHeight: "900px", alignItems: "center" },
       children: [{
-        id: "", order: 0, type: "container", content: "",
-        props: { _childLayout: "row", _childAlign: "center", _childGap: "xl" },
-        styles: { maxWidth: "1280px", width: "100%", flexWrap: "wrap" },
+        id: "", order: 0, type: "container", props: { _childLayout: "row", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "1400px", width: "100%", flexWrap: "wrap" },
         children: [
           {
-            id: "", order: 0, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "32px", minWidth: "400px" },
+            id: "", order: 0, type: "container", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "40px", minWidth: "450px" },
             children: [
-              { id: "", order: 0, type: "badge", content: "✦ AVAILABLE ON APP STORE", styles: { color: "#6366F1", fontSize: "11px", fontWeight: "800", letterSpacing: "0.1em" } },
-              { id: "", order: 1, type: "heading", content: "Your finances,\nin your pocket.", props: { level: 1 }, styles: { fontSize: "80px", fontWeight: "800", color: "transparent", backgroundImage: "linear-gradient(135deg, #0F172A, #6366F1)", WebkitBackgroundClip: "text", backgroundClip: "text", lineHeight: "1.1", margin: "0", letterSpacing: "-0.02em" } },
-              { id: "", order: 2, type: "paragraph", content: "Manage everything from spending to savings in one clean, powerful interface. Trusted by over 2 million users worldwide.", styles: { fontSize: "18px", color: "#64748B", lineHeight: "1.6" } },
-              { id: "", order: 3, type: "button", content: "Download for iOS", styles: { backgroundColor: "#000000", color: "#FFFFFF", padding: "16px 36px", borderRadius: "12px", fontWeight: "700", fontSize: "16px" } },
+              { id: "", order: 0, type: "badge", content: "✦ APP OF THE YEAR 2025", styles: { color: "#6366F1", fontSize: "12px", fontWeight: "900", letterSpacing: "0.2em" } },
+              { id: "", order: 1, type: "heading", content: "Finance in your\ncommand.", props: { level: 1 }, styles: { fontSize: "96px", fontWeight: "900", color: "#0F172A", lineHeight: "1.0", margin: "0", letterSpacing: "-0.04em" } },
+              { id: "", order: 2, type: "paragraph", content: "Master your money with our beautiful, intuitive, and lightning-fast mobile experience. Millions trust us with their financial future.", styles: { fontSize: "20px", color: "#64748B", lineHeight: "1.7", maxWidth: "520px" } },
+              { id: "", order: 3, type: "container", props: { _childLayout: "row", _childGap: "lg" }, children: [
+                { id: "", order: 0, type: "button", content: "App Store", styles: { backgroundColor: "#000000", color: "#FFFFFF", padding: "18px 40px", borderRadius: "16px", fontWeight: "700", fontSize: "16px", display: "flex", alignItems: "center", gap: "12px" } },
+                { id: "", order: 1, type: "button", content: "Play Store", styles: { backgroundColor: "#FFFFFF", color: "#000000", padding: "18px 40px", border: "1px solid #E2E8F0", borderRadius: "16px", fontWeight: "700", fontSize: "16px" } }
+              ]}
             ]
           },
           {
-            id: "", order: 1, type: "container", content: "", styles: { flex: "0.8", display: "flex", justifyContent: "center", minWidth: "300px" },
+            id: "", order: 1, type: "container", styles: { flex: "0.8", display: "flex", justifyContent: "center", position: "relative", minWidth: "400px" },
             children: [
-              {
-                id: "", order: 0, type: "container", styles: { width: "300px", height: "600px", backgroundColor: "#111827", borderRadius: "48px", border: "8px solid #1F2937", boxShadow: "0 40px 80px rgba(0,0,0,0.15)", overflow: "hidden" },
-                children: [
-                  { id: "", order: 0, type: "image", content: "", props: { src: "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&q=80&w=400" }, styles: { width: "100%", height: "100%", objectFit: "cover" } }
-                ]
-              }
+              { id: "", order: 0, type: "container", styles: { width: "320px", height: "660px", backgroundColor: "#0F172A", borderRadius: "56px", border: "12px solid #1E293B", boxShadow: "0 60px 120px rgba(0,0,0,0.15)", overflow: "hidden", backgroundImage: "url('https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&q=80&w=600')", backgroundSize: "cover" } },
+              { id: "", order: 1, type: "container", styles: { position: "absolute", bottom: "100px", left: "-60px", backgroundColor: "#FFFFFF", padding: "24px", borderRadius: "24px", boxShadow: "0 20px 40px rgba(0,0,0,0.1)", border: "1px solid #F1F5F9" }, children: [
+                { id: "", order: 0, type: "heading", content: "98%", styles: { fontSize: "24px", fontWeight: "900", color: "#6366F1", marginBottom: "4px" } },
+                { id: "", order: 1, type: "paragraph", content: "Savings Growth Rate", styles: { fontSize: "13px", color: "#64748B", fontWeight: "700" } }
+              ]}
             ]
           }
         ]
-      }],
+      }]
     },
   },
 
   {
     id: "sb-hero-abstract-ambient",
-    name: "Hero — Abstract Ambient",
+    name: "Hero - The Ethereal Mesh",
     category: "hero",
     designStyle: "creative",
-    description: "Immersive artistic hero with large floating typography over a soft gradient mesh",
+    description: "Immersive artistic hero with ultra-thin typography over a soft, flowing gradient mesh.",
     element: {
       type: "container", content: "",
-      styles: {
-        padding: "200px 48px",
-        backgroundColor: "#0F172A",
-        backgroundImage: "radial-gradient(circle at 60% 30%, rgba(99, 102, 241, 0.2), transparent 40%), radial-gradient(circle at 30% 70%, rgba(217, 70, 239, 0.2), transparent 40%)",
-        minHeight: "800px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        gap: "48px"
-      },
-      children: [
-        { id: "", order: 0, type: "heading", content: "Modern design\nwith a soul.", props: { level: 1 }, styles: { fontSize: "110px", fontWeight: "900", color: "#FFFFFF", lineHeight: "1.0", margin: "0", letterSpacing: "-0.04em", textShadow: "0 10px 40px rgba(0,0,0,0.3)" } },
-        { id: "", order: 1, type: "paragraph", content: "We bridge the gap between human intuition and technical precision to create digital experiences that truly resonate.", styles: { fontSize: "22px", color: "rgba(255,255,255,0.6)", maxWidth: "700px", margin: "0 auto", lineHeight: "1.6" } },
-        { id: "", order: 2, type: "button", content: "Explore the studio", styles: { backgroundColor: "transparent", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.4)", backdropFilter: "blur(10px)", padding: "18px 48px", borderRadius: "100px", fontWeight: "600", fontSize: "18px" } },
-      ],
+      styles: { padding: "200px 48px", backgroundColor: "#0F172A", backgroundImage: "radial-gradient(at 100% 0%, #6366F1 0%, transparent 40%), radial-gradient(at 0% 100%, #EC4899 0%, transparent 40%)", display: "flex", justifyContent: "center", minHeight: "900px", alignItems: "center", textAlign: "center", overflow: "hidden" },
+      children: [{
+        id: "", order: 0, type: "container", props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "1000px", width: "100%" },
+        children: [
+          { id: "", order: 0, type: "heading", content: "Design with a soul.", props: { level: 1 }, styles: { fontSize: "120px", fontWeight: "100", color: "#FFFFFF", lineHeight: "1.0", margin: "0", letterSpacing: "-0.04em", filter: "drop-shadow(0 0 30px rgba(255,255,255,0.2))" } },
+          { id: "", order: 1, type: "paragraph", content: "Bridging the gap between human intuition and digital precision. We create spaces that resonate beyond the screen.", styles: { fontSize: "22px", color: "rgba(255,255,255,0.6)", maxWidth: "600px", margin: "40px auto", lineHeight: "1.7", fontWeight: "300" } },
+          { id: "", order: 2, type: "button", content: "Enter the Studio", styles: { backgroundColor: "rgba(255,255,255,0.05)", color: "#FFFFFF", padding: "20px 56px", border: "1px solid rgba(255,255,255,0.2)", backdropFilter: "blur(40px)", borderRadius: "100px", fontWeight: "600", fontSize: "18px", cursor: "pointer" } }
+        ]
+      }]
     },
   },
 
@@ -1307,7 +1288,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-features-cards",
-    name: "Features — Glass Cards",
+    name: "Features - Glass Cards",
     category: "features",
     designStyle: "modern",
     description: "Premium glassmorphism cards with gradient borders and subtle hover effects",
@@ -1353,7 +1334,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-features-dark-bento",
-    name: "Features — Advanced Bento",
+    name: "Features - Advanced Bento",
     category: "features",
     designStyle: "dark",
     description: "Multi-scale bento grid with dynamic cell sizes and integrated data visualization",
@@ -1407,7 +1388,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-features-alternating",
-    name: "Features — Editorial Z-Pattern",
+    name: "Features - Editorial Z-Pattern",
     category: "features",
     designStyle: "minimal",
     description: "Premium editorial layout with large decorative numbers and high-contrast typography",
@@ -1455,7 +1436,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-features-steps",
-    name: "Features — Cinematic Steps",
+    name: "Features - Cinematic Steps",
     category: "features",
     designStyle: "modern",
     description: "Modern vertical or horizontal step flow with large background indices and connector lines",
@@ -1503,7 +1484,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-features-bold-grid",
-    name: "Features — Neo Brutalist",
+    name: "Features - Neo Brutalist",
     category: "features",
     designStyle: "bold",
     description: "High-contrast geometric grid with sharp shadows and neon accents",
@@ -1543,7 +1524,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-features-checklist",
-    name: "Features — Enterprise Checklist",
+    name: "Features - Enterprise Checklist",
     category: "features",
     designStyle: "minimal",
     description: "Multi-column feature checklist with refined icons and balanced typography",
@@ -1609,7 +1590,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-cta-dark",
-    name: "CTA — Magnetic Pulse",
+    name: "CTA - Magnetic Pulse",
     category: "cta",
     designStyle: "dark",
     description: "Magnetic centered CTA with radial glow and high-impact typography",
@@ -1637,7 +1618,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-cta-gradient",
-    name: "CTA — Glass Gradient",
+    name: "CTA - Glass Gradient",
     category: "cta",
     designStyle: "modern",
     description: "Vivid multi-stop gradient with glassmorphism overlay and floating animation",
@@ -1663,7 +1644,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-cta-split",
-    name: "CTA — Editorial Split",
+    name: "CTA - Editorial Split",
     category: "cta",
     designStyle: "minimal",
     description: "High-contrast editorial split layout with oversized typography and focus form",
@@ -1704,10 +1685,10 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-cta-simple",
-    name: "CTA — Simple Centered",
+    name: "CTA - Simple Centered",
     category: "cta",
     designStyle: "minimal",
-    description: "Minimal centered CTA — just a heading and one button",
+    description: "Minimal centered CTA - just a heading and one button",
     element: {
       type: "container", content: "",
       styles: { padding: "120px 40px", backgroundColor: "#FFFFFF", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "32px" },
@@ -1721,7 +1702,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-cta-newsletter",
-    name: "CTA — Newsletter",
+    name: "CTA - Newsletter",
     category: "cta",
     designStyle: "minimal",
     description: "Clean email newsletter subscription with inline input and button",
@@ -1749,7 +1730,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-cta-bold",
-    name: "CTA — Bold Full-Width",
+    name: "CTA - Bold Full-Width",
     category: "cta",
     designStyle: "bold",
     description: "Maximum impact CTA with giant typography on a vivid background",
@@ -1772,7 +1753,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-testimonials-grid",
-    name: "Testimonials — Modern Bento",
+    name: "Testimonials - Modern Bento",
     category: "testimonials",
     designStyle: "modern",
     description: "Premium bento-style testimonial grid with varied card layouts and floating avatars",
@@ -1847,7 +1828,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-testimonials-large",
-    name: "Testimonials — Ambient Impact",
+    name: "Testimonials - Ambient Impact",
     category: "testimonials",
     designStyle: "minimal",
     description: "High-impact single testimonial with oversized ambient typography and cinematic glow",
@@ -1879,7 +1860,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-testimonials-dark",
-    name: "Testimonials — Dark Wall",
+    name: "Testimonials - Dark Wall",
     category: "testimonials",
     designStyle: "dark",
     description: "Dark background testimonial wall with green accent quotes",
@@ -1898,19 +1879,19 @@ export const SECTION_BLOCKS: SectionBlock[] = [
             {
               id: "", order: 0, type: "container", content: "", styles: { backgroundColor: "#0F172A", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "16px", padding: "32px", flex: "1", minWidth: "280px", display: "flex", flexDirection: "column", gap: "16px" }, children: [
                 { id: "", order: 0, type: "paragraph", content: "\"Absolute game-changer for our deployment pipeline. Went from hours to minutes.\"", styles: { fontSize: "15px", color: "#CBD5E1", margin: "0", lineHeight: "1.7", fontStyle: "italic" } },
-                { id: "", order: 1, type: "paragraph", content: "— Jordan Lee, DevOps at Netflix", styles: { fontSize: "13px", color: "#4ADE80", margin: "0", fontWeight: "600" } },
+                { id: "", order: 1, type: "paragraph", content: "- Jordan Lee, DevOps at Netflix", styles: { fontSize: "13px", color: "#4ADE80", margin: "0", fontWeight: "600" } },
               ]
             },
             {
               id: "", order: 1, type: "container", content: "", styles: { backgroundColor: "#0F172A", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "16px", padding: "32px", flex: "1", minWidth: "280px", display: "flex", flexDirection: "column", gap: "16px" }, children: [
                 { id: "", order: 0, type: "paragraph", content: "\"The DX is unmatched. Our engineers are finally excited to deploy on Fridays.\"", styles: { fontSize: "15px", color: "#CBD5E1", margin: "0", lineHeight: "1.7", fontStyle: "italic" } },
-                { id: "", order: 1, type: "paragraph", content: "— Priya Mehta, Principal Eng at Shopify", styles: { fontSize: "13px", color: "#4ADE80", margin: "0", fontWeight: "600" } },
+                { id: "", order: 1, type: "paragraph", content: "- Priya Mehta, Principal Eng at Shopify", styles: { fontSize: "13px", color: "#4ADE80", margin: "0", fontWeight: "600" } },
               ]
             },
             {
               id: "", order: 2, type: "container", content: "", styles: { backgroundColor: "#0F172A", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "16px", padding: "32px", flex: "1", minWidth: "280px", display: "flex", flexDirection: "column", gap: "16px" }, children: [
                 { id: "", order: 0, type: "paragraph", content: "\"Scaled from 10k to 10M users without changing a single line of infrastructure config.\"", styles: { fontSize: "15px", color: "#CBD5E1", margin: "0", lineHeight: "1.7", fontStyle: "italic" } },
-                { id: "", order: 1, type: "paragraph", content: "— Sam Torres, CTO at Finzo", styles: { fontSize: "13px", color: "#4ADE80", margin: "0", fontWeight: "600" } },
+                { id: "", order: 1, type: "paragraph", content: "- Sam Torres, CTO at Finzo", styles: { fontSize: "13px", color: "#4ADE80", margin: "0", fontWeight: "600" } },
               ]
             },
           ]
@@ -1923,7 +1904,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-pricing-table",
-    name: "Pricing — Tiered Glass",
+    name: "Pricing - Tiered Glass",
     category: "pricing",
     designStyle: "modern",
     description: "Premium tiered pricing with glassmorphism effects and high-impact featured tier",
@@ -2008,7 +1989,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-pricing-minimal",
-    name: "Pricing — Geometric Bold",
+    name: "Pricing - Geometric Bold",
     category: "pricing",
     designStyle: "minimal",
     description: "High-contrast geometric pricing with bold lines and oversized typography",
@@ -2067,7 +2048,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-stats",
-    name: "Stats — Cinematic Dark",
+    name: "Stats - Cinematic Dark",
     category: "stats",
     designStyle: "dark",
     description: "4 cinematic metrics with flowing border light and high-impact typography",
@@ -2111,7 +2092,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-stats-light",
-    name: "Stats — Minimal Editorial",
+    name: "Stats - Minimal Editorial",
     category: "stats",
     designStyle: "minimal",
     description: "Clean editorial stats with oversized numbers and delicate separators",
@@ -2154,7 +2135,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-stats-bold",
-    name: "Stats — Neon Impact",
+    name: "Stats - Neon Impact",
     category: "stats",
     designStyle: "bold",
     description: "Vivid multi-stop gradient background with floating glass stat cards",
@@ -2195,7 +2176,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-team-grid",
-    name: "Team — Circular Refined",
+    name: "Team - Circular Refined",
     category: "team",
     designStyle: "modern",
     description: "Refined team grid with circular avatars, balanced typography and subtle glass backgrounds",
@@ -2265,7 +2246,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-faq",
-    name: "FAQ — Editorial Split",
+    name: "FAQ - Editorial Split",
     category: "faq",
     designStyle: "minimal",
     description: "Premium editorial FAQ layout with sticky heading and clean accordion style",
@@ -2301,7 +2282,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               {
                 id: "", order: 2, type: "container", content: "", styles: { padding: "40px 0", borderBottom: "1px solid #F1F5F9", display: "flex", flexDirection: "column", gap: "16px" }, children: [
                   { id: "", order: 0, type: "heading", content: "What is your refund policy?", props: { level: 3 }, styles: { fontSize: "20px", fontWeight: "800", color: "#0F172A", margin: "0" } },
-                  { id: "", order: 1, type: "paragraph", content: "We offer a 30-day money-back guarantee on all plans. If you're not satisfied for any reason, contact our support team and we'll issue a full refund — no questions asked.", styles: { fontSize: "16px", color: "#64748B", margin: "0", lineHeight: "1.7" } },
+                  { id: "", order: 1, type: "paragraph", content: "We offer a 30-day money-back guarantee on all plans. If you're not satisfied for any reason, contact our support team and we'll issue a full refund - no questions asked.", styles: { fontSize: "16px", color: "#64748B", margin: "0", lineHeight: "1.7" } },
                 ]
               },
               {
@@ -2319,7 +2300,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-faq-dark",
-    name: "FAQ — Bento Night",
+    name: "FAQ - Bento Night",
     category: "faq",
     designStyle: "dark",
     description: "Highly structured bento-grid FAQ with glassmorphic cards and subtle neon accents",
@@ -2369,7 +2350,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-logos",
-    name: "Logo Cloud — Cinematic Glass",
+    name: "Logo Cloud - Cinematic Glass",
     category: "logo-cloud",
     designStyle: "minimal",
     description: "Cinematic logo cloud with glassmorphic containers and subtle grayscale companies",
@@ -2398,7 +2379,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-logos-dark",
-    name: "Logo Cloud — Dark",
+    name: "Logo Cloud - Dark",
     category: "logo-cloud",
     designStyle: "dark",
     description: "Dark background logo strip with subtle white company names",
@@ -2425,7 +2406,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-contact-split",
-    name: "Contact — Bento Glass",
+    name: "Contact - Bento Glass",
     category: "contact",
     designStyle: "modern",
     description: "Multi-layered contact layout with glassmorphic sidebar and high-impact form",
@@ -2493,7 +2474,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-contact-minimal",
-    name: "Contact — Minimal Centered",
+    name: "Contact - Minimal Centered",
     category: "contact",
     designStyle: "minimal",
     description: "Ultra-minimal centered contact form, single column",
@@ -2526,7 +2507,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-footer-dark",
-    name: "Footer — Enterprise Dark",
+    name: "Footer - Enterprise Dark",
     category: "footer",
     designStyle: "dark",
     description: "Premium enterprise-ready footer with multi-column links and social integration",
@@ -2572,7 +2553,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-footer-minimal",
-    name: "Footer — Minimal",
+    name: "Footer - Minimal",
     category: "footer",
     designStyle: "minimal",
     description: "Single-row footer: brand left, links center, copyright right",
@@ -2601,7 +2582,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-footer-light",
-    name: "Footer — Light 3-Col",
+    name: "Footer - Light 3-Col",
     category: "footer",
     designStyle: "modern",
     description: "Light footer with 3 link columns and a newsletter subscribe",
@@ -2667,7 +2648,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-blog-grid",
-    name: "Blog — Magazine Editorial",
+    name: "Blog - Magazine Editorial",
     category: "blog",
     designStyle: "modern",
     description: "Premium magazine-style blog grid with high-impact visuals and refined metadata",
@@ -2734,7 +2715,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-blog-list",
-    name: "Blog — List",
+    name: "Blog - List",
     category: "blog",
     designStyle: "minimal",
     description: "Minimal list-style blog posts with title, excerpt, date per row",
@@ -2788,7 +2769,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-portfolio-grid",
-    name: "Portfolio — Bento Showcase",
+    name: "Portfolio - Bento Showcase",
     category: "portfolio",
     designStyle: "modern",
     description: "Mixed-size bento grid for project showcasing with glass hover effects and high-impact typography",
@@ -2834,7 +2815,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-portfolio-minimal",
-    name: "Portfolio — Minimal List",
+    name: "Portfolio - Minimal List",
     category: "portfolio",
     designStyle: "minimal",
     description: "Numbered project list with title, description, and year",
@@ -2903,7 +2884,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-auth-minimal",
-    name: "Auth — Sign In",
+    name: "Auth - Sign In",
     category: "auth",
     designStyle: "minimal",
     description: "Centered minimal sign-in card with email and password fields",
@@ -2918,7 +2899,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-services-grid",
-    name: "Services — Icon Grid",
+    name: "Services - Icon Grid",
     category: "services",
     designStyle: "minimal",
     description: "Three-column service cards with icons, titles, and descriptions on a clean white background",
@@ -2988,7 +2969,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-services-dark",
-    name: "Services — Dark Process",
+    name: "Services - Dark Process",
     category: "services",
     designStyle: "dark",
     description: "Numbered process / services layout on a deep dark background with glowing step indicators",
@@ -3052,7 +3033,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-services-split",
-    name: "Services — Editorial Split",
+    name: "Services - Editorial Split",
     category: "services",
     designStyle: "modern",
     description: "Two-column alternating service showcase with vivid accent borders and editorial typography",
@@ -3133,7 +3114,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-cta-banner",
-    name: "CTA — Announcement Banner",
+    name: "CTA - Announcement Banner",
     category: "cta",
     designStyle: "minimal",
     description: "Slim horizontal announcement/promo banner with icon, message, and action button",
@@ -3151,7 +3132,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
             styles: {},
             children: [
               { id: "", order: 0, type: "container", content: "", styles: { backgroundColor: "#6366F1", padding: "4px 10px", borderRadius: "6px", display: "inline-flex" }, children: [{ id: "", order: 0, type: "paragraph", content: "NEW", styles: { fontSize: "11px", fontWeight: "900", color: "#FFFFFF", margin: "0", letterSpacing: "0.1em" } }] },
-              { id: "", order: 1, type: "paragraph", content: "Version 3.0 is live — 40% faster builds, new AI assistant, and 200+ new components.", styles: { fontSize: "14px", color: "rgba(255,255,255,0.8)", margin: "0", fontWeight: "500" } },
+              { id: "", order: 1, type: "paragraph", content: "Version 3.0 is live - 40% faster builds, new AI assistant, and 200+ new components.", styles: { fontSize: "14px", color: "rgba(255,255,255,0.8)", margin: "0", fontWeight: "500" } },
             ]
           },
           {
@@ -3170,7 +3151,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-cta-feature",
-    name: "CTA — Feature Highlight",
+    name: "CTA - Feature Highlight",
     category: "cta",
     designStyle: "corporate",
     description: "Two-column CTA with headline left and feature benefit checklist on the right",
@@ -3215,7 +3196,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-cta-invite",
-    name: "CTA — Social Proof Invite",
+    name: "CTA - Social Proof Invite",
     category: "cta",
     designStyle: "modern",
     description: "Centered invite CTA with avatar stack, social proof count, and email capture",
@@ -3262,10 +3243,10 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-faq-centered",
-    name: "FAQ — Centered Accordion",
+    name: "FAQ - Centered Accordion",
     category: "faq",
     designStyle: "minimal",
-    description: "Clean centered FAQ with expandable accordion items and subtle borders — no side panel",
+    description: "Clean centered FAQ with expandable accordion items and subtle borders - no side panel",
     element: {
       type: "container", content: "",
       styles: { padding: "140px 40px", backgroundColor: "#FFFFFF", display: "flex", flexDirection: "column", alignItems: "center", gap: "64px" },
@@ -3281,7 +3262,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           props: { _childLayout: "column", _childGap: "xs" },
           styles: { maxWidth: "760px", width: "100%" },
           children: [
-            { id: "", order: 0, type: "container", content: "", styles: { padding: "32px 0", borderBottom: "1px solid #F1F5F9", display: "flex", flexDirection: "column", gap: "14px" }, children: [{ id: "", order: 0, type: "heading", content: "Is there a free trial available?", props: { level: 3 }, styles: { fontSize: "18px", fontWeight: "700", color: "#111827", margin: "0" } }, { id: "", order: 1, type: "paragraph", content: "Yes — every plan comes with a 14-day free trial, no credit card needed. You get full access to all features so you can decide if it's right for you.", styles: { fontSize: "16px", color: "#6B7280", margin: "0", lineHeight: "1.7" } }] },
+            { id: "", order: 0, type: "container", content: "", styles: { padding: "32px 0", borderBottom: "1px solid #F1F5F9", display: "flex", flexDirection: "column", gap: "14px" }, children: [{ id: "", order: 0, type: "heading", content: "Is there a free trial available?", props: { level: 3 }, styles: { fontSize: "18px", fontWeight: "700", color: "#111827", margin: "0" } }, { id: "", order: 1, type: "paragraph", content: "Yes - every plan comes with a 14-day free trial, no credit card needed. You get full access to all features so you can decide if it's right for you.", styles: { fontSize: "16px", color: "#6B7280", margin: "0", lineHeight: "1.7" } }] },
             { id: "", order: 1, type: "container", content: "", styles: { padding: "32px 0", borderBottom: "1px solid #F1F5F9", display: "flex", flexDirection: "column", gap: "14px" }, children: [{ id: "", order: 0, type: "heading", content: "Can I change my plan later?", props: { level: 3 }, styles: { fontSize: "18px", fontWeight: "700", color: "#111827", margin: "0" } }, { id: "", order: 1, type: "paragraph", content: "Absolutely. You can upgrade or downgrade at any time from your account settings. Changes take effect at the start of your next billing cycle.", styles: { fontSize: "16px", color: "#6B7280", margin: "0", lineHeight: "1.7" } }] },
             { id: "", order: 2, type: "container", content: "", styles: { padding: "32px 0", borderBottom: "1px solid #F1F5F9", display: "flex", flexDirection: "column", gap: "14px" }, children: [{ id: "", order: 0, type: "heading", content: "What payment methods do you accept?", props: { level: 3 }, styles: { fontSize: "18px", fontWeight: "700", color: "#111827", margin: "0" } }, { id: "", order: 1, type: "paragraph", content: "We accept all major credit cards (Visa, Mastercard, Amex), PayPal, and bank transfers for annual plans over $5,000.", styles: { fontSize: "16px", color: "#6B7280", margin: "0", lineHeight: "1.7" } }] },
             { id: "", order: 3, type: "container", content: "", styles: { padding: "32px 0", borderBottom: "1px solid #F1F5F9", display: "flex", flexDirection: "column", gap: "14px" }, children: [{ id: "", order: 0, type: "heading", content: "Do you offer refunds?", props: { level: 3 }, styles: { fontSize: "18px", fontWeight: "700", color: "#111827", margin: "0" } }, { id: "", order: 1, type: "paragraph", content: "We offer a 30-day money-back guarantee. If you're not satisfied, contact support and we'll issue a full refund, no questions asked.", styles: { fontSize: "16px", color: "#6B7280", margin: "0", lineHeight: "1.7" } }] },
@@ -3294,7 +3275,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-faq-cards",
-    name: "FAQ — Colorful Cards",
+    name: "FAQ - Colorful Cards",
     category: "faq",
     designStyle: "playful",
     description: "Vibrant FAQ with colorful gradient card backgrounds, great for SaaS landing pages",
@@ -3326,7 +3307,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-pricing-dark",
-    name: "Pricing — Dark Three Tier",
+    name: "Pricing - Dark Three Tier",
     category: "pricing",
     designStyle: "dark",
     description: "Three pricing tiers on a rich dark background with an indigo highlighted featured plan",
@@ -3384,10 +3365,10 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-pricing-simple",
-    name: "Pricing — Simple Featured",
+    name: "Pricing - Simple Featured",
     category: "pricing",
     designStyle: "minimal",
-    description: "Single featured pricing card, centered with a full feature checklist — ideal for one-product SaaS",
+    description: "Single featured pricing card, centered with a full feature checklist - ideal for one-product SaaS",
     element: {
       type: "container", content: "",
       styles: { padding: "140px 40px", backgroundColor: "#FFFFFF", display: "flex", flexDirection: "column", alignItems: "center", gap: "40px", textAlign: "center" },
@@ -3429,7 +3410,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-team-dark",
-    name: "Team — Dark Grid",
+    name: "Team - Dark Grid",
     category: "team",
     designStyle: "dark",
     description: "Team member grid on a rich dark background with glowing accent avatars",
@@ -3460,10 +3441,10 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-team-horizontal",
-    name: "Team — Horizontal Cards",
+    name: "Team - Horizontal Cards",
     category: "team",
     designStyle: "corporate",
-    description: "Wide horizontal team member cards with avatar, bio, and social links — premium corporate style",
+    description: "Wide horizontal team member cards with avatar, bio, and social links - premium corporate style",
     element: {
       type: "container", content: "",
       styles: { padding: "140px 40px", backgroundColor: "#FFFFFF", display: "flex", flexDirection: "column", alignItems: "center", gap: "64px" },
@@ -3517,7 +3498,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-footer-gradient",
-    name: "Footer — Gradient Brand",
+    name: "Footer - Gradient Brand",
     category: "footer",
     designStyle: "bold",
     description: "Vibrant gradient footer with a large brand statement, social icons, and bottom bar",
@@ -3581,10 +3562,10 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-footer-corporate",
-    name: "Footer — Corporate 4-Col",
+    name: "Footer - Corporate 4-Col",
     category: "footer",
     designStyle: "corporate",
-    description: "Professional four-column footer with logo, address, and a full link map — ideal for enterprise sites",
+    description: "Professional four-column footer with logo, address, and a full link map - ideal for enterprise sites",
     element: {
       type: "container", content: "",
       styles: { backgroundColor: "#F8FAFC", borderTop: "2px solid #E2E8F0", padding: "80px 48px 40px" },
@@ -3659,7 +3640,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-auth-split",
-    name: "Auth — Split",
+    name: "Auth - Split",
     category: "auth",
     designStyle: "modern",
     description: "Left brand panel with form on the right",
@@ -3799,7 +3780,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
       type: "container", content: "",
       styles: { background: "linear-gradient(90deg, #6366F1, #8B5CF6)", padding: "16px 40px", display: "flex", alignItems: "center", justifyContent: "center", gap: "24px", flexWrap: "wrap" },
       children: [
-        { id: "", order: 0, type: "paragraph", content: "🎉 Summer Sale — Up to 40% off!", styles: { fontSize: "15px", fontWeight: "700", color: "#FFFFFF" } },
+        { id: "", order: 0, type: "paragraph", content: "🎉 Summer Sale - Up to 40% off!", styles: { fontSize: "15px", fontWeight: "700", color: "#FFFFFF" } },
         { id: "", order: 1, type: "paragraph", content: "Use code:", styles: { fontSize: "14px", color: "rgba(255,255,255,0.75)" } },
         { id: "", order: 2, type: "paragraph", content: "SUMMER40", styles: { fontSize: "14px", fontWeight: "800", color: "#FFFFFF", backgroundColor: "rgba(255,255,255,0.2)", padding: "4px 12px", borderRadius: "6px", letterSpacing: "0.05em" } },
         { id: "", order: 3, type: "button", content: "Shop Now →", styles: { backgroundColor: "#FFFFFF", color: "#6366F1", padding: "8px 20px", borderRadius: "8px", fontWeight: "700", fontSize: "13px", cursor: "pointer" } },
@@ -3896,7 +3877,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           id: "", order: 0, type: "container", content: "", styles: { maxWidth: "440px", width: "100%", backgroundColor: "#FFFFFF", borderRadius: "20px", padding: "48px", boxShadow: "0 4px 24px rgba(0,0,0,0.08)", display: "flex", flexDirection: "column", gap: "24px", textAlign: "center" }, children: [
             { id: "", order: 0, type: "paragraph", content: "✉️", styles: { fontSize: "48px" } },
             { id: "", order: 1, type: "heading", content: "Sign in with email", props: { level: 2 }, styles: { fontSize: "24px", fontWeight: "800", color: "#111827" } },
-            { id: "", order: 2, type: "paragraph", content: "We'll send a secure link to your inbox — no password needed.", styles: { fontSize: "15px", color: "#6B7280", lineHeight: "1.6" } },
+            { id: "", order: 2, type: "paragraph", content: "We'll send a secure link to your inbox - no password needed.", styles: { fontSize: "15px", color: "#6B7280", lineHeight: "1.6" } },
             { id: "", order: 3, type: "container", content: "", styles: { border: "1px solid #E5E7EB", borderRadius: "10px", padding: "12px 16px" }, children: [{ id: "", order: 0, type: "paragraph", content: "you@example.com", styles: { fontSize: "14px", color: "#9CA3AF" } }] },
             { id: "", order: 4, type: "button", content: "Send magic link", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "14px", borderRadius: "10px", fontWeight: "700", fontSize: "15px", cursor: "pointer" } },
           ]
@@ -3935,7 +3916,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
     name: "Forgot Password",
     category: "auth",
     designStyle: "minimal",
-    description: "Full-page forgot password form — sends a reset link to the user's email",
+    description: "Full-page forgot password form - sends a reset link to the user's email",
     element: {
       type: "container", content: "",
       styles: { backgroundColor: "#F9FAFB", padding: "80px 40px", display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" },
@@ -3947,7 +3928,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "auth-forgot-dark",
-    name: "Forgot Password — Dark",
+    name: "Forgot Password - Dark",
     category: "auth",
     designStyle: "dark",
     description: "Dark-themed forgot password page",
@@ -3965,7 +3946,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
     name: "Reset Password",
     category: "auth",
     designStyle: "minimal",
-    description: "New password form — shown after user clicks reset link in email",
+    description: "New password form - shown after user clicks reset link in email",
     element: {
       type: "container", content: "",
       styles: { backgroundColor: "#F9FAFB", padding: "80px 40px", display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" },
@@ -4019,7 +4000,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
     name: "Account Settings",
     category: "auth",
     designStyle: "modern",
-    description: "Profile settings section — name, email, avatar, and change password",
+    description: "Profile settings section - name, email, avatar, and change password",
     element: {
       type: "container", content: "",
       styles: { backgroundColor: "#FFFFFF", padding: "80px 40px" },
@@ -4085,7 +4066,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
     name: "Two-Factor Auth",
     category: "auth",
     designStyle: "modern",
-    description: "OTP / 2FA code entry step — 6-digit input with resend timer",
+    description: "OTP / 2FA code entry step - 6-digit input with resend timer",
     element: {
       type: "container", content: "",
       styles: { backgroundColor: "#F9FAFB", padding: "80px 40px", display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" },
@@ -4099,12 +4080,12 @@ export const SECTION_BLOCKS: SectionBlock[] = [
             { id: "", order: 1, type: "paragraph", content: "Enter the 6-digit code from your authenticator app or sent to your email.", styles: { fontSize: "14px", color: "#6B7280", lineHeight: "1.6" } },
           ]},
           { id: "", order: 2, type: "container", content: "", styles: { display: "flex", gap: "10px", justifyContent: "center" }, children: [
-            { id: "", order: 0, type: "container" as const, content: "", styles: { width: "52px", height: "60px", borderRadius: "12px", border: "2px solid #E5E7EB", backgroundColor: "#F9FAFB", display: "flex", alignItems: "center", justifyContent: "center" }, children: [{ id: "", order: 0, type: "paragraph" as const, content: "—", styles: { fontSize: "20px", fontWeight: "700", color: "#9CA3AF", margin: "0" } }] },
-            { id: "", order: 1, type: "container" as const, content: "", styles: { width: "52px", height: "60px", borderRadius: "12px", border: "2px solid #E5E7EB", backgroundColor: "#F9FAFB", display: "flex", alignItems: "center", justifyContent: "center" }, children: [{ id: "", order: 0, type: "paragraph" as const, content: "—", styles: { fontSize: "20px", fontWeight: "700", color: "#9CA3AF", margin: "0" } }] },
-            { id: "", order: 2, type: "container" as const, content: "", styles: { width: "52px", height: "60px", borderRadius: "12px", border: "2px solid #E5E7EB", backgroundColor: "#F9FAFB", display: "flex", alignItems: "center", justifyContent: "center" }, children: [{ id: "", order: 0, type: "paragraph" as const, content: "—", styles: { fontSize: "20px", fontWeight: "700", color: "#9CA3AF", margin: "0" } }] },
-            { id: "", order: 3, type: "container" as const, content: "", styles: { width: "52px", height: "60px", borderRadius: "12px", border: "2px solid #6366F1", backgroundColor: "#EEF2FF", display: "flex", alignItems: "center", justifyContent: "center" }, children: [{ id: "", order: 0, type: "paragraph" as const, content: "—", styles: { fontSize: "20px", fontWeight: "700", color: "#6366F1", margin: "0" } }] },
-            { id: "", order: 4, type: "container" as const, content: "", styles: { width: "52px", height: "60px", borderRadius: "12px", border: "2px solid #E5E7EB", backgroundColor: "#F9FAFB", display: "flex", alignItems: "center", justifyContent: "center" }, children: [{ id: "", order: 0, type: "paragraph" as const, content: "—", styles: { fontSize: "20px", fontWeight: "700", color: "#9CA3AF", margin: "0" } }] },
-            { id: "", order: 5, type: "container" as const, content: "", styles: { width: "52px", height: "60px", borderRadius: "12px", border: "2px solid #E5E7EB", backgroundColor: "#F9FAFB", display: "flex", alignItems: "center", justifyContent: "center" }, children: [{ id: "", order: 0, type: "paragraph" as const, content: "—", styles: { fontSize: "20px", fontWeight: "700", color: "#9CA3AF", margin: "0" } }] },
+            { id: "", order: 0, type: "container" as const, content: "", styles: { width: "52px", height: "60px", borderRadius: "12px", border: "2px solid #E5E7EB", backgroundColor: "#F9FAFB", display: "flex", alignItems: "center", justifyContent: "center" }, children: [{ id: "", order: 0, type: "paragraph" as const, content: "-", styles: { fontSize: "20px", fontWeight: "700", color: "#9CA3AF", margin: "0" } }] },
+            { id: "", order: 1, type: "container" as const, content: "", styles: { width: "52px", height: "60px", borderRadius: "12px", border: "2px solid #E5E7EB", backgroundColor: "#F9FAFB", display: "flex", alignItems: "center", justifyContent: "center" }, children: [{ id: "", order: 0, type: "paragraph" as const, content: "-", styles: { fontSize: "20px", fontWeight: "700", color: "#9CA3AF", margin: "0" } }] },
+            { id: "", order: 2, type: "container" as const, content: "", styles: { width: "52px", height: "60px", borderRadius: "12px", border: "2px solid #E5E7EB", backgroundColor: "#F9FAFB", display: "flex", alignItems: "center", justifyContent: "center" }, children: [{ id: "", order: 0, type: "paragraph" as const, content: "-", styles: { fontSize: "20px", fontWeight: "700", color: "#9CA3AF", margin: "0" } }] },
+            { id: "", order: 3, type: "container" as const, content: "", styles: { width: "52px", height: "60px", borderRadius: "12px", border: "2px solid #6366F1", backgroundColor: "#EEF2FF", display: "flex", alignItems: "center", justifyContent: "center" }, children: [{ id: "", order: 0, type: "paragraph" as const, content: "-", styles: { fontSize: "20px", fontWeight: "700", color: "#6366F1", margin: "0" } }] },
+            { id: "", order: 4, type: "container" as const, content: "", styles: { width: "52px", height: "60px", borderRadius: "12px", border: "2px solid #E5E7EB", backgroundColor: "#F9FAFB", display: "flex", alignItems: "center", justifyContent: "center" }, children: [{ id: "", order: 0, type: "paragraph" as const, content: "-", styles: { fontSize: "20px", fontWeight: "700", color: "#9CA3AF", margin: "0" } }] },
+            { id: "", order: 5, type: "container" as const, content: "", styles: { width: "52px", height: "60px", borderRadius: "12px", border: "2px solid #E5E7EB", backgroundColor: "#F9FAFB", display: "flex", alignItems: "center", justifyContent: "center" }, children: [{ id: "", order: 0, type: "paragraph" as const, content: "-", styles: { fontSize: "20px", fontWeight: "700", color: "#9CA3AF", margin: "0" } }] },
           ]},
           { id: "", order: 3, type: "button", content: "Verify code", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "14px", borderRadius: "12px", fontWeight: "700", fontSize: "15px", cursor: "pointer", border: "none" } },
           { id: "", order: 4, type: "paragraph", content: "Didn't receive a code? Resend in 59s", styles: { fontSize: "13px", color: "#9CA3AF" } },
@@ -4115,7 +4096,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "auth-signin-dark",
-    name: "Sign In — Dark",
+    name: "Sign In - Dark",
     category: "auth",
     designStyle: "dark",
     description: "Dark themed sign-in page with gradient background",
@@ -4130,7 +4111,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "auth-signup-dark",
-    name: "Sign Up — Dark",
+    name: "Sign Up - Dark",
     category: "auth",
     designStyle: "dark",
     description: "Dark themed sign-up page",
@@ -4145,7 +4126,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "auth-signin-glass",
-    name: "Sign In — Glass",
+    name: "Sign In - Glass",
     category: "auth",
     designStyle: "glass",
     description: "Glassmorphism sign-in with frosted blur overlay on gradient",
@@ -4160,7 +4141,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "auth-signup-glass",
-    name: "Sign Up — Glass",
+    name: "Sign Up - Glass",
     category: "auth",
     designStyle: "glass",
     description: "Glassmorphism sign-up on purple gradient",
@@ -4175,7 +4156,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "auth-signin-elevated",
-    name: "Sign In — Elevated",
+    name: "Sign In - Elevated",
     category: "auth",
     designStyle: "modern",
     description: "Card with deep shadow and clean white layout",
@@ -4190,7 +4171,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "auth-signup-split-branding",
-    name: "Sign Up — Brand Split",
+    name: "Sign Up - Brand Split",
     category: "auth",
     designStyle: "modern",
     description: "Left branded panel with logo, tagline, features list + right form",
@@ -4542,8 +4523,8 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               styles: { display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", padding: "14px 24px", borderBottom: "1px solid #F3F4F6", alignItems: "center" },
               children: [
                 { id: "", order: 0, type: "paragraph" as const, content: feature, styles: { fontSize: "14px", color: "#374151" } },
-                { id: "", order: 1, type: "paragraph" as const, content: i < 2 ? "✓" : "—", styles: { fontSize: "16px", color: i < 2 ? "#10B981" : "#D1D5DB", textAlign: "center" as const } },
-                { id: "", order: 2, type: "paragraph" as const, content: i < 4 ? "✓" : "—", styles: { fontSize: "16px", color: i < 4 ? "#6366F1" : "#D1D5DB", textAlign: "center" as const, fontWeight: "700" } },
+                { id: "", order: 1, type: "paragraph" as const, content: i < 2 ? "✓" : "-", styles: { fontSize: "16px", color: i < 2 ? "#10B981" : "#D1D5DB", textAlign: "center" as const } },
+                { id: "", order: 2, type: "paragraph" as const, content: i < 4 ? "✓" : "-", styles: { fontSize: "16px", color: i < 4 ? "#6366F1" : "#D1D5DB", textAlign: "center" as const, fontWeight: "700" } },
                 { id: "", order: 3, type: "paragraph" as const, content: "✓", styles: { fontSize: "16px", color: "#10B981", textAlign: "center" as const } },
               ],
             }))),
@@ -4605,7 +4586,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           id: "", order: 1, type: "container", content: "", styles: { display: "flex", flexDirection: "column", gap: "40px", maxWidth: "700px" }, children: [
             ...([
               { date: "Mar 28, 2026", tag: "Feature", tagColor: "#6366F1", tagBg: "#EEF2FF", title: "Introducing AI-powered section generation", desc: "Generate entire page sections from a single prompt. Try it in the editor today." },
-              { date: "Mar 15, 2026", tag: "Improvement", tagColor: "#059669", tagBg: "#ECFDF5", title: "Canvas performance — 3x faster rendering", desc: "We rewrote the canvas renderer to handle 1000+ elements without any lag." },
+              { date: "Mar 15, 2026", tag: "Improvement", tagColor: "#059669", tagBg: "#ECFDF5", title: "Canvas performance - 3x faster rendering", desc: "We rewrote the canvas renderer to handle 1000+ elements without any lag." },
               { date: "Mar 1, 2026", tag: "Fix", tagColor: "#DC2626", tagBg: "#FEF2F2", title: "Fixed mobile preview overflow issues", desc: "Sections with fixed widths now correctly constrain to viewport width on mobile." },
             ].map((entry, i) => ({
               id: "", order: i, type: "container" as const, content: "",
@@ -4948,7 +4929,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "func-auth-signin-minimal",
-    name: "Sign In — Minimal (Live)",
+    name: "Sign In - Minimal (Live)",
     category: "auth",
     designStyle: "minimal",
     description: "Functional email + password sign-in card. Connect your auth provider in the Auth panel.",
@@ -4969,7 +4950,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "func-auth-signup-minimal",
-    name: "Sign Up — Minimal (Live)",
+    name: "Sign Up - Minimal (Live)",
     category: "auth",
     designStyle: "minimal",
     description: "Functional email + password sign-up card. Connect your auth provider in the Auth panel.",
@@ -4980,7 +4961,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
         variant: "minimal",
         accentColor: "#6366F1",
         heading: "Create your account",
-        subheading: "Free forever — no card required",
+        subheading: "Free forever - no card required",
         buttonText: "Create account",
         showSocialLogin: true,
       },
@@ -4990,7 +4971,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "func-auth-signin-split",
-    name: "Sign In — Split Panel (Live)",
+    name: "Sign In - Split Panel (Live)",
     category: "auth",
     designStyle: "modern",
     description: "Functional split-panel sign-in: brand on the left, form on the right.",
@@ -5011,7 +4992,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "func-auth-signup-split",
-    name: "Sign Up — Split Panel (Live)",
+    name: "Sign Up - Split Panel (Live)",
     category: "auth",
     designStyle: "modern",
     description: "Functional split-panel sign-up: brand on the left, form on the right.",
@@ -5032,7 +5013,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "func-auth-signin-dark",
-    name: "Sign In — Dark (Live)",
+    name: "Sign In - Dark (Live)",
     category: "auth",
     designStyle: "dark",
     description: "Functional dark-mode sign-in card.",
@@ -5053,7 +5034,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "func-auth-signup-dark",
-    name: "Sign Up — Dark (Live)",
+    name: "Sign Up - Dark (Live)",
     category: "auth",
     designStyle: "dark",
     description: "Functional dark-mode sign-up card.",
@@ -5074,7 +5055,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "func-auth-signin-glass",
-    name: "Sign In — Glass (Live)",
+    name: "Sign In - Glass (Live)",
     category: "auth",
     designStyle: "glass",
     description: "Functional glassmorphism sign-in card.",
@@ -5095,7 +5076,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "func-auth-signup-glass",
-    name: "Sign Up — Glass (Live)",
+    name: "Sign Up - Glass (Live)",
     category: "auth",
     designStyle: "glass",
     description: "Functional glassmorphism sign-up card on a rich gradient background.",
@@ -5116,7 +5097,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "func-auth-signin-elevated",
-    name: "Sign In — Elevated (Live)",
+    name: "Sign In - Elevated (Live)",
     category: "auth",
     designStyle: "minimal",
     description: "Functional sign-in card with a dramatic floating shadow on a soft background.",
@@ -5137,7 +5118,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "func-auth-signup-elevated",
-    name: "Sign Up — Elevated (Live)",
+    name: "Sign Up - Elevated (Live)",
     category: "auth",
     designStyle: "minimal",
     description: "Functional sign-up card with a dramatic floating shadow on a soft background.",
@@ -5148,7 +5129,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
         variant: "elevated",
         accentColor: "#6366F1",
         heading: "Create your account",
-        subheading: "Join thousands of users — it's free",
+        subheading: "Join thousands of users - it's free",
         buttonText: "Create account",
         showSocialLogin: true,
       },
@@ -5158,7 +5139,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "func-auth-signin-aurora",
-    name: "Sign In — Aurora (Live)",
+    name: "Sign In - Aurora (Live)",
     category: "auth",
     designStyle: "modern",
     description: "Functional sign-in card on a vivid aurora gradient background with glass effect.",
@@ -5179,7 +5160,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "func-auth-signup-aurora",
-    name: "Sign Up — Aurora (Live)",
+    name: "Sign Up - Aurora (Live)",
     category: "auth",
     designStyle: "modern",
     description: "Functional sign-up card on a vivid aurora gradient background with glass effect.",
@@ -5190,7 +5171,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
         variant: "aurora",
         accentColor: "#7C3AED",
         heading: "Create your account",
-        subheading: "Join thousands of users — it's free",
+        subheading: "Join thousands of users - it's free",
         buttonText: "Get started",
         showSocialLogin: true,
       },
@@ -5204,7 +5185,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-blog-cards",
-    name: "Blog — Card Grid",
+    name: "Blog - Card Grid",
     category: "blog",
     designStyle: "modern",
     description: "3-column card grid for blog posts. Shows image, title, excerpt, and date.",
@@ -5230,7 +5211,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-blog-featured",
-    name: "Blog — Featured Hero",
+    name: "Blog - Featured Hero",
     category: "blog",
     designStyle: "modern",
     description: "Large featured post hero with supporting articles in a 3-col grid below.",
@@ -5256,7 +5237,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-blog-magazine",
-    name: "Blog — Magazine Layout",
+    name: "Blog - Magazine Layout",
     category: "blog",
     designStyle: "modern",
     description: "Editorial magazine layout: large featured story left, smaller stories stacked on right.",
@@ -5281,7 +5262,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-blog-minimal",
-    name: "Blog — Minimal List",
+    name: "Blog - Minimal List",
     category: "blog",
     designStyle: "minimal",
     description: "Numbered text-only post list. Clean, fast, great for newsletters or journals.",
@@ -5304,7 +5285,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-blog-masonry",
-    name: "Blog — Masonry Grid",
+    name: "Blog - Masonry Grid",
     category: "blog",
     designStyle: "creative",
     description: "Variable-height masonry card grid. Perfect for photo-heavy blogs or portfolios.",
@@ -5328,7 +5309,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-team-grid",
-    name: "Team — Member Cards",
+    name: "Team - Member Cards",
     category: "team",
     designStyle: "modern",
     description: "2-column team member cards. Shows avatar, name, role, and bio.",
@@ -5353,7 +5334,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-team-list",
-    name: "Team — List View",
+    name: "Team - List View",
     category: "team",
     designStyle: "minimal",
     description: "Horizontal row layout for team members with photo and bio side by side.",
@@ -5376,7 +5357,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-products-grid",
-    name: "Products — Card Grid",
+    name: "Products - Card Grid",
     category: "ecommerce",
     designStyle: "modern",
     description: "4-column product showcase with image, name, price, and category badge.",
@@ -5402,7 +5383,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-products-featured",
-    name: "Products — Featured Showcase",
+    name: "Products - Featured Showcase",
     category: "ecommerce",
     designStyle: "bold",
     description: "Hero product spotlight with supporting items in a 3-col grid.",
@@ -5428,7 +5409,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-testimonials-cards",
-    name: "Testimonials — Card Grid",
+    name: "Testimonials - Card Grid",
     category: "testimonials",
     designStyle: "modern",
     description: "3-column testimonial cards with star ratings and author details.",
@@ -5453,7 +5434,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-testimonials-list",
-    name: "Testimonials — Minimal List",
+    name: "Testimonials - Minimal List",
     category: "testimonials",
     designStyle: "minimal",
     description: "Clean text testimonials in a list format. Simple and focused.",
@@ -5476,7 +5457,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-portfolio-masonry",
-    name: "Portfolio — Masonry Gallery",
+    name: "Portfolio - Masonry Gallery",
     category: "portfolio",
     designStyle: "creative",
     description: "Masonry image gallery for portfolio or creative work. Hover reveals details.",
@@ -5500,7 +5481,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-portfolio-grid",
-    name: "Portfolio — Card Grid",
+    name: "Portfolio - Card Grid",
     category: "portfolio",
     designStyle: "modern",
     description: "3-column portfolio grid with category badges and hover effects.",
@@ -5526,7 +5507,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-events-list",
-    name: "Events — Date List",
+    name: "Events - Date List",
     category: "content",
     designStyle: "modern",
     description: "Upcoming events list showing date, title, and description with clean rows.",
@@ -5550,7 +5531,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-news-magazine",
-    name: "News — Magazine",
+    name: "News - Magazine",
     category: "blog",
     designStyle: "bold",
     description: "Bold editorial news layout with large featured story and sidebar items.",
@@ -5575,7 +5556,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-case-studies",
-    name: "Case Studies — Feature Cards",
+    name: "Case Studies - Feature Cards",
     category: "saas",
     designStyle: "corporate",
     description: "2-column case study cards with colored accent border, excerpt, and CTA.",
@@ -5601,7 +5582,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-events-cards",
-    name: "Events — Modern Grid",
+    name: "Events - Modern Grid",
     category: "content",
     designStyle: "modern",
     description: "3-column grid of event cards with prominent dates and 'Register' CTA.",
@@ -5627,7 +5608,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-team-creative",
-    name: "Team — Creative Gallery",
+    name: "Team - Creative Gallery",
     category: "team",
     designStyle: "creative",
     description: "Rounded avatars in a 4-column grid with a playful accent color.",
@@ -5652,7 +5633,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-blog-magazine-v2",
-    name: "Blog — Editorial Grid",
+    name: "Blog - Editorial Grid",
     category: "blog",
     designStyle: "corporate",
     description: "Sophisticated editorial layout with a focus on high-quality imagery.",
@@ -5678,7 +5659,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-stats-grid",
-    name: "Stats — Data Grid",
+    name: "Stats - Data Grid",
     category: "stats",
     designStyle: "minimal",
     description: "Simple, high-impact grid for displaying numbers and metrics from CMS.",
@@ -5703,7 +5684,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "cms-faq-list",
-    name: "FAQ — Content List",
+    name: "FAQ - Content List",
     category: "faq",
     designStyle: "minimal",
     description: "Clean text-only list for FAQs or documentation snippets.",
@@ -5727,7 +5708,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-interactive-countdown",
-    name: "Interactive — Launch Countdown",
+    name: "Interactive - Launch Countdown",
     category: "interactive",
     designStyle: "dark",
     description: "Full-width dark countdown section for product launches.",
@@ -5746,7 +5727,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-interactive-progress-skills",
-    name: "Interactive — Skills / Progress",
+    name: "Interactive - Skills / Progress",
     category: "interactive",
     designStyle: "minimal",
     description: "Animated skill bars for showcasing expertise levels.",
@@ -5766,7 +5747,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-interactive-tabs-features",
-    name: "Interactive — Tabbed Features",
+    name: "Interactive - Tabbed Features",
     category: "interactive",
     designStyle: "modern",
     description: "Feature showcase with interactive tab navigation.",
@@ -5791,7 +5772,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-interactive-accordion-faq",
-    name: "Interactive — Accordion FAQ",
+    name: "Interactive - Accordion FAQ",
     category: "interactive",
     designStyle: "minimal",
     description: "Clean expandable FAQ using the accordion component.",
@@ -5808,7 +5789,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-interactive-carousel",
-    name: "Interactive — Content Carousel",
+    name: "Interactive - Content Carousel",
     category: "interactive",
     designStyle: "modern",
     description: "Auto-playing carousel for showcasing portfolio or testimonials.",
@@ -5830,7 +5811,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-interactive-chart",
-    name: "Interactive — Analytics Chart",
+    name: "Interactive - Analytics Chart",
     category: "interactive",
     designStyle: "modern",
     description: "Dashboard-style analytics chart with key metrics.",
@@ -5860,7 +5841,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-content-rich-text",
-    name: "Content — Article Body",
+    name: "Content - Article Body",
     category: "content",
     designStyle: "minimal",
     description: "Clean article body layout with rich-text blocks.",
@@ -5879,10 +5860,10 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-content-feature-list",
-    name: "Content — Feature List",
+    name: "Content - Feature List",
     category: "content",
     designStyle: "modern",
-    description: "Icon-led feature list with descriptions — great for product pages.",
+    description: "Icon-led feature list with descriptions - great for product pages.",
     element: {
       type: "container", content: "",
       styles: { padding: "80px 40px", backgroundColor: "#FAFAFA", display: "flex", flexDirection: "column", alignItems: "center", gap: "48px" },
@@ -5906,7 +5887,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-content-steps-guide",
-    name: "Content — Steps Guide",
+    name: "Content - Steps Guide",
     category: "content",
     designStyle: "minimal",
     description: "Numbered steps walkthrough for onboarding or tutorials.",
@@ -5928,7 +5909,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-content-blockquote",
-    name: "Content — Pull Quote",
+    name: "Content - Pull Quote",
     category: "content",
     designStyle: "bold",
     description: "Large pull-quote section for articles or brand statements.",
@@ -5944,7 +5925,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-content-comparison",
-    name: "Content — Before / After",
+    name: "Content - Before / After",
     category: "content",
     designStyle: "modern",
     description: "Side-by-side before/after comparison for product demos.",
@@ -5962,7 +5943,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-contact-newsletter",
-    name: "Contact — Newsletter Signup",
+    name: "Contact - Newsletter Signup",
     category: "contact",
     designStyle: "modern",
     description: "High-converting newsletter signup with inline email input.",
@@ -5992,7 +5973,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-contact-map",
-    name: "Contact — With Map",
+    name: "Contact - With Map",
     category: "contact",
     designStyle: "minimal",
     description: "Contact info sidebar with an embedded map.",
@@ -6005,7 +5986,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           styles: { flex: "1", padding: "80px 48px", display: "flex", flexDirection: "column", gap: "32px", justifyContent: "center" },
           children: [
             { id: "", order: 0, type: "heading", content: "Find Us", props: { level: 2 }, styles: { fontSize: "40px", fontWeight: "800", color: "#111827", margin: "0" } },
-            { id: "", order: 1, type: "paragraph", content: "Visit our office or drop us a line — we'd love to hear from you.", styles: { color: "#6B7280", fontSize: "16px" } },
+            { id: "", order: 1, type: "paragraph", content: "Visit our office or drop us a line - we'd love to hear from you.", styles: { color: "#6B7280", fontSize: "16px" } },
             {
               id: "", order: 2, type: "container", content: "", styles: { display: "flex", flexDirection: "column", gap: "16px" },
               children: [
@@ -6027,7 +6008,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-contact-card",
-    name: "Contact — Card Grid",
+    name: "Contact - Card Grid",
     category: "contact",
     designStyle: "modern",
     description: "Three-column contact method cards.",
@@ -6071,7 +6052,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-contact-dark",
-    name: "Contact — Dark Full-Width Form",
+    name: "Contact - Dark Full-Width Form",
     category: "contact",
     designStyle: "dark",
     description: "Immersive dark contact form with decorative gradient.",
@@ -6111,7 +6092,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-logos-light",
-    name: "Logo Cloud — Light",
+    name: "Logo Cloud - Light",
     category: "logo-cloud",
     designStyle: "minimal",
     description: "Simple white background logo strip with soft gray company names.",
@@ -6138,7 +6119,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-logos-badges",
-    name: "Logo Cloud — Badge Style",
+    name: "Logo Cloud - Badge Style",
     category: "logo-cloud",
     designStyle: "modern",
     description: "Company names in pill badges for a modern look.",
@@ -6167,7 +6148,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-logos-with-stats",
-    name: "Logo Cloud — With Social Proof",
+    name: "Logo Cloud - With Social Proof",
     category: "logo-cloud",
     designStyle: "modern",
     description: "Logo cloud paired with a user count and star rating.",
@@ -6202,7 +6183,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-dashboard-metrics",
-    name: "Dashboard — Metrics Row",
+    name: "Dashboard - Metrics Row",
     category: "dashboard",
     designStyle: "minimal",
     description: "Four KPI cards with trend indicators for analytics dashboards.",
@@ -6220,7 +6201,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-dashboard-chart",
-    name: "Dashboard — Chart Panel",
+    name: "Dashboard - Chart Panel",
     category: "dashboard",
     designStyle: "modern",
     description: "Full analytics chart panel with title and period selector.",
@@ -6255,7 +6236,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-dashboard-table",
-    name: "Dashboard — Data Table",
+    name: "Dashboard - Data Table",
     category: "dashboard",
     designStyle: "minimal",
     description: "Clean data table panel for displaying records.",
@@ -6277,7 +6258,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-dashboard-overview",
-    name: "Dashboard — Full Overview",
+    name: "Dashboard - Full Overview",
     category: "dashboard",
     designStyle: "modern",
     description: "Combined metrics + chart dashboard layout.",
@@ -6310,7 +6291,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-services-card-grid",
-    name: "Services — Card Grid",
+    name: "Services - Card Grid",
     category: "services",
     designStyle: "modern",
     description: "Three-column service cards with icon, title, and description.",
@@ -6361,7 +6342,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-services-alternating",
-    name: "Services — Alternating Rows",
+    name: "Services - Alternating Rows",
     category: "services",
     designStyle: "minimal",
     description: "Left-right alternating service rows with icon and description.",
@@ -6375,7 +6356,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
             {
               id: "", order: 0, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "16px" },
               children: [
-                { id: "", order: 0, type: "eyebrow", content: "01 — Strategy", styles: { color: "#6366F1", letterSpacing: "0.12em" } },
+                { id: "", order: 0, type: "eyebrow", content: "01 - Strategy", styles: { color: "#6366F1", letterSpacing: "0.12em" } },
                 { id: "", order: 1, type: "heading", content: "We start with your goals", props: { level: 3 }, styles: { fontSize: "32px", fontWeight: "800", color: "#111827", margin: "0" } },
                 { id: "", order: 2, type: "paragraph", content: "Before writing a single line of code, we map out your objectives, audience, and competitive landscape.", styles: { color: "#6B7280", fontSize: "16px", lineHeight: "1.7" } },
               ],
@@ -6389,7 +6370,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
             {
               id: "", order: 0, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "16px" },
               children: [
-                { id: "", order: 0, type: "eyebrow", content: "02 — Build", styles: { color: "#6366F1", letterSpacing: "0.12em" } },
+                { id: "", order: 0, type: "eyebrow", content: "02 - Build", styles: { color: "#6366F1", letterSpacing: "0.12em" } },
                 { id: "", order: 1, type: "heading", content: "Then we ship fast", props: { level: 3 }, styles: { fontSize: "32px", fontWeight: "800", color: "#111827", margin: "0" } },
                 { id: "", order: 2, type: "paragraph", content: "Agile sprints with weekly demos keep you in the loop and ensure we never build the wrong thing.", styles: { color: "#6B7280", fontSize: "16px", lineHeight: "1.7" } },
               ],
@@ -6403,7 +6384,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-services-dark-list",
-    name: "Services — Dark Icon List",
+    name: "Services - Dark Icon List",
     category: "services",
     designStyle: "dark",
     description: "Dark section with icon-led service list and CTA.",
@@ -6474,7 +6455,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-services-minimal-timeline",
-    name: "Services — Process Timeline",
+    name: "Services - Process Timeline",
     category: "services",
     designStyle: "minimal",
     description: "Vertical timeline showing your service delivery process.",
@@ -6498,7 +6479,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-pricing-dark-cards",
-    name: "Pricing — Dark Cards",
+    name: "Pricing - Dark Cards",
     category: "pricing",
     designStyle: "dark",
     description: "Three-tier pricing on a dark background with a highlighted popular plan.",
@@ -6528,7 +6509,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-pricing-comparison-table",
-    name: "Pricing — Comparison Table",
+    name: "Pricing - Comparison Table",
     category: "pricing",
     designStyle: "minimal",
     description: "Feature-by-feature comparison table across three plans.",
@@ -6550,10 +6531,10 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-pricing-minimal-single",
-    name: "Pricing — Single Plan",
+    name: "Pricing - Single Plan",
     category: "pricing",
     designStyle: "minimal",
-    description: "Clean single-price layout — ideal for simple SaaS.",
+    description: "Clean single-price layout - ideal for simple SaaS.",
     element: {
       type: "container", content: "",
       styles: { padding: "80px 40px", backgroundColor: "#F9FAFB", display: "flex", flexDirection: "column", alignItems: "center", gap: "40px" },
@@ -6586,7 +6567,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-pricing-enterprise",
-    name: "Pricing — Enterprise CTA",
+    name: "Pricing - Enterprise CTA",
     category: "pricing",
     designStyle: "corporate",
     description: "Enterprise pricing contact section with key benefits.",
@@ -6625,7 +6606,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-stats-minimal-row",
-    name: "Stats — Minimal Row",
+    name: "Stats - Minimal Row",
     category: "stats",
     designStyle: "minimal",
     description: "Four clean stat numbers in a single row.",
@@ -6643,7 +6624,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-stats-dark-cards",
-    name: "Stats — Dark Cards",
+    name: "Stats - Dark Cards",
     category: "stats",
     designStyle: "dark",
     description: "Dark background metric cards with colored accent lines.",
@@ -6667,7 +6648,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-stats-with-chart",
-    name: "Stats — With Chart",
+    name: "Stats - With Chart",
     category: "stats",
     designStyle: "modern",
     description: "Key stats above a line/bar chart for credibility.",
@@ -6699,7 +6680,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-cta-gradient-wave",
-    name: "CTA — Gradient Wave",
+    name: "CTA - Gradient Wave",
     category: "cta",
     designStyle: "bold",
     description: "Full-bleed gradient CTA with large headline and dual buttons.",
@@ -6723,7 +6704,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-cta-minimal-center",
-    name: "CTA — Minimal Centered",
+    name: "CTA - Minimal Centered",
     category: "cta",
     designStyle: "minimal",
     description: "Simple centered CTA with headline, sub-copy, and a single button.",
@@ -6740,7 +6721,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-cta-split-image",
-    name: "CTA — Split Image",
+    name: "CTA - Split Image",
     category: "cta",
     designStyle: "modern",
     description: "Left text CTA with a product screenshot on the right.",
@@ -6772,7 +6753,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-features-bento",
-    name: "Features — Bento Grid",
+    name: "Features - Bento Grid",
     category: "features",
     designStyle: "modern",
     description: "Asymmetric bento-style feature grid for visual impact.",
@@ -6794,7 +6775,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-features-icon-3col",
-    name: "Features — Icon 3-Column",
+    name: "Features - Icon 3-Column",
     category: "features",
     designStyle: "minimal",
     description: "Three-column feature grid with emoji icons and short descriptions.",
@@ -6840,7 +6821,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-features-highlight-dark",
-    name: "Features — Dark Highlight",
+    name: "Features - Dark Highlight",
     category: "features",
     designStyle: "dark",
     description: "Full-bleed dark feature highlight with glowing card.",
@@ -6869,7 +6850,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-features-how-it-works",
-    name: "Features — How It Works",
+    name: "Features - How It Works",
     category: "features",
     designStyle: "modern",
     description: "Three-step how-it-works section with numbered steps.",
@@ -6894,7 +6875,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-testimonials-single-quote",
-    name: "Testimonials — Single Large Quote",
+    name: "Testimonials - Single Large Quote",
     category: "testimonials",
     designStyle: "minimal",
     description: "One featured testimonial, full-width, with large quote mark.",
@@ -6912,7 +6893,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-testimonials-dark-grid",
-    name: "Testimonials — Dark Grid",
+    name: "Testimonials - Dark Grid",
     category: "testimonials",
     designStyle: "dark",
     description: "Dark masonry-style testimonial grid.",
@@ -6962,7 +6943,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-testimonials-wall",
-    name: "Testimonials — Love Wall",
+    name: "Testimonials - Love Wall",
     category: "testimonials",
     designStyle: "minimal",
     description: "Compact testimonial wall with many short quotes.",
@@ -6988,7 +6969,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-portfolio-bento",
-    name: "Portfolio — Bento Grid",
+    name: "Portfolio - Bento Grid",
     category: "portfolio",
     designStyle: "modern",
     description: "Asymmetric bento grid of project cards.",
@@ -7037,7 +7018,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-portfolio-dark-cards",
-    name: "Portfolio — Dark Cards",
+    name: "Portfolio - Dark Cards",
     category: "portfolio",
     designStyle: "dark",
     description: "Dark portfolio cards with hover reveal effect.",
@@ -7099,7 +7080,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-portfolio-case-study",
-    name: "Portfolio — Case Study",
+    name: "Portfolio - Case Study",
     category: "portfolio",
     designStyle: "minimal",
     description: "In-depth case study layout with problem, solution, and results.",
@@ -7138,7 +7119,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-team-spotlight",
-    name: "Team — Founder Spotlight",
+    name: "Team - Founder Spotlight",
     category: "team",
     designStyle: "modern",
     description: "Large founder/executive spotlight with photo, bio, and social links.",
@@ -7152,7 +7133,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           children: [
             { id: "", order: 0, type: "badge", content: "Founder & CEO", props: { variant: "soft", color: "indigo" }, styles: {} },
             { id: "", order: 1, type: "heading", content: "Sarah Chen", props: { level: 2 }, styles: { fontSize: "44px", fontWeight: "900", color: "#111827", margin: "0" } },
-            { id: "", order: 2, type: "paragraph", content: "Sarah is a second-time founder who previously led product at Stripe. She started this company to solve the problem she faced herself — shipping products 10× faster without sacrificing quality.", styles: { color: "#4B5563", fontSize: "17px", lineHeight: "1.7" } },
+            { id: "", order: 2, type: "paragraph", content: "Sarah is a second-time founder who previously led product at Stripe. She started this company to solve the problem she faced herself - shipping products 10× faster without sacrificing quality.", styles: { color: "#4B5563", fontSize: "17px", lineHeight: "1.7" } },
             { id: "", order: 3, type: "blockquote", content: "\"Move fast and build things that matter. Speed is a feature.\"", props: { cite: "", accentColor: "#6366F1" }, styles: { fontSize: "16px", fontStyle: "italic" } },
           ],
         },
@@ -7162,7 +7143,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-team-minimal-list",
-    name: "Team — Minimal List",
+    name: "Team - Minimal List",
     category: "team",
     designStyle: "minimal",
     description: "Clean text-first team list with name, role, and short bio.",
@@ -7218,7 +7199,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-team-dark-cards",
-    name: "Team — Dark Cards",
+    name: "Team - Dark Cards",
     category: "team",
     designStyle: "dark",
     description: "Dark-themed team cards with avatar, name, role, and social links.",
@@ -7242,7 +7223,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-team-hiring",
-    name: "Team — Hiring CTA",
+    name: "Team - Hiring CTA",
     category: "team",
     designStyle: "modern",
     description: "Team section ending with an open roles hiring call to action.",
@@ -7280,7 +7261,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-faq-two-col",
-    name: "FAQ — Two Column",
+    name: "FAQ - Two Column",
     category: "faq",
     designStyle: "modern",
     description: "Two-column FAQ layout with heading on left and accordion on right.",
@@ -7304,7 +7285,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-faq-search",
-    name: "FAQ — With Search",
+    name: "FAQ - With Search",
     category: "faq",
     designStyle: "minimal",
     description: "FAQ section with a prominent search bar above the accordion.",
@@ -7327,7 +7308,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-faq-categories",
-    name: "FAQ — Categorised Tabs",
+    name: "FAQ - Categorised Tabs",
     category: "faq",
     designStyle: "modern",
     description: "FAQ grouped by category using a tabbed interface.",
@@ -7358,7 +7339,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-saas-product-shot",
-    name: "SaaS — Product Screenshot",
+    name: "SaaS - Product Screenshot",
     category: "saas",
     designStyle: "modern",
     description: "Hero with a prominent product screenshot mockup below the headline.",
@@ -7371,7 +7352,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           children: [
             { id: "", order: 0, type: "badge", content: "Now in public beta", props: { variant: "soft", color: "indigo" }, styles: {} },
             { id: "", order: 1, type: "heading", content: "The smarter way to build products", props: { level: 1 }, styles: { fontSize: "60px", fontWeight: "900", color: "#111827", margin: "0", letterSpacing: "-0.04em", lineHeight: "1.05" } },
-            { id: "", order: 2, type: "paragraph", content: "One platform for design, development, and deployment. Stop switching tools — start shipping.", styles: { color: "#6B7280", fontSize: "20px", lineHeight: "1.6" } },
+            { id: "", order: 2, type: "paragraph", content: "One platform for design, development, and deployment. Stop switching tools - start shipping.", styles: { color: "#6B7280", fontSize: "20px", lineHeight: "1.6" } },
             {
               id: "", order: 3, type: "container", content: "", styles: { display: "flex", flexDirection: "row", gap: "12px", justifyContent: "center", flexWrap: "wrap" },
               children: [
@@ -7389,7 +7370,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-saas-integration-logos",
-    name: "SaaS — Integration Grid",
+    name: "SaaS - Integration Grid",
     category: "saas",
     designStyle: "minimal",
     description: "Shows integrations with popular tools in a grid.",
@@ -7424,7 +7405,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-saas-testimonial-metric",
-    name: "SaaS — Testimonial + Metric",
+    name: "SaaS - Testimonial + Metric",
     category: "saas",
     designStyle: "modern",
     description: "Powerful social proof combining a testimonial quote with a key metric.",
@@ -7459,7 +7440,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-saas-dark-hero",
-    name: "SaaS — Dark Hero",
+    name: "SaaS - Dark Hero",
     category: "saas",
     designStyle: "dark",
     description: "Deep dark hero with animated gradient background and centered CTA.",
@@ -7467,9 +7448,9 @@ export const SECTION_BLOCKS: SectionBlock[] = [
       type: "container", content: "",
       styles: { padding: "140px 40px", backgroundColor: "#030712", backgroundImage: "radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.2) 0%, transparent 60%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "32px", textAlign: "center", position: "relative", overflow: "hidden" },
       children: [
-        { id: "", order: 0, type: "badge", content: "✦ New — AI-powered editor", props: { variant: "soft", color: "indigo" }, styles: {} },
+        { id: "", order: 0, type: "badge", content: "✦ New - AI-powered editor", props: { variant: "soft", color: "indigo" }, styles: {} },
         { id: "", order: 1, type: "heading", content: "Build your SaaS. Ship today.", props: { level: 1 }, styles: { fontSize: "72px", fontWeight: "900", color: "#FFFFFF", margin: "0", letterSpacing: "-0.05em", lineHeight: "1", maxWidth: "800px" } },
-        { id: "", order: 2, type: "paragraph", content: "The all-in-one platform to design, build, and deploy your SaaS product — without writing a single line of code.", styles: { color: "#64748B", fontSize: "20px", maxWidth: "540px", lineHeight: "1.6" } },
+        { id: "", order: 2, type: "paragraph", content: "The all-in-one platform to design, build, and deploy your SaaS product - without writing a single line of code.", styles: { color: "#64748B", fontSize: "20px", maxWidth: "540px", lineHeight: "1.6" } },
         {
           id: "", order: 3, type: "container", content: "", styles: { display: "flex", flexDirection: "row", gap: "12px", flexWrap: "wrap", justifyContent: "center" },
           children: [
@@ -7484,7 +7465,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-saas-security",
-    name: "SaaS — Security & Compliance",
+    name: "SaaS - Security & Compliance",
     category: "saas",
     designStyle: "corporate",
     description: "Trust section highlighting certifications and security features.",
@@ -7541,7 +7522,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-blog-featured",
-    name: "Blog — Featured Post",
+    name: "Blog - Featured Post",
     category: "blog",
     designStyle: "modern",
     description: "Large featured article card with cover image and metadata.",
@@ -7596,7 +7577,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-blog-newsletter-cta",
-    name: "Blog — Newsletter CTA",
+    name: "Blog - Newsletter CTA",
     category: "blog",
     designStyle: "bold",
     description: "End-of-blog newsletter sign-up prompt with bold background.",
@@ -7605,7 +7586,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
       styles: { padding: "80px 40px", backgroundImage: "linear-gradient(135deg, #6366F1, #8B5CF6)", display: "flex", flexDirection: "column", alignItems: "center", gap: "24px", textAlign: "center" },
       children: [
         { id: "", order: 0, type: "heading", content: "Never miss an article", props: { level: 3 }, styles: { fontSize: "36px", fontWeight: "800", color: "#FFFFFF", margin: "0" } },
-        { id: "", order: 1, type: "paragraph", content: "Join 14,000+ founders and builders. One email per week — no fluff.", styles: { color: "rgba(255,255,255,0.8)", fontSize: "17px", maxWidth: "420px" } },
+        { id: "", order: 1, type: "paragraph", content: "Join 14,000+ founders and builders. One email per week - no fluff.", styles: { color: "rgba(255,255,255,0.8)", fontSize: "17px", maxWidth: "420px" } },
         {
           id: "", order: 2, type: "form", content: "", props: { bgType: "transparent", successMessage: "You're in! Check your inbox." },
           styles: { display: "flex", flexDirection: "row", gap: "12px", maxWidth: "440px", width: "100%", padding: "0" },
@@ -7620,7 +7601,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-blog-minimal-list",
-    name: "Blog — Minimal Post List",
+    name: "Blog - Minimal Post List",
     category: "blog",
     designStyle: "minimal",
     description: "Compact text-first blog post list with date and category.",
@@ -7674,7 +7655,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-blog-author",
-    name: "Blog — Author Profile",
+    name: "Blog - Author Profile",
     category: "blog",
     designStyle: "minimal",
     description: "Author bio section shown at the bottom of a blog article.",
@@ -7698,7 +7679,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-blog-related",
-    name: "Blog — Related Articles",
+    name: "Blog - Related Articles",
     category: "blog",
     designStyle: "minimal",
     description: "Three related article cards shown at the bottom of a post.",
@@ -7723,7 +7704,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-ecommerce-hero",
-    name: "E-Commerce — Hero Banner",
+    name: "E-Commerce - Hero Banner",
     category: "ecommerce",
     designStyle: "bold",
     description: "Full-bleed store hero with headline, offer badge, and shop CTA.",
@@ -7734,7 +7715,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
         {
           id: "", order: 0, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "20px", minWidth: "260px" },
           children: [
-            { id: "", order: 0, type: "badge", content: "New Season — Up to 40% off", props: { variant: "solid", color: "yellow" }, styles: {} },
+            { id: "", order: 0, type: "badge", content: "New Season - Up to 40% off", props: { variant: "solid", color: "yellow" }, styles: {} },
             { id: "", order: 1, type: "heading", content: "Dress for the life you want.", props: { level: 1 }, styles: { fontSize: "60px", fontWeight: "900", color: "#FFFFFF", margin: "0", letterSpacing: "-0.04em", lineHeight: "1.05" } },
             { id: "", order: 2, type: "paragraph", content: "Premium essentials designed for the modern wardrobe. Free shipping on all orders over $75.", styles: { color: "rgba(255,255,255,0.7)", fontSize: "18px" } },
             {
@@ -7753,7 +7734,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-ecommerce-product-detail",
-    name: "E-Commerce — Product Detail",
+    name: "E-Commerce - Product Detail",
     category: "ecommerce",
     designStyle: "minimal",
     description: "Full product detail layout with gallery, price, variants, and add-to-cart.",
@@ -7788,7 +7769,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-ecommerce-cart-checkout",
-    name: "E-Commerce — Cart Summary",
+    name: "E-Commerce - Cart Summary",
     category: "ecommerce",
     designStyle: "minimal",
     description: "Shopping cart sidebar with item list, coupon, and order summary.",
@@ -7840,7 +7821,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-ecommerce-reviews",
-    name: "E-Commerce — Reviews Section",
+    name: "E-Commerce - Reviews Section",
     category: "ecommerce",
     designStyle: "minimal",
     description: "Product reviews section with rating summary and review cards.",
@@ -7869,7 +7850,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-ecommerce-featured-products",
-    name: "E-Commerce — Featured Products",
+    name: "E-Commerce - Featured Products",
     category: "ecommerce",
     designStyle: "modern",
     description: "Featured product grid with title, badge, and add-to-cart.",
@@ -7899,7 +7880,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-ecommerce-upsell",
-    name: "E-Commerce — Upsell / Cross-sell",
+    name: "E-Commerce - Upsell / Cross-sell",
     category: "ecommerce",
     designStyle: "minimal",
     description: "You might also like section shown after add-to-cart.",
@@ -7924,7 +7905,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-footer-newsletter",
-    name: "Footer — With Newsletter",
+    name: "Footer - With Newsletter",
     category: "footer",
     designStyle: "dark",
     description: "Dark footer with an inline newsletter box above the nav links.",
@@ -7959,7 +7940,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-footer-mega",
-    name: "Footer — Mega Footer",
+    name: "Footer - Mega Footer",
     category: "footer",
     designStyle: "minimal",
     description: "Large white footer with five-column link grid.",
@@ -7981,7 +7962,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-footer-startup",
-    name: "Footer — Startup Minimal",
+    name: "Footer - Startup Minimal",
     category: "footer",
     designStyle: "minimal",
     description: "Ultra-minimal one-line footer for landing pages.",
@@ -8006,7 +7987,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-sidebar-app-nav",
-    name: "Sidebar — App Navigation",
+    name: "Sidebar - App Navigation",
     category: "sidebar",
     designStyle: "minimal",
     description: "Left sidebar with icon + label navigation for app layouts.",
@@ -8023,7 +8004,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-sidebar-dark-app",
-    name: "Sidebar — Dark App Nav",
+    name: "Sidebar - Dark App Nav",
     category: "sidebar",
     designStyle: "dark",
     description: "Dark sidebar navigation suitable for dashboards and SaaS apps.",
@@ -8042,7 +8023,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-utility-404",
-    name: "Utility — 404 Not Found",
+    name: "Utility - 404 Not Found",
     category: "utility",
     designStyle: "minimal",
     description: "Clean 404 error page with navigation back to home.",
@@ -8066,7 +8047,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-utility-maintenance",
-    name: "Utility — Maintenance Mode",
+    name: "Utility - Maintenance Mode",
     category: "utility",
     designStyle: "dark",
     description: "Maintenance page with countdown timer and contact option.",
@@ -8085,7 +8066,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-utility-coming-soon",
-    name: "Utility — Coming Soon",
+    name: "Utility - Coming Soon",
     category: "utility",
     designStyle: "modern",
     description: "Product launch coming soon page with email capture.",
@@ -8111,7 +8092,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-utility-empty-state",
-    name: "Utility — Empty State",
+    name: "Utility - Empty State",
     category: "utility",
     designStyle: "minimal",
     description: "Friendly empty state component for dashboards or lists.",
@@ -8129,7 +8110,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-utility-success",
-    name: "Utility — Success / Confirmation",
+    name: "Utility - Success / Confirmation",
     category: "utility",
     designStyle: "minimal",
     description: "Order/form submission success page with next-step actions.",
@@ -8155,7 +8136,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-landing-saas-full",
-    name: "Landing — SaaS Full Page",
+    name: "Landing - SaaS Full Page",
     category: "landing",
     designStyle: "modern",
     description: "Complete SaaS landing section: hero + stats + feature grid.",
@@ -8167,7 +8148,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           id: "", order: 0, type: "container", content: "",
           styles: { padding: "100px 40px", backgroundColor: "#FFFFFF", display: "flex", flexDirection: "column", alignItems: "center", gap: "28px", textAlign: "center" },
           children: [
-            { id: "", order: 0, type: "badge", content: "🚀 Now live — Webperia 2.0", props: { variant: "soft", color: "indigo" }, styles: {} },
+            { id: "", order: 0, type: "badge", content: "🚀 Now live - Webperia 2.0", props: { variant: "soft", color: "indigo" }, styles: {} },
             { id: "", order: 1, type: "heading", content: "Ship products that people love.", props: { level: 1 }, styles: { fontSize: "64px", fontWeight: "900", color: "#111827", margin: "0", letterSpacing: "-0.04em", lineHeight: "1.05", maxWidth: "760px" } },
             { id: "", order: 2, type: "paragraph", content: "Webperia combines design, development, and deployment into one seamless workflow. No more context switching.", styles: { color: "#6B7280", fontSize: "20px", maxWidth: "560px", lineHeight: "1.6" } },
             {
@@ -8201,7 +8182,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-landing-waitlist",
-    name: "Landing — Waitlist",
+    name: "Landing - Waitlist",
     category: "landing",
     designStyle: "dark",
     description: "Viral waitlist page with email capture and social share nudge.",
@@ -8227,7 +8208,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-landing-product-hunt",
-    name: "Landing — Product Hunt Launch",
+    name: "Landing - Product Hunt Launch",
     category: "landing",
     designStyle: "bold",
     description: "Product Hunt-style launch announcement page.",
@@ -8259,7 +8240,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-landing-agency",
-    name: "Landing — Creative Agency",
+    name: "Landing - Creative Agency",
     category: "landing",
     designStyle: "creative",
     description: "Bold, typographic agency hero with high-contrast layout.",
@@ -8295,7 +8276,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-landing-mobile-app",
-    name: "Landing — Mobile App",
+    name: "Landing - Mobile App",
     category: "landing",
     designStyle: "modern",
     description: "Mobile app landing page with app store badges and phone mockup.",
@@ -8308,7 +8289,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           children: [
             { id: "", order: 0, type: "badge", content: "Available on iOS & Android", props: { variant: "soft", color: "indigo" }, styles: {} },
             { id: "", order: 1, type: "heading", content: "Your personal finance\nassistant, in your pocket.", props: { level: 1 }, styles: { fontSize: "52px", fontWeight: "900", color: "#111827", margin: "0", letterSpacing: "-0.03em", lineHeight: "1.05" } },
-            { id: "", order: 2, type: "paragraph", content: "Track spending, set budgets, and hit your savings goals — all from a beautifully simple app.", styles: { color: "#6B7280", fontSize: "18px", lineHeight: "1.6" } },
+            { id: "", order: 2, type: "paragraph", content: "Track spending, set budgets, and hit your savings goals - all from a beautifully simple app.", styles: { color: "#6B7280", fontSize: "18px", lineHeight: "1.6" } },
             {
               id: "", order: 3, type: "container", content: "", styles: { display: "flex", flexDirection: "row", gap: "12px", flexWrap: "wrap" },
               children: [
@@ -8329,7 +8310,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-hero-meridian-enterprise",
-    name: "Hero — Meridian Corporate",
+    name: "Hero - Meridian Corporate",
     category: "hero",
     designStyle: "corporate",
     description: "Deep blue professional hero with grid pattern overlay, massive headline, and dual CTAs.",
@@ -8361,7 +8342,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-features-phantom-dark",
-    name: "Features — Phantom Grid",
+    name: "Features - Phantom Grid",
     category: "features",
     designStyle: "dark",
     description: "Cinematic dark features grid with glassmorphism cards and neon violet accents.",
@@ -8407,7 +8388,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-pricing-cascade-minimal",
-    name: "Pricing — Cascade Minimal",
+    name: "Pricing - Cascade Minimal",
     category: "pricing",
     designStyle: "minimal",
     description: "Clean, ultra-minimal pricing layout with clear tiers and emerald accents.",
@@ -8476,7 +8457,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-cta-enterprise-dark",
-    name: "CTA — Enterprise Newsletter",
+    name: "CTA - Enterprise Newsletter",
     category: "cta",
     designStyle: "dark",
     description: "High impact dark full-bleed CTA aimed at lead generation and signups.",
@@ -8511,7 +8492,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-footer-meridian-enterprise",
-    name: "Footer — Meridian Enterprise",
+    name: "Footer - Meridian Enterprise",
     category: "footer",
     designStyle: "corporate",
     description: "Expansive 5-column corporate footer with subtle bottom utility bar.",
@@ -8576,7 +8557,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-logos-animated-marquee",
-    name: "Logo Cloud — Infinite Marquee",
+    name: "Logo Cloud - Infinite Marquee",
     category: "logo-cloud",
     designStyle: "modern",
     description: "Continuously scrolling logo marquee strip on a white background",
@@ -8610,7 +8591,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-logos-grid-dark",
-    name: "Logo Cloud — Dark Grid",
+    name: "Logo Cloud - Dark Grid",
     category: "logo-cloud",
     designStyle: "dark",
     description: "Dark background logo grid with hover glow effect",
@@ -8653,7 +8634,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-interactive-feature-tabs",
-    name: "Interactive — Feature Tabs Showcase",
+    name: "Interactive - Feature Tabs Showcase",
     category: "interactive",
     designStyle: "modern",
     description: "Tabbed feature showcase with screenshot previews and detailed descriptions",
@@ -8692,7 +8673,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-interactive-pricing-toggle",
-    name: "Interactive — Pricing Toggle",
+    name: "Interactive - Pricing Toggle",
     category: "interactive",
     designStyle: "minimal",
     description: "Monthly / annual pricing toggle with animated card updates",
@@ -8764,7 +8745,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-dashboard-analytics-hero",
-    name: "Dashboard — Analytics Hero",
+    name: "Dashboard - Analytics Hero",
     category: "dashboard",
     designStyle: "modern",
     description: "Full analytics dashboard overview with KPI cards and a chart section",
@@ -8852,7 +8833,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-content-magazine-split",
-    name: "Content — Magazine Split",
+    name: "Content - Magazine Split",
     category: "content",
     designStyle: "minimal",
     description: "Editorial magazine-style layout with large image and typographic content",
@@ -8884,7 +8865,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
             {
               id: "", order: 1, type: "container", styles: { display: "flex", flexDirection: "column", gap: "24px" }, children: [
                 { id: "", order: 0, type: "image", content: "", props: { src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=900" }, styles: { width: "100%", height: "320px", objectFit: "cover", borderRadius: "12px" } },
-                { id: "", order: 1, type: "paragraph", content: "In a world saturated with digital noise, the designers who cut through are those who embrace constraints as a creative tool. Reduction is not limitation — it is the highest form of craft.", styles: { fontSize: "17px", color: "#475569", margin: "0", lineHeight: "1.8" } },
+                { id: "", order: 1, type: "paragraph", content: "In a world saturated with digital noise, the designers who cut through are those who embrace constraints as a creative tool. Reduction is not limitation - it is the highest form of craft.", styles: { fontSize: "17px", color: "#475569", margin: "0", lineHeight: "1.8" } },
                 { id: "", order: 2, type: "paragraph", content: "The best interfaces are invisible. They guide without demanding attention, inform without overwhelming, and delight without distraction. That is the standard we hold ourselves to.", styles: { fontSize: "17px", color: "#475569", margin: "0", lineHeight: "1.8" } },
                 { id: "", order: 3, type: "text-link", content: "Continue reading →", props: { href: "#" }, styles: { fontSize: "14px", color: "#6366F1", fontWeight: "600", textDecoration: "none" } },
               ]
@@ -8897,7 +8878,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-content-documentation",
-    name: "Content — Documentation Layout",
+    name: "Content - Documentation Layout",
     category: "content",
     designStyle: "modern",
     description: "Two-column docs layout with sticky sidebar and rich content area",
@@ -8941,14 +8922,14 @@ export const SECTION_BLOCKS: SectionBlock[] = [
     },
   },
 
-  // ─── HERO — NEW ──────────────────────────────────────────────────────────────
+  // ─── HERO - NEW ──────────────────────────────────────────────────────────────
 
   {
     id: "sb-hero-dashboard-preview",
-    name: "Hero — SaaS Dashboard Preview",
+    name: "Hero - SaaS Dashboard Preview",
     category: "hero",
     designStyle: "modern",
-    description: "Split hero with headline left and blurred dashboard mockup right — classic SaaS product page",
+    description: "Split hero with headline left and blurred dashboard mockup right - classic SaaS product page",
     element: {
       type: "container", content: "",
       styles: { padding: "120px 40px 0", backgroundColor: "#FAFAFA", display: "flex", flexDirection: "column", alignItems: "center", overflow: "hidden" },
@@ -8962,7 +8943,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               id: "", order: 0, type: "container", content: "", styles: { flex: "1", minWidth: "420px", display: "flex", flexDirection: "column", gap: "40px" }, children: [
                 { id: "", order: 0, type: "badge", content: "✦ NOW IN PUBLIC BETA", styles: { backgroundColor: "#EEF2FF", color: "#6366F1", padding: "6px 14px", borderRadius: "9999px", fontSize: "12px", fontWeight: "700", width: "fit-content", border: "1px solid #C7D2FE" } },
                 { id: "", order: 1, type: "heading", content: "Ship production\nsites in minutes,\nnot months.", props: { level: 1 }, styles: { fontSize: "64px", fontWeight: "900", color: "#0F172A", margin: "0", letterSpacing: "-0.04em", lineHeight: "1.0", whiteSpace: "pre-line" } },
-                { id: "", order: 2, type: "paragraph", content: "The visual site builder designed for engineers and designers who refuse to compromise on quality. Drag, customize, deploy — all from one platform.", styles: { fontSize: "20px", color: "#64748B", margin: "0", lineHeight: "1.65", maxWidth: "480px" } },
+                { id: "", order: 2, type: "paragraph", content: "The visual site builder designed for engineers and designers who refuse to compromise on quality. Drag, customize, deploy - all from one platform.", styles: { fontSize: "20px", color: "#64748B", margin: "0", lineHeight: "1.65", maxWidth: "480px" } },
                 {
                   id: "", order: 3, type: "container", content: "", props: { _childLayout: "row", _childAlign: "center", _childGap: "md" }, styles: {}, children: [
                     { id: "", order: 0, type: "button", content: "Start building free →", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "16px 32px", borderRadius: "12px", fontWeight: "700", fontSize: "16px", cursor: "pointer", boxShadow: "0 8px 24px rgba(99,102,241,0.35)" } },
@@ -8996,7 +8977,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
                       id: "", order: 1, type: "container", content: "", styles: { padding: "32px", display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }, children: [
                         { id: "", order: 0, type: "container", content: "", styles: { backgroundColor: "rgba(255,255,255,0.04)", borderRadius: "16px", padding: "24px", border: "1px solid rgba(255,255,255,0.06)" }, children: [{ id: "", order: 0, type: "paragraph", content: "Monthly Revenue", styles: { fontSize: "11px", color: "#475569", margin: "0 0 8px", fontWeight: "700", letterSpacing: "0.08em" } }, { id: "", order: 1, type: "paragraph", content: "$84,291", styles: { fontSize: "28px", fontWeight: "900", color: "#FFFFFF", margin: "0" } }, { id: "", order: 2, type: "paragraph", content: "↑ 23.1% vs last month", styles: { fontSize: "12px", color: "#10B981", margin: "8px 0 0", fontWeight: "600" } }] },
                         { id: "", order: 1, type: "container", content: "", styles: { backgroundColor: "rgba(255,255,255,0.04)", borderRadius: "16px", padding: "24px", border: "1px solid rgba(255,255,255,0.06)" }, children: [{ id: "", order: 0, type: "paragraph", content: "Active Users", styles: { fontSize: "11px", color: "#475569", margin: "0 0 8px", fontWeight: "700", letterSpacing: "0.08em" } }, { id: "", order: 1, type: "paragraph", content: "12,048", styles: { fontSize: "28px", fontWeight: "900", color: "#FFFFFF", margin: "0" } }, { id: "", order: 2, type: "paragraph", content: "↑ 8.4% this week", styles: { fontSize: "12px", color: "#10B981", margin: "8px 0 0", fontWeight: "600" } }] },
-                        { id: "", order: 2, type: "container", content: "", styles: { backgroundColor: "rgba(99,102,241,0.15)", borderRadius: "16px", padding: "24px", border: "1px solid rgba(99,102,241,0.2)", gridColumn: "span 2" }, children: [{ id: "", order: 0, type: "paragraph", content: "Deployment Status — All systems operational", styles: { fontSize: "13px", color: "#818CF8", margin: "0", fontWeight: "700" } }, { id: "", order: 1, type: "paragraph", content: "Last deploy: 2 minutes ago · 14 regions active · 99.99% uptime", styles: { fontSize: "12px", color: "#475569", margin: "8px 0 0" } }] },
+                        { id: "", order: 2, type: "container", content: "", styles: { backgroundColor: "rgba(99,102,241,0.15)", borderRadius: "16px", padding: "24px", border: "1px solid rgba(99,102,241,0.2)", gridColumn: "span 2" }, children: [{ id: "", order: 0, type: "paragraph", content: "Deployment Status - All systems operational", styles: { fontSize: "13px", color: "#818CF8", margin: "0", fontWeight: "700" } }, { id: "", order: 1, type: "paragraph", content: "Last deploy: 2 minutes ago · 14 regions active · 99.99% uptime", styles: { fontSize: "12px", color: "#475569", margin: "8px 0 0" } }] },
                       ]
                     },
                   ]
@@ -9011,10 +8992,10 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-hero-video-dark",
-    name: "Hero — Cinematic Video CTA",
+    name: "Hero - Cinematic Video CTA",
     category: "hero",
     designStyle: "dark",
-    description: "Full dark hero with large play button thumbnail — ideal for product demo video showcases",
+    description: "Full dark hero with large play button thumbnail - ideal for product demo video showcases",
     element: {
       type: "container", content: "",
       styles: { padding: "160px 40px", backgroundColor: "#000000", display: "flex", flexDirection: "column", alignItems: "center", gap: "64px", textAlign: "center", position: "relative", overflow: "hidden" },
@@ -9040,14 +9021,14 @@ export const SECTION_BLOCKS: SectionBlock[] = [
     },
   },
 
-  // ─── FEATURES — NEW ──────────────────────────────────────────────────────────
+  // ─── FEATURES - NEW ──────────────────────────────────────────────────────────
 
   {
     id: "sb-features-bento-dark",
-    name: "Features — Dark Bento Grid",
+    name: "Features - Dark Bento Grid",
     category: "features",
     designStyle: "dark",
-    description: "Asymmetric dark bento grid with 5 feature cards of mixed sizes — modern SaaS showcase",
+    description: "Asymmetric dark bento grid with 5 feature cards of mixed sizes - modern SaaS showcase",
     element: {
       type: "container", content: "",
       styles: { padding: "140px 40px", backgroundColor: "#030712", display: "flex", flexDirection: "column", alignItems: "center", gap: "80px" },
@@ -9064,7 +9045,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           children: [
             { id: "", order: 0, type: "container", content: "", styles: { gridColumn: "span 2", backgroundColor: "rgba(15,23,42,0.6)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "28px", padding: "48px", display: "flex", flexDirection: "column", gap: "20px", backgroundImage: "linear-gradient(135deg, rgba(99,102,241,0.08) 0%, transparent 60%)" }, children: [{ id: "", order: 0, type: "paragraph", content: "⚡", styles: { fontSize: "36px", margin: "0" } }, { id: "", order: 1, type: "heading", content: "Deploy in under 30 seconds", props: { level: 3 }, styles: { fontSize: "28px", fontWeight: "900", color: "#F8FAFC", margin: "0", letterSpacing: "-0.03em" } }, { id: "", order: 2, type: "paragraph", content: "Push to git and your site is live. Automatic builds, instant global CDN propagation, zero-downtime deploys.", styles: { fontSize: "16px", color: "#64748B", margin: "0", lineHeight: "1.7" } }] },
             { id: "", order: 1, type: "container", content: "", styles: { backgroundColor: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)", borderRadius: "28px", padding: "48px", display: "flex", flexDirection: "column", gap: "20px" }, children: [{ id: "", order: 0, type: "paragraph", content: "🔒", styles: { fontSize: "36px", margin: "0" } }, { id: "", order: 1, type: "heading", content: "Enterprise Security", props: { level: 3 }, styles: { fontSize: "24px", fontWeight: "900", color: "#F8FAFC", margin: "0", letterSpacing: "-0.03em" } }, { id: "", order: 2, type: "paragraph", content: "SOC 2 Type II, AES-256, TLS 1.3, SSO/SAML and role-based access out of the box.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.7" } }] },
-            { id: "", order: 2, type: "container", content: "", styles: { backgroundColor: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.15)", borderRadius: "28px", padding: "48px", display: "flex", flexDirection: "column", gap: "20px" }, children: [{ id: "", order: 0, type: "paragraph", content: "📊", styles: { fontSize: "36px", margin: "0" } }, { id: "", order: 1, type: "heading", content: "Real-Time Analytics", props: { level: 3 }, styles: { fontSize: "24px", fontWeight: "900", color: "#F8FAFC", margin: "0", letterSpacing: "-0.03em" } }, { id: "", order: 2, type: "paragraph", content: "Page views, conversion funnels, heatmaps, and session recordings — all built in.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.7" } }] },
+            { id: "", order: 2, type: "container", content: "", styles: { backgroundColor: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.15)", borderRadius: "28px", padding: "48px", display: "flex", flexDirection: "column", gap: "20px" }, children: [{ id: "", order: 0, type: "paragraph", content: "📊", styles: { fontSize: "36px", margin: "0" } }, { id: "", order: 1, type: "heading", content: "Real-Time Analytics", props: { level: 3 }, styles: { fontSize: "24px", fontWeight: "900", color: "#F8FAFC", margin: "0", letterSpacing: "-0.03em" } }, { id: "", order: 2, type: "paragraph", content: "Page views, conversion funnels, heatmaps, and session recordings - all built in.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.7" } }] },
             { id: "", order: 3, type: "container", content: "", styles: { backgroundColor: "rgba(168,85,247,0.08)", border: "1px solid rgba(168,85,247,0.15)", borderRadius: "28px", padding: "48px", display: "flex", flexDirection: "column", gap: "20px" }, children: [{ id: "", order: 0, type: "paragraph", content: "🤖", styles: { fontSize: "36px", margin: "0" } }, { id: "", order: 1, type: "heading", content: "AI Assistant", props: { level: 3 }, styles: { fontSize: "24px", fontWeight: "900", color: "#F8FAFC", margin: "0", letterSpacing: "-0.03em" } }, { id: "", order: 2, type: "paragraph", content: "Generate complete pages, write copy, and debug in natural language. Powered by Claude.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.7" } }] },
             { id: "", order: 4, type: "container", content: "", styles: { gridColumn: "span 2", backgroundColor: "rgba(15,23,42,0.6)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "28px", padding: "48px", display: "flex", flexDirection: "row", gap: "40px", alignItems: "center" }, children: [{ id: "", order: 0, type: "paragraph", content: "🌍", styles: { fontSize: "56px", margin: "0", flexShrink: "0" } }, { id: "", order: 1, type: "container", content: "", styles: { display: "flex", flexDirection: "column", gap: "12px" }, children: [{ id: "", order: 0, type: "heading", content: "170+ Global Edge Locations", props: { level: 3 }, styles: { fontSize: "28px", fontWeight: "900", color: "#F8FAFC", margin: "0", letterSpacing: "-0.03em" } }, { id: "", order: 1, type: "paragraph", content: "Sub-10ms response times globally. Automatic failover. Your users always get the fastest experience, wherever they are.", styles: { fontSize: "16px", color: "#64748B", margin: "0", lineHeight: "1.7" } }] }] },
           ]
@@ -9075,10 +9056,10 @@ export const SECTION_BLOCKS: SectionBlock[] = [
 
   {
     id: "sb-features-alternating-rows",
-    name: "Features — Alternating Rows",
+    name: "Features - Alternating Rows",
     category: "features",
     designStyle: "minimal",
-    description: "Screenshot left + text right alternating layout — the classic high-converting feature walkthrough",
+    description: "Screenshot left + text right alternating layout - the classic high-converting feature walkthrough",
     element: {
       type: "container", content: "",
       styles: { padding: "140px 40px", backgroundColor: "#FFFFFF" },
@@ -9141,11 +9122,11 @@ export const SECTION_BLOCKS: SectionBlock[] = [
     },
   },
 
-  // ─── CTA — NEW ───────────────────────────────────────────────────────────────
+  // ─── CTA - NEW ───────────────────────────────────────────────────────────────
 
   {
     id: "sb-cta-app-download",
-    name: "CTA — App Download",
+    name: "CTA - App Download",
     category: "cta",
     designStyle: "minimal",
     description: "Centered App Store + Google Play download section with device mockup framing",
@@ -9158,7 +9139,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           id: "", order: 1, type: "container", content: "", styles: { display: "flex", flexDirection: "column", gap: "24px", alignItems: "center", maxWidth: "640px", position: "relative", zIndex: "2" }, children: [
             { id: "", order: 0, type: "badge", content: "AVAILABLE NOW", styles: { backgroundColor: "rgba(99,102,241,0.1)", color: "#818CF8", padding: "6px 14px", borderRadius: "9999px", fontSize: "11px", fontWeight: "900", width: "fit-content", border: "1px solid rgba(99,102,241,0.2)" } },
             { id: "", order: 1, type: "heading", content: "Take it\neverywhere.", props: { level: 2 }, styles: { fontSize: "72px", fontWeight: "900", color: "#FFFFFF", margin: "0", letterSpacing: "-0.05em", lineHeight: "0.95", whiteSpace: "pre-line" } },
-            { id: "", order: 2, type: "paragraph", content: "The Webperia mobile app is here. Manage your sites, review analytics, and deploy on the go — iOS and Android.", styles: { fontSize: "20px", color: "rgba(255,255,255,0.5)", margin: "0", lineHeight: "1.6" } },
+            { id: "", order: 2, type: "paragraph", content: "The Webperia mobile app is here. Manage your sites, review analytics, and deploy on the go - iOS and Android.", styles: { fontSize: "20px", color: "rgba(255,255,255,0.5)", margin: "0", lineHeight: "1.6" } },
           ]
         },
         {
@@ -9175,14 +9156,14 @@ export const SECTION_BLOCKS: SectionBlock[] = [
     },
   },
 
-  // ─── TESTIMONIALS — NEW ───────────────────────────────────────────────────────
+  // ─── TESTIMONIALS - NEW ───────────────────────────────────────────────────────
 
   {
     id: "sb-testimonials-marquee",
-    name: "Testimonials — Scrolling Wall",
+    name: "Testimonials - Scrolling Wall",
     category: "testimonials",
     designStyle: "modern",
-    description: "Two-row auto-scrolling testimonial marquee — high-density social proof at a glance",
+    description: "Two-row auto-scrolling testimonial marquee - high-density social proof at a glance",
     element: {
       type: "container", content: "",
       styles: { padding: "140px 0", backgroundColor: "#FAFAFA", display: "flex", flexDirection: "column", alignItems: "center", gap: "64px", overflow: "hidden" },
@@ -9198,21 +9179,21 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           props: { _childLayout: "row", _childGap: "lg", _childAlign: "stretch" },
           styles: { width: "100%", paddingLeft: "40px" },
           children: [
-            { id: "", order: 0, type: "container", content: "", styles: { backgroundColor: "#FFFFFF", padding: "32px", borderRadius: "20px", border: "1px solid #E2E8F0", minWidth: "360px", display: "flex", flexDirection: "column", gap: "16px", boxShadow: "0 4px 16px rgba(0,0,0,0.04)" }, children: [{ id: "", order: 0, type: "paragraph", content: "\u201C", styles: { fontSize: "40px", color: "#6366F1", margin: "0", lineHeight: "1", fontFamily: "Georgia, serif" } }, { id: "", order: 1, type: "paragraph", content: "We replaced three tools with this one. The ROI in the first month was undeniable.", styles: { fontSize: "16px", color: "#334155", margin: "0", lineHeight: "1.7", fontWeight: "500" } }, { id: "", order: 2, type: "paragraph", content: "— Jordan Lee, VP Engineering @ Stripe", styles: { fontSize: "13px", color: "#6366F1", margin: "0", fontWeight: "700" } }] },
-            { id: "", order: 1, type: "container", content: "", styles: { backgroundColor: "#0F172A", padding: "32px", borderRadius: "20px", border: "1px solid #1E293B", minWidth: "360px", display: "flex", flexDirection: "column", gap: "16px" }, children: [{ id: "", order: 0, type: "paragraph", content: "\u201C", styles: { fontSize: "40px", color: "#818CF8", margin: "0", lineHeight: "1", fontFamily: "Georgia, serif" } }, { id: "", order: 1, type: "paragraph", content: "Deployment time went from 90 minutes to under 3. Our engineers love Friday deploys now.", styles: { fontSize: "16px", color: "#94A3B8", margin: "0", lineHeight: "1.7", fontWeight: "500" } }, { id: "", order: 2, type: "paragraph", content: "— Priya Mehta, CTO @ Shopify", styles: { fontSize: "13px", color: "#818CF8", margin: "0", fontWeight: "700" } }] },
-            { id: "", order: 2, type: "container", content: "", styles: { backgroundColor: "#FFFFFF", padding: "32px", borderRadius: "20px", border: "1px solid #E2E8F0", minWidth: "360px", display: "flex", flexDirection: "column", gap: "16px", boxShadow: "0 4px 16px rgba(0,0,0,0.04)" }, children: [{ id: "", order: 0, type: "paragraph", content: "\u201C", styles: { fontSize: "40px", color: "#10B981", margin: "0", lineHeight: "1", fontFamily: "Georgia, serif" } }, { id: "", order: 1, type: "paragraph", content: "Our entire website now runs faster than it ever did. The edge infrastructure is genuinely world-class.", styles: { fontSize: "16px", color: "#334155", margin: "0", lineHeight: "1.7", fontWeight: "500" } }, { id: "", order: 2, type: "paragraph", content: "— Sam Torres, Head of Platform @ Airbnb", styles: { fontSize: "13px", color: "#10B981", margin: "0", fontWeight: "700" } }] },
-            { id: "", order: 3, type: "container", content: "", styles: { backgroundColor: "#FFFFFF", padding: "32px", borderRadius: "20px", border: "1px solid #E2E8F0", minWidth: "360px", display: "flex", flexDirection: "column", gap: "16px", boxShadow: "0 4px 16px rgba(0,0,0,0.04)" }, children: [{ id: "", order: 0, type: "paragraph", content: "\u201C", styles: { fontSize: "40px", color: "#F59E0B", margin: "0", lineHeight: "1", fontFamily: "Georgia, serif" } }, { id: "", order: 1, type: "paragraph", content: "I was skeptical about no-code tools until I tried this. It generates clean, maintainable code I'd actually ship.", styles: { fontSize: "16px", color: "#334155", margin: "0", lineHeight: "1.7", fontWeight: "500" } }, { id: "", order: 2, type: "paragraph", content: "— Alex Rivera, Staff Engineer @ Linear", styles: { fontSize: "13px", color: "#F59E0B", margin: "0", fontWeight: "700" } }] },
+            { id: "", order: 0, type: "container", content: "", styles: { backgroundColor: "#FFFFFF", padding: "32px", borderRadius: "20px", border: "1px solid #E2E8F0", minWidth: "360px", display: "flex", flexDirection: "column", gap: "16px", boxShadow: "0 4px 16px rgba(0,0,0,0.04)" }, children: [{ id: "", order: 0, type: "paragraph", content: "\u201C", styles: { fontSize: "40px", color: "#6366F1", margin: "0", lineHeight: "1", fontFamily: "Georgia, serif" } }, { id: "", order: 1, type: "paragraph", content: "We replaced three tools with this one. The ROI in the first month was undeniable.", styles: { fontSize: "16px", color: "#334155", margin: "0", lineHeight: "1.7", fontWeight: "500" } }, { id: "", order: 2, type: "paragraph", content: "- Jordan Lee, VP Engineering @ Stripe", styles: { fontSize: "13px", color: "#6366F1", margin: "0", fontWeight: "700" } }] },
+            { id: "", order: 1, type: "container", content: "", styles: { backgroundColor: "#0F172A", padding: "32px", borderRadius: "20px", border: "1px solid #1E293B", minWidth: "360px", display: "flex", flexDirection: "column", gap: "16px" }, children: [{ id: "", order: 0, type: "paragraph", content: "\u201C", styles: { fontSize: "40px", color: "#818CF8", margin: "0", lineHeight: "1", fontFamily: "Georgia, serif" } }, { id: "", order: 1, type: "paragraph", content: "Deployment time went from 90 minutes to under 3. Our engineers love Friday deploys now.", styles: { fontSize: "16px", color: "#94A3B8", margin: "0", lineHeight: "1.7", fontWeight: "500" } }, { id: "", order: 2, type: "paragraph", content: "- Priya Mehta, CTO @ Shopify", styles: { fontSize: "13px", color: "#818CF8", margin: "0", fontWeight: "700" } }] },
+            { id: "", order: 2, type: "container", content: "", styles: { backgroundColor: "#FFFFFF", padding: "32px", borderRadius: "20px", border: "1px solid #E2E8F0", minWidth: "360px", display: "flex", flexDirection: "column", gap: "16px", boxShadow: "0 4px 16px rgba(0,0,0,0.04)" }, children: [{ id: "", order: 0, type: "paragraph", content: "\u201C", styles: { fontSize: "40px", color: "#10B981", margin: "0", lineHeight: "1", fontFamily: "Georgia, serif" } }, { id: "", order: 1, type: "paragraph", content: "Our entire website now runs faster than it ever did. The edge infrastructure is genuinely world-class.", styles: { fontSize: "16px", color: "#334155", margin: "0", lineHeight: "1.7", fontWeight: "500" } }, { id: "", order: 2, type: "paragraph", content: "- Sam Torres, Head of Platform @ Airbnb", styles: { fontSize: "13px", color: "#10B981", margin: "0", fontWeight: "700" } }] },
+            { id: "", order: 3, type: "container", content: "", styles: { backgroundColor: "#FFFFFF", padding: "32px", borderRadius: "20px", border: "1px solid #E2E8F0", minWidth: "360px", display: "flex", flexDirection: "column", gap: "16px", boxShadow: "0 4px 16px rgba(0,0,0,0.04)" }, children: [{ id: "", order: 0, type: "paragraph", content: "\u201C", styles: { fontSize: "40px", color: "#F59E0B", margin: "0", lineHeight: "1", fontFamily: "Georgia, serif" } }, { id: "", order: 1, type: "paragraph", content: "I was skeptical about no-code tools until I tried this. It generates clean, maintainable code I'd actually ship.", styles: { fontSize: "16px", color: "#334155", margin: "0", lineHeight: "1.7", fontWeight: "500" } }, { id: "", order: 2, type: "paragraph", content: "- Alex Rivera, Staff Engineer @ Linear", styles: { fontSize: "13px", color: "#F59E0B", margin: "0", fontWeight: "700" } }] },
           ]
         },
       ],
     },
   },
 
-  // ─── LANDING — NEW ────────────────────────────────────────────────────────────
+  // ─── LANDING - NEW ────────────────────────────────────────────────────────────
 
   {
     id: "sb-landing-waitlist-dark",
-    name: "Landing — Waitlist Dark",
+    name: "Landing - Waitlist Dark",
     category: "landing",
     designStyle: "dark",
     description: "Full dark waitlist capture page with countdown, email input, and social proof count",
@@ -9254,11 +9235,11 @@ export const SECTION_BLOCKS: SectionBlock[] = [
     },
   },
 
-  // ─── CONTENT — NEW ───────────────────────────────────────────────────────────
+  // ─── CONTENT - NEW ───────────────────────────────────────────────────────────
 
   {
     id: "sb-content-changelog",
-    name: "Content — Changelog Feed",
+    name: "Content - Changelog Feed",
     category: "content",
     designStyle: "minimal",
     description: "Vertical changelog / release notes feed with version tags, dates, and rich update entries",
@@ -9350,14 +9331,14 @@ export const SECTION_BLOCKS: SectionBlock[] = [
     },
   },
 
-  // ─── STATS — NEW ─────────────────────────────────────────────────────────────
+  // ─── STATS - NEW ─────────────────────────────────────────────────────────────
 
   {
     id: "sb-stats-trust-grid",
-    name: "Stats — Trust & Achievement Grid",
+    name: "Stats - Trust & Achievement Grid",
     category: "stats",
     designStyle: "modern",
-    description: "Mixed achievement badges + stat cards in a bento grid — builds instant credibility",
+    description: "Mixed achievement badges + stat cards in a bento grid - builds instant credibility",
     element: {
       type: "container", content: "",
       styles: { padding: "140px 40px", backgroundColor: "#F8FAFC", display: "flex", flexDirection: "column", alignItems: "center", gap: "80px" },
@@ -9384,14 +9365,14 @@ export const SECTION_BLOCKS: SectionBlock[] = [
     },
   },
 
-  // ─── PRICING — NEW ───────────────────────────────────────────────────────────
+  // ─── PRICING - NEW ───────────────────────────────────────────────────────────
 
   {
     id: "sb-pricing-comparison",
-    name: "Pricing — Feature Comparison",
+    name: "Pricing - Feature Comparison",
     category: "pricing",
     designStyle: "minimal",
-    description: "Detailed feature comparison table across all three tiers — helps buyers make confident decisions",
+    description: "Detailed feature comparison table across all three tiers - helps buyers make confident decisions",
     element: {
       type: "container", content: "",
       styles: { padding: "140px 40px", backgroundColor: "#FFFFFF", display: "flex", flexDirection: "column", alignItems: "center", gap: "64px" },
@@ -9406,11 +9387,11 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           id: "", order: 1, type: "container", content: "", styles: { maxWidth: "900px", width: "100%", border: "1px solid #E2E8F0", borderRadius: "24px", overflow: "hidden" }, children: [
             { id: "", order: 0, type: "container", content: "", props: { _childLayout: "row" }, styles: { borderBottom: "1px solid #E2E8F0", backgroundColor: "#F8FAFC" }, children: [{ id: "", order: 0, type: "paragraph", content: "Feature", styles: { flex: "2", padding: "20px 28px", fontSize: "13px", fontWeight: "700", color: "#64748B", margin: "0", letterSpacing: "0.05em", textTransform: "uppercase" } }, { id: "", order: 1, type: "paragraph", content: "Starter", styles: { flex: "1", padding: "20px", fontSize: "13px", fontWeight: "800", color: "#64748B", margin: "0", textAlign: "center" } }, { id: "", order: 2, type: "paragraph", content: "Pro", styles: { flex: "1", padding: "20px", fontSize: "13px", fontWeight: "900", color: "#6366F1", margin: "0", textAlign: "center" } }, { id: "", order: 3, type: "paragraph", content: "Enterprise", styles: { flex: "1", padding: "20px", fontSize: "13px", fontWeight: "800", color: "#64748B", margin: "0", textAlign: "center" } }] },
             { id: "", order: 1, type: "container", content: "", props: { _childLayout: "row" }, styles: { borderBottom: "1px solid #F1F5F9", backgroundColor: "#FFFFFF" }, children: [{ id: "", order: 0, type: "paragraph", content: "Projects", styles: { flex: "2", padding: "18px 28px", fontSize: "14px", color: "#334155", margin: "0", fontWeight: "500" } }, { id: "", order: 1, type: "paragraph", content: "3", styles: { flex: "1", padding: "18px", fontSize: "14px", color: "#64748B", margin: "0", textAlign: "center" } }, { id: "", order: 2, type: "paragraph", content: "Unlimited", styles: { flex: "1", padding: "18px", fontSize: "14px", color: "#6366F1", margin: "0", textAlign: "center", fontWeight: "700" } }, { id: "", order: 3, type: "paragraph", content: "Unlimited", styles: { flex: "1", padding: "18px", fontSize: "14px", color: "#64748B", margin: "0", textAlign: "center" } }] },
-            { id: "", order: 2, type: "container", content: "", props: { _childLayout: "row" }, styles: { borderBottom: "1px solid #F1F5F9", backgroundColor: "#FAFAFA" }, children: [{ id: "", order: 0, type: "paragraph", content: "Custom domains", styles: { flex: "2", padding: "18px 28px", fontSize: "14px", color: "#334155", margin: "0", fontWeight: "500" } }, { id: "", order: 1, type: "paragraph", content: "—", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 2, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#6366F1", margin: "0", textAlign: "center", fontWeight: "900" } }, { id: "", order: 3, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#10B981", margin: "0", textAlign: "center", fontWeight: "900" } }] },
-            { id: "", order: 3, type: "container", content: "", props: { _childLayout: "row" }, styles: { borderBottom: "1px solid #F1F5F9", backgroundColor: "#FFFFFF" }, children: [{ id: "", order: 0, type: "paragraph", content: "AI assistant", styles: { flex: "2", padding: "18px 28px", fontSize: "14px", color: "#334155", margin: "0", fontWeight: "500" } }, { id: "", order: 1, type: "paragraph", content: "—", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 2, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#6366F1", margin: "0", textAlign: "center", fontWeight: "900" } }, { id: "", order: 3, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#10B981", margin: "0", textAlign: "center", fontWeight: "900" } }] },
-            { id: "", order: 4, type: "container", content: "", props: { _childLayout: "row" }, styles: { borderBottom: "1px solid #F1F5F9", backgroundColor: "#FAFAFA" }, children: [{ id: "", order: 0, type: "paragraph", content: "Priority support", styles: { flex: "2", padding: "18px 28px", fontSize: "14px", color: "#334155", margin: "0", fontWeight: "500" } }, { id: "", order: 1, type: "paragraph", content: "—", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 2, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#6366F1", margin: "0", textAlign: "center", fontWeight: "900" } }, { id: "", order: 3, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#10B981", margin: "0", textAlign: "center", fontWeight: "900" } }] },
-            { id: "", order: 5, type: "container", content: "", props: { _childLayout: "row" }, styles: { borderBottom: "1px solid #F1F5F9", backgroundColor: "#FFFFFF" }, children: [{ id: "", order: 0, type: "paragraph", content: "SSO / SAML", styles: { flex: "2", padding: "18px 28px", fontSize: "14px", color: "#334155", margin: "0", fontWeight: "500" } }, { id: "", order: 1, type: "paragraph", content: "—", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 2, type: "paragraph", content: "—", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 3, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#10B981", margin: "0", textAlign: "center", fontWeight: "900" } }] },
-            { id: "", order: 6, type: "container", content: "", props: { _childLayout: "row" }, styles: { backgroundColor: "#FAFAFA" }, children: [{ id: "", order: 0, type: "paragraph", content: "Dedicated SLA", styles: { flex: "2", padding: "18px 28px", fontSize: "14px", color: "#334155", margin: "0", fontWeight: "500" } }, { id: "", order: 1, type: "paragraph", content: "—", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 2, type: "paragraph", content: "—", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 3, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#10B981", margin: "0", textAlign: "center", fontWeight: "900" } }] },
+            { id: "", order: 2, type: "container", content: "", props: { _childLayout: "row" }, styles: { borderBottom: "1px solid #F1F5F9", backgroundColor: "#FAFAFA" }, children: [{ id: "", order: 0, type: "paragraph", content: "Custom domains", styles: { flex: "2", padding: "18px 28px", fontSize: "14px", color: "#334155", margin: "0", fontWeight: "500" } }, { id: "", order: 1, type: "paragraph", content: "-", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 2, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#6366F1", margin: "0", textAlign: "center", fontWeight: "900" } }, { id: "", order: 3, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#10B981", margin: "0", textAlign: "center", fontWeight: "900" } }] },
+            { id: "", order: 3, type: "container", content: "", props: { _childLayout: "row" }, styles: { borderBottom: "1px solid #F1F5F9", backgroundColor: "#FFFFFF" }, children: [{ id: "", order: 0, type: "paragraph", content: "AI assistant", styles: { flex: "2", padding: "18px 28px", fontSize: "14px", color: "#334155", margin: "0", fontWeight: "500" } }, { id: "", order: 1, type: "paragraph", content: "-", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 2, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#6366F1", margin: "0", textAlign: "center", fontWeight: "900" } }, { id: "", order: 3, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#10B981", margin: "0", textAlign: "center", fontWeight: "900" } }] },
+            { id: "", order: 4, type: "container", content: "", props: { _childLayout: "row" }, styles: { borderBottom: "1px solid #F1F5F9", backgroundColor: "#FAFAFA" }, children: [{ id: "", order: 0, type: "paragraph", content: "Priority support", styles: { flex: "2", padding: "18px 28px", fontSize: "14px", color: "#334155", margin: "0", fontWeight: "500" } }, { id: "", order: 1, type: "paragraph", content: "-", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 2, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#6366F1", margin: "0", textAlign: "center", fontWeight: "900" } }, { id: "", order: 3, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#10B981", margin: "0", textAlign: "center", fontWeight: "900" } }] },
+            { id: "", order: 5, type: "container", content: "", props: { _childLayout: "row" }, styles: { borderBottom: "1px solid #F1F5F9", backgroundColor: "#FFFFFF" }, children: [{ id: "", order: 0, type: "paragraph", content: "SSO / SAML", styles: { flex: "2", padding: "18px 28px", fontSize: "14px", color: "#334155", margin: "0", fontWeight: "500" } }, { id: "", order: 1, type: "paragraph", content: "-", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 2, type: "paragraph", content: "-", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 3, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#10B981", margin: "0", textAlign: "center", fontWeight: "900" } }] },
+            { id: "", order: 6, type: "container", content: "", props: { _childLayout: "row" }, styles: { backgroundColor: "#FAFAFA" }, children: [{ id: "", order: 0, type: "paragraph", content: "Dedicated SLA", styles: { flex: "2", padding: "18px 28px", fontSize: "14px", color: "#334155", margin: "0", fontWeight: "500" } }, { id: "", order: 1, type: "paragraph", content: "-", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 2, type: "paragraph", content: "-", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#CBD5E1", margin: "0", textAlign: "center" } }, { id: "", order: 3, type: "paragraph", content: "✓", styles: { flex: "1", padding: "18px", fontSize: "16px", color: "#10B981", margin: "0", textAlign: "center", fontWeight: "900" } }] },
           ]
         },
         {
@@ -9426,7 +9407,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
   // ── SaaS: Feature Wall Dark ──────────────────────────────────────────────────
   {
     id: "sb-saas-feature-wall",
-    name: "SaaS — Feature Wall",
+    name: "SaaS - Feature Wall",
     category: "saas",
     designStyle: "dark",
     description: "Dark 6-card feature wall with icons and subtle grid glow",
@@ -9468,7 +9449,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               id: "", order: 3, type: "container", content: "", styles: { backgroundColor: "#020817", padding: "44px 36px", display: "flex", flexDirection: "column", gap: "20px" }, children: [
                 { id: "", order: 0, type: "paragraph", content: "📊", styles: { fontSize: "32px", margin: "0", lineHeight: "1" } },
                 { id: "", order: 1, type: "heading", content: "Analytics & insights", props: { level: 3 }, styles: { fontSize: "20px", fontWeight: "700", color: "#F8FAFC", margin: "0" } },
-                { id: "", order: 2, type: "paragraph", content: "Real-time traffic, conversion funnels, heatmaps, and A/B testing — all in one dashboard.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.7" } },
+                { id: "", order: 2, type: "paragraph", content: "Real-time traffic, conversion funnels, heatmaps, and A/B testing - all in one dashboard.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.7" } },
               ]
             },
             {
@@ -9495,7 +9476,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
   // ── SaaS: API Preview ────────────────────────────────────────────────────────
   {
     id: "sb-saas-api-preview",
-    name: "SaaS — API Preview",
+    name: "SaaS - API Preview",
     category: "saas",
     designStyle: "dark",
     description: "Developer-first split section: copy on left, animated code terminal on right",
@@ -9572,7 +9553,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
   // ── Landing: Startup Dark ────────────────────────────────────────────────────
   {
     id: "sb-landing-startup-dark",
-    name: "Landing — Startup Dark",
+    name: "Landing - Startup Dark",
     category: "landing",
     designStyle: "dark",
     description: "Dramatic dark startup landing with radial gradient hero, social proof, and dual CTA",
@@ -9589,7 +9570,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               ]
             },
             { id: "", order: 1, type: "heading", content: "Stop coding websites. Start shipping products.", props: { level: 1 }, styles: { fontSize: "72px", fontWeight: "900", color: "#FFFFFF", margin: "0", lineHeight: "1.05", letterSpacing: "-0.05em", maxWidth: "780px" } },
-            { id: "", order: 2, type: "paragraph", content: "Webperia is the visual development platform that lets founders move 10x faster — from idea to live, production-ready website in under an hour.", styles: { fontSize: "20px", color: "#64748B", margin: "0", lineHeight: "1.7", maxWidth: "580px" } },
+            { id: "", order: 2, type: "paragraph", content: "Webperia is the visual development platform that lets founders move 10x faster - from idea to live, production-ready website in under an hour.", styles: { fontSize: "20px", color: "#64748B", margin: "0", lineHeight: "1.7", maxWidth: "580px" } },
             {
               id: "", order: 3, type: "container", content: "", styles: { display: "flex", flexDirection: "row", gap: "12px", alignItems: "center", justifyContent: "center", flexWrap: "wrap" }, children: [
                 { id: "", order: 0, type: "button", content: "Start building free →", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "18px 40px", borderRadius: "14px", fontWeight: "800", fontSize: "17px", cursor: "pointer", boxShadow: "0 0 40px rgba(99,102,241,0.4)" } },
@@ -9642,7 +9623,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
   // ── Landing: Creator / Personal Brand ────────────────────────────────────────
   {
     id: "sb-landing-creator",
-    name: "Landing — Creator / Personal Brand",
+    name: "Landing - Creator / Personal Brand",
     category: "landing",
     designStyle: "minimal",
     description: "Clean minimal personal brand landing with large name, bio, and featured work",
@@ -9684,7 +9665,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               id: "", order: 1, type: "container", content: "", styles: { borderTop: "1px solid #E7E5E4", paddingTop: "28px", display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: "28px", borderBottom: "1px solid #E7E5E4" }, children: [
                 {
                   id: "", order: 0, type: "container", content: "", styles: { display: "flex", flexDirection: "column", gap: "4px" }, children: [
-                    { id: "", order: 0, type: "paragraph", content: "Meridian Bank — Brand Identity", styles: { fontSize: "18px", fontWeight: "700", color: "#1C1917", margin: "0" } },
+                    { id: "", order: 0, type: "paragraph", content: "Meridian Bank - Brand Identity", styles: { fontSize: "18px", fontWeight: "700", color: "#1C1917", margin: "0" } },
                     { id: "", order: 1, type: "paragraph", content: "Branding · 2025", styles: { fontSize: "14px", color: "#A8A29E", margin: "0" } },
                   ]
                 },
@@ -9695,7 +9676,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               id: "", order: 2, type: "container", content: "", styles: { display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: "28px", borderBottom: "1px solid #E7E5E4" }, children: [
                 {
                   id: "", order: 0, type: "container", content: "", styles: { display: "flex", flexDirection: "column", gap: "4px" }, children: [
-                    { id: "", order: 0, type: "paragraph", content: "Aero Health — Design System", styles: { fontSize: "18px", fontWeight: "700", color: "#1C1917", margin: "0" } },
+                    { id: "", order: 0, type: "paragraph", content: "Aero Health - Design System", styles: { fontSize: "18px", fontWeight: "700", color: "#1C1917", margin: "0" } },
                     { id: "", order: 1, type: "paragraph", content: "Design Systems · 2024", styles: { fontSize: "14px", color: "#A8A29E", margin: "0" } },
                   ]
                 },
@@ -9706,7 +9687,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               id: "", order: 3, type: "container", content: "", styles: { display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: "28px", borderBottom: "1px solid #E7E5E4" }, children: [
                 {
                   id: "", order: 0, type: "container", content: "", styles: { display: "flex", flexDirection: "column", gap: "4px" }, children: [
-                    { id: "", order: 0, type: "paragraph", content: "Volt Commerce — Website Redesign", styles: { fontSize: "18px", fontWeight: "700", color: "#1C1917", margin: "0" } },
+                    { id: "", order: 0, type: "paragraph", content: "Volt Commerce - Website Redesign", styles: { fontSize: "18px", fontWeight: "700", color: "#1C1917", margin: "0" } },
                     { id: "", order: 1, type: "paragraph", content: "Web Design · 2024", styles: { fontSize: "14px", color: "#A8A29E", margin: "0" } },
                   ]
                 },
@@ -9722,7 +9703,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
   // ── Services: Process Steps ──────────────────────────────────────────────────
   {
     id: "sb-services-process-steps",
-    name: "Services — Process Steps",
+    name: "Services - Process Steps",
     category: "services",
     designStyle: "modern",
     description: "Numbered vertical process steps with connecting line and rich descriptions",
@@ -9828,7 +9809,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
   // ── Portfolio: Editorial Case Study ─────────────────────────────────────────
   {
     id: "sb-portfolio-editorial",
-    name: "Portfolio — Editorial Case Study",
+    name: "Portfolio - Editorial Case Study",
     category: "portfolio",
     designStyle: "minimal",
     description: "Magazine-style case study listing with large numbers and editorial typography",
@@ -9839,7 +9820,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
         {
           id: "", order: 0, type: "container", content: "", styles: { maxWidth: "1100px", width: "100%", display: "flex", justifyContent: "space-between", alignItems: "flex-end", borderBottom: "1px solid #0F172A", paddingBottom: "28px" }, children: [
             { id: "", order: 0, type: "heading", content: "Selected Work", props: { level: 2 }, styles: { fontSize: "64px", fontWeight: "900", color: "#0F172A", margin: "0", letterSpacing: "-0.05em", lineHeight: "1" } },
-            { id: "", order: 1, type: "paragraph", content: "2022 — 2026", styles: { fontSize: "14px", color: "#94A3B8", margin: "0", fontWeight: "500" } },
+            { id: "", order: 1, type: "paragraph", content: "2022 - 2026", styles: { fontSize: "14px", color: "#94A3B8", margin: "0", fontWeight: "500" } },
           ]
         },
         {
@@ -9849,8 +9830,8 @@ export const SECTION_BLOCKS: SectionBlock[] = [
                 { id: "", order: 0, type: "paragraph", content: "01", styles: { fontSize: "13px", fontWeight: "800", color: "#CBD5E1", margin: "0", letterSpacing: "0.06em", minWidth: "28px" } },
                 {
                   id: "", order: 1, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "6px" }, children: [
-                    { id: "", order: 0, type: "heading", content: "Apex Financial — Complete Brand Overhaul", props: { level: 3 }, styles: { fontSize: "28px", fontWeight: "800", color: "#0F172A", margin: "0", lineHeight: "1.2" } },
-                    { id: "", order: 1, type: "paragraph", content: "A full rebrand for a $2B fintech company entering the consumer market — new identity, website, and 60+ marketing assets.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.6" } },
+                    { id: "", order: 0, type: "heading", content: "Apex Financial - Complete Brand Overhaul", props: { level: 3 }, styles: { fontSize: "28px", fontWeight: "800", color: "#0F172A", margin: "0", lineHeight: "1.2" } },
+                    { id: "", order: 1, type: "paragraph", content: "A full rebrand for a $2B fintech company entering the consumer market - new identity, website, and 60+ marketing assets.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.6" } },
                   ]
                 },
                 {
@@ -9867,8 +9848,8 @@ export const SECTION_BLOCKS: SectionBlock[] = [
                 { id: "", order: 0, type: "paragraph", content: "02", styles: { fontSize: "13px", fontWeight: "800", color: "#CBD5E1", margin: "0", letterSpacing: "0.06em", minWidth: "28px" } },
                 {
                   id: "", order: 1, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "6px" }, children: [
-                    { id: "", order: 0, type: "heading", content: "Solara — SaaS Platform UI Design", props: { level: 3 }, styles: { fontSize: "28px", fontWeight: "800", color: "#0F172A", margin: "0", lineHeight: "1.2" } },
-                    { id: "", order: 1, type: "paragraph", content: "Designed the entire product UX from scratch for a B2B analytics tool — resulting in 47% reduction in onboarding time.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.6" } },
+                    { id: "", order: 0, type: "heading", content: "Solara - SaaS Platform UI Design", props: { level: 3 }, styles: { fontSize: "28px", fontWeight: "800", color: "#0F172A", margin: "0", lineHeight: "1.2" } },
+                    { id: "", order: 1, type: "paragraph", content: "Designed the entire product UX from scratch for a B2B analytics tool - resulting in 47% reduction in onboarding time.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.6" } },
                   ]
                 },
                 {
@@ -9885,7 +9866,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
                 { id: "", order: 0, type: "paragraph", content: "03", styles: { fontSize: "13px", fontWeight: "800", color: "#CBD5E1", margin: "0", letterSpacing: "0.06em", minWidth: "28px" } },
                 {
                   id: "", order: 1, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "6px" }, children: [
-                    { id: "", order: 0, type: "heading", content: "Nova Collective — Editorial Web Platform", props: { level: 3 }, styles: { fontSize: "28px", fontWeight: "800", color: "#0F172A", margin: "0", lineHeight: "1.2" } },
+                    { id: "", order: 0, type: "heading", content: "Nova Collective - Editorial Web Platform", props: { level: 3 }, styles: { fontSize: "28px", fontWeight: "800", color: "#0F172A", margin: "0", lineHeight: "1.2" } },
                     { id: "", order: 1, type: "paragraph", content: "Custom CMS + publishing platform for a media company reaching 2.8M monthly readers across 5 verticals.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.6" } },
                   ]
                 },
@@ -9903,7 +9884,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
                 { id: "", order: 0, type: "paragraph", content: "04", styles: { fontSize: "13px", fontWeight: "800", color: "#CBD5E1", margin: "0", letterSpacing: "0.06em", minWidth: "28px" } },
                 {
                   id: "", order: 1, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "6px" }, children: [
-                    { id: "", order: 0, type: "heading", content: "Orbit — Mobile App Design System", props: { level: 3 }, styles: { fontSize: "28px", fontWeight: "800", color: "#0F172A", margin: "0", lineHeight: "1.2" } },
+                    { id: "", order: 0, type: "heading", content: "Orbit - Mobile App Design System", props: { level: 3 }, styles: { fontSize: "28px", fontWeight: "800", color: "#0F172A", margin: "0", lineHeight: "1.2" } },
                     { id: "", order: 1, type: "paragraph", content: "Built a cross-platform design system used by 6 squads, covering 800+ components and 12 theme tokens.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.6" } },
                   ]
                 },
@@ -9930,7 +9911,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
   // ── Hero: Gradient Split ─────────────────────────────────────────────────────
   {
     id: "sb-hero-gradient-split",
-    name: "Hero — Gradient Split",
+    name: "Hero - Gradient Split",
     category: "hero",
     designStyle: "modern",
     description: "Asymmetric hero with rich indigo-to-violet gradient left panel and white right panel with content",
@@ -9942,7 +9923,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
           id: "", order: 0, type: "container", content: "", styles: { flex: "1", background: "linear-gradient(145deg, #4F46E5 0%, #7C3AED 50%, #A855F7 100%)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-start", padding: "80px 60px", gap: "40px", position: "relative", overflow: "hidden" }, children: [
             { id: "", order: 0, type: "paragraph", content: "BUILDSTACK", styles: { fontSize: "11px", fontWeight: "900", letterSpacing: "0.24em", color: "rgba(255,255,255,0.5)", margin: "0" } },
             { id: "", order: 1, type: "heading", content: "The platform that does everything.", props: { level: 1 }, styles: { fontSize: "56px", fontWeight: "900", color: "#FFFFFF", margin: "0", lineHeight: "1.1", letterSpacing: "-0.04em" } },
-            { id: "", order: 2, type: "paragraph", content: "Design, develop, and deploy modern websites — all from one beautiful interface.", styles: { fontSize: "18px", color: "rgba(255,255,255,0.7)", margin: "0", lineHeight: "1.7" } },
+            { id: "", order: 2, type: "paragraph", content: "Design, develop, and deploy modern websites - all from one beautiful interface.", styles: { fontSize: "18px", color: "rgba(255,255,255,0.7)", margin: "0", lineHeight: "1.7" } },
             {
               id: "", order: 3, type: "container", content: "", styles: { display: "flex", flexDirection: "column", gap: "12px", width: "100%", maxWidth: "320px" }, children: [
                 {
@@ -9976,7 +9957,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
               ]
             },
             { id: "", order: 1, type: "heading", content: "Start building in seconds.", props: { level: 2 }, styles: { fontSize: "44px", fontWeight: "900", color: "#0F172A", margin: "0", lineHeight: "1.1", letterSpacing: "-0.04em" } },
-            { id: "", order: 2, type: "paragraph", content: "Join 24,000 teams shipping faster with Webperia. Your first project is free — no credit card needed.", styles: { fontSize: "17px", color: "#64748B", margin: "0", lineHeight: "1.7" } },
+            { id: "", order: 2, type: "paragraph", content: "Join 24,000 teams shipping faster with Webperia. Your first project is free - no credit card needed.", styles: { fontSize: "17px", color: "#64748B", margin: "0", lineHeight: "1.7" } },
             {
               id: "", order: 3, type: "container", content: "", styles: { display: "flex", flexDirection: "column", gap: "12px", width: "100%", maxWidth: "380px" }, children: [
                 {
@@ -10019,7 +10000,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
   // ── Features: Timeline Roadmap ───────────────────────────────────────────────
   {
     id: "sb-features-timeline-roadmap",
-    name: "Features — Timeline Roadmap",
+    name: "Features - Timeline Roadmap",
     category: "features",
     designStyle: "minimal",
     description: "Horizontal product timeline showing past milestones and future roadmap",
@@ -10047,7 +10028,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
                 {
                   id: "", order: 1, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "8px" }, children: [
                     { id: "", order: 0, type: "heading", content: "Drag-and-drop Canvas v1", props: { level: 3 }, styles: { fontSize: "20px", fontWeight: "800", color: "#0F172A", margin: "0" } },
-                    { id: "", order: 1, type: "paragraph", content: "Launched the core visual editor — 80+ element types, real-time collaboration, and a live preview at every screen size.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.6" } },
+                    { id: "", order: 1, type: "paragraph", content: "Launched the core visual editor - 80+ element types, real-time collaboration, and a live preview at every screen size.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.6" } },
                   ]
                 },
               ]
@@ -10095,7 +10076,7 @@ export const SECTION_BLOCKS: SectionBlock[] = [
                 {
                   id: "", order: 1, type: "container", content: "", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "8px" }, children: [
                     { id: "", order: 0, type: "heading", content: "Commerce & Checkout", props: { level: 3 }, styles: { fontSize: "20px", fontWeight: "800", color: "#0F172A", margin: "0" } },
-                    { id: "", order: 1, type: "paragraph", content: "Full e-commerce capabilities — products, carts, Stripe checkout, and order management — all visual, all without code.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.6" } },
+                    { id: "", order: 1, type: "paragraph", content: "Full e-commerce capabilities - products, carts, Stripe checkout, and order management - all visual, all without code.", styles: { fontSize: "15px", color: "#64748B", margin: "0", lineHeight: "1.6" } },
                   ]
                 },
               ]
@@ -10106,6 +10087,550 @@ export const SECTION_BLOCKS: SectionBlock[] = [
     },
   },
 
+
+  // ─── MASTERPIECE SECTIONS ──────────────────────────────────────────────────
+  // These are production-level, high-end sections designed to be used in
+  // premium websites across any sector.
+
+  {
+    id: "sb-hero-masterpiece",
+    name: "Hero - The Masterpiece",
+    category: "hero",
+    designStyle: "creative",
+    description: "Cinematic centered hero with floating glass stats and deep ambient depth",
+    element: {
+      type: "container", content: "",
+      styles: {
+        padding: "160px 48px",
+        backgroundColor: "#020617",
+        backgroundImage: "radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.2), transparent 50%), radial-gradient(circle at 0% 100%, rgba(236, 72, 153, 0.1), transparent 40%)",
+        display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+        minHeight: "900px", position: "relative", overflow: "hidden", textAlign: "center",
+      },
+      children: [
+        { id: "", order: 0, type: "container", styles: { position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: "1400px", height: "100%", pointerEvents: "none", zIndex: "1" }, children: [
+          { id: "", order: 0, type: "container", styles: { position: "absolute", top: "5%", left: "5%", width: "12px", height: "12px", backgroundColor: "#818CF8", borderRadius: "50%", boxShadow: "0 0 20px #818CF8" } },
+          { id: "", order: 1, type: "container", styles: { position: "absolute", top: "20%", right: "10%", width: "8px", height: "8px", backgroundColor: "#F472B6", borderRadius: "50%", boxShadow: "0 0 15px #F472B6" } },
+        ]},
+        { id: "", order: 1, type: "badge", content: "✦ NEXT GENERATION PLATFORM", styles: { backgroundColor: "rgba(255,255,255,0.03)", color: "#FFFFFF", padding: "10px 24px", borderRadius: "100px", fontSize: "11px", fontWeight: "800", border: "1px solid rgba(255,255,255,0.1)", letterSpacing: "0.25em", marginBottom: "32px", position: "relative", zIndex: "10" } },
+        { id: "", order: 2, type: "heading", content: "Where Vision\nMeets Reality.", props: { level: 1 }, styles: { fontSize: "120px", fontWeight: "900", color: "#FFFFFF", lineHeight: "0.88", margin: "0", letterSpacing: "-0.04em", position: "relative", zIndex: "10", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.3))" } },
+        { id: "", order: 3, type: "paragraph", content: "The ultimate production-ready framework for building high-performance digital experiences. Built with precision, designed for scale.", styles: { fontSize: "22px", color: "#94A3B8", maxWidth: "680px", margin: "40px auto", lineHeight: "1.6", position: "relative", zIndex: "10" } },
+        { id: "", order: 4, type: "container", props: { _childLayout: "row", _childAlign: "center", _childGap: "xl" }, styles: { position: "relative", zIndex: "10", justifyContent: "center", width: "100%" }, children: [
+          { id: "", order: 0, type: "button", content: "Start Building Now", styles: { backgroundColor: "#FFFFFF", color: "#020617", padding: "20px 56px", borderRadius: "12px", fontWeight: "800", fontSize: "17px", cursor: "pointer", border: "none", boxShadow: "0 20px 40px rgba(255,255,255,0.1)" } },
+          { id: "", order: 1, type: "button", content: "View Case Studies", styles: { backgroundColor: "transparent", color: "#FFFFFF", padding: "20px 56px", borderRadius: "12px", fontWeight: "600", fontSize: "17px", cursor: "pointer", border: "1px solid rgba(255,255,255,0.2)" } },
+        ]},
+        { id: "", order: 5, type: "container", props: { _childLayout: "row", _childAlign: "center", _childJustify: "center", _childGap: "xl" }, styles: { marginTop: "100px", position: "relative", zIndex: "10" }, children: [
+          { id: "", order: 0, type: "container", styles: { textAlign: "left" }, children: [{ id: "", order: 0, type: "heading", content: "250K+", styles: { fontSize: "32px", fontWeight: "900", color: "#FFFFFF", margin: "0" } }, { id: "", order: 1, type: "paragraph", content: "Active Users", styles: { fontSize: "14px", color: "#64748B", margin: "0" } }] },
+          { id: "", order: 1, type: "divider", styles: { height: "40px", width: "1px", backgroundColor: "rgba(255,255,255,0.1)" } },
+          { id: "", order: 2, type: "container", styles: { textAlign: "left" }, children: [{ id: "", order: 0, type: "heading", content: "99.9%", styles: { fontSize: "32px", fontWeight: "900", color: "#FFFFFF", margin: "0" } }, { id: "", order: 1, type: "paragraph", content: "Uptime SLA", styles: { fontSize: "14px", color: "#64748B", margin: "0" } }] },
+          { id: "", order: 3, type: "divider", styles: { height: "40px", width: "1px", backgroundColor: "rgba(255,255,255,0.1)" } },
+          { id: "", order: 4, type: "container", styles: { textAlign: "left" }, children: [{ id: "", order: 0, type: "heading", content: "4.9/5", styles: { fontSize: "32px", fontWeight: "900", color: "#FFFFFF", margin: "0" } }, { id: "", order: 1, type: "paragraph", content: "User Rating", styles: { fontSize: "14px", color: "#64748B", margin: "0" } }] },
+        ]}
+      ],
+    },
+  },
+
+  {
+    id: "sb-features-bento-master",
+    name: "Features - Bento Master",
+    category: "features",
+    designStyle: "modern",
+    description: "Premium asymmetric bento grid with layered content and subtle glass depth",
+    element: {
+      type: "container", content: "",
+      styles: { padding: "140px 48px", backgroundColor: "#FFFFFF" },
+      children: [{
+        id: "", order: 0, type: "container", content: "",
+        props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "1400px", width: "100%", margin: "0 auto" },
+        children: [
+          { id: "", order: 0, type: "container", styles: { textAlign: "center", marginBottom: "64px" }, children: [
+            { id: "", order: 0, type: "badge", content: "FEATURES", styles: { color: "#6366F1", fontWeight: "800", fontSize: "12px", letterSpacing: "0.1em", marginBottom: "16px" } },
+            { id: "", order: 1, type: "heading", content: "Engineered for excellence.", props: { level: 2 }, styles: { fontSize: "56px", fontWeight: "900", color: "#0F172A", margin: "0", letterSpacing: "-0.02em" } },
+          ]},
+          { id: "", order: 1, type: "container", styles: { display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gridTemplateRows: "repeat(2, 320px)", gap: "24px", width: "100%" }, children: [
+            // Big feature
+            { id: "", order: 0, type: "container", styles: { gridColumn: "span 7", gridRow: "span 2", backgroundColor: "#F8FAFC", borderRadius: "32px", padding: "64px", border: "1px solid #F1F5F9", display: "flex", flexDirection: "column", justifyContent: "flex-end", backgroundImage: "linear-gradient(to top right, #EEF2FF, transparent)", position: "relative", overflow: "hidden" }, children: [
+               { id: "", order: 0, type: "container", styles: { position: "absolute", top: "0", right: "0", width: "100%", height: "100%", backgroundImage: "url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800')", opacity: "0.05", backgroundSize: "cover" } },
+               { id: "", order: 1, type: "icon", content: "✦", styles: { fontSize: "48px", color: "#6366F1", marginBottom: "32px" } },
+               { id: "", order: 2, type: "heading", content: "Real-time Architecture", styles: { fontSize: "36px", fontWeight: "900", color: "#0F172A", marginBottom: "16px" } },
+               { id: "", order: 3, type: "paragraph", content: "Experience zero-latency updates with our proprietary synchronization engine. Built to handle millions of concurrent connections without breaking a sweat.", styles: { fontSize: "18px", color: "#475569", lineHeight: "1.6", maxWidth: "480px" } }
+            ]},
+            // Medium feature
+            { id: "", order: 1, type: "container", styles: { gridColumn: "span 5", backgroundColor: "#0F172A", borderRadius: "32px", padding: "48px", border: "1px solid rgba(255,255,255,0.05)", display: "flex", flexDirection: "column", justifyContent: "space-between" }, children: [
+               { id: "", order: 0, type: "heading", content: "Global Edge Network", styles: { fontSize: "24px", fontWeight: "800", color: "#FFFFFF" } },
+               { id: "", order: 1, type: "paragraph", content: "Deployed to 280+ locations worldwide for sub-10ms response times.", styles: { fontSize: "16px", color: "#94A3B8" } },
+               { id: "", order: 2, type: "badge", content: "LEARN MORE →", styles: { color: "#818CF8", fontSize: "12px", fontWeight: "800", letterSpacing: "0.05em", cursor: "pointer" } }
+            ]},
+            // Small feature 1
+            { id: "", order: 2, type: "container", styles: { gridColumn: "span 2", backgroundColor: "#FFFFFF", borderRadius: "32px", padding: "40px", border: "1px solid #F1F5F9", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", justifyContent: "center" }, children: [
+               { id: "", order: 0, type: "icon", content: "🔒", styles: { fontSize: "32px", marginBottom: "16px" } },
+               { id: "", order: 1, type: "heading", content: "SOC2", styles: { fontSize: "18px", fontWeight: "800", color: "#0F172A" } }
+            ]},
+            // Small feature 2
+            { id: "", order: 3, type: "container", styles: { gridColumn: "span 3", backgroundColor: "#FFFFFF", borderRadius: "32px", padding: "40px", border: "1px solid #F1F5F9", display: "flex", flexDirection: "column", justifyContent: "center" }, children: [
+               { id: "", order: 0, type: "heading", content: "24/7", styles: { fontSize: "32px", fontWeight: "900", color: "#6366F1" } },
+               { id: "", order: 1, type: "paragraph", content: "Priority Support", styles: { fontSize: "14px", color: "#475569" } }
+            ]}
+          ]}
+        ]
+      }]
+    },
+  },
+
+  {
+    id: "sb-testimonials-wall-premium",
+    name: "Social - The Trust Wall",
+    category: "testimonials",
+    designStyle: "modern",
+    description: "Premium grid of high-fidelity testimonials with star ratings and verified statuses",
+    element: {
+      type: "container", content: "",
+      styles: { padding: "140px 48px", backgroundColor: "#F8FAFC" },
+      children: [{
+        id: "", order: 0, type: "container", content: "",
+        props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "1400px", width: "100%", margin: "0 auto" },
+        children: [
+          { id: "", order: 0, type: "container", styles: { textAlign: "center", marginBottom: "64px" }, children: [
+            { id: "", order: 0, type: "badge", content: "REVIEWS", styles: { color: "#10B981", fontWeight: "800", fontSize: "12px", letterSpacing: "0.1em", marginBottom: "16px" } },
+            { id: "", order: 1, type: "heading", content: "Loved by the world's\nbest teams.", props: { level: 2 }, styles: { fontSize: "56px", fontWeight: "900", color: "#0F172A", margin: "0", letterSpacing: "-0.02em" } },
+          ]},
+          { id: "", order: 1, type: "container", styles: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "32px", width: "100%" }, children: [
+            // Testimonial 1
+            { id: "", order: 0, type: "container", styles: { backgroundColor: "#FFFFFF", borderRadius: "24px", padding: "40px", border: "1px solid #EEF2FF", boxShadow: "0 10px 30px rgba(0,0,0,0.02)" }, children: [
+               { id: "", order: 0, type: "paragraph", content: "★★★★★", styles: { color: "#F59E0B", fontSize: "14px", marginBottom: "20px" } },
+               { id: "", order: 1, type: "paragraph", content: "This is easily the most impressive toolkit I've ever used. The attention to detail is just staggering.", styles: { fontSize: "18px", color: "#334155", lineHeight: "1.7", marginBottom: "32px", fontWeight: "500" } },
+               { id: "", order: 2, type: "container", props: { _childLayout: "row", _childAlign: "center", _childGap: "md" }, children: [
+                  { id: "", order: 0, type: "avatar", content: "JD", styles: { width: "48px", height: "48px", backgroundColor: "#EEF2FF", color: "#6366F1", fontWeight: "700" } },
+                  { id: "", order: 1, type: "container", children: [
+                    { id: "", order: 0, type: "heading", content: "Julianne Devers", styles: { fontSize: "16px", fontWeight: "800", color: "#0F172A", margin: "0" } },
+                    { id: "", order: 1, type: "paragraph", content: "CTO, CloudScale", styles: { fontSize: "13px", color: "#64748B", margin: "0" } }
+                  ]}
+               ]}
+            ]},
+            // Testimonial 2
+            { id: "", order: 1, type: "container", styles: { backgroundColor: "#FFFFFF", borderRadius: "24px", padding: "40px", border: "1px solid #EEF2FF", boxShadow: "0 10px 30px rgba(0,0,0,0.02)" }, children: [
+               { id: "", order: 0, type: "paragraph", content: "★★★★★", styles: { color: "#F59E0B", fontSize: "14px", marginBottom: "20px" } },
+               { id: "", order: 1, type: "paragraph", content: "We saw a 40% increase in productivity within the first month. The automation features are a game-changer.", styles: { fontSize: "18px", color: "#334155", lineHeight: "1.7", marginBottom: "32px", fontWeight: "500" } },
+               { id: "", order: 2, type: "container", props: { _childLayout: "row", _childAlign: "center", _childGap: "md" }, children: [
+                  { id: "", order: 0, type: "avatar", content: "MR", styles: { width: "48px", height: "48px", backgroundColor: "#ECFDF5", color: "#10B981", fontWeight: "700" } },
+                  { id: "", order: 1, type: "container", children: [
+                    { id: "", order: 0, type: "heading", content: "Marcus Rivera", styles: { fontSize: "16px", fontWeight: "800", color: "#0F172A", margin: "0" } },
+                    { id: "", order: 1, type: "paragraph", content: "Product Manager, Apex", styles: { fontSize: "13px", color: "#64748B", margin: "0" } }
+                  ]}
+               ]}
+            ]},
+            // Testimonial 3
+            { id: "", order: 2, type: "container", styles: { backgroundColor: "#FFFFFF", borderRadius: "24px", padding: "40px", border: "1px solid #EEF2FF", boxShadow: "0 10px 30px rgba(0,0,0,0.02)" }, children: [
+               { id: "", order: 0, type: "paragraph", content: "★★★★★", styles: { color: "#F59E0B", fontSize: "14px", marginBottom: "20px" } },
+               { id: "", order: 1, type: "paragraph", content: "The support team is incredible. Any time we had a question, they were there with a solution in minutes.", styles: { fontSize: "18px", color: "#334155", lineHeight: "1.7", marginBottom: "32px", fontWeight: "500" } },
+               { id: "", order: 2, type: "container", props: { _childLayout: "row", _childAlign: "center", _childGap: "md" }, children: [
+                  { id: "", order: 0, type: "avatar", content: "SC", styles: { width: "48px", height: "48px", backgroundColor: "#FFF7ED", color: "#F59E0B", fontWeight: "700" } },
+                  { id: "", order: 1, type: "container", children: [
+                    { id: "", order: 0, type: "heading", content: "Sarah Chen", styles: { fontSize: "16px", fontWeight: "800", color: "#0F172A", margin: "0" } },
+                    { id: "", order: 1, type: "paragraph", content: "Founder, Studio X", styles: { fontSize: "13px", color: "#64748B", margin: "0" } }
+                  ]}
+               ]}
+            ]}
+          ]}
+        ]
+      }]
+    },
+  },
+
+  {
+    id: "sb-pricing-professional",
+    name: "Pricing - Professional SaaS",
+    category: "pricing",
+    designStyle: "modern",
+    description: "High-conversion pricing section with a highlighted primary plan and detailed feature lists",
+    element: {
+      type: "container", content: "",
+      styles: { padding: "140px 48px", backgroundColor: "#FFFFFF" },
+      children: [{
+        id: "", order: 0, type: "container", content: "",
+        props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "1200px", width: "100%", margin: "0 auto" },
+        children: [
+          { id: "", order: 0, type: "container", styles: { textAlign: "center", marginBottom: "64px" }, children: [
+            { id: "", order: 0, type: "heading", content: "Simple, honest pricing.", props: { level: 2 }, styles: { fontSize: "56px", fontWeight: "900", color: "#0F172A", margin: "0", letterSpacing: "-0.02em" } },
+            { id: "", order: 1, type: "paragraph", content: "Choose the plan that's right for your business. No hidden fees, ever.", styles: { fontSize: "20px", color: "#64748B", marginTop: "16px" } },
+          ]},
+          { id: "", order: 1, type: "container", styles: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "32px", width: "100%", alignItems: "center" }, children: [
+            // Plan 1
+            { id: "", order: 0, type: "container", styles: { backgroundColor: "#F8FAFC", borderRadius: "24px", padding: "48px", border: "1px solid #F1F5F9" }, children: [
+               { id: "", order: 0, type: "heading", content: "Starter", styles: { fontSize: "20px", fontWeight: "800", color: "#0F172A", marginBottom: "8px" } },
+               { id: "", order: 1, type: "paragraph", content: "Perfect for individuals and side projects.", styles: { fontSize: "15px", color: "#64748B", marginBottom: "32px" } },
+               { id: "", order: 2, type: "heading", content: "$0", styles: { fontSize: "48px", fontWeight: "900", color: "#0F172A", marginBottom: "32px" } },
+               { id: "", order: 3, type: "button", content: "Get Started", styles: { width: "100%", backgroundColor: "#FFFFFF", color: "#0F172A", border: "1px solid #E2E8F0", padding: "14px", borderRadius: "10px", fontWeight: "700", marginBottom: "32px", cursor: "pointer" } },
+               { id: "", order: 4, type: "list", content: "• 5 Projects\n• 1GB Storage\n• Community Support\n• Basic Analytics", styles: { fontSize: "14px", color: "#475569", lineHeight: "2.4" } }
+            ]},
+            // Plan 2 (Highlighted)
+            { id: "", order: 1, type: "container", styles: { backgroundColor: "#0F172A", borderRadius: "32px", padding: "64px 48px", border: "4px solid #6366F1", boxShadow: "0 40px 80px rgba(99,102,241,0.2)", position: "relative", transform: "scale(1.05)", zIndex: "10" }, children: [
+               { id: "", order: 0, type: "badge", content: "MOST POPULAR", styles: { position: "absolute", top: "-14px", left: "50%", transform: "translateX(-50%)", backgroundColor: "#6366F1", color: "#FFFFFF", padding: "6px 16px", borderRadius: "9999px", fontSize: "12px", fontWeight: "800" } },
+               { id: "", order: 1, type: "heading", content: "Professional", styles: { fontSize: "20px", fontWeight: "800", color: "#FFFFFF", marginBottom: "8px" } },
+               { id: "", order: 2, type: "paragraph", content: "Everything you need to grow your business.", styles: { fontSize: "15px", color: "#94A3B8", marginBottom: "32px" } },
+               { id: "", order: 3, type: "heading", content: "$49", styles: { fontSize: "56px", fontWeight: "900", color: "#FFFFFF", marginBottom: "32px" } },
+               { id: "", order: 4, type: "button", content: "Start Free Trial", styles: { width: "100%", backgroundColor: "#6366F1", color: "#FFFFFF", border: "none", padding: "18px", borderRadius: "10px", fontWeight: "800", marginBottom: "32px", cursor: "pointer", boxShadow: "0 10px 20px rgba(99,102,241,0.3)" } },
+               { id: "", order: 5, type: "list", content: "• Unlimited Projects\n• 50GB Storage\n• Priority Support\n• Advanced Analytics\n• Custom Domains\n• Team Collaboration", styles: { fontSize: "14px", color: "#94A3B8", lineHeight: "2.4" } }
+            ]},
+            // Plan 3
+            { id: "", order: 2, type: "container", styles: { backgroundColor: "#F8FAFC", borderRadius: "24px", padding: "48px", border: "1px solid #F1F5F9" }, children: [
+               { id: "", order: 0, type: "heading", content: "Enterprise", styles: { fontSize: "20px", fontWeight: "800", color: "#0F172A", marginBottom: "8px" } },
+               { id: "", order: 1, type: "paragraph", content: "Advanced control and security for big teams.", styles: { fontSize: "15px", color: "#64748B", marginBottom: "32px" } },
+               { id: "", order: 2, type: "heading", content: "Custom", styles: { fontSize: "48px", fontWeight: "900", color: "#0F172A", marginBottom: "32px" } },
+               { id: "", order: 3, type: "button", content: "Contact Sales", styles: { width: "100%", backgroundColor: "#FFFFFF", color: "#0F172A", border: "1px solid #E2E8F0", padding: "14px", borderRadius: "10px", fontWeight: "700", marginBottom: "32px", cursor: "pointer" } },
+               { id: "", order: 4, type: "list", content: "• Everything in Pro\n• Dedicated Manager\n• Custom SLA\n• SSO & SAML\n• Unlimited Storage", styles: { fontSize: "14px", color: "#475569", lineHeight: "2.4" } }
+            ]}
+          ]}
+        ]
+      }]
+    },
+  },
+
+  {
+    id: "sb-cta-masterpiece",
+    name: "CTA - Midnight Glow",
+    category: "cta",
+    designStyle: "dark",
+    description: "Dramatic final CTA with deep glow effects and massive typography",
+    element: {
+      type: "container", content: "",
+      styles: {
+        padding: "160px 48px",
+        backgroundColor: "#020617",
+        backgroundImage: "radial-gradient(circle at 100% 100%, rgba(99, 102, 241, 0.15), transparent 50%), radial-gradient(circle at 0% 0%, rgba(236, 72, 153, 0.1), transparent 40%)",
+        textAlign: "center",
+        position: "relative",
+        overflow: "hidden"
+      },
+      children: [
+        { id: "", order: 0, type: "heading", content: "Ready to build\nyour masterpiece?", props: { level: 2 }, styles: { fontSize: "80px", fontWeight: "900", color: "#FFFFFF", lineHeight: "1", margin: "0", letterSpacing: "-0.04em", marginBottom: "48px" } },
+        { id: "", order: 1, type: "paragraph", content: "Join 10,000+ creators building the future of the web with our platform.", styles: { fontSize: "22px", color: "#94A3B8", maxWidth: "600px", margin: "0 auto 64px auto" } },
+        { id: "", order: 2, type: "button", content: "Create your account - It's free", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "24px 64px", borderRadius: "16px", fontWeight: "800", fontSize: "20px", cursor: "pointer", border: "none", boxShadow: "0 0 50px rgba(99,102,241,0.4)" } },
+      ],
+    },
+  },
+  {
+    id: "sb-services-masterpiece",
+    name: "Services - Professional Grid",
+    category: "services",
+    designStyle: "modern",
+    description: "High-contrast services grid with oversized icons and detailed description areas",
+    element: {
+      type: "container", content: "",
+      styles: { padding: "140px 48px", backgroundColor: "#FFFFFF" },
+      children: [{
+        id: "", order: 0, type: "container", props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "1400px", width: "100%", margin: "0 auto" },
+        children: [
+          { id: "", order: 0, type: "container", styles: { textAlign: "left", width: "100%", marginBottom: "64px" }, children: [
+            { id: "", order: 0, type: "badge", content: "OUR EXPERTISE", styles: { color: "#6366F1", fontWeight: "800", fontSize: "12px", letterSpacing: "0.1em", marginBottom: "16px" } },
+            { id: "", order: 1, type: "heading", content: "Solutions that drive\nreal impact.", props: { level: 2 }, styles: { fontSize: "56px", fontWeight: "900", color: "#0F172A", margin: "0", letterSpacing: "-0.02em" } },
+          ]},
+          { id: "", order: 1, type: "container", styles: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "48px", width: "100%" }, children: [
+            { id: "", order: 0, type: "container", styles: { borderTop: "2px solid #F1F5F9", paddingTop: "32px" }, children: [
+              { id: "", order: 0, type: "heading", content: "01", styles: { fontSize: "14px", fontWeight: "900", color: "#6366F1", marginBottom: "24px" } },
+              { id: "", order: 1, type: "heading", content: "Strategy & Design", styles: { fontSize: "24px", fontWeight: "800", color: "#0F172A", marginBottom: "16px" } },
+              { id: "", order: 2, type: "paragraph", content: "We align your business goals with user needs to create stunning, effective digital products.", styles: { fontSize: "16px", color: "#64748B", lineHeight: "1.6" } }
+            ]},
+            { id: "", order: 1, type: "container", styles: { borderTop: "2px solid #F1F5F9", paddingTop: "32px" }, children: [
+              { id: "", order: 0, type: "heading", content: "02", styles: { fontSize: "14px", fontWeight: "900", color: "#6366F1", marginBottom: "24px" } },
+              { id: "", order: 1, type: "heading", content: "Development", styles: { fontSize: "24px", fontWeight: "800", color: "#0F172A", marginBottom: "16px" } },
+              { id: "", order: 2, type: "paragraph", content: "Clean, scalable code built on modern architectures for maximum performance and reliability.", styles: { fontSize: "16px", color: "#64748B", lineHeight: "1.6" } }
+            ]},
+            { id: "", order: 2, type: "container", styles: { borderTop: "2px solid #F1F5F9", paddingTop: "32px" }, children: [
+              { id: "", order: 0, type: "heading", content: "03", styles: { fontSize: "14px", fontWeight: "900", color: "#6366F1", marginBottom: "24px" } },
+              { id: "", order: 1, type: "heading", content: "Growth & Scale", styles: { fontSize: "24px", fontWeight: "800", color: "#0F172A", marginBottom: "16px" } },
+              { id: "", order: 2, type: "paragraph", content: "Data-driven optimization to help your product reach more users and convert more customers.", styles: { fontSize: "16px", color: "#64748B", lineHeight: "1.6" } }
+            ]}
+          ]}
+        ]
+      }]
+    }
+  },
+  {
+    id: "sb-blog-masterpiece",
+    name: "Blog - Editorial Grid",
+    category: "blog",
+    designStyle: "minimal",
+    description: "Premium editorial-style blog grid with large featured cards and refined typography",
+    element: {
+      type: "container", content: "",
+      styles: { padding: "140px 48px", backgroundColor: "#FFFFFF" },
+      children: [{
+        id: "", order: 0, type: "container", props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "1400px", width: "100%", margin: "0 auto" },
+        children: [
+          { id: "", order: 0, type: "container", styles: { display: "flex", justifyContent: "space-between", alignItems: "flex-end", width: "100%", marginBottom: "64px" }, children: [
+            { id: "", order: 0, type: "container", children: [
+              { id: "", order: 0, type: "badge", content: "INSIGHTS", styles: { color: "#000000", fontWeight: "800", fontSize: "12px", letterSpacing: "0.1em", marginBottom: "16px" } },
+              { id: "", order: 1, type: "heading", content: "The latest in digital craft.", props: { level: 2 }, styles: { fontSize: "56px", fontWeight: "900", color: "#0F172A", margin: "0", letterSpacing: "-0.02em" } },
+            ]},
+            { id: "", order: 1, type: "button", content: "View all articles", styles: { backgroundColor: "transparent", color: "#000000", borderBottom: "2px solid #000000", padding: "8px 0", fontWeight: "700", fontSize: "14px", cursor: "pointer" } }
+          ]},
+          { id: "", order: 1, type: "container", styles: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "64px", width: "100%" }, children: [
+            { id: "", order: 0, type: "container", children: [
+              { id: "", order: 0, type: "container", styles: { aspectRatio: "16/9", backgroundColor: "#F1F5F9", borderRadius: "24px", marginBottom: "32px", overflow: "hidden", backgroundImage: "url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800')", backgroundSize: "cover" } },
+              { id: "", order: 1, type: "paragraph", content: "DESIGN · 12 MIN READ", styles: { fontSize: "12px", fontWeight: "800", color: "#6366F1", marginBottom: "16px" } },
+              { id: "", order: 2, type: "heading", content: "The future of AI-driven design systems", styles: { fontSize: "28px", fontWeight: "900", color: "#0F172A", marginBottom: "16px" } },
+              { id: "", order: 3, type: "paragraph", content: "How we're using large language models to automate the tedious parts of UI design while keeping the soul of creative craft.", styles: { fontSize: "16px", color: "#64748B", lineHeight: "1.6" } }
+            ]},
+            { id: "", order: 1, type: "container", children: [
+              { id: "", order: 0, type: "container", styles: { aspectRatio: "16/9", backgroundColor: "#F1F5F9", borderRadius: "24px", marginBottom: "32px", overflow: "hidden", backgroundImage: "url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800')", backgroundSize: "cover" } },
+              { id: "", order: 1, type: "paragraph", content: "ENGINEERING · 8 MIN READ", styles: { fontSize: "12px", fontWeight: "800", color: "#6366F1", marginBottom: "16px" } },
+              { id: "", order: 2, type: "heading", content: "Scaling to millions with edge functions", styles: { fontSize: "28px", fontWeight: "900", color: "#0F172A", marginBottom: "16px" } },
+              { id: "", order: 3, type: "paragraph", content: "Our journey in migrating from monolithic servers to a globally distributed architecture for sub-10ms response times.", styles: { fontSize: "16px", color: "#64748B", lineHeight: "1.6" } }
+            ]}
+          ]}
+        ]
+      }]
+    }
+  },
+
+  {
+    id: "sb-testimonials-wall-premium",
+    name: "Social - The Trust Wall",
+    category: "testimonials",
+    designStyle: "modern",
+    description: "Premium grid of high-fidelity testimonials with star ratings and verified statuses",
+    element: {
+      type: "container", content: "",
+      styles: { padding: "140px 48px", backgroundColor: "#F8FAFC" },
+      children: [{
+        id: "", order: 0, type: "container", content: "",
+        props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "1400px", width: "100%", margin: "0 auto" },
+        children: [
+          { id: "", order: 0, type: "container", styles: { textAlign: "center", marginBottom: "64px" }, children: [
+            { id: "", order: 0, type: "badge", content: "REVIEWS", styles: { color: "#10B981", fontWeight: "800", fontSize: "12px", letterSpacing: "0.1em", marginBottom: "16px" } },
+            { id: "", order: 1, type: "heading", content: "Loved by the world's\nbest teams.", props: { level: 2 }, styles: { fontSize: "56px", fontWeight: "900", color: "#0F172A", margin: "0", letterSpacing: "-0.02em" } },
+          ]},
+          { id: "", order: 1, type: "container", styles: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "32px", width: "100%" }, children: [
+            // Testimonial 1
+            { id: "", order: 0, type: "container", styles: { backgroundColor: "#FFFFFF", borderRadius: "24px", padding: "40px", border: "1px solid #EEF2FF", boxShadow: "0 10px 30px rgba(0,0,0,0.02)" }, children: [
+               { id: "", order: 0, type: "paragraph", content: "★★★★★", styles: { color: "#F59E0B", fontSize: "14px", marginBottom: "20px" } },
+               { id: "", order: 1, type: "paragraph", content: "This is easily the most impressive toolkit I've ever used. The attention to detail is just staggering.", styles: { fontSize: "18px", color: "#334155", lineHeight: "1.7", marginBottom: "32px", fontWeight: "500" } },
+               { id: "", order: 2, type: "container", props: { _childLayout: "row", _childAlign: "center", _childGap: "md" }, children: [
+                  { id: "", order: 0, type: "avatar", content: "JD", styles: { width: "48px", height: "48px", backgroundColor: "#EEF2FF", color: "#6366F1", fontWeight: "700" } },
+                  { id: "", order: 1, type: "container", children: [
+                    { id: "", order: 0, type: "heading", content: "James Donovan", styles: { fontSize: "16px", fontWeight: "700", color: "#0F172A", margin: "0" } },
+                    { id: "", order: 1, type: "paragraph", content: "Product Designer @ Vercel", styles: { fontSize: "13px", color: "#64748B", margin: "0" } }
+                  ]}
+               ]}
+            ]},
+            // Testimonial 2
+            { id: "", order: 1, type: "container", styles: { backgroundColor: "#FFFFFF", borderRadius: "24px", padding: "40px", border: "1px solid #EEF2FF", boxShadow: "0 10px 30px rgba(0,0,0,0.02)" }, children: [
+               { id: "", order: 0, type: "paragraph", content: "★★★★★", styles: { color: "#F59E0B", fontSize: "14px", marginBottom: "20px" } },
+               { id: "", order: 1, type: "paragraph", content: "We've seen a 40% increase in productivity since switching. The components are so well thought out.", styles: { fontSize: "18px", color: "#334155", lineHeight: "1.7", marginBottom: "32px", fontWeight: "500" } },
+               { id: "", order: 2, type: "container", props: { _childLayout: "row", _childAlign: "center", _childGap: "md" }, children: [
+                  { id: "", order: 0, type: "avatar", content: "SK", styles: { width: "48px", height: "48px", backgroundColor: "#F0FDF4", color: "#16A34A", fontWeight: "700" } },
+                  { id: "", order: 1, type: "container", children: [
+                    { id: "", order: 0, type: "heading", content: "Sarah K.", styles: { fontSize: "16px", fontWeight: "700", color: "#0F172A", margin: "0" } },
+                    { id: "", order: 1, type: "paragraph", content: "Engineering Manager @ Linear", styles: { fontSize: "13px", color: "#64748B", margin: "0" } }
+                  ]}
+               ]}
+            ]},
+            // Testimonial 3
+            { id: "", order: 2, type: "container", styles: { backgroundColor: "#FFFFFF", borderRadius: "24px", padding: "40px", border: "1px solid #EEF2FF", boxShadow: "0 10px 30px rgba(0,0,0,0.02)" }, children: [
+               { id: "", order: 0, type: "paragraph", content: "★★★★★", styles: { color: "#F59E0B", fontSize: "14px", marginBottom: "20px" } },
+               { id: "", order: 1, type: "paragraph", content: "The best part is how it handles responsiveness. I don't have to worry about mobile views anymore.", styles: { fontSize: "18px", color: "#334155", lineHeight: "1.7", marginBottom: "32px", fontWeight: "500" } },
+               { id: "", order: 2, type: "container", props: { _childLayout: "row", _childAlign: "center", _childGap: "md" }, children: [
+                  { id: "", order: 0, type: "avatar", content: "MA", styles: { width: "48px", height: "48px", backgroundColor: "#FFF7ED", color: "#EA580C", fontWeight: "700" } },
+                  { id: "", order: 1, type: "container", children: [
+                    { id: "", order: 0, type: "heading", content: "Marcus Aurelius", styles: { fontSize: "16px", fontWeight: "700", color: "#0F172A", margin: "0" } },
+                    { id: "", order: 1, type: "paragraph", content: "CTO @ Rome Digital", styles: { fontSize: "13px", color: "#64748B", margin: "0" } }
+                  ]}
+               ]}
+            ]}
+          ]}
+        ]
+      }]
+    }
+  },
+
+  {
+    id: "sb-cta-masterpiece",
+    name: "CTA - Midnight Glow",
+    category: "cta",
+    designStyle: "dark",
+    description: "Immersive dark CTA with ambient radial glow and high-impact center alignment",
+    element: {
+      type: "container", content: "",
+      styles: { padding: "160px 48px", backgroundColor: "#020617", backgroundImage: "radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15), transparent 70%)" },
+      children: [{
+        id: "", order: 0, type: "container", props: { _childLayout: "column", _childAlign: "center", _childGap: "xl" },
+        styles: { maxWidth: "800px", width: "100%", margin: "0 auto", textAlign: "center" },
+        children: [
+          { id: "", order: 0, type: "badge", content: "GET STARTED", styles: { color: "#818CF8", fontWeight: "800", fontSize: "12px", letterSpacing: "0.2em", marginBottom: "24px" } },
+          { id: "", order: 1, type: "heading", content: "Ready to transform your\ndigital presence?", props: { level: 2 }, styles: { fontSize: "72px", fontWeight: "900", color: "#FFFFFF", margin: "0", letterSpacing: "-0.04em", lineHeight: "1.1" } },
+          { id: "", order: 2, type: "paragraph", content: "Join the world's most innovative teams and build something extraordinary today. No credit card required.", styles: { fontSize: "22px", color: "rgba(255,255,255,0.5)", margin: "40px auto", lineHeight: "1.6" } },
+          { id: "", order: 3, type: "button", content: "Create your first project", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "20px 56px", borderRadius: "100px", fontWeight: "800", fontSize: "18px", cursor: "pointer", boxShadow: "0 20px 40px rgba(99,102,241,0.3)" } }
+        ]
+      }]
+    }
+  },
+
+  // ─── MASTERPIECE NAVIGATION ──────────────────────────────────────────────────
+
+  {
+    id: "sb-navbar-masterpiece-glass",
+    name: "Navbar - Glassmorphism Master",
+    category: "navbar",
+    designStyle: "glass",
+    description: "Premium floating navbar with advanced backdrop filters and subtle interactions",
+    element: {
+      type: "container", content: "",
+      styles: { position: "fixed", top: "24px", left: "50%", transform: "translateX(-50%)", width: "calc(100% - 48px)", maxWidth: "1200px", zIndex: "1000", backgroundColor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(20px)", border: "1px solid rgba(255, 255, 255, 0.1)", borderRadius: "100px", padding: "12px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", boxShadow: "0 20px 50px rgba(0,0,0,0.15)" },
+      children: [
+        { id: "", order: 0, type: "container", styles: { display: "flex", alignItems: "center", gap: "12px" }, children: [
+          { id: "", order: 0, type: "paragraph", content: "✦", styles: { fontSize: "24px", color: "#6366F1", fontWeight: "900" } },
+          { id: "", order: 1, type: "heading", content: "VELOCITY", props: { level: 3 }, styles: { fontSize: "18px", fontWeight: "900", color: "#FFFFFF", letterSpacing: "0.1em" } }
+        ]},
+        { id: "", order: 1, type: "container", props: { _childLayout: "row", _childGap: "xl" }, styles: { display: "flex", alignItems: "center" }, children: [
+          { id: "", order: 0, type: "text-link", content: "Products", styles: { color: "rgba(255,255,255,0.7)", fontSize: "15px", fontWeight: "600", textDecoration: "none" } },
+          { id: "", order: 1, type: "text-link", content: "Solutions", styles: { color: "rgba(255,255,255,0.7)", fontSize: "15px", fontWeight: "600", textDecoration: "none" } },
+          { id: "", order: 2, type: "text-link", content: "Pricing", styles: { color: "rgba(255,255,255,0.7)", fontSize: "15px", fontWeight: "600", textDecoration: "none" } },
+          { id: "", order: 3, type: "text-link", content: "Company", styles: { color: "rgba(255,255,255,0.7)", fontSize: "15px", fontWeight: "600", textDecoration: "none" } }
+        ]},
+        { id: "", order: 2, type: "container", styles: { display: "flex", alignItems: "center", gap: "16px" }, children: [
+          { id: "", order: 0, type: "button", content: "Log In", styles: { backgroundColor: "transparent", color: "#FFFFFF", padding: "10px 24px", borderRadius: "100px", fontWeight: "600", fontSize: "14px", border: "none", cursor: "pointer" } },
+          { id: "", order: 1, type: "button", content: "Get Started", styles: { backgroundColor: "#6366F1", color: "#FFFFFF", padding: "10px 24px", borderRadius: "100px", fontWeight: "700", fontSize: "14px", border: "none", cursor: "pointer", boxShadow: "0 10px 20px rgba(99,102,241,0.3)" } }
+        ]}
+      ]
+    }
+  },
+
+  {
+    id: "sb-sidebar-masterpiece-saas",
+    name: "Sidebar - Enterprise SaaS Nav",
+    category: "sidebar",
+    designStyle: "modern",
+    description: "High-fidelity application sidebar with grouped navigation and user profile integration",
+    element: {
+      type: "container", content: "",
+      styles: { width: "280px", height: "100vh", backgroundColor: "#020617", borderRight: "1px solid rgba(255,255,255,0.05)", display: "flex", flexDirection: "column", padding: "32px 20px", position: "relative" },
+      children: [
+        { id: "", order: 0, type: "container", styles: { display: "flex", alignItems: "center", gap: "12px", marginBottom: "48px", padding: "0 12px" }, children: [
+          { id: "", order: 0, type: "paragraph", content: "◈", styles: { fontSize: "28px", color: "#6366F1" } },
+          { id: "", order: 1, type: "heading", content: "DASH", props: { level: 2 }, styles: { fontSize: "20px", fontWeight: "900", color: "#FFFFFF", letterSpacing: "0.05em" } }
+        ]},
+        { id: "", order: 1, type: "container", styles: { flex: "1", display: "flex", flexDirection: "column", gap: "32px" }, children: [
+          { id: "", order: 0, type: "container", children: [
+            { id: "", order: 0, type: "paragraph", content: "MAIN MENU", styles: { fontSize: "11px", color: "#475569", fontWeight: "800", letterSpacing: "0.1em", marginBottom: "16px", padding: "0 12px" } },
+            { id: "", order: 1, type: "container", styles: { display: "flex", flexDirection: "column", gap: "4px" }, children: [
+              { id: "", order: 0, type: "button", content: "Overview", styles: { width: "100%", textAlign: "left", padding: "12px 16px", borderRadius: "12px", backgroundColor: "rgba(99,102,241,0.1)", color: "#818CF8", fontWeight: "700", border: "none", cursor: "pointer" } },
+              { id: "", order: 1, type: "button", content: "Analytics", styles: { width: "100%", textAlign: "left", padding: "12px 16px", borderRadius: "12px", backgroundColor: "transparent", color: "#94A3B8", fontWeight: "600", border: "none", cursor: "pointer" } },
+              { id: "", order: 2, type: "button", content: "Projects", styles: { width: "100%", textAlign: "left", padding: "12px 16px", borderRadius: "12px", backgroundColor: "transparent", color: "#94A3B8", fontWeight: "600", border: "none", cursor: "pointer" } }
+            ]}
+          ]},
+          { id: "", order: 1, type: "container", children: [
+            { id: "", order: 0, type: "paragraph", content: "MANAGEMENT", styles: { fontSize: "11px", color: "#475569", fontWeight: "800", letterSpacing: "0.1em", marginBottom: "16px", padding: "0 12px" } },
+            { id: "", order: 1, type: "container", styles: { display: "flex", flexDirection: "column", gap: "4px" }, children: [
+              { id: "", order: 0, type: "button", content: "Team", styles: { width: "100%", textAlign: "left", padding: "12px 16px", borderRadius: "12px", backgroundColor: "transparent", color: "#94A3B8", fontWeight: "600", border: "none", cursor: "pointer" } },
+              { id: "", order: 1, type: "button", content: "Billing", styles: { width: "100%", textAlign: "left", padding: "12px 16px", borderRadius: "12px", backgroundColor: "transparent", color: "#94A3B8", fontWeight: "600", border: "none", cursor: "pointer" } },
+              { id: "", order: 2, type: "button", content: "Settings", styles: { width: "100%", textAlign: "left", padding: "12px 16px", borderRadius: "12px", backgroundColor: "transparent", color: "#94A3B8", fontWeight: "600", border: "none", cursor: "pointer" } }
+            ]}
+          ]}
+        ]},
+        { id: "", order: 2, type: "container", styles: { marginTop: "auto", padding: "16px", backgroundColor: "rgba(255,255,255,0.03)", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", gap: "12px" }, children: [
+          { id: "", order: 0, type: "container", styles: { width: "40px", height: "40px", borderRadius: "10px", backgroundColor: "#6366F1", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", fontWeight: "800", fontSize: "16px" }, content: "JD" },
+          { id: "", order: 1, type: "container", children: [
+            { id: "", order: 0, type: "paragraph", content: "John Doe", styles: { fontSize: "14px", fontWeight: "700", color: "#FFFFFF", margin: "0" } },
+            { id: "", order: 1, type: "paragraph", content: "Pro Plan", styles: { fontSize: "12px", color: "#475569", margin: "0" } }
+          ]}
+        ]}
+      ]
+    }
+  },
+
+  {
+    id: "sb-megamenu-masterpiece",
+    name: "Megamenu - Grid Showcase",
+    category: "navbar",
+    designStyle: "modern",
+    description: "Sophisticated large-scale dropdown menu with category icons and descriptive links",
+    element: {
+      type: "container", content: "",
+      styles: { width: "800px", backgroundColor: "#FFFFFF", borderRadius: "24px", padding: "40px", boxShadow: "0 40px 100px rgba(0,0,0,0.1)", border: "1px solid #F1F5F9", display: "flex", gap: "40px" },
+      children: [
+        { id: "", order: 0, type: "container", styles: { flex: "1.5", display: "flex", flexDirection: "column", gap: "32px" }, children: [
+          { id: "", order: 0, type: "paragraph", content: "PRODUCTS", styles: { fontSize: "12px", color: "#6366F1", fontWeight: "800", letterSpacing: "0.1em" } },
+          { id: "", order: 1, type: "container", props: { _childLayout: "row-wrap", _childGap: "xl" }, children: [
+            { id: "", order: 0, type: "container", styles: { width: "45%", display: "flex", gap: "16px" }, children: [
+              { id: "", order: 0, type: "container", styles: { width: "40px", height: "40px", backgroundColor: "#EEF2FF", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px" }, content: "⚡" },
+              { id: "", order: 1, type: "container", children: [
+                { id: "", order: 0, type: "paragraph", content: "Analytics", styles: { fontSize: "15px", fontWeight: "700", color: "#0F172A", margin: "0" } },
+                { id: "", order: 1, type: "paragraph", content: "Real-time data insights", styles: { fontSize: "13px", color: "#64748B", margin: "0" } }
+              ]}
+            ]},
+            { id: "", order: 1, type: "container", styles: { width: "45%", display: "flex", gap: "16px" }, children: [
+              { id: "", order: 0, type: "container", styles: { width: "40px", height: "40px", backgroundColor: "#ECFDF5", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px" }, content: "🛡️" },
+              { id: "", order: 1, type: "container", children: [
+                { id: "", order: 0, type: "paragraph", content: "Security", styles: { fontSize: "15px", fontWeight: "700", color: "#0F172A", margin: "0" } },
+                { id: "", order: 1, type: "paragraph", content: "Advanced protection", styles: { fontSize: "13px", color: "#64748B", margin: "0" } }
+              ]}
+            ]},
+            { id: "", order: 2, type: "container", styles: { width: "45%", display: "flex", gap: "16px" }, children: [
+              { id: "", order: 0, type: "container", styles: { width: "40px", height: "40px", backgroundColor: "#FEF2F2", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px" }, content: "☁️" },
+              { id: "", order: 1, type: "container", children: [
+                { id: "", order: 0, type: "paragraph", content: "Cloud", styles: { fontSize: "15px", fontWeight: "700", color: "#0F172A", margin: "0" } },
+                { id: "", order: 1, type: "paragraph", content: "Scalable infrastructure", styles: { fontSize: "13px", color: "#64748B", margin: "0" } }
+              ]}
+            ]},
+            { id: "", order: 3, type: "container", styles: { width: "45%", display: "flex", gap: "16px" }, children: [
+              { id: "", order: 0, type: "container", styles: { width: "40px", height: "40px", backgroundColor: "#FFFBEB", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px" }, content: "🤖" },
+              { id: "", order: 1, type: "container", children: [
+                { id: "", order: 0, type: "paragraph", content: "AI Engine", styles: { fontSize: "15px", fontWeight: "700", color: "#0F172A", margin: "0" } },
+                { id: "", order: 1, type: "paragraph", content: "Smart automation", styles: { fontSize: "13px", color: "#64748B", margin: "0" } }
+              ]}
+            ]}
+          ]}
+        ]},
+        { id: "", order: 1, type: "container", styles: { flex: "1", backgroundColor: "#F8FAFC", borderRadius: "16px", padding: "24px", display: "flex", flexDirection: "column", gap: "20px" }, children: [
+          { id: "", order: 0, type: "paragraph", content: "LATEST NEWS", styles: { fontSize: "12px", color: "#64748B", fontWeight: "800", letterSpacing: "0.1em" } },
+          { id: "", order: 1, type: "container", styles: { display: "flex", flexDirection: "column", gap: "16px" }, children: [
+            { id: "", order: 0, type: "paragraph", content: "How we scaled to 1M users →", styles: { fontSize: "14px", fontWeight: "600", color: "#0F172A", cursor: "pointer" } },
+            { id: "", order: 1, type: "paragraph", content: "The future of AI in SaaS →", styles: { fontSize: "14px", fontWeight: "600", color: "#0F172A", cursor: "pointer" } }
+          ]},
+          { id: "", order: 2, type: "container", styles: { marginTop: "auto", backgroundColor: "#6366F1", padding: "16px", borderRadius: "12px", color: "#FFFFFF", textAlign: "center" }, children: [
+            { id: "", order: 0, type: "paragraph", content: "Join the Beta", styles: { fontSize: "14px", fontWeight: "700", marginBottom: "4px" } },
+            { id: "", order: 1, type: "paragraph", content: "Get early access to v5.0", styles: { fontSize: "12px", opacity: "0.8" } }
+          ]}
+        ]}
+      ]
+    }
+  },
+
+  {
+    id: "sb-dropdown-masterpiece-command",
+    name: "Dropdown - Command Center",
+    category: "navbar",
+    designStyle: "modern",
+    description: "Elegant and functional user dropdown with detailed account info and quick actions",
+    element: {
+      type: "container", content: "",
+      styles: { width: "320px", backgroundColor: "#FFFFFF", borderRadius: "20px", padding: "12px", boxShadow: "0 20px 50px rgba(0,0,0,0.1)", border: "1px solid #F1F5F9", display: "flex", flexDirection: "column" },
+      children: [
+        { id: "", order: 0, type: "container", styles: { padding: "16px", borderBottom: "1px solid #F1F5F9", marginBottom: "8px", display: "flex", alignItems: "center", gap: "12px" }, children: [
+          { id: "", order: 0, type: "container", styles: { width: "48px", height: "48px", borderRadius: "12px", backgroundColor: "linear-gradient(135deg, #6366F1, #A855F7)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", fontWeight: "800", fontSize: "18px" }, content: "HL" },
+          { id: "", order: 1, type: "container", children: [
+            { id: "", order: 0, type: "paragraph", content: "Halim Luman", styles: { fontSize: "15px", fontWeight: "700", color: "#0F172A", margin: "0" } },
+            { id: "", order: 1, type: "paragraph", content: "halim@masterpiece.com", styles: { fontSize: "12px", color: "#64748B", margin: "0" } }
+          ]}
+        ]},
+        { id: "", order: 1, type: "container", styles: { display: "flex", flexDirection: "column", gap: "2px" }, children: [
+          { id: "", order: 0, type: "button", content: "👤 View Profile", styles: { width: "100%", textAlign: "left", padding: "10px 12px", borderRadius: "8px", backgroundColor: "transparent", color: "#334155", fontWeight: "600", fontSize: "14px", border: "none", cursor: "pointer", transition: "background 0.2s" } },
+          { id: "", order: 1, type: "button", content: "⚙️ Account Settings", styles: { width: "100%", textAlign: "left", padding: "10px 12px", borderRadius: "8px", backgroundColor: "transparent", color: "#334155", fontWeight: "600", fontSize: "14px", border: "none", cursor: "pointer" } },
+          { id: "", order: 2, type: "button", content: "💳 Billing & Plans", styles: { width: "100%", textAlign: "left", padding: "10px 12px", borderRadius: "8px", backgroundColor: "transparent", color: "#334155", fontWeight: "600", fontSize: "14px", border: "none", cursor: "pointer" } }
+        ]},
+        { id: "", order: 2, type: "container", styles: { marginTop: "8px", paddingTop: "8px", borderTop: "1px solid #F1F5F9" }, children: [
+          { id: "", order: 0, type: "button", content: "🚪 Sign Out", styles: { width: "100%", textAlign: "left", padding: "10px 12px", borderRadius: "8px", backgroundColor: "transparent", color: "#EF4444", fontWeight: "700", fontSize: "14px", border: "none", cursor: "pointer" } }
+        ]}
+      ]
+    }
+  }
 ];
 
 export const SECTION_CATEGORIES = [

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { ToastProvider } from "@/components/ui/toast";
+import { UserProvider } from "@/lib/user-context";
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: {
@@ -55,10 +57,13 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased" style={{ fontFamily: "Inter, system-ui, sans-serif" }}>
-        <ToastProvider>
-          {children}
-          <Toaster richColors position="top-right" />
-        </ToastProvider>
+        <UserProvider>
+          <ToastProvider>
+            {children}
+            <Toaster richColors position="top-right" />
+          </ToastProvider>
+        </UserProvider>
+        <Analytics />
       </body>
     </html>
   );

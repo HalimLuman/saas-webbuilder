@@ -40,14 +40,14 @@ CREATE TABLE IF NOT EXISTS public.users (
   plan                  plan NOT NULL DEFAULT 'free',
   ai_credits_used       INTEGER NOT NULL DEFAULT 0,
   ai_credits_limit      INTEGER NOT NULL DEFAULT 50,
-  stripe_customer_id    TEXT UNIQUE,
+  ls_customer_id        TEXT UNIQUE,
   onboarding_completed  BOOLEAN NOT NULL DEFAULT false,
   created_at            TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at            TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE INDEX IF NOT EXISTS idx_users_email  ON public.users(email);
-CREATE INDEX IF NOT EXISTS idx_users_stripe ON public.users(stripe_customer_id);
+CREATE INDEX IF NOT EXISTS idx_users_ls_customer ON public.users(ls_customer_id);
 
 -- ─── public.teams ─────────────────────────────────────────────────────────────
 

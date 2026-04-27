@@ -12,15 +12,15 @@
 
 import React, { useState, useMemo } from "react";
 import {
-  Eye, ArrowRight, X, Check, Star, Search, Globe, Layers,
+  Eye, ArrowRight, X, Check, Search, Globe, Lock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn, generateId } from "@/lib/utils";
 import { SITE_TEMPLATES, TEMPLATE_CATEGORIES } from "@/lib/site-templates";
 import type { SiteTemplate } from "@/lib/site-templates";
 import { CanvasElementRenderer } from "@/components/editor/canvas";
-import { SECTION_BLOCKS } from "@/lib/section-blocks";
 import type { CanvasElement } from "@/lib/types";
+import { useUser } from "@/hooks/use-user";
 
 // ─── Live preview helpers ──────────────────────────────────────────────────────
 
@@ -33,13 +33,6 @@ function getPreviewElements(template: SiteTemplate, maxBlocks = 4): CanvasElemen
   const results: CanvasElement[] = [];
 
   for (const rawEl of homePage.elements.slice(0, maxBlocks)) {
-    const blockName = rawEl.name ?? "";
-    const match = SECTION_BLOCKS.find(
-      (b) =>
-        b.name === blockName ||
-        b.id.includes(blockName.toLowerCase().replace(/\s+/g, "-")),
-    );
-
     const element: CanvasElement = {
       id: generateId(),
       type: rawEl.type,
@@ -48,9 +41,7 @@ function getPreviewElements(template: SiteTemplate, maxBlocks = 4): CanvasElemen
       order: rawEl.order,
       styles: (rawEl.styles ?? {}) as CanvasElement["styles"],
       props: rawEl.props,
-      children: match
-        ? (match.element.children as CanvasElement[] | undefined)
-        : (rawEl.children as CanvasElement[] | undefined),
+      children: rawEl.children as CanvasElement[] | undefined,
     };
     results.push(element);
   }
@@ -113,6 +104,8 @@ interface TemplateCardProps {
   selected?: boolean;
   /** Label for the action button. Defaults to "Use" */
   useLabel?: string;
+  /** Whether the template is locked for the current user */
+  locked?: boolean;
 }
 
 export function TemplateCard({
@@ -121,16 +114,18 @@ export function TemplateCard({
   onPreview,
   selected = false,
   useLabel = "Use",
+  locked = false,
 }: TemplateCardProps) {
   return (
     <div
       className={cn(
-        "group bg-white rounded-md border border-gray-200 overflow-hidden transition-all duration-300 cursor-pointer shadow-sm relative",
+        "group bg-white rounded-md border border-gray-200 overflow-hidden transition-all duration-300 relative",
         selected
           ? "ring-2 ring-indigo-600 shadow-lg"
           : "hover:border-gray-400 hover:shadow-xl",
+        !locked ? "cursor-pointer" : "cursor-default"
       )}
-      onClick={onUse}
+      onClick={!locked ? onUse : undefined}
     >
       {/* Thumbnail */}
       <div className="h-64 relative overflow-hidden bg-gray-50 border-b border-gray-100">
@@ -154,7 +149,7 @@ export function TemplateCard({
         )}
 
         {/* Action area (Higher visibility buttons) */}
-        {!selected && (
+        {!selected && !locked && (
           <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3 z-10">
             <div className="flex gap-2">
               {onPreview && (
@@ -172,6 +167,16 @@ export function TemplateCard({
                 <ArrowRight className="h-3.5 w-3.5" /> {useLabel.toUpperCase()}
               </button>
             </div>
+          </div>
+        )}
+
+        {/* Locked overlay */}
+        {locked && (
+          <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] z-30 flex flex-col items-center justify-center gap-2 pointer-events-none">
+            <div className="h-10 w-10 bg-white shadow-lg rounded-full flex items-center justify-center">
+              <Lock className="h-4 w-4 text-gray-400" />
+            </div>
+            <span className="text-xs font-bold text-gray-700 bg-white px-2 py-1 rounded shadow-sm border border-gray-100">Not supported for your role</span>
           </div>
         )}
       </div>
@@ -348,6 +353,14 @@ export function TemplateGallery({
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [preview, setPreview] = useState<SiteTemplate | null>(null);
+  const { profile } = useUser();
+
+  const isTemplateLocked = (tier: string) => {
+    if (tier === "free") return false;
+    if (!profile?.plan || profile.plan === "free") return tier !== "free";
+    if (profile.plan === "pro") return tier === "business" || tier === "enterprise";
+    return false; // business or enterprise can use all
+  };
 
   const selectMode = onSelect !== undefined;
 
@@ -435,22 +448,27 @@ export function TemplateGallery({
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
-            {filtered.map((t) => (
-              <TemplateCard
-                key={t.id}
-                template={t}
-                selected={selectMode ? selectedId === t.id : false}
-                onPreview={() => setPreview(t)}
-                onUse={() => {
-                  if (selectMode) {
-                    onSelect!(t);
-                  } else {
-                    onUse(t);
-                  }
-                }}
-                useLabel={selectMode ? "Select" : useLabel}
-              />
-            ))}
+            {filtered.map((t) => {
+              const locked = isTemplateLocked(t.tier);
+              return (
+                <TemplateCard
+                  key={t.id}
+                  template={t}
+                  selected={selectMode ? selectedId === t.id : false}
+                  locked={locked}
+                  onPreview={() => setPreview(t)}
+                  onUse={() => {
+                    if (locked) return;
+                    if (selectMode) {
+                      onSelect!(t);
+                    } else {
+                      onUse(t);
+                    }
+                  }}
+                  useLabel={selectMode ? "Select" : useLabel}
+                />
+              );
+            })}
           </div>
         )}
 

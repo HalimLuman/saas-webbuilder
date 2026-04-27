@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient, createSupabaseAdminClient } from "@/lib/supabase/server";
 import { resolveWorkspace } from "@/lib/workspace";
+import { PLAN_LIMITS, type PlanType } from "@/lib/plan-limits";
+import type { UserProfile } from "@/lib/user-context";
 
 export async function GET(req: NextRequest) {
   const supabase = await createSupabaseServerClient();
@@ -70,6 +72,30 @@ export async function POST(req: NextRequest) {
     const slug = name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
     const admin = createSupabaseAdminClient();
     const ws = await resolveWorkspace(req, user.id);
+
+    // Enforce limits
+    if (site_id) {
+      const { data: userProfile } = await admin
+        .from("users")
+        .select("plan")
+        .eq("id", user.id)
+        .single();
+      
+      const userPlan: PlanType = (userProfile as UserProfile)?.plan || "free";
+      const maxCollections = PLAN_LIMITS[userPlan].maxCollections;
+
+      const { count } = await admin
+        .from("cms_collections")
+        .select("*", { count: "exact", head: true })
+        .eq("site_id", site_id);
+
+      if (count !== null && count >= maxCollections) {
+        return NextResponse.json(
+          { error: "LimitReached", message: `Your current ${userPlan} plan allows up to ${maxCollections} collections. Upgrade to continue.` },
+          { status: 403 }
+        );
+      }
+    }
 
     const { data, error } = await admin.from("cms_collections").insert({
       owner_id: user.id,

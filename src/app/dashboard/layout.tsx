@@ -6,7 +6,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { Bell, Search, ChevronRight, LogOut, Settings, Menu } from "lucide-react";
 import Sidebar from "@/components/dashboard/sidebar";
 import { useUser } from "@/hooks/use-user";
-import { UserProvider } from "@/lib/user-context";
 import { StoreHydrator } from "@/components/store-hydrator";
 
 // ---------------------------------------------------------------------------
@@ -189,7 +188,7 @@ export default function DashboardLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <UserProvider>
+    <>
       <StoreHydrator />
       <div className="flex h-screen bg-gray-50 overflow-hidden">
 
@@ -204,6 +203,6 @@ export default function DashboardLayout({
           </main>
         </div>
       </div>
-    </UserProvider>
+    </>
   );
 }

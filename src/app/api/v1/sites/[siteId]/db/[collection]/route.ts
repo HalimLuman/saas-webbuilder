@@ -15,6 +15,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
 import { authorizeCrudRequest } from "@/lib/crud-auth";
+import { PLAN_LIMITS, type PlanType } from "@/lib/plan-limits";
+import type { UserProfile } from "@/lib/user-context";
 
 type Params = { params: Promise<{ siteId: string; collection: string }> };
 
@@ -138,6 +140,28 @@ export async function POST(req: NextRequest, { params }: Params) {
     .map((f) => f.name);
   if (missing.length > 0) {
     return NextResponse.json({ error: `Missing required fields: ${missing.join(", ")}` }, { status: 422 });
+  }
+
+  // Enforce record limits
+  const { data: userProfile } = await admin
+    .from("users")
+    .select("plan")
+    .eq("id", auth.ownerId)
+    .single();
+
+  const userPlan: PlanType = (userProfile as UserProfile)?.plan || "free";
+  const maxRecords = PLAN_LIMITS[userPlan].maxRecordsPerCollection;
+
+  const { count } = await admin
+    .from("cms_items")
+    .select("*", { count: "exact", head: true })
+    .eq("collection_id", col.id);
+
+  if (count !== null && count >= maxRecords) {
+    return NextResponse.json(
+      { error: "LimitReached", message: `Your current ${userPlan} plan allows up to ${maxRecords} records per collection. Upgrade to continue.` },
+      { status: 403 }
+    );
   }
 
   const { data: item, error } = await admin

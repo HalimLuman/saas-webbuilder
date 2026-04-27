@@ -87,16 +87,15 @@ function getGapClass(gap: string) {
   }
 }
 
-function getColsClass(columns: string | number, layout: string) {
-  const c = String(columns);
-  if (layout === "grid" || layout === "cards") {
-    switch (c) {
-      case "2": return "grid-cols-1 sm:grid-cols-2";
-      case "4": return "grid-cols-2 lg:grid-cols-4";
-      default: return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
-    }
-  }
-  return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+function getColsStyle(columns: string | number, gap: string): React.CSSProperties {
+  const c = Number(columns) || 3;
+  const g = gap === "sm" ? "12px" : gap === "lg" ? "32px" : "20px";
+  
+  return {
+    display: "grid",
+    gridTemplateColumns: `repeat(${c}, 1fr)`,
+    gap: g,
+  };
 }
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -322,8 +321,7 @@ export function CmsListRenderer({ element }: { element: CanvasElement }) {
   const extraFields = fieldsToShow.filter((f) => showFields.length > 0 || !autoSkip.has(f.toLowerCase()));
 
   const cardClasses = getCardClasses(cardStyle, accentColor);
-  const gapClass = getGapClass(gap);
-  const colsClass = getColsClass(columns, layout);
+  const gridStyle = getColsStyle(columns, gap);
 
   // ── Shared card body ──────────────────────────────────────────────────────
 
@@ -454,7 +452,7 @@ export function CmsListRenderer({ element }: { element: CanvasElement }) {
 
         {/* Rest in grid */}
         {rest.length > 0 && (
-          <div className={cn("grid", gapClass, colsClass)}>
+          <div className="grid" style={gridStyle}>
             {rest.map((item) => {
               const img = getImage(item);
               return (
@@ -650,7 +648,7 @@ export function CmsListRenderer({ element }: { element: CanvasElement }) {
 
   return (
     <div className={cn("w-full", paddingX, paddingY)}>
-      <div className={cn("grid", gapClass, colsClass)}>
+      <div className="grid" style={gridStyle}>
         {items.map((item) => {
           const img = getImage(item);
           return (

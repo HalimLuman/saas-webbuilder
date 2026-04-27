@@ -27,7 +27,7 @@ export type Database = {
           plan: "free" | "pro" | "business" | "enterprise";
           ai_credits_used: number;
           ai_credits_limit: number;
-          stripe_customer_id: string | null;
+          ls_customer_id: string | null;
           onboarding_completed: boolean;
           created_at: string;
           updated_at: string;
@@ -40,7 +40,7 @@ export type Database = {
           plan?: "free" | "pro" | "business" | "enterprise";
           ai_credits_used?: number;
           ai_credits_limit?: number;
-          stripe_customer_id?: string | null;
+          ls_customer_id?: string | null;
           onboarding_completed?: boolean;
           created_at?: string;
           updated_at?: string;
@@ -52,7 +52,7 @@ export type Database = {
           plan?: "free" | "pro" | "business" | "enterprise";
           ai_credits_used?: number;
           ai_credits_limit?: number;
-          stripe_customer_id?: string | null;
+          ls_customer_id?: string | null;
           onboarding_completed?: boolean;
           updated_at?: string;
         };

@@ -87,18 +87,292 @@ export function instantiateTemplate(pages: TemplatePage[]): Page[] {
   }));
 }
 
+// ─── Content-patch system ─────────────────────────────────────────────────────
+// Each patch matches either by exact content string (match) or by element type
+// + DFS occurrence index (type + nth), then applies content / style / prop
+// overrides to that node. applyPatches deep-clones before walking.
+
+type ContentPatch = {
+  match?: string;
+  type?: string;
+  nth?: number;
+  content?: string;
+  styles?: Record<string, unknown>;
+  props?: Record<string, unknown>;
+};
+
+function applyPatches(root: RawElement, patches: ContentPatch[]): RawElement {
+  const counts = new Map<string, number>();
+  function walk(node: RawElement): RawElement {
+    const t = node.type;
+    const n = counts.get(t) ?? 0;
+    counts.set(t, n + 1);
+    const patch = patches.find(p => {
+      if (p.match !== undefined && node.content !== undefined) {
+        return p.match.replace(/\r\n/g, "\n").trim() === node.content.replace(/\r\n/g, "\n").trim();
+      }
+      return p.type === t && p.nth === n;
+    });
+    const out: RawElement = patch ? {
+      ...node,
+      ...(patch.content !== undefined ? { content: patch.content } : {}),
+      styles: patch.styles ? { ...(node.styles as Record<string, unknown>), ...patch.styles } : node.styles,
+      props:  patch.props  ? { ...(node.props  ?? {}),                    ...patch.props  } : node.props,
+    } : { ...node };
+    if (out.children) out.children = out.children.map(walk);
+    return out;
+  }
+  return walk(JSON.parse(JSON.stringify(root)));
+}
+
+// ─── Hero patch helpers ───────────────────────────────────────────────────────
+
+function ph_editorial(badge: string, heading: string, body: string, btn1 = "Learn more", btn2 = "Contact us", bgImage?: string): ContentPatch[] {
+  const p: ContentPatch[] = [
+    { match: "EST. 2026", content: badge },
+    { match: "Crafting digital\nmasterpieces.", content: heading },
+    { match: "We partner with visionary brands to build digital experiences that define industries and captivate audiences globally.", content: body },
+    { match: "Our Portfolio", content: btn1 },
+    { match: "Contact Studio", content: btn2 },
+  ];
+  if (bgImage) p.push({ type: "container", nth: 4, styles: { backgroundImage: `url('${bgImage}')`, backgroundSize: "cover", backgroundPosition: "center" } });
+  return p;
+}
+
+function ph_editorialClassic(badge: string, heading: string, body: string, btn = "Read the Monograph"): ContentPatch[] {
+  return [
+    { match: "ISSUE 04 // 2026", content: badge },
+    { match: "The quiet power of\nintentional design.", content: heading },
+    { match: "A deep exploration into the philosophy of modern architecture and how it defines the digital landscapes we inhabit every day.", content: body },
+    { match: "Read the Monograph", content: btn },
+  ];
+}
+
+function ph_cinematic(badge: string, heading: string, body: string, btn1 = "Get started", btn2 = "Learn more", bgGlow?: string): ContentPatch[] {
+  const p: ContentPatch[] = [
+    { match: "✦ PROTOCOL ACTIVE", content: badge },
+    { match: "Engineering\nSentience.", content: heading },
+    { match: "The next evolution of cloud infrastructure is here. Sub-millisecond latency, planetary scale, and absolute security by default.", content: body },
+    { match: "Initialize System →", content: btn1 },
+  ];
+  if (bgGlow) p.push({ type: "container", nth: 0, styles: { backgroundImage: `radial-gradient(circle at 50% 100%, ${bgGlow}, transparent 50%)` } });
+  return p;
+}
+
+function ph_studio(heading: string, body: string, btn = "Start Project ➚"): ContentPatch[] {
+  return [
+    { match: "FORM\nFOLLOWS\nFUNCTION.", content: heading },
+    { match: "A new standard for digital architecture. We build tools that prioritize clarity, speed, and the raw beauty of the web.", content: body },
+    { match: "Start Project ➚", content: btn },
+  ];
+}
+
+function ph_videoDark(badge: string, heading: string, body: string): ContentPatch[] {
+  return [
+    { match: "★  Rated #1 on Product Hunt 2026", content: badge },
+    { match: "See it in action.", content: heading },
+    { match: "Watch how teams go from idea to live site in under 10 minutes. No code. No compromise.", content: body },
+  ];
+}
+
+function ph_abstractAmbient(heading: string, body: string, btn = "Enter the Studio"): ContentPatch[] {
+  return [
+    { match: "Design with a soul.", content: heading },
+    { match: "Bridging the gap between human intuition and digital precision. We create spaces that resonate beyond the screen.", content: body },
+    { match: "Enter the Studio", content: btn },
+  ];
+}
+
+function ph_industrial(heading: string, body: string, btn: string, tag1: string, tag2: string, tag3: string): ContentPatch[] {
+  return [
+    { match: "SPEC-001\nINFINITE\nSCALABILITY.", content: heading },
+    { match: "A high-performance framework built for developers who demand absolute precision. Open-source, distributed, and atomic by design.", content: body },
+    { match: "View Documentation ➚", content: btn },
+    { match: "< 5MS WORLDWIDE", content: tag1 },
+    { match: "10M OPS / SEC", content: tag2 },
+    { match: "99.9999% SLA", content: tag3 },
+  ];
+}
+
+function ph_glass(badge: string, heading: string, body: string, btn1: string): ContentPatch[] {
+  return [
+    { match: "💎 PREMIUM EDITION", content: badge },
+    { match: "Pure. Precise.\nLimitless.", content: heading },
+    { match: "Experience the next level of digital elegance. Our platform combines cutting-edge performance with a design language that breathes.", content: body },
+    { match: "Enter the Studio", content: btn1 },
+  ];
+}
+
+function ph_enterprise(badge: string, heading: string, body: string, btn1: string, btn2: string): ContentPatch[] {
+  return [
+    { match: "TRUSTED BY 500+ GLOBAL ENTERPRISES", content: badge },
+    { match: "Scale your business\nwith confidence.", content: heading },
+    { match: "The world's most secure and scalable platform for building modern web experiences. We handle the infrastructure so you can focus on growth.", content: body },
+    { match: "Contact Sales", content: btn1 },
+    { match: "Start Enterprise Trial", content: btn2 },
+  ];
+}
+
+function ph_playful(badge: string, heading: string, body: string, btn1: string, btn2: string): ContentPatch[] {
+  return [
+    { match: "🚀 JUST LAUNCHED v2.0", content: badge },
+    { match: "Make some\nreal noise.", content: heading },
+    { match: "Ditch the boring. The world's first maximalist website builder is here to help you break every rule in the book.", content: body },
+    { match: "Start Disrupting", content: btn1 },
+    { match: "See the Chaos", content: btn2 },
+  ];
+}
+
+function ph_featureStack(badge: string, heading: string, body: string, btn1: string, btn2: string): ContentPatch[] {
+  return [
+    { match: "VERSION 4.0 IS HERE", content: badge },
+    { match: "Build the future of the web.", content: heading },
+    { match: "The most advanced website builder is now 10x faster and infinitely more customizable. Get started today and see the difference.", content: body },
+    { match: "Start Building Free", content: btn1 },
+    { match: "Watch Demo", content: btn2 },
+  ];
+}
+
+function ph_organic(heading: string, body: string, btn: string, social?: string): ContentPatch[] {
+  const p: ContentPatch[] = [
+    { match: "Move at the speed\nof your ideas.", content: heading },
+    { match: "Friendly, fast, and remarkably easy. We've redesigned the entire creation experience to flow as naturally as your own imagination.", content: body },
+    { match: "Start Creating - It's Free", content: btn },
+  ];
+  if (social) p.push({ match: "Loved by 12,000+ creators world-wide.", content: social });
+  return p;
+}
+
+function ph_bento(badge: string, heading: string, body: string, btn: string, s1v: string, s1l: string, s2v: string, s2l: string, wHead: string, wPara: string): ContentPatch[] {
+  return [
+    { match: "● ALL SYSTEMS NOMINAL", content: badge },
+    { match: "The OS for\nmodern teams.", content: heading },
+    { match: "Connect your entire stack, automate your workflows, and scale your business with the most advanced operating system ever built.", content: body },
+    { match: "Start Trial", content: btn },
+    { match: "99.99%", content: s1v },
+    { match: "Uptime Guaranteed", content: s1l },
+    { match: "<12ms", content: s2v },
+    { match: "Global Latency", content: s2l },
+    { match: "Trust by the Best", content: wHead },
+    { match: "+ 2,400 companies", content: wPara },
+  ];
+}
+
+function ph_gradientSplit(brand: string, lHead: string, lBody: string, c1: string, c2: string, c3: string, rHead: string, rBody: string, rBtn: string, rNote: string): ContentPatch[] {
+  return [
+    { match: "BUILDSTACK", content: brand },
+    { match: "The platform that does everything.", content: lHead },
+    { match: "Design, develop, and deploy modern websites — all from one beautiful interface.", content: lBody },
+    { match: "No-code + full-code, your choice", content: c1 },
+    { match: "AI-generated sections and copy", content: c2 },
+    { match: "Deploy to global edge in one click", content: c3 },
+    { match: "Loved by 24,000+ teams", content: "5-star rated by guests" },
+    { match: "Start building in seconds.", content: rHead },
+    { match: "Join 24,000 teams shipping faster with Webperia. Your first project is free — no credit card needed.", content: rBody },
+    { match: "Get started", content: rBtn },
+    { match: "Free forever on starter plan. Upgrade any time.", content: rNote },
+  ];
+}
+
+function ph_dashboardPreview(badge: string, heading: string, body: string, btn1: string, btn2: string): ContentPatch[] {
+  return [
+    { match: "✦ NOW IN PUBLIC BETA", content: badge },
+    { match: "Ship production\nsites in minutes,\nnot months.", content: heading },
+    { match: "The visual site builder designed for engineers and designers who refuse to compromise on quality. Drag, customize, deploy — all from one platform.", content: body },
+    { match: "Start building free →", content: btn1 },
+    { match: "Watch demo", content: btn2 },
+  ];
+}
+
+function ph_meridianEnterprise(badge: string, heading: string, body: string, btn1: string, btn2: string): ContentPatch[] {
+  return [
+    { match: "ENTERPRISE GRADE INFRASTRUCTURE", content: badge },
+    { match: "The platform for\nglobal scale.", content: heading },
+    { match: "Unify your team's workflow within a secure, high-performance environment designed for the most demanding global enterprises.", content: body },
+    { match: "Contact Sales", content: btn1 },
+    { match: "View Documentation", content: btn2 },
+  ];
+}
+
+function ph_ecommerceHero(badge: string, heading: string, body: string, btn1: string, btn2: string): ContentPatch[] {
+  return [
+    { match: "New Season — Up to 40% off", content: badge },
+    { match: "Dress for the life you want.", content: heading },
+    { match: "Premium essentials designed for the modern wardrobe. Free shipping on all orders over $75.", content: body },
+    { match: "Shop now →", content: btn1 },
+    { match: "View lookbook", content: btn2 },
+  ];
+}
+
+function ph_searchCentered(heading: string, placeholder: string, tag1: string, tag2: string, tag3: string): ContentPatch[] {
+  return [
+    { match: "How can we help you today?", content: heading },
+    { match: "Search for components, themes, or guides...", content: placeholder },
+    { match: "Installation", content: tag1 },
+    { match: "Customization", content: tag2 },
+    { match: "Components", content: tag3 },
+  ];
+}
+
+function ph_fineDining(badge: string, heading: string, body: string, btn1 = "Reserve a Table", btn2 = "View Menu"): ContentPatch[] {
+  return [
+    { match: "EST. 2026", content: badge },
+    { match: "Crafting digital\nmasterpieces.", content: heading },
+    { match: "We partner with visionary brands to build digital experiences that define industries and captivate audiences globally.", content: body },
+    { match: "Our Portfolio", content: btn1 },
+    { match: "Contact Studio", content: btn2 },
+  ];
+}
+
+function ph_luxuryHotel(badge: string, heading: string, body: string, btn1 = "Book a Suite", btn2 = "Explore Wellness"): ContentPatch[] {
+  return [
+    { match: "✦ PROTOCOL ACTIVE", content: badge },
+    { match: "Engineering\nSentience.", content: heading },
+    { match: "The next evolution of cloud infrastructure is here. Sub-millisecond latency, planetary scale, and absolute security by default.", content: body },
+    { match: "Initialize System →", content: btn1 },
+  ];
+}
+
+function ph_productDesigner(badge: string, heading: string, body: string, btn1 = "View Case Studies", btn2 = "Let's Talk"): ContentPatch[] {
+  return [
+    { match: "VERSION 5.0 LIVE", content: badge },
+    { match: "THE FUTURE.\nUNFILTERED.", content: heading },
+    { match: "The wait is over. Experience the most powerful engine ever built for the digital frontier. No limits. No compromises.", content: body },
+    { match: "Join the Protocol", content: btn1 },
+  ];
+}
+
+function ph_horology(badge: string, heading: string, body: string, btn1 = "Shop Collection", btn2 = "Our Heritage"): ContentPatch[] {
+  return [
+    { match: "✦ PROTOCOL ACTIVE", content: badge },
+    { match: "Engineering\nSentience.", content: heading },
+    { match: "The next evolution of cloud infrastructure is here. Sub-millisecond latency, planetary scale, and absolute security by default.", content: body },
+    { match: "Initialize System →", content: btn1 },
+  ];
+}
+
+function ph_cyberSecurity(badge: string, heading: string, body: string, btn1 = "Get Protected", btn2 = "View Threat Report"): ContentPatch[] {
+  return [
+    { match: "★  Rated #1 on Product Hunt 2026", content: badge },
+    { match: "See it in action.", content: heading },
+    { match: "Watch how teams go from idea to live site in under 10 minutes. No code. No compromise.", content: body },
+  ];
+}
+
 // ─── Section block helper ─────────────────────────────────────────────────────
 
-function blockEl(id: string, order: number, name?: string, overrides?: { props?: Record<string, unknown>; styles?: Record<string, unknown> }): RawElement {
+function blockEl(id: string, order: number, name?: string, overrides?: { props?: Record<string, unknown>; styles?: Record<string, unknown>; patches?: ContentPatch[] }): RawElement {
   const block = SECTION_BLOCKS.find((b) => b.id === id);
   if (!block) throw new Error(`Section block "${id}" not found`);
-  return { 
-    ...(block.element as unknown as RawElement), 
-    order, 
+  let el: RawElement = {
+    ...(block.element as unknown as RawElement),
+    order,
     name: name ?? block.name,
     props: overrides?.props ? { ...(block.element.props || {}), ...overrides.props } : block.element.props,
     styles: overrides?.styles ? { ...(block.element.styles || {}), ...overrides.styles } : block.element.styles as Record<string, unknown>,
   };
+  if (overrides?.patches?.length) el = applyPatches(el, overrides.patches);
+  return el;
 }
 
 // =============================================================================
@@ -111,7 +385,7 @@ const pulsePages: TemplatePage[] = [
     name: "Home", slug: "/", isHome: true,
     elements: [
       blockEl("sb-navbar-glass-frosted",  0, "Navbar",         { props: { accentColor: "#6366F1", brandName: "Pulse" } }),
-      blockEl("sb-hero-dashboard-preview",1, "Hero",           { props: { accentColor: "#6366F1" } }),
+      blockEl("sb-hero-dashboard-preview",1, "Hero",           { props: { accentColor: "#6366F1" }, patches: ph_dashboardPreview("✦ AUTOMATE EVERYTHING", "Ship faster.\nMeasure better.\nGrow smarter.", "The all-in-one platform for fast-growing teams. Pulse connects your workflows, analytics, and collaboration in one place.", "Start free — no card needed →", "See how it works") }),
       blockEl("sb-logos",                 2, "Trusted By"),
       blockEl("sb-features-bento",        3, "Features",       { props: { accentColor: "#6366F1" } }),
       blockEl("sb-features-how-it-works", 4, "How It Works",  { props: { accentColor: "#6366F1" } }),
@@ -125,7 +399,7 @@ const pulsePages: TemplatePage[] = [
     name: "Features", slug: "/features",
     elements: [
       blockEl("sb-navbar-glass-frosted",    0, "Navbar",          { props: { accentColor: "#6366F1", brandName: "Pulse" } }),
-      blockEl("sb-hero-editorial",          1, "Hero",            { props: { accentColor: "#6366F1" } }),
+      blockEl("sb-hero-editorial",          1, "Hero",            { props: { accentColor: "#6366F1" }, patches: ph_editorial("PULSE FEATURES", "Every tool your\nteam actually needs.", "From automated workflows to real-time analytics — Pulse gives your team the edge to move faster and smarter.", "Explore all features", "Talk to sales") }),
       blockEl("sb-features-bento",          2, "Feature Grid",    { props: { accentColor: "#6366F1" } }),
       blockEl("sb-features-alternating",    3, "Feature Deep-Dive",{ props: { accentColor: "#6366F1" } }),
       blockEl("sb-content-comparison",      4, "Comparison"),
@@ -137,7 +411,7 @@ const pulsePages: TemplatePage[] = [
     name: "Pricing", slug: "/pricing",
     elements: [
       blockEl("sb-navbar-glass-frosted",    0, "Navbar",      { props: { accentColor: "#6366F1", brandName: "Pulse" } }),
-      blockEl("sb-hero-editorial",          1, "Hero",        { props: { accentColor: "#6366F1" } }),
+      blockEl("sb-hero-editorial",          1, "Hero",        { props: { accentColor: "#6366F1" }, patches: ph_editorial("PULSE PRICING", "Simple plans.\nPowerful results.", "One flat rate, every feature included. Start free and scale confidently — no hidden fees, ever.", "View all plans", "Talk to sales") }),
       blockEl("sb-interactive-pricing-toggle",2,"Plans",     { props: { accentColor: "#6366F1" } }),
       blockEl("sb-pricing-comparison-table",3, "Comparison", { props: { accentColor: "#6366F1" } }),
       blockEl("sb-faq-two-col",             4, "FAQ"),
@@ -159,9 +433,8 @@ const pulsePages: TemplatePage[] = [
     name: "Contact", slug: "/contact",
     elements: [
       blockEl("sb-navbar-glass-frosted", 0, "Navbar",   { props: { accentColor: "#6366F1", brandName: "Pulse" } }),
-      blockEl("sb-hero-editorial",       1, "Hero",     { props: { accentColor: "#6366F1" } }),
-      blockEl("sb-contact-map",          2, "Contact",  { props: { accentColor: "#6366F1" } }),
-      blockEl("sb-footer-newsletter",    3, "Footer",   { props: { brandName: "Pulse" } }),
+      blockEl("sb-contact-split",        1, "Contact",  { props: { accentColor: "#6366F1" } }),
+      blockEl("sb-footer-newsletter",    2, "Footer",   { props: { brandName: "Pulse" } }),
     ],
   },
 ];
@@ -171,78 +444,53 @@ const orionPages: TemplatePage[] = [
   {
     name: "Home", slug: "/", isHome: true,
     elements: [
-      blockEl("sb-navbar-dark-gradient",  0, "Navbar",         { props: { accentColor: "#3B82F6", brandName: "Orion" } }),
-      blockEl("sb-hero-video-dark",       1, "Hero",           { props: { accentColor: "#3B82F6" } }),
+      blockEl("sb-navbar-dark-gradient",  0, "Navbar",         { props: { accentColor: "#3B82F6", brandName: "ORION.SHIELD" } }),
+      blockEl("sb-hero-video-dark",       1, "Hero",           { props: { accentColor: "#3B82F6" }, patches: ph_cyberSecurity("★  ADVANCED THREAT PROTECTION", "AI-Driven\nSecurity.", "Real-time autonomous threat detection for modern infrastructure. Protect your assets with the power of predictive AI."), styles: { borderTop: "4px solid #3B82F6" } }),
       blockEl("sb-logos-dark",            2, "Trusted By"),
-      blockEl("sb-saas-feature-wall",     3, "Feature Wall",   { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-stats-dark-cards",      4, "Stats",          { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-testimonials-dark-grid",5, "Testimonials"),
-      blockEl("sb-saas-integration-logos",6, "Integrations"),
-      blockEl("sb-pricing-dark-cards",    7, "Pricing",        { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-cta-dark",              8, "CTA",            { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-footer-dark",           9, "Footer",         { props: { brandName: "Orion" } }),
+      blockEl("sb-saas-feature-wall",     3, "Security Layers",   { props: { accentColor: "#3B82F6" }, patches: [
+        { match: "FEATURED CAPABILITIES", content: "DEFENSE LAYERS" },
+        { match: "Global Scale", content: "Zero-Trust Mesh" },
+        { match: "Enterprise Security", content: "Predictive AI" },
+        { match: "Team Collaboration", content: "SOC Automation" }
+      ]}),
+      blockEl("sb-stats-dark-cards",      4, "Detection Rates", { props: { accentColor: "#3B82F6" } }),
+      blockEl("sb-testimonials-dark-grid",5, "CISOs"),
+      blockEl("sb-cta-dark",              6, "Protect Now",     { props: { accentColor: "#3B82F6", title: "Secure your infrastructure today" } }),
+      blockEl("sb-footer-dark",           7, "Footer",         { props: { brandName: "ORION.SHIELD" } }),
     ],
   },
   {
-    name: "Product", slug: "/product",
+    name: "Solutions", slug: "/solutions",
     elements: [
-      blockEl("sb-navbar-dark-gradient",  0, "Navbar",         { props: { accentColor: "#3B82F6", brandName: "Orion" } }),
-      blockEl("sb-hero-product",          1, "Hero",           { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-dashboard-overview",    2, "Dashboard",      { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-features-highlight-dark",3,"Features",       { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-saas-api-preview",      4, "API Demo",       { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-saas-integration-logos",5, "Integrations"),
-      blockEl("sb-cta-dark",              6, "CTA",            { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-footer-dark",           7, "Footer",         { props: { brandName: "Orion" } }),
-    ],
-  },
-  {
-    name: "Pricing", slug: "/pricing",
-    elements: [
-      blockEl("sb-navbar-dark-gradient",    0, "Navbar",      { props: { accentColor: "#3B82F6", brandName: "Orion" } }),
-      blockEl("sb-hero-editorial",          1, "Hero",        { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-pricing-dark",            2, "Plans",       { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-pricing-comparison-table",3, "Comparison",  { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-content-feature-list",    4, "Volume Info"),
-      blockEl("sb-faq-dark",               5, "FAQ",         { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-cta-split",              6, "Talk to Sales",{ props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-footer-dark",            7, "Footer",      { props: { brandName: "Orion" } }),
-    ],
-  },
-  {
-    name: "Customers", slug: "/customers",
-    elements: [
-      blockEl("sb-navbar-dark-gradient",  0, "Navbar",        { props: { accentColor: "#3B82F6", brandName: "Orion" } }),
-      blockEl("sb-hero-editorial",        1, "Hero",          { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-portfolio-dark-cards",  2, "Case Studies"),
-      blockEl("sb-testimonials-wall",     3, "Testimonials"),
-      blockEl("sb-logos-dark",            4, "Logo Wall"),
-      blockEl("sb-cta-dark",              5, "CTA",           { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-footer-dark",           6, "Footer",        { props: { brandName: "Orion" } }),
+      blockEl("sb-navbar-dark-gradient",  0, "Navbar",         { props: { accentColor: "#3B82F6", brandName: "ORION.SHIELD" } }),
+      blockEl("sb-hero-product",          1, "Threat Intel",   { props: { accentColor: "#3B82F6" } }),
+      blockEl("sb-dashboard-overview",    2, "Network Map",    { props: { accentColor: "#3B82F6" } }),
+      blockEl("sb-features-highlight-dark",3,"Infrastructure", { props: { accentColor: "#3B82F6" } }),
+      blockEl("sb-footer-dark",           4, "Footer",         { props: { brandName: "ORION.SHIELD" } }),
     ],
   },
   {
     name: "Company", slug: "/company",
     elements: [
-      blockEl("sb-navbar-dark-gradient",  0, "Navbar",    { props: { accentColor: "#3B82F6", brandName: "Orion" } }),
-      blockEl("sb-hero-editorial",        1, "Hero",      { props: { accentColor: "#3B82F6" } }),
+      blockEl("sb-navbar-dark-gradient",  0, "Navbar",    { props: { accentColor: "#3B82F6", brandName: "ORION.SHIELD" } }),
+      blockEl("sb-hero-editorial",        1, "Hero",      { props: { accentColor: "#3B82F6" }, patches: [
+        { match: "ABOUT ORION", content: "SECURITY FIRST" },
+        { match: "Built by builders,\nfor builders.", content: "Guardian of\nDigital Assets." }
+      ]}),
       blockEl("sb-team-dark-cards",       2, "Team"),
-      blockEl("sb-features-cards",        3, "Values",    { props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-team-hiring",           4, "Open Roles",{ props: { accentColor: "#3B82F6" } }),
-      blockEl("sb-logos-badges",          5, "Press"),
-      blockEl("sb-footer-dark",           6, "Footer",    { props: { brandName: "Orion" } }),
+      blockEl("sb-footer-dark",           3, "Footer",    { props: { brandName: "ORION.SHIELD" } }),
     ],
   },
   {
     name: "Sign In", slug: "/sign-in",
     elements: [
-      blockEl("sb-auth-split", 0, "Sign In", { props: { accentColor: "#3B82F6", brandName: "Orion" } }),
+      blockEl("sb-auth-split", 0, "Sign In", { props: { accentColor: "#3B82F6", brandName: "ORION.SHIELD" } }),
     ],
   },
   {
     name: "Sign Up", slug: "/sign-up",
     elements: [
-      blockEl("sb-auth-minimal", 0, "Create Account", { props: { accentColor: "#3B82F6", brandName: "Orion" } }),
+      blockEl("sb-auth-minimal", 0, "Create Account", { props: { accentColor: "#3B82F6", brandName: "ORION.SHIELD" } }),
     ],
   },
 ];
@@ -253,7 +501,7 @@ const vertexPages: TemplatePage[] = [
     name: "Home", slug: "/", isHome: true,
     elements: [
       blockEl("sb-navbar-split-panel",    0, "Navbar",       { props: { accentColor: "#10B981", brandName: "Vertex" } }),
-      blockEl("sb-hero-gradient-split",   1, "Hero",         { props: { accentColor: "#10B981" } }),
+      blockEl("sb-hero-gradient-split",   1, "Hero",         { props: { accentColor: "#10B981" }, patches: ph_gradientSplit("VERTEX", "The API platform\nthat scales with you.", "Ship developer tools, webhooks, and APIs at any scale. Connect everything. Deploy everywhere.", "Full REST + GraphQL API out of the box", "Auto-versioning and built-in rate limiting", "99.99% uptime SLA guaranteed", "Start shipping in minutes.", "Join 24,000 engineering teams using Vertex. First million API calls free — no credit card needed.", "Start for free", "Free up to 1M requests. Upgrade when you need more.") }),
       blockEl("sb-logos",                 2, "Trusted By"),
       blockEl("sb-features-bento-dark",   3, "Features",     { props: { accentColor: "#10B981" } }),
       blockEl("sb-saas-api-preview",      4, "Code Demo",    { props: { accentColor: "#10B981" } }),
@@ -279,7 +527,7 @@ const vertexPages: TemplatePage[] = [
     name: "Pricing", slug: "/pricing",
     elements: [
       blockEl("sb-navbar-split-panel",     0, "Navbar",     { props: { accentColor: "#10B981", brandName: "Vertex" } }),
-      blockEl("sb-hero-editorial",         1, "Hero",       { props: { accentColor: "#10B981" } }),
+      blockEl("sb-hero-editorial",         1, "Hero",       { props: { accentColor: "#10B981" }, patches: ph_editorial("VERTEX PRICING", "Pay for what\nyou actually use.", "Transparent, usage-based pricing for APIs and developer tools. Start free — upgrade when you need more.", "View all plans", "Get in touch") }),
       blockEl("sb-interactive-pricing-toggle",2,"Plans",   { props: { accentColor: "#10B981" } }),
       blockEl("sb-content-feature-list",   3, "Usage Info"),
       blockEl("sb-faq-dark",              4, "FAQ",        { props: { accentColor: "#10B981" } }),
@@ -291,7 +539,7 @@ const vertexPages: TemplatePage[] = [
     name: "Integrations", slug: "/integrations",
     elements: [
       blockEl("sb-navbar-split-panel",     0, "Navbar",        { props: { accentColor: "#10B981", brandName: "Vertex" } }),
-      blockEl("sb-hero-editorial",         1, "Hero",          { props: { accentColor: "#10B981" } }),
+      blockEl("sb-hero-editorial",         1, "Hero",          { props: { accentColor: "#10B981" }, patches: ph_editorial("500+ INTEGRATIONS", "Connect your\nentire stack.", "Native integrations with the tools your team already uses. Webhook support, SDKs, and open APIs.", "Browse integrations", "Request an integration") }),
       blockEl("sb-saas-integration-logos", 2, "All Integrations"),
       blockEl("sb-cta-split",             3, "Request CTA",   { props: { accentColor: "#10B981" } }),
       blockEl("sb-footer-dark",           4, "Footer",        { props: { brandName: "Vertex" } }),
@@ -321,7 +569,7 @@ const fluxPages: TemplatePage[] = [
     name: "Home", slug: "/", isHome: true,
     elements: [
       blockEl("sb-navbar-centered-logo",  0, "Navbar",      { props: { brandName: "Flux" } }),
-      blockEl("sb-hero-glass",            1, "Hero",        { props: { accentColor: "#64748B" } }),
+      blockEl("sb-hero-glass",            1, "Hero",        { props: { accentColor: "#64748B" }, patches: ph_glass("💼 BUILT FOR B2B TEAMS", "Clarity drives\ngrowth.", "A focused, professional platform for growing B2B businesses. Everything your team needs — nothing you don't.", "Start free trial") }),
       blockEl("sb-logos",                 2, "Trusted By"),
       blockEl("sb-features-icon-3col",    3, "Features",    { props: { accentColor: "#64748B" } }),
       blockEl("sb-testimonials-single-quote",4,"Testimonial"),
@@ -334,7 +582,7 @@ const fluxPages: TemplatePage[] = [
     name: "Features", slug: "/features",
     elements: [
       blockEl("sb-navbar-centered-logo",  0, "Navbar",          { props: { brandName: "Flux" } }),
-      blockEl("sb-hero-editorial",        1, "Hero",            { props: { accentColor: "#64748B" } }),
+      blockEl("sb-hero-editorial",        1, "Hero",            { props: { accentColor: "#64748B" }, patches: ph_editorial("FLUX FEATURES", "Everything your\nteam needs.", "A complete feature set designed for professional B2B workflows. Built-in collaboration, reporting, and integrations.", "See all features", "Book a demo") }),
       blockEl("sb-features-alternating",  2, "Feature Details", { props: { accentColor: "#64748B" } }),
       blockEl("sb-features-checklist",    3, "Summary",         { props: { accentColor: "#64748B" } }),
       blockEl("sb-cta-simple",            4, "CTA",             { props: { accentColor: "#64748B" } }),
@@ -354,7 +602,7 @@ const fluxPages: TemplatePage[] = [
     name: "About", slug: "/about",
     elements: [
       blockEl("sb-navbar-centered-logo", 0, "Navbar",  { props: { brandName: "Flux" } }),
-      blockEl("sb-hero-editorial",       1, "Hero",    { props: { accentColor: "#64748B" } }),
+      blockEl("sb-hero-editorial",       1, "Hero",    { props: { accentColor: "#64748B" }, patches: ph_editorial("ABOUT FLUX", "Built for how\nbusinesses work.", "We believe great B2B software should be simple without being simplistic. Flux was built to reflect how modern teams actually operate.", "Our story", "Contact us") }),
       blockEl("sb-team-grid",            2, "Team"),
       blockEl("sb-features-cards",       3, "Values",  { props: { accentColor: "#64748B" } }),
       blockEl("sb-footer-minimal",       4, "Footer",  { props: { brandName: "Flux" } }),
@@ -380,7 +628,7 @@ const prismPages: TemplatePage[] = [
     name: "Home", slug: "/", isHome: true,
     elements: [
       blockEl("sb-navbar-underline",   0, "Navbar",          { props: { accentColor: "#F97316", brandName: "Prism" } }),
-      blockEl("sb-hero-studio",        1, "Hero",            { props: { accentColor: "#F97316" } }),
+      blockEl("sb-hero-studio",        1, "Hero",            { props: { accentColor: "#F97316" }, patches: ph_studio("Creative work\nthat actually works.", "Brand design, websites, and campaigns crafted for ambitious businesses ready to grow. We turn bold ideas into measurable results.", "See our work") }),
       blockEl("sb-services-card-grid", 2, "Services",        { props: { accentColor: "#F97316" } }),
       blockEl("sb-portfolio-bento",    3, "Featured Work",   { props: { accentColor: "#F97316" } }),
       blockEl("sb-logos",              4, "Clients"),
@@ -393,7 +641,7 @@ const prismPages: TemplatePage[] = [
     name: "Services", slug: "/services",
     elements: [
       blockEl("sb-navbar-underline",    0, "Navbar",       { props: { accentColor: "#F97316", brandName: "Prism" } }),
-      blockEl("sb-hero-editorial",      1, "Hero",         { props: { accentColor: "#F97316" } }),
+      blockEl("sb-hero-editorial",      1, "Hero",         { props: { accentColor: "#F97316" }, patches: ph_editorial("PRISM SERVICES", "Design that\ndrives results.", "Brand identity, web design, and campaigns crafted to convert attention into action. Services for every stage of growth.", "See all services", "Start a project") }),
       blockEl("sb-services-alternating",2, "Services",    { props: { accentColor: "#F97316" } }),
       blockEl("sb-services-process-steps",3,"Process",    { props: { accentColor: "#F97316" } }),
       blockEl("sb-team-horizontal",     4, "Team"),
@@ -405,7 +653,7 @@ const prismPages: TemplatePage[] = [
     name: "Work", slug: "/work",
     elements: [
       blockEl("sb-navbar-underline",  0, "Navbar",      { props: { accentColor: "#F97316", brandName: "Prism" } }),
-      blockEl("sb-hero-editorial",    1, "Hero",        { props: { accentColor: "#F97316" } }),
+      blockEl("sb-hero-editorial",    1, "Hero",        { props: { accentColor: "#F97316" }, patches: ph_editorial("SELECTED PROJECTS", "Work we're\nproud of.", "Client partnerships across branding, digital, and campaigns. Every project starts with a conversation.", "Browse all work", "Start a project", "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1200") }),
       blockEl("sb-portfolio-editorial",2,"Projects"),
       blockEl("sb-cta-gradient",      3, "CTA",         { props: { accentColor: "#F97316" } }),
       blockEl("sb-footer-corporate",  4, "Footer",      { props: { brandName: "Prism" } }),
@@ -415,7 +663,7 @@ const prismPages: TemplatePage[] = [
     name: "About", slug: "/about",
     elements: [
       blockEl("sb-navbar-underline",      0, "Navbar",    { props: { accentColor: "#F97316", brandName: "Prism" } }),
-      blockEl("sb-hero-editorial",        1, "Hero",      { props: { accentColor: "#F97316" } }),
+      blockEl("sb-hero-editorial",        1, "Hero",      { props: { accentColor: "#F97316" }, patches: ph_editorial("OUR STUDIO", "People behind\nthe pixels.", "A tight-knit team of designers, strategists, and developers obsessed with making brands matter.", "Meet the team", "Get in touch") }),
       blockEl("sb-content-feature-list",  2, "Mission"),
       blockEl("sb-team-spotlight",        3, "Team"),
       blockEl("sb-features-alternating",  4, "Culture",   { props: { accentColor: "#F97316" } }),
@@ -427,7 +675,7 @@ const prismPages: TemplatePage[] = [
     name: "Contact", slug: "/contact",
     elements: [
       blockEl("sb-navbar-underline",  0, "Navbar",   { props: { accentColor: "#F97316", brandName: "Prism" } }),
-      blockEl("sb-hero-editorial",    1, "Hero",     { props: { accentColor: "#F97316" } }),
+      blockEl("sb-hero-editorial",    1, "Hero",     { props: { accentColor: "#F97316" }, patches: ph_editorial("LET'S TALK", "Ready to start\na project?", "Drop us a message and we'll be back within 24 hours. We'd love to hear about your project.", "Send a message", "See our work") }),
       blockEl("sb-contact-map",       2, "Contact",  { props: { accentColor: "#F97316" } }),
       blockEl("sb-footer-corporate",  3, "Footer",   { props: { brandName: "Prism" } }),
     ],
@@ -440,7 +688,7 @@ const atlasPages: TemplatePage[] = [
     name: "Home", slug: "/", isHome: true,
     elements: [
       blockEl("sb-navbar-corporate",       0, "Navbar",          { props: { accentColor: "#18181B", brandName: "Atlas" } }),
-      blockEl("sb-hero-meridian-enterprise",1,"Hero",            { props: { accentColor: "#18181B" } }),
+      blockEl("sb-hero-meridian-enterprise",1,"Hero",            { props: { accentColor: "#18181B" }, patches: ph_meridianEnterprise("FULL-SERVICE CORPORATE AGENCY", "The agency built\nfor enterprise.", "Strategy, branding, digital, and campaigns for the world's most demanding organisations. Atlas delivers where others don't.", "Start a brief", "View our work") }),
       blockEl("sb-logos",                  2, "Clients"),
       blockEl("sb-features-dark-bento",    3, "Services",        { props: { accentColor: "#18181B" } }),
       blockEl("sb-portfolio-case-study",   4, "Case Study"),
@@ -455,7 +703,7 @@ const atlasPages: TemplatePage[] = [
     name: "Services", slug: "/services",
     elements: [
       blockEl("sb-navbar-corporate",      0, "Navbar",     { props: { accentColor: "#18181B", brandName: "Atlas" } }),
-      blockEl("sb-hero-editorial",        1, "Hero",       { props: { accentColor: "#18181B" } }),
+      blockEl("sb-hero-editorial",        1, "Hero",       { props: { accentColor: "#18181B" }, patches: ph_editorial("ATLAS SERVICES", "Enterprise services\nthat deliver.", "From brand strategy to full digital transformation — Atlas brings senior expertise to every engagement.", "Explore services", "Start a brief") }),
       blockEl("sb-services-dark-list",    2, "Services",   { props: { accentColor: "#18181B" } }),
       blockEl("sb-services-process-steps",3, "Process",    { props: { accentColor: "#18181B" } }),
       blockEl("sb-cta-dark",              4, "CTA",        { props: { accentColor: "#18181B" } }),
@@ -466,7 +714,7 @@ const atlasPages: TemplatePage[] = [
     name: "Work", slug: "/work",
     elements: [
       blockEl("sb-navbar-corporate",    0, "Navbar",     { props: { accentColor: "#18181B", brandName: "Atlas" } }),
-      blockEl("sb-hero-editorial",      1, "Hero",       { props: { accentColor: "#18181B" } }),
+      blockEl("sb-hero-editorial",      1, "Hero",       { props: { accentColor: "#18181B" }, patches: ph_editorial("ATLAS WORK", "Case studies that\nspeak for themselves.", "Enterprise campaigns, brand overhauls, and digital transformations — browse our full body of client work.", "Browse all work", "Start a project", "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200") }),
       blockEl("sb-portfolio-editorial", 2, "Case Studies"),
       blockEl("sb-portfolio-case-study",3, "Featured"),
       blockEl("sb-cta-dark",            4, "CTA",        { props: { accentColor: "#18181B" } }),
@@ -487,7 +735,7 @@ const atlasPages: TemplatePage[] = [
     name: "Team", slug: "/team",
     elements: [
       blockEl("sb-navbar-corporate",        0, "Navbar",      { props: { accentColor: "#18181B", brandName: "Atlas" } }),
-      blockEl("sb-hero-editorial",          1, "Hero",        { props: { accentColor: "#18181B" } }),
+      blockEl("sb-hero-editorial",          1, "Hero",        { props: { accentColor: "#18181B" }, patches: ph_editorial("ATLAS TEAM", "The people who\nmake it happen.", "Senior strategists, creatives, and engineers working together. Small enough to care, large enough to deliver.", "Meet the team", "Join Atlas") }),
       blockEl("sb-team-grid",               2, "Leadership"),
       blockEl("sb-features-alternating",    3, "Culture"),
       blockEl("sb-team-hiring",             4, "Open Roles"),
@@ -510,7 +758,7 @@ const cipherPages: TemplatePage[] = [
     name: "Home", slug: "/", isHome: true,
     elements: [
       blockEl("sb-navbar-dark",           0, "Navbar",        { props: { accentColor: "#7C3AED", brandName: "Cipher" } }),
-      blockEl("sb-hero-bento",            1, "Hero",          { props: { accentColor: "#7C3AED" } }),
+      blockEl("sb-hero-bento",            1, "Hero",          { props: { accentColor: "#7C3AED" }, patches: ph_bento("STUDIO: OPEN FOR PROJECTS", "Art meets\nPrecision.", "We build dark, immersive digital experiences for brands that demand extraordinary. Boutique. Intentional. Unforgettable.", "Begin a project →", "12+", "Years of craft", "100%", "Client retention", "Award-Winning Studio", "Recognised for excellence in branding, film, and immersive digital experience design.") }),
       blockEl("sb-logos-animated-marquee",2, "Capabilities"),
       blockEl("sb-portfolio-dark-cards",  3, "Projects",      { props: { accentColor: "#7C3AED" } }),
       blockEl("sb-features-highlight-dark",4,"Studio Edge",   { props: { accentColor: "#7C3AED" } }),
@@ -523,7 +771,7 @@ const cipherPages: TemplatePage[] = [
     name: "Work", slug: "/work",
     elements: [
       blockEl("sb-navbar-dark",        0, "Navbar",  { props: { accentColor: "#7C3AED", brandName: "Cipher" } }),
-      blockEl("sb-hero-editorial",     1, "Hero",    { props: { accentColor: "#7C3AED" } }),
+      blockEl("sb-hero-editorial",     1, "Hero",    { props: { accentColor: "#7C3AED" }, patches: ph_editorial("CIPHER WORK", "Projects that\nleave a mark.", "Selected work across brand identity, motion design, and immersive digital experiences.", "View all projects", "Start a project", "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=1200") }),
       blockEl("sb-portfolio-editorial",2, "Projects"),
       blockEl("sb-cta-dark",           3, "CTA",     { props: { accentColor: "#7C3AED" } }),
       blockEl("sb-footer-dark",        4, "Footer",  { props: { brandName: "Cipher" } }),
@@ -533,7 +781,7 @@ const cipherPages: TemplatePage[] = [
     name: "Studio", slug: "/studio",
     elements: [
       blockEl("sb-navbar-dark",      0, "Navbar",  { props: { accentColor: "#7C3AED", brandName: "Cipher" } }),
-      blockEl("sb-hero-editorial",   1, "Hero",    { props: { accentColor: "#7C3AED" } }),
+      blockEl("sb-hero-editorial",   1, "Hero",    { props: { accentColor: "#7C3AED" }, patches: ph_editorial("THE STUDIO", "Where dark\ndesign lives.", "A boutique creative studio built for brands that refuse to be ordinary. Intentional. Immersive. Unforgettable.", "About us", "Begin a project") }),
       blockEl("sb-team-dark-cards",  2, "Team",    { props: { accentColor: "#7C3AED" } }),
       blockEl("sb-logos-badges",     3, "Awards"),
       blockEl("sb-features-steps",   4, "Process", { props: { accentColor: "#7C3AED" } }),
@@ -544,7 +792,7 @@ const cipherPages: TemplatePage[] = [
     name: "Services", slug: "/services",
     elements: [
       blockEl("sb-navbar-dark",          0, "Navbar",   { props: { accentColor: "#7C3AED", brandName: "Cipher" } }),
-      blockEl("sb-hero-editorial",       1, "Hero",     { props: { accentColor: "#7C3AED" } }),
+      blockEl("sb-hero-editorial",       1, "Hero",     { props: { accentColor: "#7C3AED" }, patches: ph_editorial("CIPHER SERVICES", "Services built\nfor ambition.", "Branding, web, motion, and campaign design for brands ready to go further than their competitors.", "See services", "Begin a project") }),
       blockEl("sb-services-dark-list",   2, "Services", { props: { accentColor: "#7C3AED" } }),
       blockEl("sb-features-steps",       3, "Process",  { props: { accentColor: "#7C3AED" } }),
       blockEl("sb-cta-dark",             4, "CTA",      { props: { accentColor: "#7C3AED" } }),
@@ -576,7 +824,7 @@ const signalPages: TemplatePage[] = [
     name: "Home", slug: "/", isHome: true,
     elements: [
       blockEl("sb-navbar-saas",       0, "Navbar",         { props: { accentColor: "#EF4444", brandName: "Signal" } }),
-      blockEl("sb-hero-industrial",   1, "Hero",           { props: { accentColor: "#EF4444" } }),
+      blockEl("sb-hero-industrial",   1, "Hero",           { props: { accentColor: "#EF4444" }, patches: ph_industrial("RESULTS\nNOT PROMISES.", "Performance marketing and growth strategy for brands ready to break through. Every campaign measured. Every dollar accountable.", "See Our Results ➚", "PAID MEDIA", "SEO & CONTENT", "CONVERSION RATE") }),
       blockEl("sb-logos",             2, "Clients"),
       blockEl("sb-services-card-grid",3, "Services",       { props: { accentColor: "#EF4444" } }),
       blockEl("sb-stats-with-chart",  4, "Results",        { props: { accentColor: "#EF4444" } }),
@@ -590,7 +838,7 @@ const signalPages: TemplatePage[] = [
     name: "Services", slug: "/services",
     elements: [
       blockEl("sb-navbar-saas",           0, "Navbar",   { props: { accentColor: "#EF4444", brandName: "Signal" } }),
-      blockEl("sb-hero-editorial",        1, "Hero",     { props: { accentColor: "#EF4444" } }),
+      blockEl("sb-hero-editorial",        1, "Hero",     { props: { accentColor: "#EF4444" }, patches: ph_editorial("SIGNAL SERVICES", "Growth services\nthat compound.", "Paid media, content, SEO, and CRO — all under one roof. We build the engine, you scale.", "See all services", "Get a quote") }),
       blockEl("sb-services-alternating",  2, "Services", { props: { accentColor: "#EF4444" } }),
       blockEl("sb-services-minimal-timeline",3,"Process",{ props: { accentColor: "#EF4444" } }),
       blockEl("sb-saas-integration-logos",4, "Tools"),
@@ -602,7 +850,7 @@ const signalPages: TemplatePage[] = [
     name: "Results", slug: "/results",
     elements: [
       blockEl("sb-navbar-saas",        0, "Navbar",         { props: { accentColor: "#EF4444", brandName: "Signal" } }),
-      blockEl("sb-hero-editorial",     1, "Hero",           { props: { accentColor: "#EF4444" } }),
+      blockEl("sb-hero-editorial",     1, "Hero",           { props: { accentColor: "#EF4444" }, patches: ph_editorial("CLIENT RESULTS", "Numbers that\ntell the story.", "Real results from real clients across e-commerce, SaaS, and consumer brands. Measured. Verified. Repeatable.", "See case studies", "Work with us") }),
       blockEl("sb-stats-with-chart",   2, "Stats Dashboard",{ props: { accentColor: "#EF4444" } }),
       blockEl("sb-portfolio-grid",     3, "Case Studies"),
       blockEl("sb-testimonials-wall",  4, "Testimonials"),
@@ -614,7 +862,7 @@ const signalPages: TemplatePage[] = [
     name: "About", slug: "/about",
     elements: [
       blockEl("sb-navbar-saas",      0, "Navbar",          { props: { accentColor: "#EF4444", brandName: "Signal" } }),
-      blockEl("sb-hero-editorial",   1, "Hero",            { props: { accentColor: "#EF4444" } }),
+      blockEl("sb-hero-editorial",   1, "Hero",            { props: { accentColor: "#EF4444" }, patches: ph_editorial("ABOUT SIGNAL", "Obsessed with\nyour growth.", "A performance marketing agency built on accountability. We don't guess — we measure, optimise, and scale.", "Meet the team", "Get in touch") }),
       blockEl("sb-team-spotlight",   2, "Team"),
       blockEl("sb-features-cards",   3, "Values",          { props: { accentColor: "#EF4444" } }),
       blockEl("sb-logos-badges",     4, "Certifications"),
@@ -641,7 +889,7 @@ const canvasPages: TemplatePage[] = [
     name: "Home", slug: "/", isHome: true,
     elements: [
       blockEl("sb-navbar-creative",      0, "Navbar",            { props: { brandName: "Canvas" } }),
-      blockEl("sb-hero-playful",         1, "Hero"),
+      blockEl("sb-hero-playful",         1, "Hero",       { patches: ph_playful("🎨 DESIGN & ILLUSTRATION", "Work that speaks\nfor itself.", "A creative portfolio packed with bold design, illustration, and digital art. Available for freelance and full-time.", "See my work", "Let's collaborate") }),
       blockEl("sb-portfolio-bento",      2, "Featured Projects"),
       blockEl("sb-cta-split-image",      3, "About Teaser"),
       blockEl("sb-services-minimal-timeline",4,"Services"),
@@ -654,7 +902,7 @@ const canvasPages: TemplatePage[] = [
     name: "Work", slug: "/work",
     elements: [
       blockEl("sb-navbar-creative",   0, "Navbar",    { props: { brandName: "Canvas" } }),
-      blockEl("sb-hero-editorial",    1, "Hero"),
+      blockEl("sb-hero-editorial",    1, "Hero",       { patches: ph_editorial("SELECTED PROJECTS", "Projects worth\ntalking about.", "Brand identities, illustrations, web design, and campaigns. Take a look at what we've been building.", "Browse all work", "Get in touch", "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=1200") }),
       blockEl("sb-portfolio-editorial",2,"Projects"),
       blockEl("sb-footer-minimal",    3, "Footer",    { props: { brandName: "Canvas" } }),
     ],
@@ -663,7 +911,7 @@ const canvasPages: TemplatePage[] = [
     name: "About", slug: "/about",
     elements: [
       blockEl("sb-navbar-creative",     0, "Navbar"),
-      blockEl("sb-hero-editorial",      1, "Bio",         { props: { title: "About Me" } }),
+      blockEl("sb-hero-editorial",      1, "Bio",         { patches: ph_editorial("ABOUT ME", "Designer.\nCreator.\nCollaborator.", "I've been making things people love for 7+ years — brand identities, illustrations, websites, and campaigns. Let's make something together.", "My work", "Say hello") }),
       blockEl("sb-features-checklist",  2, "Skills"),
       blockEl("sb-content-steps-guide", 3, "Experience"),
       blockEl("sb-testimonials-grid",   4, "Testimonials"),
@@ -674,7 +922,7 @@ const canvasPages: TemplatePage[] = [
     name: "Services", slug: "/services",
     elements: [
       blockEl("sb-navbar-creative",    0, "Navbar"),
-      blockEl("sb-hero-editorial",     1, "Hero"),
+      blockEl("sb-hero-editorial",     1, "Hero",       { patches: ph_editorial("CREATIVE SERVICES", "Creative services\nfor brave brands.", "Brand identity, illustration, web design, and digital campaigns — tailored to your vision and budget.", "See services", "Get a quote") }),
       blockEl("sb-services-alternating",2,"Services"),
       blockEl("sb-pricing-minimal",    3, "Pricing"),
       blockEl("sb-cta-simple",         4, "CTA"),
@@ -695,52 +943,45 @@ const canvasPages: TemplatePage[] = [
 // ─── 10. Folio — portfolio-folio · PRO ────────────────────────────────────────
 const folioPages: TemplatePage[] = [
   {
-    name: "Home", slug: "/", isHome: true,
+    name: "Works", slug: "/", isHome: true,
     elements: [
-      blockEl("sb-navbar-pill",         0, "Navbar",         { props: { accentColor: "#06B6D4", brandName: "Folio" } }),
-      blockEl("sb-hero-feature-stack",  1, "Hero",           { props: { accentColor: "#06B6D4" } }),
-      blockEl("sb-portfolio-dark-cards",2, "Projects",       { props: { accentColor: "#06B6D4" } }),
-      blockEl("sb-features-dark-bento", 3, "Skills",         { props: { accentColor: "#06B6D4" } }),
-      blockEl("sb-team-spotlight",      4, "Spotlight"),
-      blockEl("sb-blog-minimal-list",   5, "Writing"),
-      blockEl("sb-cta-dark",            6, "CTA",            { props: { accentColor: "#06B6D4", title: "Get in touch" } }),
-      blockEl("sb-footer-dark",         7, "Footer",         { props: { brandName: "Folio" } }),
+      blockEl("sb-navbar-pill",         0, "Navbar",         { props: { accentColor: "#1E293B", brandName: "FOLIO / 26" } }),
+      blockEl("sb-hero-feature-stack",  1, "Hero",           { props: { accentColor: "#1E293B" }, patches: ph_productDesigner("SENIOR PRODUCT DESIGNER", "Interfaces with\nPurpose.", "Specializing in complex systems, design operations, and user-centric product strategy for global SaaS leaders.", "Selected Works", "Get in touch") }),
+      blockEl("sb-portfolio-dark-cards",2, "Selected Works", { props: { accentColor: "#1E293B" }, patches: [
+        { match: "FEATURED PROJECTS", content: "CASE STUDIES" },
+        { match: "Fintech App", content: "Solaris Design System" },
+        { match: "Healthcare Platform", content: "Lumina Analytics" }
+      ]}),
+      blockEl("sb-features-dark-bento", 3, "Expertise",      { props: { accentColor: "#1E293B" }, patches: [
+        { match: "FEATURED CAPABILITIES", content: "CORE EXPERTISE" },
+        { match: "Global Scale", content: "Product Strategy" },
+        { match: "Enterprise Security", content: "Design Systems" },
+        { match: "Team Collaboration", content: "Prototyping" }
+      ]}),
+      blockEl("sb-logos",               4, "Trusted By"),
+      blockEl("sb-cta-dark",            5, "CTA",            { props: { accentColor: "#1E293B", title: "Let's build something meaningful" } }),
+      blockEl("sb-footer-dark",         6, "Footer",         { props: { brandName: "FOLIO / 26" } }),
     ],
   },
   {
-    name: "Projects", slug: "/projects",
+    name: "About", slug: "/about",
     elements: [
-      blockEl("sb-navbar-pill",       0, "Navbar",      { props: { accentColor: "#06B6D4", brandName: "Folio" } }),
-      blockEl("sb-hero-editorial",    1, "Hero",        { props: { accentColor: "#06B6D4" } }),
-      blockEl("sb-portfolio-editorial",2,"All Projects"),
-      blockEl("sb-footer-dark",       3, "Footer",      { props: { brandName: "Folio" } }),
-    ],
-  },
-  {
-    name: "Experience", slug: "/experience",
-    elements: [
-      blockEl("sb-navbar-pill",          0, "Navbar",      { props: { accentColor: "#06B6D4", brandName: "Folio" } }),
-      blockEl("sb-content-steps-guide",  1, "Timeline"),
-      blockEl("sb-features-dark-bento",  2, "Skills",      { props: { accentColor: "#06B6D4" } }),
-      blockEl("sb-logos-badges",         3, "Certifications"),
-      blockEl("sb-footer-dark",          4, "Footer",      { props: { brandName: "Folio" } }),
-    ],
-  },
-  {
-    name: "Writing", slug: "/writing",
-    elements: [
-      blockEl("sb-navbar-pill",   0, "Navbar",  { props: { accentColor: "#06B6D4", brandName: "Folio" } }),
-      blockEl("sb-blog-grid",     1, "Articles"),
-      blockEl("sb-footer-dark",   2, "Footer",  { props: { brandName: "Folio" } }),
+      blockEl("sb-navbar-pill",       0, "Navbar",      { props: { accentColor: "#1E293B", brandName: "FOLIO / 26" } }),
+      blockEl("sb-hero-editorial",    1, "Philosophy",  { props: { accentColor: "#1E293B" }, patches: [
+        { match: "ALL PROJECTS", content: "PHILOSOPHY" },
+        { match: "Every project,\nstory by story.", content: "Simplicity,\nThen Rigor." }
+      ]}),
+      blockEl("sb-content-steps-guide", 2, "The Process"),
+      blockEl("sb-team-spotlight",      3, "The Designer"),
+      blockEl("sb-footer-dark",         4, "Footer",      { props: { brandName: "FOLIO / 26" } }),
     ],
   },
   {
     name: "Contact", slug: "/contact",
     elements: [
-      blockEl("sb-navbar-pill",          0, "Navbar",       { props: { accentColor: "#06B6D4", brandName: "Folio" } }),
-      blockEl("sb-contact-split",        1, "Contact",      { props: { accentColor: "#06B6D4" } }),
-      blockEl("sb-content-feature-list", 2, "Social Links"),
-      blockEl("sb-footer-dark",          3, "Footer",       { props: { brandName: "Folio" } }),
+      blockEl("sb-navbar-pill",          0, "Navbar",       { props: { accentColor: "#1E293B", brandName: "FOLIO / 26" } }),
+      blockEl("sb-contact-split",        1, "Inquiry",      { props: { accentColor: "#1E293B" } }),
+      blockEl("sb-footer-dark",          2, "Footer",       { props: { brandName: "FOLIO / 26" } }),
     ],
   },
 ];
@@ -766,7 +1007,7 @@ const inkPages: TemplatePage[] = [
     name: "Blog", slug: "/blog",
     elements: [
       blockEl("sb-navbar-blog",      0, "Navbar",     { props: { accentColor: "#F59E0B", brandName: "Ink" } }),
-      blockEl("sb-hero-editorial",   1, "Hero",       { props: { accentColor: "#F59E0B" } }),
+      blockEl("sb-hero-editorial",   1, "Hero",       { props: { accentColor: "#F59E0B" }, patches: ph_editorial("THE INK ARCHIVE", "All stories,\none place.", "Ideas, essays, and guides worth reading. Curated writing on design, culture, and the making of things.", "Browse articles", "Subscribe") }),
       blockEl("sb-blog-list",        2, "All Posts"),
       blockEl("sb-blog-minimal-list",3, "More Posts"),
       blockEl("sb-footer-minimal",   4, "Footer",     { props: { brandName: "Ink" } }),
@@ -931,58 +1172,33 @@ const luxePages: TemplatePage[] = [
   {
     name: "Home", slug: "/", isHome: true,
     elements: [
-      blockEl("sb-navbar-centered-logo",     0, "Navbar",      { props: { accentColor: "#1C1917", brandName: "Luxe" } }),
-      blockEl("sb-hero-cinematic",           1, "Hero",        { props: { accentColor: "#1C1917" } }),
-      blockEl("sb-portfolio-bento",          2, "Collections", { props: { accentColor: "#1C1917" } }),
-      blockEl("sb-features-alternating",     3, "Spotlight",   { props: { accentColor: "#1C1917" } }),
+      blockEl("sb-navbar-centered-logo",     0, "Navbar",      { props: { accentColor: "#1E293B", brandName: "HOROLOGE" } }),
+      blockEl("sb-hero-cinematic",           1, "Hero",        { props: { accentColor: "#1E293B" }, patches: ph_horology("THE HERITAGE COLLECTION", "Mechanical\nArtistry.", "Masterpieces of precision engineering and timeless design. Crafted for those who appreciate the finer details of time.", "View Collection", "The Craft") }),
+      blockEl("sb-portfolio-bento",          2, "Collections", { props: { accentColor: "#1E293B" }, patches: [
+        { match: "FEATURED WORK", content: "THE SERIES" },
+        { match: "Design System", content: "Vanguard GMT" },
+        { match: "Mobile App", content: "Chronos Limited" }
+      ]}),
+      blockEl("sb-features-alternating",     3, "Technical Excellence",   { props: { accentColor: "#1E293B" } }),
       blockEl("sb-testimonials-single-quote",4, "Press Quote"),
-      blockEl("sb-cta-newsletter",           5, "Newsletter",  { props: { accentColor: "#1C1917" } }),
-      blockEl("sb-footer-gradient",          6, "Footer",      { props: { brandName: "Luxe" } }),
+      blockEl("sb-footer-gradient",          5, "Footer",      { props: { brandName: "HOROLOGE" } }),
     ],
   },
   {
-    name: "Collection", slug: "/collection",
+    name: "Collections", slug: "/collections",
     elements: [
-      blockEl("sb-navbar-centered-logo",          0, "Navbar",    { props: { accentColor: "#1C1917", brandName: "Luxe" } }),
-      blockEl("sb-hero-cinematic",                1, "Hero",      { props: { accentColor: "#1C1917" } }),
-      blockEl("sb-ecommerce-featured-products",   2, "Products"),
-      blockEl("sb-footer-gradient",               3, "Footer",    { props: { brandName: "Luxe" } }),
+      blockEl("sb-navbar-centered-logo",          0, "Navbar",    { props: { accentColor: "#1E293B", brandName: "HOROLOGE" } }),
+      blockEl("sb-ecommerce-featured-products",   1, "The Archive"),
+      blockEl("sb-footer-gradient",               2, "Footer",    { props: { brandName: "HOROLOGE" } }),
     ],
   },
   {
-    name: "Product", slug: "/collection/product",
+    name: "The Craft", slug: "/craft",
     elements: [
-      blockEl("sb-navbar-centered-logo",   0, "Navbar",         { props: { accentColor: "#1C1917", brandName: "Luxe" } }),
-      blockEl("sb-ecommerce-product-detail",1,"Product Detail"),
-      blockEl("sb-content-feature-list",   2, "Styling Notes"),
-      blockEl("sb-ecommerce-upsell",       3, "Related"),
-      blockEl("sb-footer-gradient",        4, "Footer",          { props: { brandName: "Luxe" } }),
-    ],
-  },
-  {
-    name: "Lookbook", slug: "/lookbook",
-    elements: [
-      blockEl("sb-navbar-centered-logo", 0, "Navbar",    { props: { accentColor: "#1C1917", brandName: "Luxe" } }),
-      blockEl("sb-portfolio-editorial",  1, "Lookbook"),
-      blockEl("sb-footer-gradient",      2, "Footer",    { props: { brandName: "Luxe" } }),
-    ],
-  },
-  {
-    name: "About", slug: "/about",
-    elements: [
-      blockEl("sb-navbar-centered-logo",  0, "Navbar",      { props: { accentColor: "#1C1917", brandName: "Luxe" } }),
-      blockEl("sb-hero-editorial",        1, "Brand Story", { props: { accentColor: "#1C1917" } }),
-      blockEl("sb-features-alternating",  2, "Our Craft",   { props: { accentColor: "#1C1917" } }),
-      blockEl("sb-footer-gradient",       3, "Footer",      { props: { brandName: "Luxe" } }),
-    ],
-  },
-  {
-    name: "Contact", slug: "/contact",
-    elements: [
-      blockEl("sb-navbar-centered-logo", 0, "Navbar",    { props: { accentColor: "#1C1917", brandName: "Luxe" } }),
-      blockEl("sb-contact-split",        1, "Contact"),
-      blockEl("sb-contact-map",          2, "Stockists"),
-      blockEl("sb-footer-gradient",      3, "Footer",    { props: { brandName: "Luxe" } }),
+      blockEl("sb-navbar-centered-logo",  0, "Navbar",      { props: { accentColor: "#1E293B", brandName: "HOROLOGE" } }),
+      blockEl("sb-hero-editorial",        1, "Our Legacy",  { props: { accentColor: "#1E293B" } }),
+      blockEl("sb-features-alternating",  2, "Precision Engineering", { props: { accentColor: "#1E293B" } }),
+      blockEl("sb-footer-gradient",       3, "Footer",      { props: { brandName: "HOROLOGE" } }),
     ],
   },
 ];
@@ -1228,47 +1444,68 @@ const savorPages: TemplatePage[] = [
   {
     name: "Home", slug: "/", isHome: true,
     elements: [
-      blockEl("sb-navbar-restaurant",   0, "Navbar",          { props: { accentColor: "#D97706", brandName: "Savor" } }),
-      blockEl("sb-hero-cinematic",      1, "Hero",            { props: { accentColor: "#D97706" } }),
-      blockEl("sb-cta-split",           2, "About Teaser",    { props: { accentColor: "#D97706" } }),
-      blockEl("sb-features-cards",      3, "Menu Highlights", { props: { accentColor: "#D97706" } }),
-      blockEl("sb-logos-badges",        4, "Press"),
-      blockEl("sb-testimonials-grid",   5, "Reviews"),
-      blockEl("sb-cta-gradient",        6, "Reserve CTA",     { props: { accentColor: "#D97706", title: "Book a Table" } }),
-      blockEl("sb-footer-gradient",     7, "Footer",          { props: { brandName: "Savor" } }),
+      blockEl("sb-navbar-restaurant",   0, "Navbar",          { props: { accentColor: "#450A0A", brandName: "SAVOR" } }),
+      blockEl("sb-hero-editorial",           1, "Hero",            { props: { accentColor: "#450A0A" }, patches: ph_fineDining("MICHELIN STARRED GASTRONOMY", "Artistry on\na Plate.", "Experience a symphony of flavours crafted with precision and passion. An immersive culinary journey in the heart of the city.", "Reserve a Table", "Explore Menu") }),
+      blockEl("sb-services-card-grid",  2, "The Experience",  { props: { accentColor: "#450A0A" }, patches: [
+        { match: "OUR SERVICES", content: "THE EXPERIENCE" },
+        { match: "Brand Identity", content: "Tasting Menu" },
+        { match: "We create unique and memorable brand identities that resonate with your audience.", content: "An 11-course journey through seasonal ingredients and avant-garde techniques." },
+        { match: "Web Design", content: "Wine Pairing" },
+        { match: "Our team designs beautiful and functional websites that are optimized for performance.", content: "Curated selections from our private cellar, spanning the world's finest regions." }
+      ]}),
+      blockEl("sb-portfolio-bento",    3, "The Gallery",     { props: { accentColor: "#450A0A" } }),
+      blockEl("sb-logos-badges",        4, "Recognition"),
+      blockEl("sb-testimonials-grid",   5, "Guest Notes"),
+      blockEl("sb-cta-gradient",        6, "Reservation",     { props: { accentColor: "#450A0A", title: "Join us for an evening of excellence" } }),
+      blockEl("sb-footer-gradient",     7, "Footer",          { props: { brandName: "SAVOR" } }),
     ],
   },
   {
     name: "Menu", slug: "/menu",
     elements: [
-      blockEl("sb-navbar-restaurant",         0, "Navbar",      { props: { accentColor: "#D97706", brandName: "Savor" } }),
-      blockEl("sb-hero-editorial",            1, "Menu Header", { props: { accentColor: "#D97706" } }),
-      blockEl("sb-interactive-tabs-features", 2, "Categories",  { props: { accentColor: "#D97706" } }),
-      blockEl("sb-features-cards",            3, "Dishes",      { props: { accentColor: "#D97706" } }),
-      blockEl("sb-content-feature-list",      4, "Allergen Info"),
-      blockEl("sb-cta-gradient",              5, "Reserve CTA", { props: { accentColor: "#D97706" } }),
-      blockEl("sb-footer-gradient",           6, "Footer",      { props: { brandName: "Savor" } }),
+      blockEl("sb-navbar-restaurant",         0, "Navbar",      { props: { accentColor: "#450A0A", brandName: "SAVOR" } }),
+      blockEl("sb-hero-editorial",            1, "Menu Header", { props: { accentColor: "#450A0A" }, patches: ph_editorial("THE AUTUMN MENU", "Seasonal\nMasterpieces.", "Our menus change with the seasons, honouring the finest local and imported ingredients at their absolute peak. All dietary requirements catered for.", "Download PDF Menu", "Reserve a Table") }),
+      blockEl("sb-interactive-tabs-features", 2, "Menu Categories",  { props: { accentColor: "#450A0A" } }),
+      blockEl("sb-features-cards",            3, "Signature Dishes", { props: { accentColor: "#450A0A" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "CHEF'S SIGNATURES" },
+        { match: "Built for the next generation of web applications.", content: "Dishes that define who we are — available every service as a constant in a menu that evolves." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "Each signature is the result of months of development, sourcing, and refinement before it ever reaches the pass." },
+        { match: "Lightning Performance", content: "Aged Duck Magret" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Slow-rendered for 48 hours, finished over charcoal. Served with cherry jus, celeriac purée, and pickled walnut." },
+        { match: "Military-Grade Security", content: "Hand-Dived Scallops" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "Day-boat scallops with cauliflower velouté, crispy capers, and a brown butter emulsion." },
+        { match: "Seamless Integration", content: "Dark Chocolate Sphere" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "A showpiece dessert — dark Valrhona chocolate with salted caramel, passion fruit, and hazelnut praline." },
+      ]}),
+      blockEl("sb-content-feature-list",      4, "Dietary & Allergens"),
+      blockEl("sb-cta-gradient",              5, "Reserve Now", { props: { accentColor: "#450A0A" } }),
+      blockEl("sb-footer-gradient",           6, "Footer",      { props: { brandName: "SAVOR" } }),
     ],
   },
   {
-    name: "About", slug: "/about",
+    name: "The Chef", slug: "/chef",
     elements: [
-      blockEl("sb-navbar-restaurant",     0, "Navbar",     { props: { accentColor: "#D97706", brandName: "Savor" } }),
-      blockEl("sb-features-alternating",  1, "Chef Story", { props: { accentColor: "#D97706" } }),
-      blockEl("sb-features-alternating",  2, "Philosophy", { props: { accentColor: "#D97706" } }),
-      blockEl("sb-team-spotlight",        3, "Team"),
-      blockEl("sb-logos-badges",          4, "Awards"),
-      blockEl("sb-footer-gradient",       5, "Footer",     { props: { brandName: "Savor" } }),
+      blockEl("sb-navbar-restaurant",     0, "Navbar",        { props: { accentColor: "#450A0A", brandName: "SAVOR" } }),
+      blockEl("sb-team-spotlight",        1, "Executive Chef"),
+      blockEl("sb-features-alternating",  2, "Our Philosophy", { props: { accentColor: "#450A0A" }, patches: [
+        { match: "Universal\nCollaboration.", content: "Produce drives\nevery decision." },
+        { match: "Break down the barriers between teams and departments. Our platform provides a single source of truth for your entire organization.", content: "Every week we visit our growers, fishers, and foragers in person. The relationship with our suppliers is the foundation of everything we cook." },
+        { match: "READ THE MANIFESTO", content: "OUR SUPPLIERS" },
+        { match: "Intelligence\nby Design.", content: "Technique in\nservice of taste." },
+        { match: "Make informed decisions with data that updates in real-time. We don't just show you what's happening, we show you why.", content: "Classical training meets fearless creativity. We respect tradition but are never bound by it — always asking what this dish can become." },
+        { match: "VIEW CAPABILITIES", content: "THE TASTING MENU" },
+      ]}),
+      blockEl("sb-logos-badges",          3, "Awards"),
+      blockEl("sb-footer-gradient",       4, "Footer",        { props: { brandName: "SAVOR" } }),
     ],
   },
   {
     name: "Reservations", slug: "/reservations",
     elements: [
-      blockEl("sb-navbar-glass",     0, "Navbar",      { props: { accentColor: "#D97706", brandName: "Savor" } }),
-      blockEl("sb-contact-split",    1, "Reservations",{ props: { accentColor: "#D97706" } }),
-      blockEl("sb-contact-map",      2, "Location",    { props: { accentColor: "#D97706" } }),
-      blockEl("sb-cta-simple",        3, "Private CTA", { props: { accentColor: "#D97706" } }),
-      blockEl("sb-footer-gradient",   4, "Footer",      { props: { brandName: "Savor" } }),
+      blockEl("sb-navbar-restaurant",0, "Navbar",      { props: { accentColor: "#450A0A", brandName: "SAVOR" } }),
+      blockEl("sb-contact-split",    1, "Booking",     { props: { accentColor: "#450A0A" } }),
+      blockEl("sb-contact-map",      2, "Location",    { props: { accentColor: "#450A0A" } }),
+      blockEl("sb-footer-gradient",   3, "Footer",      { props: { brandName: "SAVOR" } }),
     ],
   },
 ];
@@ -1278,43 +1515,73 @@ const brewPages: TemplatePage[] = [
   {
     name: "Home", slug: "/", isHome: true,
     elements: [
-      blockEl("sb-navbar-minimal",          0, "Navbar",       { props: { brandName: "Brew" } }),
-      blockEl("sb-hero-organic",            1, "Hero"),
-      blockEl("sb-features-cards",          2, "Seasonal Menu",{ props: { accentColor: "#92400E" } }),
+      blockEl("sb-navbar-minimal",          0, "Navbar",       { props: { brandName: "BREW & CO" } }),
+      blockEl("sb-hero-organic",            1, "Hero",         { patches: ph_organic("Small Batch.\nBig Soul.", "Artisan coffee roasted in-house daily. We work directly with ethical farms and believe every cup should tell the story of where it came from.", "Shop the Roast") }),
+      blockEl("sb-features-cards",          2, "Origins",      { props: { accentColor: "#92400E" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "THIS WEEK'S ORIGINS" },
+        { match: "Built for the next generation of web applications.", content: "Single-origin coffees roasted fresh each morning. Traceable, seasonal, and extraordinary." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "We work directly with farmers in Ethiopia, Colombia, and Sumatra to source the finest micro-lot coffees available." },
+        { match: "Lightning Performance", content: "Ethiopia Yirgacheffe" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Bright, floral, and complex. Notes of jasmine, stone fruit, and a clean citrus finish. Light roast." },
+        { match: "Military-Grade Security", content: "Colombia Huila" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "Balanced and smooth with notes of caramel, hazelnut, and dark chocolate. A timeless classic." },
+        { match: "Seamless Integration", content: "Sumatra Mandheling" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "Full-bodied and earthy with a velvety texture. Low acidity, long finish, and deeply satisfying." },
+      ]}),
       blockEl("sb-testimonials-single-quote",3,"Guest Review"),
-      blockEl("sb-cta-split",               4, "Our Story",    { props: { accentColor: "#92400E" } }),
-      blockEl("sb-testimonials-grid",       5, "Reviews"),
-      blockEl("sb-cta-simple",              6, "Visit CTA",    { props: { accentColor: "#92400E" } }),
-      blockEl("sb-footer-minimal",          7, "Footer",       { props: { brandName: "Brew" } }),
+      blockEl("sb-cta-split",               4, "The Roastery",  { props: { accentColor: "#92400E" } }),
+      blockEl("sb-footer-minimal",          5, "Footer",        { props: { brandName: "BREW & CO" } }),
     ],
   },
   {
-    name: "Menu", slug: "/menu",
+    name: "The Menu", slug: "/menu",
     elements: [
-      blockEl("sb-navbar-minimal",            0, "Navbar",       { props: { brandName: "Brew" } }),
-      blockEl("sb-interactive-tabs-features", 1, "Menu Sections",{ props: { accentColor: "#92400E" } }),
-      blockEl("sb-features-cards",            2, "Items",        { props: { accentColor: "#92400E" } }),
-      blockEl("sb-footer-minimal",            3, "Footer",       { props: { brandName: "Brew" } }),
+      blockEl("sb-navbar-minimal",            0, "Navbar",          { props: { brandName: "BREW & CO" } }),
+      blockEl("sb-interactive-tabs-features", 1, "Barista Selection",{ props: { accentColor: "#92400E" } }),
+      blockEl("sb-features-cards",            2, "Food & Pastries", { props: { accentColor: "#92400E" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "MADE IN-HOUSE DAILY" },
+        { match: "Built for the next generation of web applications.", content: "Our kitchen bakes fresh every morning. Croissants, sourdough, seasonal tarts, and more." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "All pastries and bread made from scratch using organic flour, free-range eggs, and local dairy." },
+        { match: "Lightning Performance", content: "Seasonal Croissants" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Buttery, flaky, and filled with seasonal fruit compote or our daily special cream." },
+        { match: "Military-Grade Security", content: "Sourdough Toasts" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "House-baked sourdough with cultured butter, smashed avocado, or smoked salmon." },
+        { match: "Seamless Integration", content: "Granola & Yoghurt" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "Housemade granola with seasonal fruit, organic yoghurt, and a drizzle of local honey." },
+      ]}),
+      blockEl("sb-footer-minimal",            3, "Footer",          { props: { brandName: "BREW & CO" } }),
     ],
   },
   {
     name: "Our Story", slug: "/our-story",
     elements: [
       blockEl("sb-navbar-minimal",       0, "Navbar"),
-      blockEl("sb-features-alternating", 1, "Origin",    { props: { accentColor: "#92400E" } }),
-      blockEl("sb-features-alternating", 2, "Sourcing",  { props: { accentColor: "#92400E" } }),
-      blockEl("sb-features-cards",       3, "Community", { props: { accentColor: "#92400E" } }),
-      blockEl("sb-footer-minimal",       4, "Footer",    { props: { brandName: "Brew" } }),
+      blockEl("sb-features-alternating", 1, "Ethical Sourcing", { props: { accentColor: "#92400E" }, patches: [
+        { match: "Universal\nCollaboration.", content: "Sourced from\nthe source." },
+        { match: "Break down the barriers between teams and departments. Our platform provides a single source of truth for your entire organization.", content: "We visit every farm we work with. Our relationships with growers in Ethiopia, Colombia, and Sumatra are built on trust, transparency, and fair prices — always above the market rate." },
+        { match: "READ THE MANIFESTO", content: "OUR SOURCING PLEDGE" },
+        { match: "Intelligence\nby Design.", content: "Roasted with\nprecision." },
+        { match: "Make informed decisions with data that updates in real-time. We don't just show you what's happening, we show you why.", content: "Every batch is roasted to order in our in-house roastery. We roast light, letting the origin shine rather than the profile. Each roast is logged, tasted, and adjusted to the gram." },
+        { match: "VIEW CAPABILITIES", content: "SHOP COFFEE BEANS" },
+      ]}),
+      blockEl("sb-features-alternating", 2, "The Craft", { props: { accentColor: "#92400E" }, patches: [
+        { match: "Universal\nCollaboration.", content: "The art of\nthe pour." },
+        { match: "Break down the barriers between teams and departments. Our platform provides a single source of truth for your entire organization.", content: "Our baristas train for months before serving a guest. Every extraction is calibrated, every pour deliberate. We believe great coffee is worth taking seriously — and tasting seriously." },
+        { match: "READ THE MANIFESTO", content: "BARISTA TRAINING" },
+        { match: "Intelligence\nby Design.", content: "Community\nat heart." },
+        { match: "Make informed decisions with data that updates in real-time. We don't just show you what's happening, we show you why.", content: "Brew & Co started as a coffee cart outside the community garden in 2017. The neighbourhood made us who we are, and we try to give back every single day." },
+        { match: "VIEW CAPABILITIES", content: "OUR FULL STORY" },
+      ]}),
+      blockEl("sb-footer-minimal",       3, "Footer", { props: { brandName: "BREW & CO" } }),
     ],
   },
   {
-    name: "Find Us", slug: "/find-us",
+    name: "Visit", slug: "/visit",
     elements: [
       blockEl("sb-navbar-minimal",       0, "Navbar"),
-      blockEl("sb-contact-map",          1, "Location"),
-      blockEl("sb-content-feature-list", 2, "Hours"),
-      blockEl("sb-contact-split",        3, "Contact"),
-      blockEl("sb-footer-minimal",       4, "Footer",    { props: { brandName: "Brew" } }),
+      blockEl("sb-contact-map",          1, "The Lab"),
+      blockEl("sb-content-feature-list", 2, "Roasting Hours"),
+      blockEl("sb-footer-minimal",       3, "Footer", { props: { brandName: "BREW & CO" } }),
     ],
   },
 ];
@@ -1525,7 +1792,11 @@ const meridianCorpPages: TemplatePage[] = [
     name: "Home", slug: "/", isHome: true,
     elements: [
       blockEl("sb-navbar-dark-gradient",    0, "Navbar",       { props: { accentColor: "#0F172A", brandName: "Meridian" } }),
-      blockEl("sb-hero-meridian-enterprise",1, "Hero",         { props: { accentColor: "#3B82F6" } }),
+      blockEl("sb-hero-meridian-enterprise",1, "Hero",         { props: { accentColor: "#3B82F6" }, patches: [
+        { match: "TRUSTED BY 500+ GLOBAL ENTERPRISES", content: "INVESTING IN THE FUTURE OF TECHNOLOGY" },
+        { match: "Scale your business\nwith confidence.", content: "Backing the next\nglobal giants." },
+        { match: "The world's most secure and scalable platform for building modern web experiences. We handle the infrastructure so you can focus on growth.", content: "A global venture capital firm partnering with visionary founders to build category-defining companies from seed to scale." },
+      ], styles: { backgroundImage: "linear-gradient(135deg, #020617 0%, #0F172A 100%)" } }),
       blockEl("sb-logos-dark",              2, "Customers"),
       blockEl("sb-saas-feature-wall",       3, "Capabilities", { props: { accentColor: "#3B82F6" } }),
       blockEl("sb-dashboard-analytics-hero",4, "Platform",     { props: { accentColor: "#3B82F6" } }),
@@ -1602,22 +1873,30 @@ const emberPages: TemplatePage[] = [
   {
     name: "Home", slug: "/", isHome: true,
     elements: [
-      blockEl("sb-navbar-restaurant",   0, "Navbar",           { props: { accentColor: "#C2410C", brandName: "Ember" } }),
-      blockEl("sb-hero-cinematic",      1, "Hero",             { props: { accentColor: "#C2410C" } }),
-      blockEl("sb-content-magazine-split",2,"Story",           { props: { accentColor: "#C2410C" } }),
-      blockEl("sb-features-bold-grid",  3, "Signature Dishes", { props: { accentColor: "#C2410C" } }),
-      blockEl("sb-logos-badges",        4, "Press"),
-      blockEl("sb-portfolio-bento",     5, "Gallery"),
-      blockEl("sb-testimonials-large",  6, "Reviews"),
-      blockEl("sb-cta-gradient",        7, "Reserve",          { props: { accentColor: "#C2410C", title: "Reserve Your Evening" } }),
-      blockEl("sb-footer-gradient",     8, "Footer",           { props: { brandName: "Ember" } }),
+      blockEl("sb-navbar-restaurant",      0, "Navbar",           { props: { accentColor: "#C2410C", brandName: "Ember" } }),
+      blockEl("sb-hero-cinematic",         1, "Hero",             { props: { accentColor: "#C2410C" }, patches: ph_cinematic("✦ OPEN NIGHTLY FROM 5PM", "Where Fire\nMeets Flavour.", "Hand-crafted dishes cooked over our signature open flame. Locally sourced, seasonally inspired, and worth every minute of the wait.", "Reserve Your Table →") }),
+      blockEl("sb-content-magazine-split", 2, "Story",            { props: { accentColor: "#C2410C" }, patches: [
+        { match: "FEATURE STORY", content: "THE EMBER STORY" },
+        { match: "The renaissance of thoughtful design in a noisy world.", content: "Born from the belief that great food starts with great fire." },
+        { match: "by Marcus Webb", content: "by Marco Rossi, Head Chef" },
+        { match: "April 15, 2026 · 8 min read", content: "Est. 2018 · Wood-fired kitchen" },
+        { match: "In a world saturated with digital noise, the designers who cut through are those who embrace constraints as a creative tool. Reduction is not limitation - it is the highest form of craft.", content: "We opened Ember in 2018 with a wood-fired oven, a handful of recipes, and a belief that cooking with fire is the oldest and most honest form of craft. Nothing has changed." },
+        { match: "The best interfaces are invisible. They guide without demanding attention, inform without overwhelming, and delight without distraction. That is the standard we hold ourselves to.", content: "Every ingredient on our menu has a story. We work with the same farms, fishers, and foragers season after season, building the relationships that make the food better." },
+        { match: "Continue reading →", content: "Our full story →" },
+      ]}),
+      blockEl("sb-features-bold-grid",     3, "Signature Dishes", { props: { accentColor: "#C2410C" } }),
+      blockEl("sb-logos-badges",           4, "Press"),
+      blockEl("sb-portfolio-bento",        5, "Gallery"),
+      blockEl("sb-testimonials-large",     6, "Reviews"),
+      blockEl("sb-cta-gradient",           7, "Reserve",          { props: { accentColor: "#C2410C", title: "Reserve Your Evening" } }),
+      blockEl("sb-footer-gradient",        8, "Footer",           { props: { brandName: "Ember" } }),
     ],
   },
   {
     name: "Menu", slug: "/menu",
     elements: [
       blockEl("sb-navbar-restaurant",        0, "Navbar",      { props: { accentColor: "#C2410C", brandName: "Ember" } }),
-      blockEl("sb-hero-editorial-classic",   1, "Menu Header", { props: { accentColor: "#C2410C" } }),
+      blockEl("sb-hero-editorial-classic",   1, "Menu Header", { props: { accentColor: "#C2410C" }, patches: ph_editorialClassic("THE EMBER MENU", "Smoke, fire,\nand flavour.", "Every dish begins over live fire. Our menu celebrates bold flavours, seasonal produce, and the ancient art of cooking with flame. Updated weekly.", "Browse the Dishes") }),
       blockEl("sb-interactive-tabs-features",2, "Categories",  { props: { accentColor: "#C2410C" } }),
       blockEl("sb-features-bold-grid",       3, "Dishes",      { props: { accentColor: "#C2410C" } }),
       blockEl("sb-content-feature-list",     4, "Allergen Info"),
@@ -1628,13 +1907,21 @@ const emberPages: TemplatePage[] = [
   {
     name: "About", slug: "/about",
     elements: [
-      blockEl("sb-navbar-restaurant",   0, "Navbar",      { props: { accentColor: "#C2410C", brandName: "Ember" } }),
-      blockEl("sb-hero-studio",         1, "Chef Hero",   { props: { accentColor: "#C2410C" } }),
-      blockEl("sb-content-magazine-split",2,"Philosophy", { props: { accentColor: "#C2410C" } }),
-      blockEl("sb-logos-badges",        3, "Awards"),
-      blockEl("sb-team-spotlight",      4, "Team"),
-      blockEl("sb-cta-simple",          5, "Reserve",     { props: { accentColor: "#C2410C" } }),
-      blockEl("sb-footer-gradient",     6, "Footer",      { props: { brandName: "Ember" } }),
+      blockEl("sb-navbar-restaurant",      0, "Navbar",      { props: { accentColor: "#C2410C", brandName: "Ember" } }),
+      blockEl("sb-hero-studio",            1, "Chef Hero",   { props: { accentColor: "#C2410C" }, patches: ph_studio("THE PASSION\nBEHIND THE FLAME.", "Head Chef Marco Rossi and his kitchen team have spent a lifetime mastering the art of fire and flavour. Every plate tells a story of craft and dedication.", "Meet the Full Team") }),
+      blockEl("sb-content-magazine-split", 2, "Philosophy",  { props: { accentColor: "#C2410C" }, patches: [
+        { match: "FEATURE STORY", content: "OUR PHILOSOPHY" },
+        { match: "The renaissance of thoughtful design in a noisy world.", content: "The fire is the chef. We just guide it." },
+        { match: "by Marcus Webb", content: "by Marco Rossi" },
+        { match: "April 15, 2026 · 8 min read", content: "Head Chef & Founder" },
+        { match: "In a world saturated with digital noise, the designers who cut through are those who embrace constraints as a creative tool. Reduction is not limitation - it is the highest form of craft.", content: "Open fire is not a technique — it is a philosophy. When you cook with flame, you surrender control and learn to listen. The ingredients tell you when they are ready." },
+        { match: "The best interfaces are invisible. They guide without demanding attention, inform without overwhelming, and delight without distraction. That is the standard we hold ourselves to.", content: "We source every ingredient within 80 miles. Not because it is fashionable, but because the food genuinely tastes better when it travels less. Freshness is the first seasoning." },
+        { match: "Continue reading →", content: "Read more →" },
+      ]}),
+      blockEl("sb-logos-badges",           3, "Awards"),
+      blockEl("sb-team-spotlight",         4, "Team"),
+      blockEl("sb-cta-simple",             5, "Reserve",     { props: { accentColor: "#C2410C" } }),
+      blockEl("sb-footer-gradient",        6, "Footer",      { props: { brandName: "Ember" } }),
     ],
   },
   {
@@ -1653,16 +1940,26 @@ const emberPages: TemplatePage[] = [
       blockEl("sb-contact-split",      1, "Reservations", { props: { accentColor: "#C2410C" } }),
       blockEl("sb-contact-map",        2, "Location"),
       blockEl("sb-features-checklist", 3, "Policies"),
-      blockEl("sb-cta-banner",         4, "Gift Vouchers",{ props: { accentColor: "#C2410C" } }),
-      blockEl("sb-footer-gradient",    5, "Footer",       { props: { brandName: "Ember" } }),
+      blockEl("sb-cta-banner",         4, "Gift Vouchers", { props: { accentColor: "#C2410C" } }),
+      blockEl("sb-footer-gradient",    5, "Footer",        { props: { brandName: "Ember" } }),
     ],
   },
   {
     name: "Private Dining", slug: "/private-dining",
     elements: [
       blockEl("sb-navbar-restaurant",   0, "Navbar",        { props: { accentColor: "#C2410C", brandName: "Ember" } }),
-      blockEl("sb-hero-bento",          1, "Private Rooms", { props: { accentColor: "#C2410C" } }),
-      blockEl("sb-features-cards",      2, "Event Types",   { props: { accentColor: "#C2410C" } }),
+      blockEl("sb-hero-bento",          1, "Private Rooms", { props: { accentColor: "#C2410C" }, patches: ph_bento("✦ PRIVATE DINING & EVENTS", "Your evening,\nyour way.", "Create an unforgettable event in our exclusive private dining spaces. Bespoke menus, curated wines, and flawless service for every occasion.", "Enquire Now", "Up to", "30 guests", "Min. notice", "48 hours", "Fully Private Space", "Dedicated team, bespoke menu design, and optional wine pairing from our sommelier.") }),
+      blockEl("sb-features-cards",      2, "Event Types",   { props: { accentColor: "#C2410C" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "OCCASIONS WE LOVE" },
+        { match: "Built for the next generation of web applications.", content: "Whether an intimate dinner or a celebration for thirty, our private dining team handles every last detail." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "Every private event is designed from scratch around you — the menu, the drinks, the atmosphere, all tailored to the occasion." },
+        { match: "Lightning Performance", content: "Corporate Dinners" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Impress clients and reward your team with a memorable evening around the open fire kitchen." },
+        { match: "Military-Grade Security", content: "Celebrations & Parties" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "Birthdays, anniversaries, engagements — let us host your most important moments with the care they deserve." },
+        { match: "Seamless Integration", content: "Private Tastings" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "A guided journey through our seasonal menu with paired wines from our hand-picked cellar selection." },
+      ]}),
       blockEl("sb-content-feature-list",3, "Menus"),
       blockEl("sb-contact-split",       4, "Enquiry",       { props: { accentColor: "#C2410C" } }),
       blockEl("sb-footer-gradient",     5, "Footer",        { props: { brandName: "Ember" } }),
@@ -1677,10 +1974,28 @@ const grovePages: TemplatePage[] = [
     name: "Home", slug: "/", isHome: true,
     elements: [
       blockEl("sb-navbar-minimal",         0, "Navbar",     { props: { brandName: "Grove" } }),
-      blockEl("sb-hero-editorial-classic", 1, "Hero",       { props: { accentColor: "#78716C" } }),
-      blockEl("sb-features-cards",         2, "Seasonal",   { props: { accentColor: "#78716C" } }),
+      blockEl("sb-hero-editorial-classic", 1, "Hero",       { props: { accentColor: "#78716C" }, patches: ph_editorialClassic("GROVE CAFÉ • OPEN DAILY 7AM–5PM", "Good food,\ngrown near here.", "Fresh, seasonal dishes made from locally sourced produce. We work with farmers we know by name and cook food worth sharing.", "Explore the Menu") }),
+      blockEl("sb-features-cards",         2, "Seasonal",   { props: { accentColor: "#78716C" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "ON THE MENU TODAY" },
+        { match: "Built for the next generation of web applications.", content: "What's fresh, seasonal, and worth getting out of bed for." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "We update our menu daily based on what our farmers bring us each morning. Breakfast through late lunch, seven days a week." },
+        { match: "Lightning Performance", content: "Weekend Brunch" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Sourdough stacks, smashed avo, soft eggs, and the best flat white you'll find on the high street." },
+        { match: "Military-Grade Security", content: "All-day Bowls" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "Wholesome grain bowls, seasonal salads, and warming soups — all made in-house from scratch every morning." },
+        { match: "Seamless Integration", content: "Drinks & Bakes" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "Single-origin espresso, housemade lemonade, and daily-baked pastries from our kitchen bench." },
+      ]}),
       blockEl("sb-stats-light",            3, "By the Numbers"),
-      blockEl("sb-content-magazine-split", 4, "Our Story",  { props: { accentColor: "#78716C" } }),
+      blockEl("sb-content-magazine-split", 4, "Our Story",  { props: { accentColor: "#78716C" }, patches: [
+        { match: "FEATURE STORY", content: "THE GROVE STORY" },
+        { match: "The renaissance of thoughtful design in a noisy world.", content: "A café that started as a corner stall and became the heart of a neighbourhood." },
+        { match: "by Marcus Webb", content: "by Sarah Chen, Founder" },
+        { match: "April 15, 2026 · 8 min read", content: "Est. 2019 · Locally rooted" },
+        { match: "In a world saturated with digital noise, the designers who cut through are those who embrace constraints as a creative tool. Reduction is not limitation - it is the highest form of craft.", content: "Grove started with a single fold-out table, a hand-grinder, and a dream to do one thing well. Sarah Chen opened the doors in 2019 with no menu board — just whatever was fresh that week." },
+        { match: "The best interfaces are invisible. They guide without demanding attention, inform without overwhelming, and delight without distraction. That is the standard we hold ourselves to.", content: "Five years on, Grove has grown into a full café and community kitchen — but the ethos hasn't changed. Every ingredient is local, every dish is made to order, and the coffee is always exceptional." },
+        { match: "Continue reading →", content: "Read our story →" },
+      ]}),
       blockEl("sb-testimonials-marquee",   5, "Reviews"),
       blockEl("sb-features-icon-3col",     6, "Values",     { props: { accentColor: "#78716C" } }),
       blockEl("sb-cta-newsletter",         7, "Newsletter", { props: { accentColor: "#78716C" } }),
@@ -1691,9 +2006,19 @@ const grovePages: TemplatePage[] = [
     name: "Menu", slug: "/menu",
     elements: [
       blockEl("sb-navbar-minimal",           0, "Navbar",        { props: { brandName: "Grove" } }),
-      blockEl("sb-hero-glass",               1, "Today's Menu",  { props: { accentColor: "#78716C" } }),
+      blockEl("sb-hero-glass",               1, "Today's Menu",  { props: { accentColor: "#78716C" }, patches: ph_glass("🌿 FRESH TODAY", "Food worth\ntalking about.", "Seasonal, locally sourced, and made fresh every morning. Our menu changes with what's available — so every visit brings something new.", "See Today's Menu") }),
       blockEl("sb-interactive-tabs-features",2, "Menu Sections", { props: { accentColor: "#78716C" } }),
-      blockEl("sb-features-cards",           3, "Items",         { props: { accentColor: "#78716C" } }),
+      blockEl("sb-features-cards",           3, "Items",         { props: { accentColor: "#78716C" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "THIS WEEK'S FAVOURITES" },
+        { match: "Built for the next generation of web applications.", content: "Our most-ordered dishes right now." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "From sunrise to afternoon close, these are the dishes our regulars keep coming back for." },
+        { match: "Lightning Performance", content: "Mushroom & Truffle Toast" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Wild mushrooms, truffle oil, soft herbs on toasted sourdough. A Grove staple since day one." },
+        { match: "Military-Grade Security", content: "Seasonal Grain Bowl" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "Roasted autumn vegetables, ancient grains, tahini dressing, and a soft poached egg." },
+        { match: "Seamless Integration", content: "Filter Coffee & Pastry" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "Our house-roasted filter with a fresh-baked croissant or muffin from the morning batch." },
+      ]}),
       blockEl("sb-content-feature-list",     4, "Allergen Key"),
       blockEl("sb-cta-minimal-center",       5, "Order Online",  { props: { accentColor: "#78716C" } }),
       blockEl("sb-footer-minimal",           6, "Footer",        { props: { brandName: "Grove" } }),
@@ -1703,9 +2028,32 @@ const grovePages: TemplatePage[] = [
     name: "Our Story", slug: "/our-story",
     elements: [
       blockEl("sb-navbar-minimal",          0, "Navbar"),
-      blockEl("sb-hero-editorial-classic",  1, "Founder Story",  { props: { accentColor: "#78716C" } }),
-      blockEl("sb-features-alternating-rows",2,"Sourcing",       { props: { accentColor: "#78716C" } }),
-      blockEl("sb-features-cards",          3, "Community",      { props: { accentColor: "#78716C" } }),
+      blockEl("sb-hero-editorial-classic",  1, "Founder Story",  { props: { accentColor: "#78716C" }, patches: ph_editorialClassic("OUR ROOTS", "Built on community,\ngrown with love.", "Grove was born from a simple belief — that a neighbourhood café should be a gathering place, not just a coffee stop. We've been part of this community since 2019.", "Meet the Team") }),
+      blockEl("sb-features-alternating-rows",2,"Sourcing",       { props: { accentColor: "#78716C" }, patches: [
+        { match: "HOW IT WORKS", content: "HOW WE SOURCE" },
+        { match: "One platform.\nEverything you need.", content: "From farm\nto your table." },
+        { match: "Visual editor that thinks like a developer", content: "We know every farm by name" },
+        { match: "Drag, drop, and customize every element visually. Your changes are reflected in clean, production-ready code automatically.", content: "Every ingredient on our menu comes from within 50 miles. We visit our producers, understand their methods, and build lasting relationships rooted in quality and trust." },
+        { match: "✓  Real-time collaborative editing", content: "✓  Weekly farm deliveries" },
+        { match: "✓  Component library & design tokens", content: "✓  Zero food waste policy" },
+        { match: "✓  Responsive preview for all devices", content: "✓  Seasonal menu rotations" },
+        { match: "One-click deploy to any cloud", content: "Sustainability in everything we do" },
+        { match: "Connect your custom domain, configure your environment, and go live globally in under 60 seconds.", content: "Compostable packaging, carbon-neutral delivery, and kitchen scraps turned into compost for our growers. Doing better isn't hard — it just takes care." },
+        { match: "✓  Git-based deployment workflow", content: "✓  Compostable packaging" },
+        { match: "✓  Instant rollback to any version", content: "✓  Carbon-neutral supplier chain" },
+        { match: "✓  170+ global edge locations", content: "✓  Kitchen-to-compost programme" },
+      ]}),
+      blockEl("sb-features-cards",          3, "Community",      { props: { accentColor: "#78716C" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "COMMUNITY ROOTS" },
+        { match: "Built for the next generation of web applications.", content: "We're more than a café." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "Grove is a space for the community to gather, create, and connect. Here's how we give back." },
+        { match: "Lightning Performance", content: "Local Farmers Market" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Every Saturday morning we host a pop-up market with our favourite local producers right outside the door." },
+        { match: "Military-Grade Security", content: "Community Table" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "One large shared table, no bookings, open to everyone. A space to work, read, or just sit with a good coffee." },
+        { match: "Seamless Integration", content: "Pay It Forward" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "Buy a coffee or meal for a neighbour who needs it. Our wall board tracks every one waiting to be claimed." },
+      ]}),
       blockEl("sb-team-minimal-list",       4, "The Team"),
       blockEl("sb-footer-minimal",          5, "Footer",         { props: { brandName: "Grove" } }),
     ],
@@ -1714,9 +2062,19 @@ const grovePages: TemplatePage[] = [
     name: "Events", slug: "/events",
     elements: [
       blockEl("sb-navbar-minimal",     0, "Navbar"),
-      blockEl("sb-hero-playful",       1, "What's On",    { props: { accentColor: "#78716C" } }),
+      blockEl("sb-hero-playful",       1, "What's On",    { props: { accentColor: "#78716C" }, patches: ph_playful("🌿 THIS WEEK AT GROVE", "Something's\nalways on.", "Morning yoga, evening markets, live music, and community workshops. Grove is more than a café — come see what's happening this week.", "See All Events", "Private Hire") }),
       blockEl("sb-features-steps",     2, "Upcoming",     { props: { accentColor: "#78716C" } }),
-      blockEl("sb-features-cards",     3, "Private Hire", { props: { accentColor: "#78716C" } }),
+      blockEl("sb-features-cards",     3, "Private Hire", { props: { accentColor: "#78716C" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "HIRE THE SPACE" },
+        { match: "Built for the next generation of web applications.", content: "Grove is yours to hire." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "Whether it's a birthday breakfast, a team away-day, or an evening pop-up, our space is available for private hire seven days a week." },
+        { match: "Lightning Performance", content: "Morning Buyouts" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Book the whole café before opening hours for a team breakfast, product launch, or private workshop session." },
+        { match: "Military-Grade Security", content: "Evening Events" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "Transform Grove into an intimate evening venue — drinks, canapes, and a bespoke menu for up to 60 guests." },
+        { match: "Seamless Integration", content: "Pop-up Partnerships" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "Partner with us to run a one-night pop-up concept — we provide the space, kitchen, and front-of-house team." },
+      ]}),
       blockEl("sb-contact-minimal",    4, "Enquiry",      { props: { accentColor: "#78716C" } }),
       blockEl("sb-footer-minimal",     5, "Footer",       { props: { brandName: "Grove" } }),
     ],
@@ -1740,7 +2098,7 @@ const lumierePages: TemplatePage[] = [
     name: "Home", slug: "/", isHome: true,
     elements: [
       blockEl("sb-navbar-dark",          0, "Navbar",      { props: { accentColor: "#C9A84C", brandName: "Lumière" } }),
-      blockEl("sb-hero-video-dark",      1, "Hero",        { props: { accentColor: "#C9A84C" } }),
+      blockEl("sb-hero-video-dark",      1, "Hero",        { props: { accentColor: "#C9A84C" }, patches: ph_videoDark("★  MICHELIN STARRED 2024 & 2025", "Fine dining\nreborn.", "Step inside a world where flavour, theatre, and artistry converge. Lumière offers an evening unlike any other in the city.") }),
       blockEl("sb-features-phantom-dark",2, "Experience",  { props: { accentColor: "#C9A84C" } }),
       blockEl("sb-logos-grid-dark",      3, "Recognition"),
       blockEl("sb-testimonials-wall",    4, "Testimonials"),
@@ -1761,9 +2119,17 @@ const lumierePages: TemplatePage[] = [
   {
     name: "Chef & Team", slug: "/chef-team",
     elements: [
-      blockEl("sb-navbar-dark",          0, "Navbar",      { props: { accentColor: "#C9A84C", brandName: "Lumière" } }),
-      blockEl("sb-hero-abstract-ambient",1, "Chef",        { props: { accentColor: "#C9A84C" } }),
-      blockEl("sb-content-magazine-split",2,"Chef Story",  { props: { accentColor: "#C9A84C" } }),
+      blockEl("sb-navbar-dark",           0, "Navbar",     { props: { accentColor: "#C9A84C", brandName: "Lumière" } }),
+      blockEl("sb-hero-abstract-ambient", 1, "Chef",       { props: { accentColor: "#C9A84C" }, patches: ph_abstractAmbient("Chef Laurent Moreau.", "Twenty years in the finest kitchens of Paris and Tokyo, and a singular vision — that every plate should move you. Lumière is his life's work.", "Meet the Team →") }),
+      blockEl("sb-content-magazine-split",2, "Chef Story", { props: { accentColor: "#C9A84C" }, patches: [
+        { match: "FEATURE STORY", content: "CHEF'S STORY" },
+        { match: "The renaissance of thoughtful design in a noisy world.", content: "A life spent chasing perfection on the plate." },
+        { match: "by Marcus Webb", content: "by Laurent Moreau" },
+        { match: "April 15, 2026 · 8 min read", content: "Head Chef & Owner" },
+        { match: "In a world saturated with digital noise, the designers who cut through are those who embrace constraints as a creative tool. Reduction is not limitation - it is the highest form of craft.", content: "I learned to cook in Lyon, trained in Paris, and found my philosophy in Tokyo. The Japanese taught me that restraint is not poverty — it is generosity of the highest kind." },
+        { match: "The best interfaces are invisible. They guide without demanding attention, inform without overwhelming, and delight without distraction. That is the standard we hold ourselves to.", content: "Lumière exists to prove that fine dining can be emotional, not just excellent. Every element on the plate — the flavour, the temperature, the texture — is designed to create a memory." },
+        { match: "Continue reading →", content: "Read more →" },
+      ]}),
       blockEl("sb-team-dark-cards",      3, "Kitchen Team"),
       blockEl("sb-footer-dark",          4, "Footer",      { props: { brandName: "Lumière" } }),
     ],
@@ -1792,7 +2158,7 @@ const lumierePages: TemplatePage[] = [
     name: "Private Events", slug: "/private-events",
     elements: [
       blockEl("sb-navbar-dark",         0, "Navbar",         { props: { accentColor: "#C9A84C", brandName: "Lumière" } }),
-      blockEl("sb-hero-bento",          1, "Private Room",   { props: { accentColor: "#C9A84C" } }),
+      blockEl("sb-hero-bento",          1, "Private Room",   { props: { accentColor: "#C9A84C" }, patches: ph_bento("✦ PRIVATE DINING AT LUMIÈRE", "Your night,\ncurated.", "Host an event that will never be forgotten. Our private dining room accommodates up to twenty guests for a fully bespoke tasting experience.", "Enquire Now", "Up to", "20 guests", "Min. notice", "2 weeks", "Fully Private Experience", "Bespoke menu, paired wines, and exclusive access to Chef Moreau's private cellar.") }),
       blockEl("sb-features-dark-bento", 2, "Event Packages", { props: { accentColor: "#C9A84C" } }),
       blockEl("sb-content-feature-list",3, "Menu Options"),
       blockEl("sb-contact-dark",        4, "Enquiry",        { props: { accentColor: "#C9A84C" } }),
@@ -1812,9 +2178,19 @@ const havenPages: TemplatePage[] = [
     name: "Home", slug: "/", isHome: true,
     elements: [
       blockEl("sb-navbar-transparent",   0, "Navbar",        { props: { accentColor: "#0F766E", brandName: "Haven" } }),
-      blockEl("sb-hero-gradient-split",  1, "Hero",          { props: { accentColor: "#0F766E" } }),
+      blockEl("sb-hero-gradient-split",  1, "Hero",          { props: { accentColor: "#0F766E" }, patches: ph_gradientSplit("HAVEN", "Your sanctuary\nawaits.", "A boutique coastal retreat where thoughtful hospitality meets natural beauty. Every room is designed for rest, every meal is made with care.", "Breakfast included daily", "Free cancellation policy", "Private beach access", "Check availability.", "Book direct for our best rates — no booking fees, flexible cancellation, and a complimentary welcome gift on arrival.", "Check Availability", "Best rate guaranteed when you book direct.") }),
       blockEl("sb-stats-light",          2, "Property Stats"),
-      blockEl("sb-features-cards",       3, "Room Previews", { props: { accentColor: "#0F766E" } }),
+      blockEl("sb-features-cards",       3, "Room Previews", { props: { accentColor: "#0F766E" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "OUR ROOMS" },
+        { match: "Built for the next generation of web applications.", content: "Every room is a retreat in itself." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "From ocean-view suites to cosy garden rooms, each space has been designed with comfort, calm, and character in mind." },
+        { match: "Lightning Performance", content: "Ocean Suite" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Floor-to-ceiling windows, private balcony, king bed and soaking tub with uninterrupted sea views." },
+        { match: "Military-Grade Security", content: "Coastal Deluxe" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "Generous queen room with natural timber, soft linen, and a private terrace steps from the beach path." },
+        { match: "Seamless Integration", content: "Garden Room" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "Quiet and light-filled with direct garden access, perfect for families or guests wanting extra space and privacy." },
+      ]}),
       blockEl("sb-features-icon-3col",   4, "Facilities",    { props: { accentColor: "#0F766E" } }),
       blockEl("sb-testimonials-wall",    5, "Guest Reviews"),
       blockEl("sb-logos-badges",         6, "Awards"),
@@ -1827,7 +2203,20 @@ const havenPages: TemplatePage[] = [
     elements: [
       blockEl("sb-navbar-transparent",   0, "Navbar",      { props: { accentColor: "#0F766E", brandName: "Haven" } }),
       blockEl("sb-hero-product",         1, "Room Types",  { props: { accentColor: "#0F766E" } }),
-      blockEl("sb-features-alternating-rows",2,"Room Detail",{ props: { accentColor: "#0F766E" } }),
+      blockEl("sb-features-alternating-rows",2,"Room Detail",{ props: { accentColor: "#0F766E" }, patches: [
+        { match: "HOW IT WORKS", content: "ROOM DETAILS" },
+        { match: "One platform.\nEverything you need.", content: "Designed for\ndeep rest." },
+        { match: "Visual editor that thinks like a developer", content: "Ocean Suites — wake up to the sea" },
+        { match: "Drag, drop, and customize every element visually. Your changes are reflected in clean, production-ready code automatically.", content: "Each Ocean Suite features a king bed dressed in natural linen, a freestanding soaking tub, and a private balcony facing the water. Available on floors two and three." },
+        { match: "✓  Real-time collaborative editing", content: "✓  Floor-to-ceiling sea-facing windows" },
+        { match: "✓  Component library & design tokens", content: "✓  Private balcony with day beds" },
+        { match: "✓  Responsive preview for all devices", content: "✓  Nespresso, minibar & welcome hamper" },
+        { match: "One-click deploy to any cloud", content: "Garden Rooms — your own private hideaway" },
+        { match: "Connect your custom domain, configure your environment, and go live globally in under 60 seconds.", content: "Ground-floor rooms with direct garden access and a private terrace. Ideal for families and guests travelling with pets. All rooms include a king or twin configuration." },
+        { match: "✓  Git-based deployment workflow", content: "✓  Direct garden & pool access" },
+        { match: "✓  Instant rollback to any version", content: "✓  Pet-friendly on request" },
+        { match: "✓  170+ global edge locations", content: "✓  Roll-away bed available" },
+      ]}),
       blockEl("sb-features-checklist",   3, "All Amenities"),
       blockEl("sb-cta-simple",           4, "Book Now",    { props: { accentColor: "#0F766E" } }),
       blockEl("sb-footer-newsletter",    5, "Footer",      { props: { brandName: "Haven" } }),
@@ -1837,7 +2226,17 @@ const havenPages: TemplatePage[] = [
     name: "Facilities", slug: "/facilities",
     elements: [
       blockEl("sb-navbar-transparent",   0, "Navbar",        { props: { accentColor: "#0F766E", brandName: "Haven" } }),
-      blockEl("sb-services-card-grid",   1, "Facilities",    { props: { accentColor: "#0F766E" } }),
+      blockEl("sb-services-card-grid",   1, "Facilities",    { props: { accentColor: "#0F766E" }, patches: [
+        { match: "What We Offer", content: "Hotel Facilities" },
+        { match: "Services built for growth", content: "Everything you need, all in one place." },
+        { match: "From strategy to execution, we handle every aspect of your digital transformation.", content: "From the spa and pool to our private beach and restaurant, Haven is designed so you never need to leave — unless you want to." },
+        { match: "UI/UX Design", content: "Infinity Pool & Spa" },
+        { match: "Pixel-perfect interfaces that convert visitors into customers.", content: "A heated infinity pool overlooking the ocean, plus a six-treatment spa with sauna, steam room, and full body menu." },
+        { match: "Development", content: "Private Beach" },
+        { match: "Scalable full-stack apps built with the latest technologies.", content: "Direct access to a quiet stretch of coast reserved for Haven guests. Sun loungers, towels, and beach bar service included." },
+        { match: "Growth Marketing", content: "Waterfront Restaurant" },
+        { match: "Data-driven strategies that accelerate your acquisition.", content: "Fresh seafood, local produce, and an all-day menu served from breakfast to late evening beside the water." },
+      ]}),
       blockEl("sb-features-bold-grid",   2, "Family",        { props: { accentColor: "#0F766E" } }),
       blockEl("sb-features-checklist",   3, "Business"),
       blockEl("sb-footer-newsletter",    4, "Footer",        { props: { brandName: "Haven" } }),
@@ -1847,9 +2246,19 @@ const havenPages: TemplatePage[] = [
     name: "Dining", slug: "/dining",
     elements: [
       blockEl("sb-navbar-transparent",   0, "Navbar",   { props: { accentColor: "#0F766E", brandName: "Haven" } }),
-      blockEl("sb-hero-cinematic",       1, "Dining",   { props: { accentColor: "#0F766E" } }),
+      blockEl("sb-hero-cinematic",       1, "Dining",   { props: { accentColor: "#0F766E" }, patches: ph_cinematic("🌊 OCEANFRONT DINING", "Food as good\nas the view.", "Freshly caught seafood, locally grown produce, and a menu that changes with the seasons. Breakfast through dinner, every day.", "Make a Reservation →") }),
       blockEl("sb-services-alternating", 2, "Venues",   { props: { accentColor: "#0F766E" } }),
-      blockEl("sb-features-cards",       3, "Menus",    { props: { accentColor: "#0F766E" } }),
+      blockEl("sb-features-cards",       3, "Menus",    { props: { accentColor: "#0F766E" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "OUR MENUS" },
+        { match: "Built for the next generation of web applications.", content: "Something delicious at every hour." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "Our kitchen is open from early morning to late evening with menus that make the most of the local catch and season." },
+        { match: "Lightning Performance", content: "Sunrise Breakfast" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Served 7–10:30am daily. Hot dishes, cold buffet, fresh-pressed juices, and pour-over coffee from our local roaster." },
+        { match: "Military-Grade Security", content: "Seafood Lunch" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "Grilled whole fish, shellfish platters, and cold lobster rolls served poolside or at your beachfront table." },
+        { match: "Seamless Integration", content: "Evening à la Carte" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "A full dinner service from 6pm featuring the best of the local catch, seasonal vegetables, and a carefully chosen cellar." },
+      ]}),
       blockEl("sb-cta-simple",           4, "Reserve",  { props: { accentColor: "#0F766E" } }),
       blockEl("sb-footer-newsletter",    5, "Footer",   { props: { brandName: "Haven" } }),
     ],
@@ -1860,7 +2269,17 @@ const havenPages: TemplatePage[] = [
       blockEl("sb-navbar-transparent",   0, "Navbar",       { props: { accentColor: "#0F766E", brandName: "Haven" } }),
       blockEl("sb-contact-map",          1, "Map"),
       blockEl("sb-features-steps",       2, "Getting Here"),
-      blockEl("sb-features-cards",       3, "Things to Do", { props: { accentColor: "#0F766E" } }),
+      blockEl("sb-features-cards",       3, "Things to Do", { props: { accentColor: "#0F766E" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "EXPLORE THE AREA" },
+        { match: "Built for the next generation of web applications.", content: "The best of the coastline on your doorstep." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "Haven sits at the heart of a stretch of coast that's been undiscovered by mass tourism. Here's what to do nearby." },
+        { match: "Lightning Performance", content: "Coastal Walks" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Miles of cliff-top paths and hidden coves right from our front door. We'll pack you a picnic for the day." },
+        { match: "Military-Grade Security", content: "Water Sports" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "Kayaking, paddleboarding, and sailing hire all available through our concierge. Equipment on the beach from 8am." },
+        { match: "Seamless Integration", content: "Local Villages" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "Three charming fishing villages within 15 minutes, each with their own markets, galleries, and independent restaurants." },
+      ]}),
       blockEl("sb-footer-newsletter",    4, "Footer",       { props: { brandName: "Haven" } }),
     ],
   },
@@ -1882,85 +2301,81 @@ const grandPages: TemplatePage[] = [
   {
     name: "Home", slug: "/", isHome: true,
     elements: [
-      blockEl("sb-navbar-dark-gradient",  0, "Navbar",         { props: { accentColor: "#B8963E", brandName: "Grand" } }),
-      blockEl("sb-hero-abstract-ambient", 1, "Hero"),
-      blockEl("sb-features-dark-bento",   2, "Room Categories",{ props: { accentColor: "#B8963E" } }),
+      blockEl("sb-navbar-dark-gradient",  0, "Navbar",         { props: { accentColor: "#0F172A", brandName: "THE GRAND" } }),
+      blockEl("sb-hero-cinematic",        1, "Hero",           { props: { accentColor: "#0F172A" }, patches: ph_luxuryHotel("A WORLD CLASS SANCTUARY", "Redefining\nLuxury.", "Discover a new standard of excellence in the heart of the city. A sanctuary of sophisticated design and unparalleled service.", "Book Your Stay", "Explore Suites"), styles: { backgroundImage: "radial-gradient(circle at 50% 100%, rgba(202, 138, 4, 0.15), transparent 50%), radial-gradient(circle at 0% 0%, rgba(15, 23, 42, 1), transparent 40%)" } }),
+      blockEl("sb-features-dark-bento",   2, "Accommodation",  { props: { accentColor: "#0F172A" }, patches: [
+        { match: "FEATURED CAPABILITIES", content: "ACCOMMODATIONS" },
+        { match: "Global Scale", content: "The Royal Penthouse" },
+        { match: "Enterprise Security", content: "Executive Suites" },
+        { match: "Team Collaboration", content: "Garden Villas" }
+      ]}),
       blockEl("sb-logos-badges",          3, "Awards"),
-      blockEl("sb-content-magazine-split",4, "Dining",         { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-content-magazine-split",5, "Wellness"),
+      blockEl("sb-content-magazine-split",4, "Fine Dining",    { props: { accentColor: "#0F172A" }, patches: [
+        { match: "THE LATEST ISSUE", content: "MICHELIN DINING" },
+        { match: "Building the future of the web, one component at a time.", content: "A culinary journey led by world-renowned chefs. Savour the extraordinary." }
+      ]}),
+      blockEl("sb-content-magazine-split",5, "Wellness",       { patches: [
+        { match: "THE LATEST ISSUE", content: "ADVANCED WELLNESS" },
+        { match: "Building the future of the web, one component at a time.", content: "Holistic treatments designed to restore balance and vitality. Your path to rejuvenation." }
+      ]}),
       blockEl("sb-testimonials-wall",     6, "Guest Stories"),
-      blockEl("sb-saas-integration-logos",7, "Partnerships"),
-      blockEl("sb-cta-gradient-wave",     8, "Begin Your Stay",{ props: { accentColor: "#B8963E", title: "Begin Your Stay" } }),
-      blockEl("sb-footer-mega",           9, "Footer",         { props: { brandName: "Grand" } }),
+      blockEl("sb-footer-mega",           7, "Footer",         { props: { brandName: "THE GRAND" } }),
     ],
   },
   {
-    name: "Rooms & Suites", slug: "/rooms",
+    name: "Suites", slug: "/suites",
     elements: [
-      blockEl("sb-navbar-dark-gradient",  0, "Navbar",          { props: { accentColor: "#B8963E", brandName: "Grand" } }),
-      blockEl("sb-hero-video-dark",       1, "Rooms",           { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-features-dark-bento",   2, "Suite Categories",{ props: { accentColor: "#B8963E" } }),
-      blockEl("sb-portfolio-case-study",  3, "Grand Suite"),
-      blockEl("sb-features-checklist",    4, "All Amenities"),
-      blockEl("sb-cta-gradient-wave",     5, "Book",            { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-footer-mega",           6, "Footer",          { props: { brandName: "Grand" } }),
+      blockEl("sb-navbar-dark-gradient",  0, "Navbar",          { props: { accentColor: "#0F172A", brandName: "THE GRAND" } }),
+      blockEl("sb-hero-video-dark",       1, "The Collection",  { props: { accentColor: "#0F172A" }, patches: ph_videoDark("THE GRAND COLLECTION", "Suites unlike\nany other.", "Each suite at The Grand is a world of its own — handcrafted interiors, private terraces, and 24-hour butler service on request.") }),
+      blockEl("sb-features-dark-bento",   2, "Suite Details",   { props: { accentColor: "#0F172A" }, patches: [
+        { match: "FEATURED CAPABILITIES", content: "THE COLLECTION" },
+        { match: "Global Scale", content: "The Presidential Suite" },
+        { match: "Enterprise Security", content: "The Royal Penthouse" },
+        { match: "Team Collaboration", content: "Grand Signature Suites" },
+      ]}),
+      blockEl("sb-portfolio-case-study",  3, "The Presidential"),
+      blockEl("sb-cta-gradient-wave",     4, "Book Now",        { props: { accentColor: "#0F172A" } }),
+      blockEl("sb-footer-mega",           5, "Footer",          { props: { brandName: "THE GRAND" } }),
     ],
   },
   {
-    name: "Dining", slug: "/dining",
+    name: "Gastronomy", slug: "/gastronomy",
     elements: [
-      blockEl("sb-navbar-dark-gradient",  0, "Navbar",   { props: { accentColor: "#B8963E", brandName: "Grand" } }),
-      blockEl("sb-hero-cinematic",        1, "Dining",   { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-features-alternating",  2, "Venues",   { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-interactive-accordion-faq",3,"Menus",  { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-team-spotlight",        4, "Chef"),
-      blockEl("sb-cta-gradient-wave",     5, "Reserve",  { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-footer-mega",           6, "Footer",   { props: { brandName: "Grand" } }),
+      blockEl("sb-navbar-dark-gradient",  0, "Navbar",      { props: { accentColor: "#0F172A", brandName: "THE GRAND" } }),
+      blockEl("sb-hero-cinematic",        1, "Dining",      { props: { accentColor: "#0F172A" }, patches: ph_cinematic("✦ CHEF'S TABLE & FINE DINING", "A culinary\nmasterpiece.", "Three distinct dining venues, each with their own story. From casual poolside bites to a Michelin-level tasting menu — your table awaits.", "Reserve Your Table →") }),
+      blockEl("sb-features-alternating",  2, "Venues",      { props: { accentColor: "#0F172A" } }),
+      blockEl("sb-team-spotlight",        3, "Executive Chef"),
+      blockEl("sb-cta-gradient-wave",     4, "Reservations",{ props: { accentColor: "#0F172A" } }),
+      blockEl("sb-footer-mega",           5, "Footer",      { props: { brandName: "THE GRAND" } }),
     ],
   },
   {
     name: "Wellness", slug: "/wellness",
     elements: [
-      blockEl("sb-navbar-dark-gradient",  0, "Navbar",       { props: { accentColor: "#B8963E", brandName: "Grand" } }),
-      blockEl("sb-hero-bento",            1, "Spa & Wellness",{ props: { accentColor: "#B8963E" } }),
-      blockEl("sb-services-alternating",  2, "Treatments",   { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-features-bold-grid",    3, "Thermal",      { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-pricing-dark-cards",    4, "Day Packages", { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-cta-gradient-wave",     5, "Book",         { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-footer-mega",           6, "Footer",       { props: { brandName: "Grand" } }),
-    ],
-  },
-  {
-    name: "Experiences", slug: "/experiences",
-    elements: [
-      blockEl("sb-navbar-dark-gradient",  0, "Navbar",      { props: { accentColor: "#B8963E", brandName: "Grand" } }),
-      blockEl("sb-hero-product",          1, "Experiences", { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-features-dark-bento",   2, "Signature",   { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-features-alternating",  3, "Packages",    { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-cta-gradient-wave",     4, "Concierge",   { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-footer-mega",           5, "Footer",      { props: { brandName: "Grand" } }),
-    ],
-  },
-  {
-    name: "Meetings", slug: "/meetings",
-    elements: [
-      blockEl("sb-navbar-dark-gradient",  0, "Navbar",        { props: { accentColor: "#B8963E", brandName: "Grand" } }),
-      blockEl("sb-hero-enterprise",       1, "Meetings",       { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-features-dark-bento",   2, "Event Spaces",  { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-stats-dark-cards",      3, "Capacity Stats", { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-features-checklist",    4, "AV & Services"),
-      blockEl("sb-contact-split",         5, "Enquiry",        { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-footer-mega",           6, "Footer",         { props: { brandName: "Grand" } }),
+      blockEl("sb-navbar-dark-gradient",  0, "Navbar",        { props: { accentColor: "#0F172A", brandName: "THE GRAND" } }),
+      blockEl("sb-hero-bento",            1, "Spa & Wellness", { props: { accentColor: "#0F172A" }, patches: ph_bento("✦ THE GRAND SPA", "Your path to\nrejuvenation.", "A sanctuary of stillness in the heart of the city. Seven treatment rooms, an infinity pool, and a full wellness programme await your arrival.", "Book Treatment", "50+", "treatments", "City-view", "infinity pool", "Award-Winning Spa", "Voted Best City Spa three years running by Condé Nast Traveller.") }),
+      blockEl("sb-services-alternating",  2, "Treatments",    { props: { accentColor: "#0F172A" } }),
+      blockEl("sb-pricing-dark-cards",    3, "Day Packages",  { props: { accentColor: "#0F172A" } }),
+      blockEl("sb-footer-mega",           4, "Footer",        { props: { brandName: "THE GRAND" } }),
     ],
   },
   {
     name: "Book", slug: "/book",
     elements: [
-      blockEl("sb-navbar-dark-gradient",  0, "Navbar",     { props: { accentColor: "#B8963E", brandName: "Grand" } }),
-      blockEl("sb-contact-dark",          1, "Book",       { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-features-cards",        2, "Offers",     { props: { accentColor: "#B8963E" } }),
-      blockEl("sb-features-checklist",    3, "Assurance"),
-      blockEl("sb-footer-mega",           4, "Footer",     { props: { brandName: "Grand" } }),
+      blockEl("sb-navbar-dark-gradient",  0, "Navbar",     { props: { accentColor: "#0F172A", brandName: "THE GRAND" } }),
+      blockEl("sb-contact-dark",          1, "Book",       { props: { accentColor: "#0F172A" } }),
+      blockEl("sb-features-cards",        2, "Offers",     { props: { accentColor: "#0F172A" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "EXCLUSIVE PACKAGES" },
+        { match: "Built for the next generation of web applications.", content: "Tailor your stay at The Grand." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "Our curated packages are designed to make every stay more extraordinary. Book direct for exclusive pricing and added amenities." },
+        { match: "Lightning Performance", content: "Honeymoon Escape" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Champagne on arrival, couples spa treatment, and a private candlelit dinner on your suite terrace." },
+        { match: "Military-Grade Security", content: "Corporate Retreat" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "Private meeting rooms, AV equipment, full-board arrangement, and a dedicated concierge for your executive team." },
+        { match: "Seamless Integration", content: "Weekend Escape" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "Two nights in our signature suite, breakfast each morning, afternoon tea, and a sunset terrace dinner for two." },
+      ]}),
+      blockEl("sb-footer-mega",           3, "Footer",     { props: { brandName: "THE GRAND" } }),
     ],
   },
 ];
@@ -1971,36 +2386,85 @@ const villaPages: TemplatePage[] = [
   {
     name: "Home", slug: "/", isHome: true,
     elements: [
-      blockEl("sb-navbar-minimal",         0, "Navbar",        { props: { brandName: "Villa" } }),
-      blockEl("sb-hero-editorial-classic", 1, "Hero",          { props: { accentColor: "#854D0E" } }),
-      blockEl("sb-content-magazine-split", 2, "Host Welcome",  { props: { accentColor: "#854D0E" } }),
-      blockEl("sb-features-cards",         3, "Rooms",         { props: { accentColor: "#854D0E" } }),
+      blockEl("sb-navbar-minimal",         0, "Navbar",        { props: { brandName: "Villa Rosa" } }),
+      blockEl("sb-hero-editorial-classic", 1, "Hero",          { props: { accentColor: "#854D0E" }, patches: ph_editorialClassic("VILLA ROSA • OPEN YEAR ROUND", "A home away\nfrom home.", "Set in rolling Tuscan countryside, Villa Rosa is a small, family-run guesthouse offering five beautifully restored rooms, home-cooked breakfasts, and warm Italian hospitality.", "View the Rooms") }),
+      blockEl("sb-content-magazine-split", 2, "Host Welcome",  { props: { accentColor: "#854D0E" }, patches: [
+        { match: "FEATURE STORY", content: "A NOTE FROM YOUR HOST" },
+        { match: "The renaissance of thoughtful design in a noisy world.", content: "Welcome to Villa Rosa — we've been waiting for you." },
+        { match: "by Marcus Webb", content: "by Elena Russo, Host" },
+        { match: "April 15, 2026 · 8 min read", content: "Est. 1987 · Family run" },
+        { match: "In a world saturated with digital noise, the designers who cut through are those who embrace constraints as a creative tool. Reduction is not limitation - it is the highest form of craft.", content: "My grandmother bought this farmhouse in 1987 and turned it into a guesthouse with the simple idea that every guest should feel like family. That is still the only rule here." },
+        { match: "The best interfaces are invisible. They guide without demanding attention, inform without overwhelming, and delight without distraction. That is the standard we hold ourselves to.", content: "We have five rooms, a kitchen garden, and an olive grove that has been producing oil for forty years. Breakfast is made each morning from what's in season. We hope you'll stay long enough to feel at home." },
+        { match: "Continue reading →", content: "Our full story →" },
+      ]}),
+      blockEl("sb-features-cards",         3, "Rooms",         { props: { accentColor: "#854D0E" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "OUR ROOMS" },
+        { match: "Built for the next generation of web applications.", content: "Five rooms, each with their own character." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "Restored stone walls, handmade furniture, and views of the Tuscan hills. All rooms include homemade breakfast." },
+        { match: "Lightning Performance", content: "The Garden Room" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Ground floor with direct access to the kitchen garden. A private terrace, king bed, and stone-flagged floors." },
+        { match: "Military-Grade Security", content: "The Tower Suite" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "Our highest room with 360° countryside views. A wraparound balcony, freestanding bath, and oak-beamed ceilings." },
+        { match: "Seamless Integration", content: "The Olive Room" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "Nestled among the olive trees with a private courtyard entrance, a daybed, and an outdoor rain shower." },
+      ]}),
       blockEl("sb-features-icon-3col",     4, "Highlights",    { props: { accentColor: "#854D0E" } }),
       blockEl("sb-testimonials-single-quote",5,"Guest Story"),
-      blockEl("sb-features-cards",         6, "Packages",      { props: { accentColor: "#854D0E" } }),
-      blockEl("sb-footer-light",           7, "Footer",        { props: { brandName: "Villa" } }),
+      blockEl("sb-features-cards",         6, "Packages",      { props: { accentColor: "#854D0E" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "STAY PACKAGES" },
+        { match: "Built for the next generation of web applications.", content: "A little more, for a little extra." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "Extend your stay into a full experience with one of our curated packages, each designed around the best of the region." },
+        { match: "Lightning Performance", content: "Tasting & Cellars" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Three nights plus a private guided tour of two nearby wineries, with a curated tasting dinner on your last evening." },
+        { match: "Military-Grade Security", content: "Slow Food Weekend" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "Two nights, a Saturday market walk with Elena, a cooking lesson, and lunch in the kitchen garden made from your finds." },
+        { match: "Seamless Integration", content: "Truffle Season" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "November and December only. Join a morning truffle hunt with our local forager, followed by a truffle lunch at the villa." },
+      ]}),
+      blockEl("sb-footer-light",           7, "Footer",        { props: { brandName: "Villa Rosa" } }),
     ],
   },
   {
     name: "Rooms", slug: "/rooms",
     elements: [
       blockEl("sb-navbar-minimal",          0, "Navbar"),
-      blockEl("sb-hero-organic",            1, "Rooms",          { props: { accentColor: "#854D0E" } }),
-      blockEl("sb-features-alternating-rows",2,"Room Detail",   { props: { accentColor: "#854D0E" } }),
+      blockEl("sb-hero-organic",            1, "Rooms",          { props: { accentColor: "#854D0E" }, patches: ph_organic("Five rooms,\neach its own story.", "From the Tower Suite's wraparound balcony to the Garden Room's private terrace, every room at Villa Rosa has been designed to make your stay feel like a discovery.", "Explore All Rooms", "Loved by guests from over 40 countries.") }),
+      blockEl("sb-features-alternating-rows",2,"Room Detail",   { props: { accentColor: "#854D0E" }, patches: [
+        { match: "HOW IT WORKS", content: "THE ROOMS" },
+        { match: "One platform.\nEverything you need.", content: "Restored with\ncare and love." },
+        { match: "Visual editor that thinks like a developer", content: "The Tower Suite — our most special room" },
+        { match: "Drag, drop, and customize every element visually. Your changes are reflected in clean, production-ready code automatically.", content: "The highest room in the farmhouse, with 360° views of the countryside from a private wraparound balcony. A freestanding copper bath, oak-beamed ceilings, and a king bed dressed in white linen." },
+        { match: "✓  Real-time collaborative editing", content: "✓  Wraparound private balcony" },
+        { match: "✓  Component library & design tokens", content: "✓  Freestanding copper soaking bath" },
+        { match: "✓  Responsive preview for all devices", content: "✓  360° countryside views" },
+        { match: "One-click deploy to any cloud", content: "The Garden Room — private and grounded" },
+        { match: "Connect your custom domain, configure your environment, and go live globally in under 60 seconds.", content: "Ground-floor room opening directly onto the kitchen garden through original stone arches. A king bed, stone-flagged floors, and your own private terrace shaded by a fig tree." },
+        { match: "✓  Git-based deployment workflow", content: "✓  Direct garden access" },
+        { match: "✓  Instant rollback to any version", content: "✓  Private shaded terrace" },
+        { match: "✓  170+ global edge locations", content: "✓  Stone-flagged original floors" },
+      ]}),
       blockEl("sb-features-checklist",      3, "What's Included"),
       blockEl("sb-cta-minimal-center",      4, "Book",          { props: { accentColor: "#854D0E" } }),
-      blockEl("sb-footer-light",            5, "Footer",        { props: { brandName: "Villa" } }),
+      blockEl("sb-footer-light",            5, "Footer",        { props: { brandName: "Villa Rosa" } }),
     ],
   },
   {
     name: "Dining & Breakfast", slug: "/dining",
     elements: [
       blockEl("sb-navbar-minimal",         0, "Navbar"),
-      blockEl("sb-hero-editorial-classic", 1, "Breakfast",       { props: { accentColor: "#854D0E" } }),
+      blockEl("sb-hero-editorial-classic", 1, "Breakfast",       { props: { accentColor: "#854D0E" }, patches: ph_editorialClassic("BREAKFAST AT VILLA ROSA", "The morning\ntable is set.", "A long Italian breakfast served from 8 until 10:30 every morning. Fresh pastries, eggs from our hens, seasonal fruit, and espresso from our vintage Gaggia.", "See What's Included") }),
       blockEl("sb-features-bold-grid",     2, "Breakfast Menu",  { props: { accentColor: "#854D0E" } }),
-      blockEl("sb-content-magazine-split", 3, "Evening Options", { props: { accentColor: "#854D0E" } }),
+      blockEl("sb-content-magazine-split", 3, "Evening Options", { props: { accentColor: "#854D0E" }, patches: [
+        { match: "FEATURE STORY", content: "EVENING DINING" },
+        { match: "The renaissance of thoughtful design in a noisy world.", content: "Dinner at the villa — by arrangement." },
+        { match: "by Marcus Webb", content: "by Elena Russo" },
+        { match: "April 15, 2026 · 8 min read", content: "Host & Cook" },
+        { match: "In a world saturated with digital noise, the designers who cut through are those who embrace constraints as a creative tool. Reduction is not limitation - it is the highest form of craft.", content: "Two or three evenings a week, depending on the season, we open the dining room for a shared meal. The menu is whatever we harvested that day, cooked simply and served with our house olive oil and local wine." },
+        { match: "The best interfaces are invisible. They guide without demanding attention, inform without overwhelming, and delight without distraction. That is the standard we hold ourselves to.", content: "There is no printed menu and no choice — you eat what we've made, alongside the other guests at one long table. It is the most popular thing we do, and bookings always fill up fast." },
+        { match: "Continue reading →", content: "Ask about dinner →" },
+      ]}),
       blockEl("sb-content-feature-list",   4, "Dietary Needs"),
-      blockEl("sb-footer-light",           5, "Footer",          { props: { brandName: "Villa" } }),
+      blockEl("sb-footer-light",           5, "Footer",          { props: { brandName: "Villa Rosa" } }),
     ],
   },
   {
@@ -2009,8 +2473,18 @@ const villaPages: TemplatePage[] = [
       blockEl("sb-navbar-minimal",       0, "Navbar"),
       blockEl("sb-contact-map",          1, "Map"),
       blockEl("sb-features-steps",       2, "Getting Here"),
-      blockEl("sb-features-cards",       3, "Things to Do",  { props: { accentColor: "#854D0E" } }),
-      blockEl("sb-footer-light",         4, "Footer",        { props: { brandName: "Villa" } }),
+      blockEl("sb-features-cards",       3, "Things to Do",  { props: { accentColor: "#854D0E" }, patches: [
+        { match: "ENGINEERING EXCELLENCE", content: "EXPLORE TUSCANY" },
+        { match: "Built for the next generation of web applications.", content: "The best of the region on your doorstep." },
+        { match: "A comprehensive suite of tools designed to help you build, deploy, and scale with absolute confidence.", content: "Villa Rosa sits in the heart of Chianti wine country, surrounded by medieval hilltowns, olive groves, and some of Italy's finest tables." },
+        { match: "Lightning Performance", content: "Wine Country" },
+        { match: "Optimized for speed at every layer. Your users won't just see the difference, they'll feel it.", content: "Over thirty wineries within 20 minutes. We can arrange private tastings and cellar tours with our favourite producers." },
+        { match: "Military-Grade Security", content: "Medieval Hilltowns" },
+        { match: "Advanced encryption and compliance protocols that keep your data safe and your mind at ease.", content: "Greve, Radda, and Castellina in Chianti are each within 15 minutes — cobblestone streets, weekly markets, and authentic trattorias." },
+        { match: "Seamless Integration", content: "Truffle & Olive Farms" },
+        { match: "Connect with your favorite tools in seconds. Our open API allows for infinite customization.", content: "Visit a working olive mill, join a truffle hunt in autumn, or spend a morning learning to press our own estate oil." },
+      ]}),
+      blockEl("sb-footer-light",         4, "Footer",        { props: { brandName: "Villa Rosa" } }),
     ],
   },
   {
@@ -2020,7 +2494,7 @@ const villaPages: TemplatePage[] = [
       blockEl("sb-contact-split",       1, "Book Direct",    { props: { accentColor: "#854D0E" } }),
       blockEl("sb-features-checklist",  2, "Benefits"),
       blockEl("sb-cta-banner",          3, "Gift Vouchers",  { props: { accentColor: "#854D0E" } }),
-      blockEl("sb-footer-light",        4, "Footer",         { props: { brandName: "Villa" } }),
+      blockEl("sb-footer-light",        4, "Footer",         { props: { brandName: "Villa Rosa" } }),
     ],
   },
 ];
