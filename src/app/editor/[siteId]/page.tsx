@@ -144,7 +144,7 @@ export default function EditorPage() {
     updateSite(siteId, { pages });
     loadElements([]);
     setCurrentPageId(newPage.id);
-  }, [getSiteById, siteId, updateSite, loadElements, setCurrentPageId, saveCurrentPageElements]);
+  }, [getSiteById, siteId, updateSite, loadElements, setCurrentPageId, saveCurrentPageElements, profile?.plan]);
 
   // Delete a page
   const deletePage = useCallback((pageId: string) => {
@@ -387,7 +387,7 @@ export default function EditorPage() {
     if (e.key === "2" && ctrl) { e.preventDefault(); setDeviceMode("tablet"); }
     if (e.key === "3" && ctrl) { e.preventDefault(); setDeviceMode("mobile"); }
   }, [
-    undo, redo, saveState, selectedElementId, removeElement, duplicateElement,
+    undo, redo, selectedElementId, removeElement, duplicateElement,
     copyElement, pasteElement, zoomIn, zoomOut, setZoom, toggleGrid,
     setDeviceMode, siteId, wrapInContainer, toggleElementLock, toggleElementVisibility,
     elements, setIsSaving, getSiteById, updateSite,

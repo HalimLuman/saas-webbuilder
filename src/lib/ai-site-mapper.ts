@@ -2,18 +2,18 @@ import { SECTION_BLOCKS } from "./section-blocks";
 import { generateId } from "./utils";
 import type { CanvasElement, Page, DesignTokens } from "./types";
 
-interface GeneratedSection {
+export interface GeneratedSection {
   type: string;
   content: Record<string, any>;
 }
 
-interface GeneratedPage {
+export interface GeneratedPage {
   name: string;
   slug: string;
   sections: GeneratedSection[];
 }
 
-interface GeneratedSite {
+export interface GeneratedSite {
   name: string;
   description: string;
   pages: GeneratedPage[];

@@ -476,7 +476,7 @@ export function CmsListRenderer({ element }: { element: CanvasElement }) {
     const mainImg = getImage(main);
     return (
       <div className={cn("w-full", paddingX, paddingY)}>
-        <div className={cn("grid grid-cols-1 lg:grid-cols-5", gapClass)}>
+        <div className={cn("grid grid-cols-1 lg:grid-cols-5", getGapClass(gap))}>
           {/* Main */}
           <div className={cn("lg:col-span-3 group cursor-pointer overflow-hidden", cardClasses)}>
             {mainImg && (
@@ -502,7 +502,7 @@ export function CmsListRenderer({ element }: { element: CanvasElement }) {
           </div>
 
           {/* Sidebar stack */}
-          <div className={cn("lg:col-span-2 flex flex-col", gapClass)}>
+          <div className={cn("lg:col-span-2 flex flex-col", getGapClass(gap))}>
             {sidebar.slice(0, 4).map((item) => {
               const img = getImage(item);
               return (
@@ -536,7 +536,7 @@ export function CmsListRenderer({ element }: { element: CanvasElement }) {
   if (layout === "list") {
     return (
       <div className={cn("w-full", paddingX, paddingY)}>
-        <div className={cn("flex flex-col", gapClass)}>
+        <div className={cn("flex flex-col", getGapClass(gap))}>
           {items.map((item) => {
             const img = getImage(item);
             const desc = getDescription(item);

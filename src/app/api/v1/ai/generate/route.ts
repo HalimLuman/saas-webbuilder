@@ -1,23 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { GeneratedSection, GeneratedPage, GeneratedSite } from "@/lib/ai-site-mapper";
 
 // AI Site Generator endpoint
 // Uses Claude (Anthropic API) to generate a full site structure from a text prompt.
 // Falls back to a rich mock response when ANTHROPIC_API_KEY is not configured.
 
-interface GeneratedPage {
-  name: string;
-  slug: string;
-  sections: GeneratedSection[];
-}
-
-interface GeneratedSite {
-  name: string;
-  description: string;
-  pages: GeneratedPage[];
-  colorPalette: { primary: string; secondary: string; background: string; text: string };
-  typography: { heading: string; body: string };
-  meta: { title: string; description: string };
-}
 
 function buildMockSite(prompt: string, style: string): GeneratedSite {
   const isLower = prompt.toLowerCase();

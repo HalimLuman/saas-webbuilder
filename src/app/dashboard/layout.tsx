@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Bell, Search, ChevronRight, LogOut, Settings, Menu } from "lucide-react";
 import Sidebar from "@/components/dashboard/sidebar";
@@ -74,7 +75,7 @@ function UserMenu() {
         title={profile?.name ?? user?.email ?? "User"}
       >
         {profile?.avatar_url ? (
-          <img src={profile.avatar_url} alt={initials} className="h-8 w-8 rounded-full object-cover" />
+          <Image src={profile.avatar_url} alt={initials} width={32} height={32} unoptimized className="h-8 w-8 rounded-full object-cover" />
         ) : (
           initials
         )}

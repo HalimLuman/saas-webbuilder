@@ -81,7 +81,7 @@ export default function PreviewPage() {
       }
     } catch { /* ignore */ }
     setLoaded(true);
-  }, [siteId]);
+  }, [siteId, requestedSlug]);
 
   if (!loaded) return null;
 

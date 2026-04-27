@@ -169,7 +169,7 @@ function SpacingGrid({ values, onChange, label }: { values: { top?: string; righ
 // Tab definitions
 // ---------------------------------------------------------------------------
 
-type TabId = "content" | "design" | "layout" | "typography" | "submission" | "data";
+type TabId = "content" | "design" | "layout" | "typography" | "submission" | "data" | "code";
 
 const TABS: { id: TabId; icon: React.ComponentType<{ className?: string }>; label: string; showFor?: (type: string) => boolean }[] = [
   { id: "content",    icon: FileText,   label: "Content" },
@@ -187,6 +187,11 @@ const TABS: { id: TabId; icon: React.ComponentType<{ className?: string }>; labe
     icon: BarChart3,
     label: "Data",
     showFor: (type) => ["data-table","cms-list","product-card","number-display","chart","paragraph","heading","badge","image"].includes(type),
+  },
+  {
+    id: "code",
+    icon: Code2,
+    label: "Code",
   },
 ];
 
@@ -3235,7 +3240,7 @@ function ContentTab({
                 type="number" 
                 min={1} 
                 max={12} 
-                value={p.columns || 3} 
+                value={(p.columns as number) || 3} 
                 onChange={(e) => updateProps({ columns: parseInt(e.target.value) || 1 })} 
                 className={cn(inputCls, "w-16")} 
               />
@@ -3249,7 +3254,7 @@ function ContentTab({
                 type="number" 
                 min={0} 
                 max={12} 
-                value={p.rows || 0} 
+                value={(p.rows as number) || 0} 
                 onChange={(e) => updateProps({ rows: parseInt(e.target.value) || 0 })} 
                 className={cn(inputCls, "w-16")} 
               />
@@ -3260,7 +3265,7 @@ function ContentTab({
             <FieldLabel>Gap</FieldLabel>
             <input 
               type="text" 
-              value={p.gap || "1rem"} 
+              value={(p.gap as string) || "1rem"} 
               onChange={(e) => updateProps({ gap: e.target.value })} 
               className={cn(inputCls, "w-24")} 
               placeholder="1rem"
@@ -4559,7 +4564,7 @@ function CodeTab({
     prevBpRef.current = bp;
     const stored = bp ? (pageResponsiveCSS[bp] ?? "") : pageCustomCSS;
     setCssVal(stored.trim() ? stored : buildPageCss(elements, "", bp ?? undefined));
-  });
+  }, [bp, pageResponsiveCSS, pageCustomCSS, elements]);
 
   // Re-seed HTML when switching to the HTML tab so it reflects latest canvas state
   const prevFileRef = useRef(file);
@@ -4569,7 +4574,7 @@ function CodeTab({
     if (file === "html" && !pageCustomHTML.trim()) {
       setHtmlVal(buildPageHtml(elements, siteName, pageCustomCSS, pageCustomJS));
     }
-  });
+  }, [file, pageCustomHTML, elements, siteName, pageCustomCSS, pageCustomJS]);
 
   // в”Ђв”Ђ Save в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   const triggerSaved = () => {

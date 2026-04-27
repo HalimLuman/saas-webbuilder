@@ -927,7 +927,7 @@ export default function CollectionItemsPage({
       loadItems(1, search, statusFilter);
     }, 300);
     return () => { if (searchRef.current) clearTimeout(searchRef.current); };
-  }, [search]);
+  }, [search, loadItems, statusFilter]);
 
   const handleStatusFilter = (sf: StatusFilter) => {
     setStatusFilter(sf);
@@ -1249,7 +1249,7 @@ export default function CollectionItemsPage({
 
                             return (
                               <div className="h-10 w-10 rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
-                                <img src={imgUrl} className="h-full w-full object-cover"
+                                <img src={imgUrl} alt="" className="h-full w-full object-cover"
                                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = ""; (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
                               </div>
                             );
